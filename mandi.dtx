@@ -45,11 +45,11 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 %
 %<*mandiexp>
 \def\mandiexp@Version{3.0.0c}
-\def\mandiexp@Date{2021-02-18}
+\def\mandiexp@Date{2021-02-19}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0c}{2021-02-18}{mandiexp.sty}
+\DeclareRelease{v3.0.0c}{2021-02-19}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
 \ProvidesPackage{mandiexp}[\mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions]
 %
@@ -413,8 +413,7 @@ while t < 10:
 % \fi
 %
 %  \IndexPrologue{\section{Index}Page numbers refer to page where the 
-%    corresponding entry is documented, and not to the page in the
-%    source code where it is defined.}
+%    corresponding entry is documented and/or referenced.}
 % 
 % \CheckSum{2357}
 %
@@ -469,7 +468,7 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0c}{2021-02-18}{Initial release.} 
+% \changes{v3.0.0c}{2021-02-19}{Initial release.} 
 %
 % \section{Introduction}
 % This is the documentation for the \mandi,\footnote{The package name can 
@@ -2859,11 +2858,11 @@ while t < 10:
 %
 %    \begin{macrocode}
 \def\mandi@Version{3.0.0c}
-\def\mandi@Date{2021-02-18}
+\def\mandi@Date{2021-02-19}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0c}{2021-02-18}{mandi.sty}
+\DeclareRelease{v3.0.0c}{2021-02-19}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 %    \end{macrocode}
@@ -3030,7 +3029,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% We introduce a new, more intelligent |glowscriptblock| environment.
+% We introduce a new, more intelligent \refEnv{glowscriptblock} environment.
 %
 %    \begin{macrocode}
 \NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}{ O{} D(){glowscript.org} m }{%
@@ -3059,7 +3058,7 @@ while t < 10:
   {List of \texttt{GlowScript} Programs}}%
 %    \end{macrocode}
 %
-% We introduce a new, more intelligent |vpythonfile| command.
+% We introduce a new, more intelligent \refCom{vpythonfile} command.
 %
 %    \begin{macrocode}
 \NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}{ O{} m m }{%
@@ -3089,7 +3088,7 @@ while t < 10:
   {List of \texttt{VPython} Programs}}%
 %    \end{macrocode}
 %
-% We introduce a new |glowscriptinline| command.
+% We introduce a new \refCom{glowscriptinline} command.
 %
 %    \begin{macrocode}
 \DeclareTotalTCBox{\glowscriptinline}{ m }{%
@@ -3843,7 +3842,7 @@ while t < 10:
   [\coulomb\squared\per\newton\usk\meter\squared]%
 %    \end{macrocode}
 %
-% We need a better, intelligent coordinate-free |\vec| command. Note the use of the |e{_^}|
+% We need a better, intelligent coordinate-free \refCom{vec} command. Note the use of the |e{_^}|
 % type of optional argument. This accounts for much of the flexibility and power of this command. Also
 % note the use of the \TeX\ primitives |\sb{}| and |\sp{}|.
 % Why doesn't it work when I put spaces around |#3| or |#4|?
@@ -4009,7 +4008,7 @@ while t < 10:
 \NewDocumentCommand{\reason}{ O{4cm} m }{&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
 %    \end{macrocode}
 %
-% We provide notation for column and row vectors.|\mivector| is a workhorse command.\newline
+% We provide notation for column and row vectors. \refCom{mivector} is a workhorse command.\newline
 % Orginal code provided by |@egreg|.\newline
 % See \href{https://tex.stackexchange.com/a/39054/218142}{https://tex.stackexchange.com/a/39054/218142}.
 %
