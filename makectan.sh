@@ -55,7 +55,7 @@ cp mandi.pdf zip/mandi/mandi.pdf         # cp documentation
 cd zip                                             
 zip -q -r mandi.zip * -x "*.DS_Store" "*.sh" "zip/" # exclude files
 touch mandi.zip                                     # touch
-mv mandi.zip ..                                     # mv to xmandidev dir
+mv mandi.zip ..                                     # mv to mandi dir
 # Now mandi.zip can be uploaded to CTAN.
 
 # Install in local texmf tree identical to what 
@@ -70,13 +70,12 @@ mv mandi.zip ..                                     # mv to xmandidev dir
 # echo Copying files...
 # cp mandi/README.md ../../doc/latex/mandi/README.md
 # cp mandi/mandi.pdf ../../doc/latex/mandi/
-# cp ../vdemo.py ../../doc/latex/mandi/
 # 
 # if [ ! -d ../../source/latex/mandi/ ]
 # then
 #   echo Making folder...
 #   mkdir ../../source/latex/mandi
- # fi
+# fi
 # echo Copying files...
 # cp mandi/mandi.dtx ../../source/latex/mandi/
 # cp mandi/mandi.ins ../../source/latex/mandi/
