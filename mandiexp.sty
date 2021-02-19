@@ -1,0 +1,197 @@
+%%
+%% This is file `mandiexp.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% mandi.dtx  (with options: `mandiexp')
+%% 
+%%  Copyright (C) 2021 by Paul J. Heafner <heafnerj@gmail.com>
+%%  ---------------------------------------------------------------------------
+%%  This  work may be  distributed and/or modified  under the conditions of the
+%%  LaTeX Project Public  License, either  version 1.3  of this  license or (at
+%%  your option) any later version. The  latest  version  of this license is in
+%%             http://www.latex-project.org/lppl.txt
+%%  and  version 1.3 or  later is  part of  all distributions of  LaTeX version
+%%  2005/12/01 or later.
+%% 
+%%  This work has the LPPL maintenance status `maintained'.
+%% 
+%%  The Current Maintainer of this work is Paul J. Heafner.
+%% 
+%%  This work consists of the files mandi.dtx
+%%                                  mandi.ins
+%%                                  mandi.pdf
+%%                                  README.md
+%% 
+%%  and includes the derived files  mandi.sty
+%%                                  mandiexp.sty
+%%                                  vdemo.py
+%%  ---------------------------------------------------------------------------
+%% 
+\def\mandiexp@Version{3.0.0c}
+\def\mandiexp@Date{2021-02-18}
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\providecommand\DeclareRelease[3]{}
+\providecommand\DeclareCurrentRelease[2]{}
+\DeclareRelease{v3.0.0c}{2021-02-18}{mandiexp.sty}
+\DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
+\ProvidesPackage{mandiexp}[\mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions]
+\newcommand*{\mandiexpversion}{v\mandiexp@Version\space dated \mandiexp@Date}
+\typeout{}%
+\typeout{mandiexp: You are using mandiexp \mandiexpversion.}
+\typeout{}%
+\NewDocumentCommand{\LHSmomentumprinciple}{ s }{%
+  \Delta
+  \IfBooleanTF{#1}%
+    {\vec*{p}}%
+    {\vec{p}}%
+  _{\symup{sys}}%
+}%
+\NewDocumentCommand{\RHSmomentumprinciple}{ s }{%
+  \IfBooleanTF{#1}%
+    {\vec*{F}}%
+    {\vec{F}}%
+  _{\symup{sys,net}}\,\Delta t%
+}%
+\NewDocumentCommand{\LHSmomentumprincipleupdate}{ s }{%
+  \IfBooleanTF{#1}%
+    {\vec*{p}}%
+    {\vec{p}}%
+  _{\symup{sys,final}}%
+}%
+\NewDocumentCommand{\RHSmomentumprincipleupdate}{ s }{%
+  \IfBooleanTF{#1}%
+    {\vec*{p}}%
+    {\vec{p}}%
+  _{\symup{sys,initial}}+%
+  \IfBooleanTF{#1}%
+    {\vec*{F}}%
+    {\vec{F}}%
+  _{\symup{sys,net}}\,\Delta t%
+}%
+\NewDocumentCommand{\momentumprinciple}{ s }{%
+  \IfBooleanTF{#1}%
+    {\LHSmomentumprinciple* = \RHSmomentumprinciple*}%
+    {\LHSmomentumprinciple = \RHSmomentumprinciple}%
+}%
+\NewDocumentCommand{\momentumprincipleupdate}{ s }{%
+  \IfBooleanTF{#1}%
+    {\LHSmomentumprincipleupdate* = \RHSmomentumprincipleupdate*}%
+    {\LHSmomentumprincipleupdate = \RHSmomentumprincipleupdate}%
+}%
+\NewDocumentCommand{\LHSenergyprinciple}{}{%
+  \Delta E_{\symup{sys}}%
+}%
+\NewDocumentCommand{\RHSenergyprinciple}{ O{} }{%
+  W_{\symup{ext}}#1%
+}%
+\NewDocumentCommand{\LHSenergyprincipleupdate}{}{%
+  E_{\symup{sys,final}}%
+}%
+\NewDocumentCommand{\RHSenergyprincipleupdate}{ O{} }{%
+  E_{\symup{sys,initial}}+%
+  W_{\symup{ext}}#1%
+}%
+\NewDocumentCommand{\energyprinciple}{ O{} }{%
+  \LHSenergyprinciple = \RHSenergyprinciple[#1]%
+}%
+\NewDocumentCommand{\energyprincipleupdate}{ O{} }{%
+  \LHSenergyprincipleupdate = \RHSenergyprincipleupdate[#1]%
+}%
+\NewDocumentCommand{\LHSangularmomentumprinciple}{ s }{%
+  \Delta
+  \IfBooleanTF{#1}%
+    {\vec*{L}}%
+    {\vec{L}}%
+  _{A\symup{,sys,net}}%
+}%
+\NewDocumentCommand{\RHSangularmomentumprinciple}{ s }{%
+  \IfBooleanTF{#1}%
+    {\vec*{\tau}}%
+    {\vec{\tau}}%
+  _{A\symup{,sys,net}}\,\Delta t%
+}%
+\NewDocumentCommand{\LHSangularmomentumprincipleupdate}{ s }{%
+  \IfBooleanTF{#1}%
+    {\vec*{L}}%
+    {\vec{L}}%
+  _{A,\symup{sys,final}}%
+}%
+\NewDocumentCommand{\RHSangularmomentumprincipleupdate}{ s }{%
+  \IfBooleanTF{#1}%
+    {\vec*{L}}%
+    {\vec{L}}%
+  _{A\symup{,sys,initial}}+%
+  \IfBooleanTF{#1}%
+    {\vec*{\tau}}%
+    {\vec{\tau}}%
+  _{A\symup{,sys,net}}\,\Delta t%
+}%
+\NewDocumentCommand{\angularmomentumprinciple}{ s }{%
+    \IfBooleanTF{#1}%
+    {\LHSangularmomentumprinciple* = \RHSangularmomentumprinciple*}%
+    {\LHSangularmomentumprinciple = \RHSangularmomentumprinciple}%
+}%
+\NewDocumentCommand{\angularmomentumprincipleupdate}{ s }{%
+    \IfBooleanTF{#1}%
+    {\LHSangularmomentumprincipleupdate* = \RHSangularmomentumprincipleupdate*}%
+    {\LHSangularmomentumprincipleupdate = \RHSangularmomentumprincipleupdate}%
+}%
+\NewDocumentCommand{\energyof}{ m o }{%
+  E_{#1\IfValueT{#2}{,#2}}%
+}%
+\NewDocumentCommand{\systemenergy}{ o }{%
+  E_{\symup{sys}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\particleenergy}{ o }{%
+  E_{\symup{particle}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\restenergy}{ o }{%
+  E_{\symup{rest}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\internalenergy}{ o }{%
+  E_{\symup{internal}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\chemicalenergy}{ o }{%
+  E_{\symup{chem}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\thermalenergy}{ o }{%
+  E_{\symup{therm}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\photonenergy}{ o }{%
+  E_{\symup{photon}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\translationalkineticenergy}{ s d[] }{%
+  \IfBooleanTF{#1}%
+  {E_\bgroup \symup{K}}%
+  {K_\bgroup\symup{trans}}%
+       \IfValueT{#2}{,#2}%
+     \egroup%
+}%
+\NewDocumentCommand{\rotationalkineticenergy}{ s d[] }{%
+  \IfBooleanTF{#1}%
+  {E_\bgroup}%
+  {K_\bgroup}%
+       \symup{rot}\IfValueT{#2}{,#2}%
+     \egroup%
+}%
+\NewDocumentCommand{\vibrationalkineticenergy}{ s d[] }{%
+  \IfBooleanTF{#1}%
+  {E_\bgroup}%
+  {K_\bgroup}%
+       \symup{vib}\IfValueT{#2}{,#2}%
+     \egroup%
+}%
+\NewDocumentCommand{\gravitationalpotentialenergy}{ o }{%
+  U_{\symup{g}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\electricpotentialenergy}{ o }{%
+  U_{\symup{e}\IfValueT{#1}{,#1}}%
+}%
+\NewDocumentCommand{\springpotentialenergy}{ o }{%
+  U_{\symup{s}\IfValueT{#1}{,#1}}%
+}%
+\endinput
+%%
+%% End of file `mandiexp.sty'.

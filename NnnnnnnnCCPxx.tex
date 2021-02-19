@@ -1,0 +1,93 @@
+% !TEX program = lualatexmk
+% !TEX encoding = UTF-8 Unicode
+%
+% This file MUST be named NnnnnnnnCCPxx.tex where:
+% Nnnnnnnn are the first eight characters of your last name
+% CC is the chapter number 
+% P is for problem and must be included,
+% xx is the problem number 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt]{article}
+\usepackage{mandi}                          % loads mandi
+\usepackage{mandiexp}                       % loads mandiexp
+\usepackage{geometry}                       % for changing page layout
+\usepackage{datetime}                       % for defining new date format
+\usepackage{mwe}                            % for demo images
+\hypersetup{colorlinks}                     % color hyperlinks
+
+%---------- DO NOT EDIT THESE LINES!
+\newcommand{\testdatexx}{\today}
+%  See https://tex.stackexchange.com/q/156383/218142
+\newcommand*{\pkg}[1]{\textsf{#1}}                    % typeset package names
+\newcommand*{\mandi}{\textsf{mandi}}                  % typeset mandi
+\newcommand*{\mandiexp}{\textsf{mandiexp}}            % typeset mandi
+\newcommand*{\GlowScript}{\texttt{GlowScript}}        % typeset GlowScript
+\newcommand*{\GlowScriptorg}{\texttt{GlowScript.org}} % typeset GlowScript.org
+\newcommand*{\VPython}{\texttt{VPython}}              % typeset VPython
+\newcommand*{\VPythonorg}{\texttt{VPython.org}}       % typeset VPython.org
+\newcommand*{\gsurl}{glowscript.org}                  % GlowScript URL
+\newcommand*{\vpurl}{vpython.org}                     % VPython URL
+\newcommand*{\lualatex}{Lua\LaTeX}                    % typeset LuaLaTeX
+%---------- END
+
+%---------- DOCUMENT MARGINS (EDIT TO SUIT)
+\geometry{margin=0.5in,top=1.5in,bottom=1.5in}
+%---------- END DOCUMENT MARGINS
+
+%---------- STUDENT INFORMATION (EDIT TO SUIT)
+%----- The \documentxx variable is extremely important because it contains the expected 
+%----- name of every file associated with this project. You will need to manually rename
+%----- each file (usually a .tex file, one or more .py files, and one or more .pdf files)
+%----- to make compiling this document seamless.
+\newcommand{\documentaa}{NnnnnnnnCCPxx}     % Use the naming conventions above.
+\newcommand{\assignment}{ASSIGNMENT TITLE}  % Edit this appropriately.
+\newcommand{\authorname}{Your Name}         % Edit this to use your name.
+%---------- END STUDENT INFORMATION
+
+\begin{document}
+
+\title{\assignment}
+\author{\authorname}
+\maketitle
+\centerline{Using \texttt{mandi} version \mandiversion}
+\listofglowscriptprograms
+\listoffigures
+\newpage
+
+%---------- YOUR WORK (EDIT TO SUIT)
+\begin{physicsproblem}{PROBLEM TITLE HERE}
+Every document must have only ONE problem. You can have as many problem parts as you need. 
+Each part will need a physicssolution environment.
+
+\begin{parts}
+  \problempart
+  blah blah blah
+
+  \begin{physicssolution}
+    PUT YOUR SOLUTION STEPS HERE
+  \end{physicssolution}
+  
+  \problempart
+  blah blah blah
+
+  \begin{physicssolution}
+    PUT YOUR SOLUTION STEPS HERE
+  \end{physicssolution}
+\end{parts}
+
+\image[scale=1]{example-image-1x1}{This problem's diagram.}{fig:ref1}
+\end{physicsproblem}
+
+\begin{glowscriptblock}(tinyurl.com/y44cuzp7){A Placeholder Program}
+GlowScript 3.0 VPython
+# This is just a placeholder.
+# It is part of the mandi documentation.
+
+sphere()
+\end{glowscriptblock}
+
+\GlowScript\ program \ref{gs:1} is nice. It's called \nameref{gs:1} and is on page \pageref{gs:1}.
+%---------- END YOUR WORK
+
+\end{document}\
