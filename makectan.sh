@@ -5,7 +5,7 @@
 # Version 2.0 2021-02-13
 #   Rewritten for mandi 3.0.0
 
-# This script should be run from the ~/Library/texmf/mandi3 folder.
+# This script should be run from the ~/Library/texmf/mandi folder.
 sd="/Users/heafnerj/Library/texmf/mandi"
 echo Running from $PWD 
 echo Should be ~/Library/texmf/mandi
