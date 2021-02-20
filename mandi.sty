@@ -30,18 +30,19 @@
 %%  ---------------------------------------------------------------------------
 %% 
 \def\mandi@Version{3.0.0c}
-\def\mandi@Date{2021-02-19}
+\def\mandi@Date{2021-02-20}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0c}{2021-02-19}{mandi.sty}
+\DeclareRelease{v3.0.0c}{2021-02-20}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 \newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
 \RequirePackage{unicode-math}
 \unimathsetup{math-style=ISO}
 \unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
-\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % Good g everywhere. Based on Arev.
+\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % single-storey g everywhere. Based on Arev.
+\setmathfont[Scale=MatchLowercase,range=it/]{Latin Modern Math}
 \setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]{XITS Math}
 \setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
 \setmathfont[Scale=MatchLowercase,range=    it/{greek,Greek}]{Latin Modern Math}
@@ -842,7 +843,7 @@
   {#2}
 }%
 \NewDocumentCommand{\dirvec}{ s m }{%
-  \widehat{\makebox*{\(p\)}{%
+  \widehat{\makebox*{\(w\)}{%
     \ensuremath{%
       \IfBooleanTF{#1}%
         {#2}%
@@ -893,13 +894,13 @@
   {}%
 \NewDocumentCommand{\problempart}{}{\item}%
 \NewDocumentEnvironment{physicssolution}{ +b }{%
-  % Let's make equation numbering consecutive through the document.
+  % Make equation numbering consecutive through the document.
   \begin{align}
     #1
   \end{align}
 }{}%
 \NewDocumentEnvironment{physicssolution*}{ +b }{%
-  % Let's make equation numbering consecutive through the document.
+  % Make equation numbering consecutive through the document.
   \begin{align*}
     #1
   \end{align*}
@@ -907,10 +908,10 @@
 \NewDocumentCommand{\image}{ O{scale=1} m m m }{%
   \begin{figure}[ht!]
     \begin{center}%
-      \includegraphics[#1]{#2}% #4
+      \includegraphics[#1]{#2}%
     \end{center}%
-    \caption{#3}%               #2
-    \label{#4}%                 #3
+    \caption{#3}%
+    \label{#4}%
   \end{figure}%
 }%
 \NewDocumentCommand{\reason}{ O{4cm} m }{&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
