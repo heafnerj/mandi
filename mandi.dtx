@@ -415,7 +415,7 @@ while t < 10:
 %  \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %    corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2358}
+% \CheckSum{2365}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -560,8 +560,7 @@ while t < 10:
 % names, along with the correct 
 % \href{https://en.wikipedia.org/wiki/International_System_of_Units}{SI units}, 
 % is the core function of \mandi. Take momentum as the prototypical physical 
-% quantity in an introductory physics course. Here are all the ways to access this 
-% quantity and its units in \mandi.
+% quantity in an introductory physics course.
 %
 %\iffalse
 %<*example>
@@ -579,8 +578,9 @@ while t < 10:
   }%
   Command for momentum and its vector variant. The default units will depend on 
   the options passed to \mandi\ at load time. Alternate units are the default. 
-  Other units can be forced as demonstrated. The vector variants can take more 
-  than three components. 
+  Other units can be forced as demonstrated. The vector variant can take more 
+  than three components. Note the other variants for the quantity's value and
+  units.
 \end{docCommands}
 \begin{dispExample}
   \momentum{5}                \\
@@ -598,10 +598,10 @@ while t < 10:
 %</example>
 %\fi
 %
-% Commands that include the name of a physical quantity typesets units, so 
-% they shouldn't be used for algebraic or symbolic values or components.
-% One shouldn't use |\vectormomentum{mv_x,mv_y,mv_z}|. Use
-% the generic |\mivector{mv_x,mv_y,mv_z}| instead.
+% Commands that include the name of a physical quantity typeset units, so 
+% they shouldn't be used for algebraic or symbolic values of components.
+% For example, one shouldn't use |\vectormomentum{mv_x,mv_y,mv_z}| but
+% instead the generic |\mivector{mv_x,mv_y,mv_z}| instead.
 %
 % \subsubsection{Checking Physical Quantities}
 %
@@ -1095,12 +1095,6 @@ while t < 10:
 %\fi
 %
 % \subsubsection{Defining Your Own Physical Quantities}
-% It is important to \emph{not} define a quantity with the 
-% same name using \emph{both} \refCom{newscalarquantity}
-% and \refCom{newvectorquantity} because the latter automatically
-% defines both scalar and vector variants. For example in the case
-% of \refCom{momentum} both |\momentum| and |\vectormomentum| are
-% defined. The scalar variant is useful for typesetting magnitudes.
 %
 %\iffalse
 %<*example>
@@ -1108,7 +1102,8 @@ while t < 10:
 \begin{docCommand}[doc new=2021-02-16]{newscalarquantity}{\marg{name}\marg{base units}\oarg{derived units}\oarg{alternate units}}
   Command to define a new scalar quantity. If the derived 
   or alternate units are omitted, they are defined to be 
-  the same as the base unit.
+  the same as the base unit. Do not use both this command
+  and \refCom{newvectorquantity} to define a quantity.
 \end{docCommand}
 %\iffalse
 %</example>
@@ -1120,7 +1115,9 @@ while t < 10:
 \begin{docCommand}[doc new=2021-02-16]{newvectorquantity}{\marg{name}\marg{base units}\oarg{derived units}\oarg{alternate units}}
   Command to define a new vector quantity. If the derived 
   or alternate units are omitted, they are defined to be 
-  the same as the base unit. 
+  the same as the base unit. Do not use both this command
+  and \refCom{newscalarquantity} to define a quantity
+  because this command also defines a scalar variant.
 \end{docCommand}
 %\iffalse
 %</example>
@@ -1859,6 +1856,7 @@ while t < 10:
   \mivector{\gamma m v_x,\gamma m v_y,\gamma m v_z} \\
   \mivector{\frac{Q_1Q_2}{x^2},0,0}                 \\
   \mivector{-1,0,0}                                 \\
+  \mivector{-1,0,0}[\velocityonlyderivedunits]      \\
   \mivector{-1,0,0}[\meter\per\second]              \\
   \velocity{\mivector{-1,0,0}}
 \end{dispExample*}
@@ -3160,8 +3158,8 @@ while t < 10:
 % We make use of |\symup{...}| from the \pkg{unicode-math} package.
 %
 %    \begin{macrocode}
-\NewDocumentCommand{\per}{}{\ensuremath{/}}
-\NewDocumentCommand{\usk}{}{\ensuremath{\cdot}}
+\NewDocumentCommand{\per}{}{\ensuremath{\,/\,}}
+\NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
 \NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
 \NewDocumentCommand{\ampere}{}{\ensuremath{\symup{A}}}
 \NewDocumentCommand{\atomicmassunit}{}{\ensuremath{\symup{u}}}
@@ -3658,7 +3656,7 @@ while t < 10:
 %\fi
 \newvectorquantity{velocity}%
   {\meter\usk\reciprocal\second}%
-  [\meter\usk\reciprocal\second]%
+  [\meter\per\second]%
   [\meter\per\second]%
 \newvectorquantity{velocityc}%
   {\lightspeed}%
@@ -3698,6 +3696,8 @@ while t < 10:
   {N_A}%
   {6\timestento{23}}{6.022140857\timestento{23}}%
   {\reciprocal\mole}%
+  [\per\mole]%
+  [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
   {\frac{\mu_o}{4\pi}}%
   {\tento{-7}}{\tento{-7}}%

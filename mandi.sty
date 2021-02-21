@@ -200,8 +200,8 @@
   toprule = 0.0mm,%
 }{\lstinline[style = vpython]{#1}}%
 \NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
-\NewDocumentCommand{\per}{}{\ensuremath{/}}
-\NewDocumentCommand{\usk}{}{\ensuremath{\cdot}}
+\NewDocumentCommand{\per}{}{\ensuremath{\,/\,}}
+\NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
 \NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
 \NewDocumentCommand{\ampere}{}{\ensuremath{\symup{A}}}
 \NewDocumentCommand{\atomicmassunit}{}{\ensuremath{\symup{u}}}
@@ -596,7 +596,7 @@
     [\newton\usk\meter]%
 \newvectorquantity{velocity}%
   {\meter\usk\reciprocal\second}%
-  [\meter\usk\reciprocal\second]%
+  [\meter\per\second]%
   [\meter\per\second]%
 \newvectorquantity{velocityc}%
   {\lightspeed}%
@@ -630,6 +630,8 @@
   {N_A}%
   {6\timestento{23}}{6.022140857\timestento{23}}%
   {\reciprocal\mole}%
+  [\per\mole]%
+  [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
   {\frac{\mu_o}{4\pi}}%
   {\tento{-7}}{\tento{-7}}%
