@@ -44,12 +44,12 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 %</readme>
 %
 %<*mandiexp>
-\def\mandiexp@Version{3.0.0c}
-\def\mandiexp@Date{2021-02-20}
+\def\mandiexp@Version{3.0.0d}
+\def\mandiexp@Date{2021-02-21}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0c}{2021-02-20}{mandiexp.sty}
+\DeclareRelease{v3.0.0d}{2021-02-21}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
 \ProvidesPackage{mandiexp}[\mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions]
 %
@@ -61,26 +61,26 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 %
 % Commands specific to Matter & Interactions
 % The momentum principle
-\NewDocumentCommand{\LHSmomentumprinciple}{ s }{%
+\NewDocumentCommand{\lhsmomentumprinciple}{ s }{%
   \Delta
   \IfBooleanTF{#1}%
     {\vec*{p}}%
     {\vec{p}}%
   _{\symup{sys}}%
 }%
-\NewDocumentCommand{\RHSmomentumprinciple}{ s }{%
+\NewDocumentCommand{\rhsmomentumprinciple}{ s }{%
   \IfBooleanTF{#1}%
     {\vec*{F}}%
     {\vec{F}}%
   _{\symup{sys,net}}\,\Delta t%
 }%
-\NewDocumentCommand{\LHSmomentumprincipleupdate}{ s }{%
+\NewDocumentCommand{\lhsmomentumprincipleupdate}{ s }{%
   \IfBooleanTF{#1}%
     {\vec*{p}}%
     {\vec{p}}%
   _{\symup{sys,final}}%
 }%
-\NewDocumentCommand{\RHSmomentumprincipleupdate}{ s }{%
+\NewDocumentCommand{\rhsmomentumprincipleupdate}{ s }{%
   \IfBooleanTF{#1}%
     {\vec*{p}}%
     {\vec{p}}%
@@ -92,55 +92,55 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 }%
 \NewDocumentCommand{\momentumprinciple}{ s }{%
   \IfBooleanTF{#1}%
-    {\LHSmomentumprinciple* = \RHSmomentumprinciple*}%
-    {\LHSmomentumprinciple = \RHSmomentumprinciple}%
+    {\lhsmomentumprinciple* = \rhsmomentumprinciple*}%
+    {\lhsmomentumprinciple = \rhsmomentumprinciple}%
 }%
 \NewDocumentCommand{\momentumprincipleupdate}{ s }{%
   \IfBooleanTF{#1}%
-    {\LHSmomentumprincipleupdate* = \RHSmomentumprincipleupdate*}%
-    {\LHSmomentumprincipleupdate = \RHSmomentumprincipleupdate}%
+    {\lhsmomentumprincipleupdate* = \rhsmomentumprincipleupdate*}%
+    {\lhsmomentumprincipleupdate = \rhsmomentumprincipleupdate}%
 }%
 % The momentum principle
-\NewDocumentCommand{\LHSenergyprinciple}{}{%
+\NewDocumentCommand{\lhsenergyprinciple}{}{%
   \Delta E_{\symup{sys}}%
 }%
-\NewDocumentCommand{\RHSenergyprinciple}{ O{} }{%
+\NewDocumentCommand{\rhsenergyprinciple}{ O{} }{%
   W_{\symup{ext}}#1%
 }%
-\NewDocumentCommand{\LHSenergyprincipleupdate}{}{%
+\NewDocumentCommand{\lhsenergyprincipleupdate}{}{%
   E_{\symup{sys,final}}%
 }%
-\NewDocumentCommand{\RHSenergyprincipleupdate}{ O{} }{%
+\NewDocumentCommand{\rhsenergyprincipleupdate}{ O{} }{%
   E_{\symup{sys,initial}}+%
   W_{\symup{ext}}#1%
 }%
 \NewDocumentCommand{\energyprinciple}{ O{} }{%
-  \LHSenergyprinciple = \RHSenergyprinciple[#1]%
+  \lhsenergyprinciple = \rhsenergyprinciple[#1]%
 }%
 \NewDocumentCommand{\energyprincipleupdate}{ O{} }{%
-  \LHSenergyprincipleupdate = \RHSenergyprincipleupdate[#1]%
+  \lhsenergyprincipleupdate = \rhsenergyprincipleupdate[#1]%
 }%
 % The angular momentum principle
-\NewDocumentCommand{\LHSangularmomentumprinciple}{ s }{%
+\NewDocumentCommand{\lhsangularmomentumprinciple}{ s }{%
   \Delta
   \IfBooleanTF{#1}%
     {\vec*{L}}%
     {\vec{L}}%
   _{A\symup{,sys,net}}%
 }%
-\NewDocumentCommand{\RHSangularmomentumprinciple}{ s }{%
+\NewDocumentCommand{\rhsangularmomentumprinciple}{ s }{%
   \IfBooleanTF{#1}%
     {\vec*{\tau}}%
     {\vec{\tau}}%
   _{A\symup{,sys,net}}\,\Delta t%
 }%
-\NewDocumentCommand{\LHSangularmomentumprincipleupdate}{ s }{%
+\NewDocumentCommand{\lhsangularmomentumprincipleupdate}{ s }{%
   \IfBooleanTF{#1}%
     {\vec*{L}}%
     {\vec{L}}%
   _{A,\symup{sys,final}}%
 }%
-\NewDocumentCommand{\RHSangularmomentumprincipleupdate}{ s }{%
+\NewDocumentCommand{\rhsangularmomentumprincipleupdate}{ s }{%
   \IfBooleanTF{#1}%
     {\vec*{L}}%
     {\vec{L}}%
@@ -152,13 +152,13 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 }%
 \NewDocumentCommand{\angularmomentumprinciple}{ s }{%
     \IfBooleanTF{#1}%
-    {\LHSangularmomentumprinciple* = \RHSangularmomentumprinciple*}%
-    {\LHSangularmomentumprinciple = \RHSangularmomentumprinciple}%
+    {\lhsangularmomentumprinciple* = \rhsangularmomentumprinciple*}%
+    {\lhsangularmomentumprinciple = \rhsangularmomentumprinciple}%
 }%
 \NewDocumentCommand{\angularmomentumprincipleupdate}{ s }{%
     \IfBooleanTF{#1}%
-    {\LHSangularmomentumprincipleupdate* = \RHSangularmomentumprincipleupdate*}%
-    {\LHSangularmomentumprincipleupdate = \RHSangularmomentumprincipleupdate}%
+    {\lhsangularmomentumprincipleupdate* = \rhsangularmomentumprincipleupdate*}%
+    {\lhsangularmomentumprincipleupdate = \rhsangularmomentumprincipleupdate}%
 }%
 \NewDocumentCommand{\energyof}{ m o }{%
   E_{#1\IfValueT{#2}{,#2}}%
@@ -415,7 +415,7 @@ while t < 10:
 %  \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %    corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2365}
+% \CheckSum{2442}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -468,7 +468,7 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0c}{2021-02-20}{Initial release.} 
+% \changes{v3.0.0d}{2021-02-21}{Initial release.} 
 %
 % \section{Introduction}
 % This is the documentation for the \mandi,\footnote{The package name can 
@@ -1094,17 +1094,31 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Defining Your Own Physical Quantities}
+% \subsubsection{Defining and Redefining Your Own Physical Quantities}
 %
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-16]{newscalarquantity}{\marg{name}\marg{base units}\oarg{derived units}\oarg{alternate units}}
-  Command to define a new scalar quantity. If the derived 
-  or alternate units are omitted, they are defined to be 
-  the same as the base unit. Do not use both this command
-  and \refCom{newvectorquantity} to define a quantity.
-\end{docCommand}
+\begin{docCommands}[%
+    doc parameter = \marg{name}\marg{base units}\oarg{derived units}\oarg{alternate units},%
+  ]%
+  {%
+    {%
+      doc new = 2021-02-16,%
+      doc name = newscalarquantity,%
+    },%
+    {%
+      doc new=2021-02-21,%
+      doc name = renewscalarquantity,%
+    },%
+  }%
+  Command to define/redefine a new/existing scalar quantity. 
+  If the derived or alternate units are omitted, they are 
+  defined to be the same as the base units. Do not use both 
+  this command and 
+  \refCom{newvectorquantity} or \refCom{renewvectorquantity} 
+  to define/redefine a quantity.
+\end{docCommands}
 %\iffalse
 %</example>
 %\fi
@@ -1112,13 +1126,26 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-16]{newvectorquantity}{\marg{name}\marg{base units}\oarg{derived units}\oarg{alternate units}}
-  Command to define a new vector quantity. If the derived 
-  or alternate units are omitted, they are defined to be 
-  the same as the base unit. Do not use both this command
-  and \refCom{newscalarquantity} to define a quantity
-  because this command also defines a scalar variant.
-\end{docCommand}
+\begin{docCommands}[%
+    doc parameter = \marg{name}\marg{base units}\oarg{derived units}\oarg{alternate units},%
+  ]%
+  {%
+    {%
+      doc new = 2021-02-16,%
+      doc name = newvectorquantity,%
+    },%
+    {%
+      doc new=2021-02-21,%
+      doc name = renewvectorquantity,%
+    },%
+  }%
+  Command to define/redefine a new/existing vector quantity. 
+  If the derived or alternate units are omitted, they are 
+  defined to be the same as the base units. Do not use both 
+  this command and 
+  \refCom{newscalarquantity} or \refCom{renewscalarquantity} 
+  to define/redefine a quantity.
+\end{docCommands}
 %\iffalse
 %</example>
 %\fi
@@ -1404,16 +1431,29 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Defining Your Own Physical Constants}
+% \subsubsection{Defining and Redefining Your Own Physical Constants}
 %
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new = 2021-02-16]{newphysicalconstant}{\marg{name}\marg{symbol}\marg{approximate value} \\
-  \marg{precise value}\marg{base units}\oarg{derived units}\oarg{alternate units}}%
-  Command to define a new physical constant. If the derived and alternate units are omitted, 
-  they are defined to be the same as the base units.
-\end{docCommand}
+\begin{docCommands}[%
+    doc parameter = {\marg{name}\marg{symbol}\marg{approximate value}\marg{precise value}\marg{base units}\\
+    \oarg{derived units}\oarg{alternate units}},%
+  ]%
+  {%
+    {%
+      doc new = 2021-02-16,%
+      doc name = newphysicalconstant,%
+    },%
+    {%
+      doc new=2021-02-21,%
+      doc name = renewphysicalconstant,%
+    },%
+  }%
+  Command to define/redefine a new/existing physical constant. 
+  If the derived or alternate units are omitted, they are 
+  defined to be the same as the base units.
+\end{docCommands}
 %\iffalse
 %</example>
 %\fi
@@ -1864,6 +1904,31 @@ while t < 10:
 %</example>
 %\fi
 %
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc new = 2021-02-21,%
+    doc parameter = \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}},%
+  ]%
+  {%
+    {%
+      doc name = direction,%
+    },%
+    {%
+      doc name = unitvector
+    },%
+  }%
+  Semantic aliases for \refCom{mivector}.
+\end{docCommands}
+\begin{dispExample*}{lefthand ratio=0.80}
+  \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \\
+  \unitvector{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}}
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
+%
 % \subsubsection{Coordinate-Free and Index Notation}
 % Beyond the current level of introductory physics, we need intelligent commands for 
 % typesetting vector and tensor symbols and components suitable for both coordinate-free 
@@ -2281,31 +2346,32 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docCommands}[%
+    doc new = 2021-02-21,%
     doc parameter = \oarg{size}\marg{quantity},%
   ]%
   {%
     {%
-      doc name = norm,%
+      doc name = doublebars,%
       doc description = double bars,%
     },%
     {%
-      doc name = norm*,%
+      doc name = doublebars*,%
       doc description = double bars for fractions,%
     },%
     {%
-      doc name = absv,%
+      doc name = singlebars,%
       doc description = single bars,%
     },%
     {%
-      doc name = absv*,%
+      doc name = singlebars*,%
       doc description = single bars for fractions,%
     },%
     {%
-      doc name = angs,%
+      doc name = anglebrackets,%
       doc description = angle brackets,%
     },%
     {%
-      doc name = angs*,%
+      doc name = anglebrackets*,%
       doc description = angle brackets for fractions,%
     },%
     {%
@@ -2317,19 +2383,19 @@ while t < 10:
       doc description = parentheses for fractions,%
     },%
     {%
-      doc name = dimensionsof,%
+      doc name = squarebrackets,%
       doc description = square brackets,%
     },%
     {%
-      doc name = dimensionsof*,%
+      doc name = squarebrackets*,%
       doc description = square brackets for fractions,%
     },%
     {%
-      doc name = unitsof,%
+      doc name = curlybraces,%
       doc description = curly braces,%
     },%
     {%
-      doc name = unitsof*,%
+      doc name = curlybraces*,%
       doc description = curly braces for fractions,%
     },%
   }%
@@ -2341,22 +2407,22 @@ while t < 10:
   documentation for details. 
 \end{docCommands}
 \begin{dispExample}
-  \[ \norm{} \]
-  \[ \norm{\vec{a}} \]
-  \[ \norm*{\frac{\vec{a}}{3}} \]
-  \[ \norm[\Bigg]{\frac{\vec{a}}{3}} \]
+  \[ \doublebars{} \]
+  \[ \doublebars{\vec{a}} \]
+  \[ \doublebars*{\frac{\vec{a}}{3}} \]
+  \[ \doublebars[\Bigg]{\frac{\vec{a}}{3}} \]
 \end{dispExample}
 \begin{dispExample}
-  \[ \absv{} \]
-  \[ \absv{x} \]
-  \[ \absv*{\frac{x}{3}} \]
-  \[ \absv[\Bigg]{\frac{x}{3}} \]
+  \[ \singlebars{} \]
+  \[ \singlebars{x} \]
+  \[ \singlebars*{\frac{x}{3}} \]
+  \[ \singlebars[\Bigg]{\frac{x}{3}} \]
 \end{dispExample}
 \begin{dispExample}
-  \[ \angs{} \]
-  \[ \angs{\vec{a}} \]
-  \[ \angs*{\frac{\vec{a}}{3}} \]
-  \[ \angs[\Bigg]{\frac{\vec{a}}{3}} \]
+  \[ \anglebrackets{} \]
+  \[ \anglebrackets{\vec{a}} \]
+  \[ \anglebrackets*{\frac{\vec{a}}{3}} \]
+  \[ \anglebrackets[\Bigg]{\frac{\vec{a}}{3}} \]
 \end{dispExample}
 \begin{dispExample}
   \[ \parentheses{} \]
@@ -2365,16 +2431,16 @@ while t < 10:
   \[ \parentheses[\Bigg]{\frac{x}{3}} \]
 \end{dispExample}
 \begin{dispExample}
-  \[ \dimensionsof{} \]
-  \[ \dimensionsof{x} \]
-  \[ \dimensionsof*{\frac{x}{3}} \]
-  \[ \dimensionsof[\Bigg]{\frac{x}{3}} \]
+  \[ \squarebrackets{} \]
+  \[ \squarebrackets{x} \]
+  \[ \squarebrackets*{\frac{x}{3}} \]
+  \[ \squarebrackets[\Bigg]{\frac{x}{3}} \]
 \end{dispExample}
 \begin{dispExample}
-  \[ \unitsof{} \]
-  \[ \unitsof{x} \]
-  \[ \unitsof*{\frac{x}{3}} \]
-  \[ \unitsof[\Bigg]{\frac{x}{3}} \]
+  \[ \curlybraces{} \]
+  \[ \curlybraces{x} \]
+  \[ \curlybraces*{\frac{x}{3}} \]
+  \[ \curlybraces[\Bigg]{\frac{x}{3}} \]
 \end{dispExample}
 %\iffalse
 %</example>
@@ -2384,25 +2450,44 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docCommands}[%
+    doc new = 2021-02-21,%
+    doc parameter = \oarg{size}\marg{quantity},%
   ]%
   {%
     {%
-      doc name = dim,%
-      doc description = defined in \href{https://www.ctan.org/pkg/amsmath}{\pkg{amsmath}},%
+      doc name = magnitude,%
+      doc description = alias for double bars,%
     },%
     {%
-      doc name = abs,%
+      doc name = magnitude*,%
+      doc description = alias for double bars for fractions,%
     },%
     {%
-      doc name = units,%
+      doc name = norm,%
+      doc description = alias for double bars,%
+    },%
+    {%
+      doc name = norm*,%
+      doc description = alias for double bars for fractions,%
+    },%
+    {%
+      doc name = absolutevalue,%
+      doc description = alias for single bars,%
+    },%
+    {%
+      doc name = absolutevalue*,%
+      doc description = alias for single bars for fractions,%
     },%
   }%
-  Operators which may be more useful than delimiters.
+  Semantic aliases.
 \end{docCommands}
 \begin{dispExample}
-  \( \dim (x)   \)  \\
-  \( \abs (x)   \)  \\
-  \( \units (x) \)
+  \[ \magnitude{\vec{a}} \]
+  \[ \magnitude*{\frac{\vec{a}}{3}} \]
+  \[ \norm{\vec{a}} \]
+  \[ \norm*{\frac{\vec{a}}{3}} \]
+  \[ \absolutevalue{-a} \]
+  \[ \absolutevalue*{-\frac{a}{3}} \]
 \end{dispExample}
 %\iffalse
 %</example>
@@ -2430,19 +2515,19 @@ while t < 10:
   ]%
   {%
     {%
-      doc name = LHSmomentumprinciple,%
+      doc name = lhsmomentumprinciple,%
       doc description = {LHS of delta form, bold vectors},%
     },%
     {%
-      doc name = RHSmomentumprinciple,%
+      doc name = rhsmomentumprinciple,%
       doc description = {RHS of delta form, bold vectors},%
     },%
     {%
-      doc name = LHSmomentumprincipleupdate,%
+      doc name = lhsmomentumprincipleupdate,%
       doc description = {LHS of update form, bold vectors},%
     },%
     {%
-      doc name = RHSmomentumprincipleupdate,%
+      doc name = rhsmomentumprincipleupdate,%
       doc description = {RHS of update form, bold vectors},%
     },%
     {%
@@ -2454,19 +2539,19 @@ while t < 10:
       doc description = {update form, bold vectors},%
     },%
     {%
-      doc name = LHSmomentumprinciple*,%
+      doc name = lhsmomentumprinciple*,%
       doc description = {LHS of delta form, arrow vectors},%
     },%
     {%
-      doc name = RHSmomentumprinciple*,%
+      doc name = rhsmomentumprinciple*,%
       doc description = {RHS of delta form, arrow vectors},%
     },%
     {%
-      doc name = LHSmomentumprincipleupdate*,%
+      doc name = lhsmomentumprincipleupdate*,%
       doc description = {LHS of update form, arrow vectors},%
     },%
     {%
-      doc name = RHSmomentumprincipleupdate*,%
+      doc name = rhsmomentumprincipleupdate*,%
       doc description = {RHS of update form, arrow vectors},%
     },%
     {%
@@ -2482,16 +2567,16 @@ while t < 10:
   Use starred variants to get arrow notation for vectors.
 \end{docCommands}
 \begin{dispExample}
-  \( \LHSmomentumprinciple \)        \\
-  \( \RHSmomentumprinciple \)        \\
-  \( \LHSmomentumprincipleupdate \)  \\
-  \( \RHSmomentumprincipleupdate \)  \\
+  \( \lhsmomentumprinciple \)        \\
+  \( \rhsmomentumprinciple \)        \\
+  \( \lhsmomentumprincipleupdate \)  \\
+  \( \rhsmomentumprincipleupdate \)  \\
   \( \momentumprinciple \)           \\
   \( \momentumprincipleupdate \)     \\
-  \( \LHSmomentumprinciple* \)       \\
-  \( \RHSmomentumprinciple* \)       \\
-  \( \LHSmomentumprincipleupdate* \) \\
-  \( \RHSmomentumprincipleupdate* \) \\
+  \( \lhsmomentumprinciple* \)       \\
+  \( \rhsmomentumprinciple* \)       \\
+  \( \lhsmomentumprincipleupdate* \) \\
+  \( \rhsmomentumprincipleupdate* \) \\
   \( \momentumprinciple* \)          \\
   \( \momentumprincipleupdate* \)
 \end{dispExample}
@@ -2509,20 +2594,20 @@ while t < 10:
   ]%
   {%
     {%
-      doc name = LHSenergyprinciple,%
+      doc name = lhsenergyprinciple,%
       doc description = {LHS of delta form},%
     },%
     {%
-      doc name = RHSenergyprinciple,%
+      doc name = rhsenergyprinciple,%
       doc parameter = \oarg{\(+\)process...},%
       doc description = {RHS of delta form},%
     },%
     {%
-      doc name = LHSenergyprincipleupdate,%
+      doc name = lhsenergyprincipleupdate,%
       doc description = {LHS of update form},%
     },%
     {%
-      doc name = RHSenergyprincipleupdate,%
+      doc name = rhsenergyprincipleupdate,%
       doc parameter = \oarg{\(+\)process...},%
       doc description = {RHS of update form},%
     },%
@@ -2540,14 +2625,14 @@ while t < 10:
   Variants of command for typesetting the energy principle.
 \end{docCommands}
 \begin{dispExample}
-  \( \LHSenergyprinciple \)           \\
-  \( \RHSenergyprinciple \)           \\
-  \( \RHSenergyprinciple[+Q] \)       \\
+  \( \lhsenergyprinciple \)           \\
+  \( \rhsenergyprinciple \)           \\
+  \( \rhsenergyprinciple[+Q] \)       \\
   \( \energyprinciple \)              \\
   \( \energyprinciple[+Q] \)          \\
-  \( \LHSenergyprincipleupdate \)     \\
-  \( \RHSenergyprincipleupdate \)     \\
-  \( \RHSenergyprincipleupdate[+Q] \) \\
+  \( \lhsenergyprincipleupdate \)     \\
+  \( \rhsenergyprincipleupdate \)     \\
+  \( \rhsenergyprincipleupdate[+Q] \) \\
   \( \energyprincipleupdate \)        \\
   \( \energyprincipleupdate[+Q] \)
 \end{dispExample}
@@ -2565,19 +2650,19 @@ while t < 10:
   ]%
   {%
     {%
-      doc name = LHSangularmomentumprinciple,%
+      doc name = lhsangularmomentumprinciple,%
       doc description = {LHS of delta form, bold vectors},%
     },%
     {%
-      doc name = RHSangularmomentumprinciple,%
+      doc name = rhsangularmomentumprinciple,%
       doc description = {RHS of delta form, bold vectors},%
     },%
     {%
-      doc name = LHSangularmomentumprincipleupdate,%
+      doc name = lhsangularmomentumprincipleupdate,%
       doc description = {LHS of update form, bold vectors},%
     },%
     {%
-      doc name = RHSangularmomentumprincipleupdate,%
+      doc name = rhsangularmomentumprincipleupdate,%
       doc description = {RHS of update form, bold vectors},%
     },%
     {%
@@ -2589,19 +2674,19 @@ while t < 10:
       doc description = {update form, bold vectors},%
     },%
     {%
-      doc name = LHSangularmomentumprinciple*,%
+      doc name = lhsangularmomentumprinciple*,%
       doc description = {LHS of delta form, arrow vectors},%
     },%
     {%
-      doc name = RHSangularmomentumprinciple*,%
+      doc name = rhsangularmomentumprinciple*,%
       doc description = {RHS of delta form, arrow vectors},%
     },%
     {%
-      doc name = LHSangularmomentumprincipleupdate*,%
+      doc name = lhsangularmomentumprincipleupdate*,%
       doc description = {LHS of update form, arrow vectors},%
     },%
     {%
-      doc name = RHSangularmomentumprincipleupdate*,%
+      doc name = rhsangularmomentumprincipleupdate*,%
       doc description = {RHS of update form, arrow vectors},%
     },%
     {%
@@ -2617,16 +2702,16 @@ while t < 10:
   Use starred variants to get arrow notation for vectors.
 \end{docCommands}
 \begin{dispExample}
-  \( \LHSangularmomentumprinciple \)        \\
-  \( \RHSangularmomentumprinciple \)        \\
-  \( \LHSangularmomentumprincipleupdate \)  \\
-  \( \RHSangularmomentumprincipleupdate \)  \\
+  \( \lhsangularmomentumprinciple \)        \\
+  \( \rhsangularmomentumprinciple \)        \\
+  \( \lhsangularmomentumprincipleupdate \)  \\
+  \( \rhsangularmomentumprincipleupdate \)  \\
   \( \angularmomentumprinciple \)           \\
   \( \angularmomentumprincipleupdate \)     \\
-  \( \LHSangularmomentumprinciple* \)       \\
-  \( \RHSangularmomentumprinciple* \)       \\
-  \( \LHSangularmomentumprincipleupdate* \) \\
-  \( \RHSangularmomentumprincipleupdate* \) \\
+  \( \lhsangularmomentumprinciple* \)       \\
+  \( \rhsangularmomentumprinciple* \)       \\
+  \( \lhsangularmomentumprincipleupdate* \) \\
+  \( \rhsangularmomentumprincipleupdate* \) \\
   \( \angularmomentumprinciple* \)          \\
   \( \angularmomentumprincipleupdate* \)
 \end{dispExample}
@@ -2888,12 +2973,12 @@ while t < 10:
 % are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@Version{3.0.0c}
-\def\mandi@Date{2021-02-20}
+\def\mandi@Version{3.0.0d}
+\def\mandi@Date{2021-02-21}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0c}{2021-02-20}{mandi.sty}
+\DeclareRelease{v3.0.0d}{2021-02-21}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 %    \end{macrocode}
@@ -3275,12 +3360,36 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
+% Redefining a new scalar quantity:
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }{%
+  \expandafter\renewcommand\csname #1\endcsname[1]{##1\,\mandi@selectunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1value\endcsname[1]{##1}%
+  \expandafter\renewcommand\csname #1baseunits\endcsname[1]{##1\,\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1derivedunits\endcsname[1]{##1\,\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1alternateunits\endcsname[1]{##1\,\mandi@selectalternateunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1onlybaseunits\endcsname{\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1onlyderivedunits\endcsname{\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1onlyalternateunits\endcsname{\mandi@selectalternateunits{#2}{#3}{#4}}%
+}%
+%    \end{macrocode}
+%
 % Defining a new vector quantity. Note that a corresponding scalar is also defined.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\newvectorquantity}{ m m O{#2} O{#2} }{%
   \newscalarquantity{#1}{#2}[#3][#4]
   \expandafter\newcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
+}%
+%    \end{macrocode}
+%
+% Redefining a new vector quantity. Note that a corresponding scalar is also redefined.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }{%
+  \renewscalarquantity{#1}{#2}[#3][#4]
+  \expandafter\renewcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
 }%
 %    \end{macrocode}
 %
@@ -3304,6 +3413,30 @@ while t < 10:
   \expandafter\newcommand\csname #1onlyderivedunits\endcsname
     {\mandi@selectderivedunits{#5}{#6}{#7}}%
   \expandafter\newcommand\csname #1onlyalternateunits\endcsname
+    {\mandi@selectalternateunits{#5}{#6}{#7}}%
+}%
+%    \end{macrocode}
+%
+% Redefining a new physical constant:
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }{%
+  \expandafter\renewcommand\csname #1\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1mathsymbol\endcsname{\ensuremath{#2}}%
+  \expandafter\renewcommand\csname #1approximatevalue\endcsname{\ensuremath{#3}}%
+  \expandafter\renewcommand\csname #1precisevalue\endcsname{\ensuremath{#4}}%
+  \expandafter\renewcommand\csname #1baseunits\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectbaseunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1derivedunits\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectderivedunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1alternateunits\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectalternateunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1onlybaseunits\endcsname
+    {\mandi@selectbaseunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1onlyderivedunits\endcsname
+    {\mandi@selectderivedunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1onlyalternateunits\endcsname
     {\mandi@selectalternateunits{#5}{#6}{#7}}%
 }%
 %    \end{macrocode}
@@ -3956,7 +4089,7 @@ while t < 10:
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\magvec}{ s m }{%
-  \norm{%
+  \doublebars{%
     \IfBooleanTF{#1}
       {\vec*}%
       {\vec}%
@@ -4028,7 +4161,7 @@ while t < 10:
 }{}%
 %    \end{macrocode}
 %
-% A simplified command for important images.
+% A simplified command for importing images.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\image}{ O{scale=1} m m m }{%
@@ -4103,44 +4236,22 @@ while t < 10:
 % default placeholders are used when the argument is empty.
 %
 %    \begin{macrocode}
-\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\absv}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\angs}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
 \DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\dimensionsof}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\unitsof}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
 %    \end{macrocode}
 %
-% Declare some new math operators. A |\dim| operator is already defined in \pkg{amsmath}.
-% These may be more useful than delimiters.
+% Some semantic aliases.
 %
 %    \begin{macrocode}
-\DeclareMathOperator{\abs}{abs}
-\DeclareMathOperator{\units}{units}
-%    \end{macrocode}
-%
-% These versions use |\left...\right| and are rather disfavored by \LaTeX\ purists.
-% They may eventually be removed from \mandi\ so don't rely on them.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\innorm}{ O{\:\cdot\:} }{%
-  \left\lVert#1\right\rVert
-}%
-\NewDocumentCommand{\inabsv}{ O{\:\cdot\:} }{%
-  \left\lvert#1\right\rvert
-}%
-\NewDocumentCommand{\inangs}{ O{\:\cdot\:} }{%
-  \left\langle#1\right\rangle
-}%
-\NewDocumentCommand{\inpens}{ O{\:\cdot\:} }{%
-  \left(#1\right)
-}%
-\NewDocumentCommand{\indims}{ O{\:\cdot\:} }{%
-  \left[#1\right]
-}%
-\NewDocumentCommand{\inunts}{ O{\:\cdot\:} }{%
-  \left\{#1\right\}
-}%
+\NewDocumentCommand{\magnitude}{}{\doublebars}
+\NewDocumentCommand{\norm}{}{\doublebars}
+\NewDocumentCommand{\absolutevalue}{}{\singlebars}
+\NewDocumentCommand{\direction}{}{\mivector}
+\NewDocumentCommand{\unitvector}{}{\mivector}
 %    \end{macrocode}
 %
 % Command for highlighting parts of, or entire, mathematical expressions.\newline

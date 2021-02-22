@@ -29,12 +29,12 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@Version{3.0.0c}
-\def\mandi@Date{2021-02-20}
+\def\mandi@Version{3.0.0d}
+\def\mandi@Date{2021-02-21}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0c}{2021-02-20}{mandi.sty}
+\DeclareRelease{v3.0.0d}{2021-02-21}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 \newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
@@ -282,9 +282,23 @@
   \expandafter\newcommand\csname #1onlyderivedunits\endcsname{\mandi@selectderivedunits{#2}{#3}{#4}}%
   \expandafter\newcommand\csname #1onlyalternateunits\endcsname{\mandi@selectalternateunits{#2}{#3}{#4}}%
 }%
+\NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }{%
+  \expandafter\renewcommand\csname #1\endcsname[1]{##1\,\mandi@selectunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1value\endcsname[1]{##1}%
+  \expandafter\renewcommand\csname #1baseunits\endcsname[1]{##1\,\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1derivedunits\endcsname[1]{##1\,\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1alternateunits\endcsname[1]{##1\,\mandi@selectalternateunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1onlybaseunits\endcsname{\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1onlyderivedunits\endcsname{\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \expandafter\renewcommand\csname #1onlyalternateunits\endcsname{\mandi@selectalternateunits{#2}{#3}{#4}}%
+}%
 \NewDocumentCommand{\newvectorquantity}{ m m O{#2} O{#2} }{%
   \newscalarquantity{#1}{#2}[#3][#4]
   \expandafter\newcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
+}%
+\NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }{%
+  \renewscalarquantity{#1}{#2}[#3][#4]
+  \expandafter\renewcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
 }%
 \NewDocumentCommand{\newphysicalconstant}{ m m m m m O{#5} O{#5} }{%
   \expandafter\newcommand\csname #1\endcsname
@@ -303,6 +317,25 @@
   \expandafter\newcommand\csname #1onlyderivedunits\endcsname
     {\mandi@selectderivedunits{#5}{#6}{#7}}%
   \expandafter\newcommand\csname #1onlyalternateunits\endcsname
+    {\mandi@selectalternateunits{#5}{#6}{#7}}%
+}%
+\NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }{%
+  \expandafter\renewcommand\csname #1\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1mathsymbol\endcsname{\ensuremath{#2}}%
+  \expandafter\renewcommand\csname #1approximatevalue\endcsname{\ensuremath{#3}}%
+  \expandafter\renewcommand\csname #1precisevalue\endcsname{\ensuremath{#4}}%
+  \expandafter\renewcommand\csname #1baseunits\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectbaseunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1derivedunits\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectderivedunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1alternateunits\endcsname
+    {\mandi@selectprecision{#3}{#4}\,\mandi@selectalternateunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1onlybaseunits\endcsname
+    {\mandi@selectbaseunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1onlyderivedunits\endcsname
+    {\mandi@selectderivedunits{#5}{#6}{#7}}%
+  \expandafter\renewcommand\csname #1onlyalternateunits\endcsname
     {\mandi@selectalternateunits{#5}{#6}{#7}}%
 }%
 \newif\ifusingpreciseconstants
@@ -855,7 +888,7 @@
   }%
 }%
 \NewDocumentCommand{\magvec}{ s m }{%
-  \norm{%
+  \doublebars{%
     \IfBooleanTF{#1}
       {\vec*}%
       {\vec}%
@@ -951,32 +984,17 @@
 \NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
 \NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
 \NewDocumentCommand{\changein}{}{\Delta}
-\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\absv}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\angs}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
 \DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\dimensionsof}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\unitsof}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclareMathOperator{\abs}{abs}
-\DeclareMathOperator{\units}{units}
-\NewDocumentCommand{\innorm}{ O{\:\cdot\:} }{%
-  \left\lVert#1\right\rVert
-}%
-\NewDocumentCommand{\inabsv}{ O{\:\cdot\:} }{%
-  \left\lvert#1\right\rvert
-}%
-\NewDocumentCommand{\inangs}{ O{\:\cdot\:} }{%
-  \left\langle#1\right\rangle
-}%
-\NewDocumentCommand{\inpens}{ O{\:\cdot\:} }{%
-  \left(#1\right)
-}%
-\NewDocumentCommand{\indims}{ O{\:\cdot\:} }{%
-  \left[#1\right]
-}%
-\NewDocumentCommand{\inunts}{ O{\:\cdot\:} }{%
-  \left\{#1\right\}
-}%
+\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
+\NewDocumentCommand{\magnitude}{}{\doublebars}
+\NewDocumentCommand{\norm}{}{\doublebars}
+\NewDocumentCommand{\absolutevalue}{}{\singlebars}
+\NewDocumentCommand{\direction}{}{\mivector}
+\NewDocumentCommand{\unitvector}{}{\mivector}
 \newcounter{tikzhighlightnode}
 \NewDocumentCommand{\hilite}{ O{magenta!60} m O{rectangle} }{%
   \stepcounter{tikzhighlightnode}%
