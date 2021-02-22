@@ -107,6 +107,5 @@ touch overleaf-project.zip
 # Now these files can be given to students to use on Overleaf.
 
 # We're done
-echo "Don't forget to archive this build before making more changes."
-echo "Upload overleaf-project.zip to your website."
+echo "Don't forget to put this build on GitHub before making more changes."
 echo DONE!
