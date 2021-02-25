@@ -29,12 +29,12 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@Version{3.0.0d}
-\def\mandi@Date{2021-02-23}
+\def\mandi@Version{3.0.0e}
+\def\mandi@Date{2021-02-25}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0d}{2021-02-23}{mandi.sty}
+\DeclareRelease{v3.0.0e}{2021-02-25}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 \newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
@@ -153,7 +153,7 @@
   hyperurl interior = https://#2,%
   label = {gs:\thetcbcounter},%
   left = 8mm,%
-  list entry = \texttt{GlowScript} Program \thetcbcounter: #3,%
+  list entry = \thetcbcounter~~~~~#3,%
   listing only,%
   listing style = vpython,%
   nameref = #3,%
@@ -172,7 +172,7 @@
   hyperurl interior = https://,%
   label = {vp:\thetcbcounter},%
   left = 8mm,%
-  list entry = \texttt{VPython} Program \thetcbcounter: #3,%
+  list entry = \thetcbcounter~~~~~#3,%
   listing file = {#2},%
   listing only,%
   listing style = vpython,%
@@ -295,10 +295,12 @@
 \NewDocumentCommand{\newvectorquantity}{ m m O{#2} O{#2} }{%
   \newscalarquantity{#1}{#2}[#3][#4]
   \expandafter\newcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
+  \expandafter\newcommand\csname #1vector\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
 }%
 \NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }{%
   \renewscalarquantity{#1}{#2}[#3][#4]
   \expandafter\renewcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
+  \expandafter\renewcommand\csname #1vector\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
 }%
 \NewDocumentCommand{\newphysicalconstant}{ m m m m m O{#5} O{#5} }{%
   \expandafter\newcommand\csname #1\endcsname
