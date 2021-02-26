@@ -44,12 +44,12 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 %</readme>
 %
 %<*mandiexp>
-\def\mandiexp@Version{3.0.0e}
+\def\mandiexp@Version{3.0.0f}
 \def\mandiexp@Date{2021-02-25}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0e}{2021-02-25}{mandiexp.sty}
+\DeclareRelease{v3.0.0f}{2021-02-25}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
 \ProvidesPackage{mandiexp}[\mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions]
 %
@@ -415,7 +415,7 @@ while t < 10:
 %  \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %    corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2456}
+% \CheckSum{2458}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -468,7 +468,7 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0e}{2021-02-25}{Initial release.} 
+% \changes{v3.0.0f}{2021-02-25}{Initial release.} 
 %
 % \section{Introduction}
 % This is the documentation for the \mandi,\footnote{The package name can 
@@ -1272,6 +1272,144 @@ while t < 10:
 %</example>
 %\fi
 %
+%
+% \subsubsection{Predefined Units and Constructs}
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc parameter = {},%
+  ]%
+  {%
+    {%
+      doc name = per,%
+    },%
+    {%
+      doc name = usk,%
+    },%
+    {%
+      doc parameter = \marg{magnitude}\marg{unit},%
+      doc name = unit,%
+    },%
+    {%
+      doc name = emptyunit,%
+    },%
+    {%
+      doc name = ampere,%
+    },%
+    {%
+      doc name = atomicmassunit,%
+    },%
+    {%
+      doc name = candela,%
+    },%
+    {%
+      doc name = coulomb,%
+    },%
+    {%
+      doc name = degree,%
+    },%
+    {%
+      doc name = electronvolt,%
+    },%
+    {%
+      doc name = farad,%
+    },%
+    {%
+      doc name = henry,%
+    },%
+    {%
+      doc name = hertz,%
+    },%
+    {%
+      doc name = joule,%
+    },%
+    {%
+      doc name = kelvin,%
+    },%
+    {%
+      doc name = kilogram,%
+    },%
+    {%
+      doc name = lightspeed,%
+    },%
+    {%
+      doc name = meter,%
+    },%
+    {%
+      doc name = metre,%
+    },%
+    {%
+      doc name = mole,%
+    },%
+    {%
+      doc name = newton,%
+    },%
+    {%
+      doc name = ohm,%
+    },%
+    {%
+      doc name = pascal,%
+    },%
+    {%
+      doc name = radian,%
+    },%
+    {%
+      doc name = second,%
+    },%
+    {%
+      doc name = siemens,%
+    },%
+    {%
+      doc name = steradian,%
+    },%
+    {%
+      doc name = tesla,%
+    },%
+    {%
+      doc name = volt,%
+    },%
+    {%
+      doc name = watt,%
+    },%
+    {%
+      doc name = weber,%
+    },%
+    {%
+      doc name = tothetwo,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = tothethree,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = tothefour,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = inverse,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = totheinversetwo,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = totheinversethree,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = totheinversefour,%
+      doc description = postfix,%
+    },%
+  }%
+\end{docCommands}
+%\iffalse
+%</example>
+%\fi
+%
 % \subsubsection{Setting Global Units}
 %
 %\iffalse
@@ -1543,6 +1681,9 @@ while t < 10:
 \begin{docCommand}{surfacegravfield}{}
 \end{docCommand}
 \checkconstant{surfacegravfield}
+\begin{docCommand}{universalgrav}{}
+\end{docCommand}
+\checkconstant{universalgrav}
 \begin{docCommand}{vacuumpermeability}{}
 \end{docCommand}
 \checkconstant{vacuumpermeability}
@@ -3101,12 +3242,12 @@ while t < 10:
 % are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@Version{3.0.0e}
+\def\mandi@Version{3.0.0f}
 \def\mandi@Date{2021-02-25}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0e}{2021-02-25}{mandi.sty}
+\DeclareRelease{v3.0.0f}{2021-02-25}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 %    \end{macrocode}
@@ -3401,20 +3542,13 @@ while t < 10:
 \NewDocumentCommand{\volt}{}{\ensuremath{\symup{V}}}
 \NewDocumentCommand{\watt}{}{\ensuremath{\symup{W}}}
 \NewDocumentCommand{\weber}{}{\ensuremath{\symup{Wb}}}
-\NewDocumentCommand{\square}{ m }{\ensuremath{{#1}^2}}               % prefix   2
-\NewDocumentCommand{\cubic}{ m }{\ensuremath{{#1}^3}}                % prefix   3
-\NewDocumentCommand{\quartic}{ m }{\ensuremath{{#1}^4}}              % prefix   4
-\NewDocumentCommand{\reciprocal}{ m }{\ensuremath{{#1}^{-1}}}        % prefix  -1
-\NewDocumentCommand{\reciprocalsquare}{ m }{\ensuremath{{#1}^{-2}}}  % prefix  -2
-\NewDocumentCommand{\reciprocalcubic}{ m }{\ensuremath{{#1}^{-3}}}   % prefix  -3
-\NewDocumentCommand{\reciprocalquartic}{ m }{\ensuremath{{#1}^{-4}}} % prefix  -4
-\NewDocumentCommand{\squared}{}{\ensuremath{^2}}                     % postfix  2
-\NewDocumentCommand{\cubed}{}{\ensuremath{^3}}                       % postfix  3
-\NewDocumentCommand{\quarted}{}{\ensuremath{^4}}                     % postfix  4
-\NewDocumentCommand{\reciprocaled}{}{\ensuremath{^{-1}}}             % postfix -1
-\NewDocumentCommand{\reciprocalsquared}{}{\ensuremath{^{-2}}}        % postfix -2
-\NewDocumentCommand{\reciprocalcubed}{}{\ensuremath{^{-3}}}          % postfix -3
-\NewDocumentCommand{\reciprocalquarted}{}{\ensuremath{^{-4}}}        % postfix -4
+\NewDocumentCommand{\tothetwo}{}{\ensuremath{^2}}             % postfix  2
+\NewDocumentCommand{\tothethree}{}{\ensuremath{^3}}           % postfix  3
+\NewDocumentCommand{\tothefour}{}{\ensuremath{^4}}            % postfix  4
+\NewDocumentCommand{\inverse}{}{\ensuremath{^{-1}}}           % postfix -1
+\NewDocumentCommand{\totheinversetwo}{}{\ensuremath{^{-2}}}   % postfix -2
+\NewDocumentCommand{\totheinversethree}{}{\ensuremath{^{-3}}} % postfix -3
+\NewDocumentCommand{\totheinversefour}{}{\ensuremath{^{-4}}}  % postfix -4
 \NewDocumentCommand{\emptyunit}{}{\ensuremath{\mdlgwhtsquare}}
 %    \end{macrocode}
 %
@@ -3650,72 +3784,72 @@ while t < 10:
 %
 %    \begin{macrocode}
 \newvectorquantity{acceleration}%
-  {\meter\usk\second\reciprocalsquared}%
+  {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
-  [\meter\per\second\squared]%
+  [\meter\per\second\tothetwo]%
 \newscalarquantity{amount}%
   {\mole}%
 \newvectorquantity{angularacceleration}%
-  {\radian\usk\second\reciprocalsquared}%
-  [\radian\per\second\squared]%
-  [\radian\per\second\squared]%
+  {\radian\usk\second\totheinversetwo}%
+  [\radian\per\second\tothetwo]%
+  [\radian\per\second\tothetwo]%
 \newscalarquantity{angularfrequency}%
-  {\radian\usk\reciprocal\second}%
+  {\radian\usk\second\inverse}%
   [\radian\per\second]%
   [\radian\per\second]%
 %\ifmandi@rotradians
 %  \newphysicalquantity{angularimpulse}%
-%    {\meter\squared\usk\kilogram\usk\reciprocal\second\usk\reciprocal\radian}%
+%    {\meter\tothetwo\usk\kilogram\usk\second\inverse\usk\radian\inverse}%
 %    [\joule\usk\second\per\radian]%
 %    [\newton\usk\meter\usk\second\per\radian]%
 %  \newphysicalquantity{angularmomentum}%
-%    {\meter\squared\usk\kilogram\usk\reciprocal\second\usk\reciprocal\radian}%
-%    [\kilogram\usk\meter\squared\per(\second\usk\radian)]%
+%    {\meter\tothetwo\usk\kilogram\usk\second\inverse\usk\radian\inverse}%
+%    [\kilogram\usk\meter\tothetwo\per(\second\usk\radian)]%
 %    [\newton\usk\meter\usk\second\per\radian]%
 %\else
   \newvectorquantity{angularimpulse}%
-    {\meter\squared\usk\kilogram\usk\reciprocal\second}%
-    [\kilogram\usk\meter\squared\per\second]% % also \joule\usk\second
-    [\kilogram\usk\meter\squared\per\second]% % also \newton\usk\meter\usk\second
+    {\meter\tothetwo\usk\kilogram\usk\inverse\second}%
+    [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
+    [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
   \newvectorquantity{angularmomentum}%
-    {\meter\squared\usk\kilogram\usk\reciprocal\second}%
-    [\kilogram\usk\meter\squared\per\second]% % also \joule\usk\second
-    [\kilogram\usk\meter\squared\per\second]% % also \newton\usk\meter\usk\second
+    {\meter\tothetwo\usk\kilogram\usk\inverse\second}%
+    [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
+    [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
 %\fi
 \newvectorquantity{angularvelocity}%
-  {\radian\usk\reciprocal\second}%
+  {\radian\usk\second\inverse}%
   [\radian\per\second]%
   [\radian\per\second]%
 \newscalarquantity{area}%
-  {\meter\squared}%
+  {\meter\tothetwo}%
 \newscalarquantity{areamassdensity}%
-  {\meter\reciprocalsquared\usk\kilogram}%
-  [\kilogram\per\meter\squared]%
-  [\kilogram\per\meter\squared]%
+  {\meter\totheinversetwo\usk\kilogram}%
+  [\kilogram\per\meter\tothetwo]%
+  [\kilogram\per\meter\tothetwo]%
 \newscalarquantity{areachargedensity}%
-  {\reciprocalsquare\meter\usk\second\usk\ampere}%
-  [\coulomb\per\square\meter]%
-  [\coulomb\per\square\meter]%
+  {\meter\totheinversetwo\usk\second\usk\ampere}%
+  [\coulomb\per\meter\tothetwo]%
+  [\coulomb\per\meter\tothetwo]%
 \newscalarquantity{capacitance}%
-  {\reciprocalsquare\meter\usk\reciprocal\kilogram\usk\quartic\second\usk\square\ampere}%
+  {\meter\totheinversetwo\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
   [\farad]%
-  [\coulomb\per\volt]% % also \coulomb\squared\per\newton\usk\meter, \second\per\ohm
+  [\coulomb\per\volt]% % also \coulomb\tothetwo\per\newton\usk\meter, \second\per\ohm
 \newscalarquantity{charge}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]% % also \farad\usk\volt
 \newvectorquantity{cmagneticfield}%
-  {\meter\usk\kilogram\usk\second\reciprocalcubed\usk\reciprocal\ampere}%
+  {\meter\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
   [\volt\per\meter]%
   [\newton\per\coulomb]%
 \newscalarquantity{conductance}%
-  {\reciprocalsquare\meter\usk\reciprocal\kilogram\usk\cubic\second\usk\square\ampere}%
+  {\meter\totheinversetwo\usk\kilogram\inverse\usk\second\tothethree\usk\ampere\tothetwo}%
   [\siemens]%
   [\ampere\per\volt]%
 \newscalarquantity{conductivity}%
-  {\reciprocalcubic\meter\usk\reciprocal\kilogram\usk\cubic\second\usk\square\ampere}%
+  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothethree\usk\ampere\tothetwo}%
   [\siemens\per\meter]%
-  [(\ampere\per\square\meter)\per(\volt\per\meter)]%
+  [(\ampere\per\meter\tothetwo)\per(\volt\per\meter)]%
 \newscalarquantity{conventionalcurrent}%
   {\ampere}%
   [\coulomb\per\second]%
@@ -3723,9 +3857,9 @@ while t < 10:
 \newscalarquantity{current}%
   {\ampere}%
 \newscalarquantity{currentdensity}%
-  {\reciprocalsquare\meter\usk\ampere}%
-  [\coulomb\usk\second\per\square\meter]%
-  [\ampere\per\square\meter]%
+  {\meter\totheinversetwo\usk\ampere}%
+  [\coulomb\usk\second\per\meter\tothetwo]%
+  [\ampere\per\meter\tothetwo]%
 \newscalarquantity{dielectricconstant}%
   {}%
 \newvectorquantity{displacement}%
@@ -3737,73 +3871,73 @@ while t < 10:
   [\coulomb\usk\meter]%
   [\coulomb\usk\meter]%
 \newvectorquantity{electricfield}%
-  {\meter\usk\kilogram\usk\second\reciprocalcubed\usk\reciprocal\ampere}%
+  {\meter\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
   [\volt\per\meter]%
   [\newton\per\coulomb]%
 \newscalarquantity{electricflux}%
-  {\meter\cubed\usk\kilogram\usk\second\reciprocalcubed\usk\reciprocal\ampere}%
+  {\meter\tothethree\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
   [\volt\usk\meter]%
-  [\newton\usk\meter\squared\per\coulomb]%
+  [\newton\usk\meter\tothetwo\per\coulomb]%
 \newscalarquantity{electricpotential}%
-  {\square\meter\usk\kilogram\usk\reciprocalcubic\second\usk\reciprocal\ampere}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
   [\volt]%
   [\joule\per\coulomb]%
 \newscalarquantity{electroncurrent}%
-  {\reciprocal\second}%
+  {\second\inverse}%
   [\ensuremath{\symup{e}}\per\second]%
   [\ensuremath{\symup{e}}\per\second]%
 \newscalarquantity{emf}%
-  {\square\meter\usk\kilogram\usk\reciprocalcubic\second\usk\reciprocal\ampere}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
   [\volt]%
   [\joule\per\coulomb]%
 \newscalarquantity{energy}%
-  {\meter\squared\usk\kilogram\usk\second\reciprocalsquared}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
   [\joule]% % also \newton\usk\meter
   [\joule]%
 \newscalarquantity{energydensity}%
-  {\meter\reciprocaled\usk\kilogram\usk\reciprocalsquare\second}%
-  [\joule\per\cubic\meter]%
-  [\joule\per\cubic\meter]%
+  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  [\joule\per\meter\tothethree]%
+  [\joule\per\meter\tothethree]%
 \newscalarquantity{energyflux}%
-  {\kilogram\usk\second\reciprocalcubed}%
-  [\watt\per\meter\squared]%
-  [\watt\per\meter\squared]%
+  {\kilogram\usk\second\totheinversethree}%
+  [\watt\per\meter\tothetwo]%
+  [\watt\per\meter\tothetwo]%
 \newscalarquantity{entropy}%
-  {\meter\squared\usk\kilogram\usk\second\reciprocalsquared\usk\reciprocal\kelvin}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newvectorquantity{force}%
-  {\meter\usk\kilogram\usk\second\reciprocalsquared}%
+  {\meter\usk\kilogram\usk\second\totheinversetwo}%
   [\newton]%
-  [\newton]% % also \kilogram\usk\meter\per\second\squared
+  [\newton]% % also \kilogram\usk\meter\per\second\tothetwo
 \newscalarquantity{frequency}%
-  {\reciprocal\second}%
+  {\second\inverse}%
   [\hertz]%
   [\hertz]%
 \newvectorquantity{gravitationalfield}%
-  {\meter\usk\second\reciprocalsquared}%
+  {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
 \newscalarquantity{gravitationalpotential}%
-  {\square\meter\usk\reciprocalsquare\second}%
+  {\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule\per\kilogram]%
   [\joule\per\kilogram]%
 \newvectorquantity{impulse}%
-  {\meter\usk\kilogram\usk\reciprocal\second}%
+  {\meter\usk\kilogram\usk\second\inverse}%
   [\newton\usk\second]%
   [\newton\usk\second]%
 \newscalarquantity{indexofrefraction}%
   {}%
 \newscalarquantity{inductance}%
-  {\square\meter\usk\kilogram\usk\reciprocalsquare\second\usk\reciprocalsquare\ampere}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry]%
-  [\volt\usk\second\per\ampere]% % also \square\meter\usk\kilogram\per\coulomb\squared, \Wb\per\ampere
+  [\volt\usk\second\per\ampere]% % also \square\meter\usk\kilogram\per\coulomb\tothetwo, \Wb\per\ampere
 \newscalarquantity{linearchargedensity}%
-  {\reciprocal\meter\usk\second\usk\ampere}%
+  {\meter\inverse\usk\second\usk\ampere}%
   [\coulomb\per\meter]%
   [\coulomb\per\meter]%
 \newscalarquantity{linearmassdensity}%
-  {\reciprocal\meter\usk\kilogram}%
+  {\meter\inverse\usk\kilogram}%
   [\kilogram\per\meter]%
   [\kilogram\per\meter]%
 \newscalarquantity{luminous}%
@@ -3811,114 +3945,114 @@ while t < 10:
 \newscalarquantity{magneticcharge}%
   {\meter\usk\ampere}%
 \newvectorquantity{magneticdipolemoment}%
-  {\square\meter\usk\ampere}%
-  [\ampere\usk\square\meter]%
+  {\meter\tothetwo\usk\ampere}%
+  [\ampere\usk\meter\tothetwo]%
   [\joule\per\tesla]%
 \newvectorquantity{magneticfield}%
-  {\kilogram\usk\second\reciprocalsquared\usk\reciprocal\ampere}%
+  {\kilogram\usk\second\totheinversetwo\usk\ampere\inverse}%
   [\tesla]%
-  [\newton\per\coulomb\usk(\meter\per\second)]% % also \Wb\per\meter\squared
+  [\newton\per\coulomb\usk(\meter\per\second)]% % also \Wb\per\meter\tothetwo
 \newscalarquantity{magneticflux}%
-  {\meter\squared\usk\kilogram\usk\second\reciprocalsquared\usk\reciprocal\ampere}%
-  [\tesla\usk\meter\squared]%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\ampere\inverse}%
+  [\tesla\usk\meter\tothetwo]%
   [\volt\usk\second]% % also \Wb and \joule\per\ampere
 \newscalarquantity{mass}%
   {\kilogram}%
 \newscalarquantity{mobility}%
-  {\meter\squared\usk\kilogram\usk\second\reciprocalquarted\usk\reciprocal\ampere}%
-  [\meter\squared\per\volt\usk\second]%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversefour\usk\ampere\inverse}%
+  [\meter\tothetwo\per\volt\usk\second]%
   [(\meter\per\second)\per(\newton\per\coulomb)]%
 \newscalarquantity{momentofinertia}%
-  {\meter\squared\usk\kilogram}%
-  [\joule\usk\second\squared]%
-  [\kilogram\usk\meter\squared]%
+  {\meter\tothetwo\usk\kilogram}%
+  [\joule\usk\second\tothetwo]%
+  [\kilogram\usk\meter\tothetwo]%
 \newvectorquantity{momentum}%
-  {\meter\usk\kilogram\usk\reciprocal\second}%
+  {\meter\usk\kilogram\usk\second\inverse}%
   [\newton\usk\second]%
   [\kilogram\usk\meter\per\second]%
 \newvectorquantity{momentumflux}%
-  {\reciprocal\meter\usk\kilogram\usk\second\reciprocalsquared}%
-  [\newton\per\meter\squared]%
-  [\newton\per\meter\squared]%
+  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  [\newton\per\meter\tothetwo]%
+  [\newton\per\meter\tothetwo]%
 \newscalarquantity{numberdensity}%
-  {\reciprocalcubic\meter}%
-  [\per\cubic\meter]%
-  [\per\cubic\meter]%
+  {\meter\totheinversethree}%
+  [\per\meter\tothethree]%
+  [\per\meter\tothethree]%
 \newscalarquantity{permeability}%
-  {\meter\usk\kilogram\usk\second\reciprocalsquared\usk\ampere\reciprocalsquared}%
+  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\tesla\usk\meter\per\ampere]%
   [\henry\per\meter]%
 \newscalarquantity{permittivity}%
-  {\meter\reciprocalcubed\usk\reciprocal\kilogram\usk\second\reciprocalquarted\usk\ampere\squared}%
+  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\totheinversefour\usk\ampere\tothetwo}%
   [\farad\per\meter]%
-  [\coulomb\squared\per\newton\usk\meter\squared]%
+  [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 \newscalarquantity{planeangle}%
-  {\meter\usk\reciprocal\meter}%
+  {\meter\usk\meter\inverse}%
   [\radian]%
   [\radian]%
 \newscalarquantity{polarizability}%
-  {\reciprocal\kilogram\usk\second\quarted\usk\square\ampere}%
-  [\coulomb\usk\square\meter\per\volt]%
+  {\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
+  [\coulomb\usk\meter\tothetwo\per\volt]%
   [\coulomb\usk\meter\per(\newton\per\coulomb)]%
 \newscalarquantity{power}%
-  {\meter\squared\usk\kilogram\usk\second\reciprocalcubed}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree}%
   [\watt]%
   [\joule\per\second]%
 \newvectorquantity{poynting}%
-  {\kilogram\usk\second\reciprocalcubed}%
-  [\watt\per\meter\squared]%
-  [\watt\per\meter\squared]%
+  {\kilogram\usk\second\totheinversethree}%
+  [\watt\per\meter\tothetwo]%
+  [\watt\per\meter\tothetwo]%
 \newscalarquantity{pressure}%
-  {\reciprocal\meter\usk\kilogram\usk\second\reciprocalsquared}%
+  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
   [\pascal]%
-  [\newton\per\meter\squared]%
+  [\newton\per\meter\tothetwo]%
 \newscalarquantity{relativepermeability}
   {}%
 \newscalarquantity{relativepermittivity}%
   {}%
 \newscalarquantity{resistance}%
-  {\square\meter\usk\kilogram\usk\reciprocalcubic\second\usk\reciprocalsquare\ampere}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\totheinversetwo}%
   [\volt\per\ampere]%
   [\ohm]%
 \newscalarquantity{resistivity}%
-  {\cubic\meter\usk\kilogram\usk\reciprocalcubic\second\usk\reciprocalsquare\ampere}%
+  {\meter\tothethree\usk\kilogram\usk\second\totheinversethree\usk\ampere\totheinversetwo}%
   [\ohm\usk\meter]%
-  [(\volt\per\meter)\per(\ampere\per\square\meter)]%
+  [(\volt\per\meter)\per(\ampere\per\meter\tothetwo)]%
 \newscalarquantity{solidangle}%
-  {\meter\squared\usk\reciprocalsquare\meter}%
+  {\meter\tothetwo\usk\meter\totheinversetwo}%
   [\steradian]%
   [\steradian]%
 \newscalarquantity{specificheatcapacity}%
-  {\meter\squared\usk\second\reciprocalsquared\usk\reciprocal\kelvin}%
+  {\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin\usk\kilogram]%
   [\joule\per\kelvin\usk\kilogram]
 \newscalarquantity{springstiffness}%
-  {\kilogram\usk\second\reciprocalsquared}%
+  {\kilogram\usk\second\totheinversetwo}%
   [\newton\per\meter]%
   [\newton\per\meter]%
 \newscalarquantity{springstretch}% % This is really just a displacement.
   {\meter}%
 \newscalarquantity{stress}%
-  {\reciprocal\meter\usk\kilogram\usk\second\reciprocalsquared}%
+  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
   [\pascal]%
-  [\newton\per\meter\squared]%
+  [\newton\per\meter\tothetwo]%
 \newscalarquantity{strain}%
   {}%
 \newscalarquantity{temperature}%
   {\kelvin}%
 %\ifmandi@rotradians
 %  \newphysicalquantity{torque}%
-%    {\meter\squared\usk\kilogram\usk\second\reciprocalsquared\usk\reciprocal\radian}%
+%    {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\radian\inverse}%
 %    [\newton\usk\meter\per\radian]%
 %    [\newton\usk\meter\per\radian]%
 %\else
   \newvectorquantity{torque}%
-    {\meter\squared\usk\kilogram\usk\second\reciprocalsquared}%
+    {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
     [\newton\usk\meter]%
     [\newton\usk\meter]%
 %\fi
 \newvectorquantity{velocity}%
-  {\meter\usk\reciprocal\second}%
+  {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]%
 \newvectorquantity{velocityc}%
@@ -3926,29 +4060,29 @@ while t < 10:
   []%
   [\lightspeed]%
 \newscalarquantity{volume}%
-  {\cubic\meter}%
+  {\meter\tothethree}%
 \newscalarquantity{volumechargedensity}%
-  {\reciprocalcubic\meter\usk\second\usk\ampere}%
-  [\coulomb\per\cubic\meter]%
-  [\coulomb\per\cubic\meter]%
+  {\meter\totheinversethree\usk\second\usk\ampere}%
+  [\coulomb\per\meter\tothethree]%
+  [\coulomb\per\meter\tothethree]%
 \newscalarquantity{volumemassdensity}%
-  {\meter\reciprocalcubed\usk\kilogram}%
-  [\kilogram\per\meter\cubed]%
-  [\kilogram\per\meter\cubed]%
+  {\meter\totheinversethree\usk\kilogram}%
+  [\kilogram\per\meter\tothethree]%
+  [\kilogram\per\meter\tothethree]%
 \newscalarquantity{wavelength}% % This is really just a displacement.
   {\meter}%
 \newvectorquantity{wavenumber}%
-  {\reciprocal\meter}%
+  {\meter\inverse}%
   [\per\meter]%
   [\per\meter]%
 \newscalarquantity{work}%
-  {\meter\squared\usk\kilogram\usk\second\reciprocalsquared}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
   [\joule]%
   [\newton\usk\meter]%
 \newscalarquantity{youngsmodulus}% % This is really just a stress.
-  {\reciprocal\meter\usk\kilogram\usk\second\reciprocalsquared}%
+  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
   [\pascal]%
-  [\newton\per\meter\squared]%
+  [\newton\per\meter\tothetwo]%
 %    \end{macrocode}
 %
 % Define physical constants for introductory physics, again alphabetically
@@ -3958,13 +4092,13 @@ while t < 10:
 \newphysicalconstant{avogadro}%
   {N_A}%
   {6\timestento{23}}{6.022140857\timestento{23}}%
-  {\reciprocal\mole}%
+  {\mole\inverse}%
   [\per\mole]%
   [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
   {\frac{\mu_o}{4\pi}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\reciprocalsquared\usk\ampere\reciprocalsquared}%
+  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{bohrradius}%
@@ -3974,15 +4108,15 @@ while t < 10:
 \newphysicalconstant{boltzmann}%
   {k_B}%
   {1.4\timestento{-23}}{1.38064852\timestento{-23}}%
-  {\meter\squared\usk\kilogram\usk\reciprocalsquare\second\usk\reciprocal\kelvin}%
+  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newphysicalconstant{coulombconstant}% % alias for \oofpez
   {\frac{1}{4\pi\epsilon_o}}%
   {9\timestento{9}}{8.9875517873681764\timestento{9}}%
-  {\meter\cubed\usk\kilogram\usk\reciprocalquartic\second\usk\ampere\reciprocalsquared}%
+  {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
-  [\newton\usk\meter\squared\per\coulomb\squared]%
+  [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{earthmass}%
   {M_{\symup{Earth}}}%
   {6.0\timestento{24}}{5.97237\timestento{24}}%
@@ -4041,6 +4175,12 @@ while t < 10:
   {R_{\symup{Moon}}}%
   {1.7\timestento{6}}{1.7371\timestento{6}}%
   {\meter}%
+\newphysicalconstant{mzofp}%
+  {\frac{\mu_o}{4\pi}}%
+  {\tento{-7}}{\tento{-7}}%
+  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  [\henry\per\meter]%
+  [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{neutronmass}%
   {m_n}%
   {1.7\timestento{-27}}{1.674927471\timestento{-27}}%
@@ -4048,31 +4188,31 @@ while t < 10:
 \newphysicalconstant{oofpez}%
   {\frac{1}{4\pi\epsilon_o}}%
   {9\timestento{9}}{8.987551787\timestento{9}}%
-  {\meter\cubed\usk\kilogram\usk\reciprocalquartic\second\usk\ampere\reciprocalsquared}%
+  {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
-  [\newton\usk\meter\squared\per\coulomb\squared]%
+  [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{oofpezcs}%
   {\frac{1}{4\pi\epsilon_o c^2}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\reciprocalsquared\usk\ampere\reciprocalsquared}%
-  [\tesla\usk\meter\squared]%
-  [\newton\usk\second\squared\per\coulomb\squared]%
+  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  [\tesla\usk\meter\tothetwo]%
+  [\newton\usk\second\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{planck}%
   {h}%
   {6.6\timestento{-34}}{6.626070040\timestento{-34}}%
-  {\meter\squared\usk\kilogram\usk\reciprocal\second}%
+  {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]%
 \newphysicalconstant{planckbar}%
   {\hslash}%
   {1.1\timestento{-34}}{1.054571800\timestento{-34}}%
-  {\meter\squared\usk\kilogram\usk\reciprocal\second}%
+  {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]
 \newphysicalconstant{planckc}%
   {hc}%
   {2.0\timestento{-25}}{1.98644568\timestento{-25}}%
-  {\meter\cubed\usk\kilogram\usk\reciprocalsquare\second}%
+  {\meter\tothethree\usk\kilogram\usk\second\totheinversetwo}%
   [\joule\usk\meter]%
   [\joule\usk\meter]%
 \newphysicalconstant{protoncharge}%
@@ -4094,19 +4234,19 @@ while t < 10:
 \newphysicalconstant{rydberg}%
   {R_{\infty}}%
   {1.1\timestento{7}}{1.0973731568508\timestento{7}}%
-  {\reciprocal\meter}%
+  {\meter\inverse}%
 \newphysicalconstant{speedoflight}%
   {c}%
   {3\timestento{8}}{2.99792458\timestento{8}}%
-  {\meter\usk\reciprocal\second}%
+  {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]
 \newphysicalconstant{stefanboltzmann}%
   {\sigma}%
   {5.7\timestento{-8}}{5.670367\timestento{-8}}%
-  {\kilogram\usk\second\reciprocalcubed\usk\kelvin\reciprocalquarted}%
-  [\watt\per\meter\squared\usk\kelvin\quarted]%
-  [\watt\per\meter\squared\usk\kelvin\quarted]
+  {\kilogram\usk\second\totheinversethree\usk\kelvin\totheinversefour}%
+  [\watt\per\meter\tothetwo\usk\kelvin\tothefour]%
+  [\watt\per\meter\tothetwo\usk\kelvin\tothefour]
 \newphysicalconstant{sunearthdistance}%
   {d_{\symup{SE}}}%
   {1.5\timestento{11}}{1.496\timestento{11}}%
@@ -4122,27 +4262,27 @@ while t < 10:
 \newphysicalconstant{surfacegravfield}%
   {g}%
   {9.8}{9.807}%
-  {\meter\usk\second\reciprocalsquared}%
+  {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
 \newphysicalconstant{universalgrav}%
   {G}%
   {6.7\timestento{-11}}{6.67408\timestento{-11}}%
-  {\meter\cubed\usk\reciprocal\kilogram\usk\second\reciprocalsquared}%
-  [\newton\usk\meter\squared\per\kilogram\squared]% % also \joule\usk\meter\per\kilogram\squared
-  [\newton\usk\meter\squared\per\kilogram\squared]%
+  {\meter\tothethree\usk\kilogram\inverse\usk\second\totheinversetwo}%
+  [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
+  [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
 \newphysicalconstant{vacuumpermeability}%
   {\mu_o}%
   {4\pi\timestento{-7}}{4\pi\timestento{-7}}%
-  {\meter\usk\kilogram\usk\second\reciprocalsquared\usk\ampere\reciprocalsquared}%
+  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{vacuumpermittivity}%
   {\epsilon_o}%
   {9\timestento{-12}}{8.854187817\timestento{-12}}%
-  {\meter\reciprocalcubed\usk\reciprocal\kilogram\usk\second\quarted\usk\ampere\squared}%
+  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
   [\farad\per\meter]%
-  [\coulomb\squared\per\newton\usk\meter\squared]%
+  [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 %    \end{macrocode}
 %
 % A better, intelligent coordinate-free \refCom{vec} command. Note the use of the |e{_^}|
