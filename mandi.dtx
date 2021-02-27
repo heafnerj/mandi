@@ -45,11 +45,11 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 %
 %<*mandiexp>
 \def\mandiexp@Version{3.0.0f}
-\def\mandiexp@Date{2021-02-25}
+\def\mandiexp@Date{2021-02-26}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0f}{2021-02-25}{mandiexp.sty}
+\DeclareRelease{v3.0.0f}{2021-02-26}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
 \ProvidesPackage{mandiexp}[\mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions]
 %
@@ -468,7 +468,7 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0f}{2021-02-25}{Initial release.} 
+% \changes{v3.0.0f}{2021-02-26}{Initial release.} 
 %
 % \section{Introduction}
 % This is the documentation for the \mandi,\footnote{The package name can 
@@ -1416,6 +1416,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docCommands}[%
+    doc updated = 2021-02-26,%
     doc parameter = {},%
   ]%
   {%
@@ -1445,6 +1446,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docCommands}[%
+    doc updated = 2021-02-26,%
     doc parameter = \marg{content},%
   ]%
   {%
@@ -1480,6 +1482,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docEnvironments}[%
+    doc updated = 2021-02-26,%
     doc parameter = {},%
   ]%
   {%
@@ -1559,7 +1562,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-16]{checkconstant}{\marg{name}}
+\begin{docCommand}[doc updated = 2021-02-26]{checkconstant}{\marg{name}}
   Command to check and typeset the constant's name, base units, derived 
   units, alternate units, mathematical symbol, approximate value, and 
   precise value.
@@ -1815,7 +1818,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docEnvironment}[doc updated=2021-02-11,doclang/environment content=GlowScript code]%
+\begin{docEnvironment}[doc updated = 2021-02-26,doclang/environment content=GlowScript code]%
   {glowscriptblock}{\oarg{options}(\meta{link})\marg{caption}}
   Code placed here is nicely formatted and optionally linked to its source on 
   \href{https://\gsurl}{\GlowScriptorg}. Clicking anywhere in the code window will open 
@@ -1936,7 +1939,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated=2021-02-11]{vpythonfile}{\oarg{options}\marg{file}\marg{caption}}
+\begin{docCommand}[doc updated = 2021-02-26]{vpythonfile}{\oarg{options}\marg{file}\marg{caption}}
   Command to load and typeset a \VPython\ program. The file is read from \marg{file}.
   Clicking anywhere in the code window can optionally open a link, passed as an option,
   in the default browser. A caption is mandatory, and a label is internally generated. 
@@ -1969,7 +1972,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docCommands}[%
-    doc updated = 2021-02-15,%
+    doc updated = 2021-02-26,%
   ]%
   {%
     {%
@@ -2291,7 +2294,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docEnvironments}[%
-    doc updated = 2021-02-02,%
+    doc updated = 2021-02-26,%
     doc parameter = {},%
     doclang/environment content = solution steps,%
   ]%
@@ -2327,7 +2330,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated=2012-02-02]{reason}{\marg{reason}}
+\begin{docCommand}[doc updated = 2012-02-26]{reason}{\marg{reason}}
   Provides an annotation in a step-by-step solution.
   Keep reasons short and to the point. Wrap mathematical
   content in math mode. 
@@ -2440,7 +2443,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated=2021-02-04]{image}{\oarg{options}\marg{caption}\marg{label}\marg{image}}
+\begin{docCommand}[doc updated = 2021-02-26]{image}{\oarg{options}\marg{caption}\marg{label}\marg{image}}
   Simplified interface for importing an image. The images are treated as floats,
   so they may not appear at the most logically intuitive place.
 \end{docCommand}
@@ -3243,11 +3246,11 @@ while t < 10:
 %
 %    \begin{macrocode}
 \def\mandi@Version{3.0.0f}
-\def\mandi@Date{2021-02-25}
+\def\mandi@Date{2021-02-26}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0f}{2021-02-25}{mandi.sty}
+\DeclareRelease{v3.0.0f}{2021-02-26}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 %    \end{macrocode}
@@ -3808,11 +3811,11 @@ while t < 10:
 %    [\newton\usk\meter\usk\second\per\radian]%
 %\else
   \newvectorquantity{angularimpulse}%
-    {\meter\tothetwo\usk\kilogram\usk\inverse\second}%
+    {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
     [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
     [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
   \newvectorquantity{angularmomentum}%
-    {\meter\tothetwo\usk\kilogram\usk\inverse\second}%
+    {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
     [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
     [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
 %\fi
