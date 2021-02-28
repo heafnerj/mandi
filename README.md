@@ -1,8 +1,27 @@
-mandi provides commands for introductory physics. To install, open a command
-line  and  type  the  following,  repeating 2-4 until there are no warnings:
+# mandi Version 3
 
-  1. lualatex mandi.ins  (can also use latex)
-  2. lualatex mandi.dtx  (lualatex is required)
-  3. makeindex -s gind.ist -o mandi.ind mandi.idx
-  4. makeindex -s gglo.ist -o mandi.gls mandi.glo
+This is  the home of the  mandi  LaTeX package  for introductory physics. 
+TeX Live includes mandi but not necessarily the latest version, which can 
+always be found here.
+
+TeX Live/MacTeX/MikTeX users or LaTeX package developers should fetch the 
+mandi.zip file and read the  README.md  file for manual build and install
+instructions.
+
+mandi.zip contains:
+ 
+  - README.md    (README with manual install instructions)
+  - mandi.sty    (main package file)
+  - mandiexp.sty (accessory package file)
+  - mandi.pdf    (documentation)
+  
+Students and Overleaf  users should fetch the  overleaf-project.zip  file
+and read the NnnnnnnnCCPxx.tex file for setup instructions.
+
+overleaf-project.zip contains:
+ 
+  - NnnnnnnnCCPxx.tex (document template with setup instructions)
+  - mandi.sty         (main package file)
+  - mandiexp.sty      (accessory package file)
+  - mandi.pdf         (documentation)
 

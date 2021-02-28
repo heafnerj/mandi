@@ -2,7 +2,7 @@
 
 # shell script to build zip file for CTAN and to install mandi locally
 
-# Version 2.0 2021-02-13
+# Version 2.0 2021-02-27
 #   Rewritten for mandi 3.0.0
 
 # This script should be run from the ~/Library/texmf/mandi folder.
@@ -46,12 +46,12 @@ touch NnnnnnnnCCPxx.tex
 
 # Create CTAN distribution file.
 echo Creating CTAN distribution file...
-mkdir zip                                # make new subdir
-mkdir zip/mandi                          # make new subdir
-cp README.md zip/mandi/README.md         # cp README.md
-mv mandinoreadme.dtx zip/mandi/mandi.dtx # mv and rename dtx
-mv mandinoreadme.ins zip/mandi/mandi.ins # mv and rename ins
-cp mandi.pdf zip/mandi/mandi.pdf         # cp documentation
+mkdir zip                                           # make new subdir
+mkdir zip/mandi                                     # make new subdir
+cp README.md zip/mandi/README.md                    # cp README.md
+mv mandinoreadme.dtx zip/mandi/mandi.dtx            # mv and rename dtx
+mv mandinoreadme.ins zip/mandi/mandi.ins            # mv and rename ins
+cp mandi.pdf zip/mandi/mandi.pdf                    # cp documentation
 cd zip                                             
 zip -q -r mandi.zip * -x "*.DS_Store" "*.sh" "zip/" # exclude files
 touch mandi.zip                                     # touch
@@ -100,6 +100,14 @@ cd ..
 rmdir zip
 # Cleaned up
 
+# Delete README.md since it's in the zip file, and
+# create new README.md for GitHub
+echo Making README for GitHub...
+rm README.md
+# Rename README.txt to README.md for GitHub
+cp README.txt README.md
+# README.md is now ready for GitHub
+
 # Create Overleaf zip file...
 echo Creating Overleaf zip file...
 zip -q overleaf-project.zip "mandi.pdf" "mandi.sty" "mandiexp.sty" "NnnnnnnnCCPxx.tex" -x "*.DS_Store"
@@ -107,5 +115,5 @@ touch overleaf-project.zip
 # Now these files can be given to students to use on Overleaf.
 
 # We're done
-echo "Don't forget to put this build on GitHub before making more changes."
+echo "Don't forget to push this build to GitHub before making more changes."
 echo DONE!
