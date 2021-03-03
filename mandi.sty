@@ -29,19 +29,20 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@Version{3.0.0f}
-\def\mandi@Date{2021-02-27}
+\def\mandi@Version{3.0.0g}
+\def\mandi@Date{2021-03-03}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0f}{2021-02-27}{mandi.sty}
+\DeclareRelease{v3.0.0g}{2021-03-03}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
-\ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
+\ProvidesPackage{mandi}
+  [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 \newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
 \RequirePackage{unicode-math}
 \unimathsetup{math-style=ISO}
 \unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
-\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % single-storey g everywhere. Based on Arev.
+\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % single-storey g.
 \setmathfont[Scale=MatchLowercase,range=it/]{Latin Modern Math}
 \setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]{XITS Math}
 \setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
@@ -50,22 +51,22 @@
 \setmathfont[Scale=MatchLowercase,range=    up/{greek,Greek}]{Latin Modern Math}
 \setmathfont[Scale=MatchLowercase,range=  bfup/{greek,Greek}]{Latin Modern Math}
 \setmathfont[Scale=MatchLowercase,range=bfsfup/{greek,Greek}]{Latin Modern Math}
-\RequirePackage{amsmath}                   % AMS goodness (don't load amssymb or amsfonts)
-\RequirePackage[inline]{enumitem}          % needed for physicsproblem environment
-\RequirePackage{eso-pic}                   % needed for \hilite
-\RequirePackage[g]{esvect}                 % needed for nice vector arrow, style g
-\RequirePackage{pgfopts}                   % needed for key-value interface
-\RequirePackage{array}                     % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}                     % needed for requiring LuaLaTeX
-\RequirePackage{makebox}                   % needed for consistent \dirvect; \makebox
-\RequirePackage{mathtools}                 % needed for paired delimiters; extends amsmath
-\RequirePackage{nicematrix}                % needed for column and row vectors
-\RequirePackage[most]{tcolorbox}           % needed for program listings
-\RequirePackage{tensor}                    % needed for index notation
-\RequirePackage{tikz}                      % needed for \hilite
-\usetikzlibrary{shapes,fit,tikzmark}       % needed for \hilite
-\RequirePackage{hyperref}                  % load last
-\RequireLuaTeX                             % require this engine
+\RequirePackage{amsmath}             % AMS goodness (don't load amssymb or amsfonts)
+\RequirePackage[inline]{enumitem}    % needed for physicsproblem environment
+\RequirePackage{eso-pic}             % needed for \hilite
+\RequirePackage[g]{esvect}           % needed for nice vector arrow, style g
+\RequirePackage{pgfopts}             % needed for key-value interface
+\RequirePackage{array}               % needed for \checkquantity and \checkconstant
+\RequirePackage{iftex}               % needed for requiring LuaLaTeX
+\RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
+\RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
+\RequirePackage{nicematrix}          % needed for column and row vectors
+\RequirePackage[most]{tcolorbox}     % needed for program listings
+\RequirePackage{tensor}              % needed for index notation
+\RequirePackage{tikz}                % needed for \hilite
+\usetikzlibrary{shapes,fit,tikzmark} % needed for \hilite
+\RequirePackage{hyperref}            % load last
+\RequireLuaTeX                       % require this engine
 \DeclareFontFamily{U}{esvect}{}
 \DeclareFontShape{U}{esvect}{m}{n}{%
   <-5.5> vect5
@@ -134,17 +135,18 @@
     visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
     ytitle%
   },%
-  morekeywords={print,None,TypeError},%          % additional keywords
-  morestring=[b]{"""},%                          % treat triple quotes as strings
-  numbers=left,%                                 % where to put line numbers
-  numbersep=10pt,%                               % how far line numbers are from code
-  numberstyle=\bfseries\tiny,%                   % set to 'none' for no line numbers
-  showstringspaces=false,%                       % show spaces in strings
-  showtabs=false,%                               % show tabs within strings
-  stringstyle=\gsfontfamily\color{gsgreen},%     % color for strings
-  upquote=true,%                                 % how to typeset quotes
+  morekeywords={print,None,TypeError},%      % additional keywords
+  morestring=[b]{"""},%                      % treat triple quotes as strings
+  numbers=left,%                             % where to put line numbers
+  numbersep=10pt,%                           % how far line numbers are from code
+  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
+  showstringspaces=false,%                   % show spaces in strings
+  showtabs=false,%                           % show tabs within strings
+  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
+  upquote=true,%                             % how to typeset quotes
 }%
-\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}{ O{} D(){glowscript.org} m }{%
+\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
+  { O{} D(){glowscript.org} m }{%
   breakable,%
   center,%
   code = \newpage,%
@@ -163,7 +165,8 @@
 }%
 \NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
   {List of \texttt{GlowScript} Programs}}%
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}{ O{} m m }{%
+\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
+  { O{} m m }{%
   breakable,%
   center,%
   code = \newpage,%
@@ -655,195 +658,195 @@
   [\pascal]%
   [\newton\per\meter\tothetwo]%
 \newphysicalconstant{avogadro}%
-  {N_A}%
-  {6\timestento{23}}{6.022140857\timestento{23}}%
+  {\symup{N_A}}%
+  {6\timestento{23}}{6.02214076\timestento{23}}%
   {\mole\inverse}%
   [\per\mole]%
   [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
-  {\frac{\mu_o}{4\pi}}%
+  {\symup{\frac{\mu_0}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{bohrradius}%
-  {a_0}%
+  {\symup{a_0}}%
   {5.3\timestento{-11}}{5.2917721067\timestento{-11}}%
   {\meter}%
 \newphysicalconstant{boltzmann}%
-  {k_B}%
-  {1.4\timestento{-23}}{1.38064852\timestento{-23}}%
+  {\symup{k_B}}%
+  {1.4\timestento{-23}}{1.380649\timestento{-23}}%
   {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newphysicalconstant{coulombconstant}% % alias for \oofpez
-  {\frac{1}{4\pi\epsilon_o}}%
+  {\symup{\frac{1}{4\pi\epsilon_0}}}%
   {9\timestento{9}}{8.9875517873681764\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{earthmass}%
-  {M_{\symup{Earth}}}%
+  {\symup{M_{Earth}}}%
   {6.0\timestento{24}}{5.97237\timestento{24}}%
   {\kilogram}%
 \newphysicalconstant{earthmoondistance}%
-  {d_{\symup{EM}}}%
+  {\symup{d_{EM}}}%
   {3.8\timestento{8}}{3.81550\timestento{8}}%
   {\meter}%
 \newphysicalconstant{earthradius}%
-  {R_{\symup{Earth}}}%
+  {\symup{R_{Earth}}}%
   {6.4\timestento{6}}{6.371\timestento{6}}%
   {\meter}%
 \newphysicalconstant{earthsundistance}%
-  {d_{\symup{ES}}}%
+  {\symup{d_{ES}}}%
   {1.5\timestento{11}}{1.496\timestento{11}}%
   {\meter}%
 \newphysicalconstant{electroncharge}%
-  {q_e}%
+  {\symup{q_e}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{electronCharge}%
-  {Q_e}%
+  {\symup{Q_e}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{electronmass}%
-  {m_e}%
+  {\symup{m_e}}%
   {9.1\timestento{-31}}{9.10938356\timestento{-31}}%
   {\kilogram}%
 \newphysicalconstant{elementarycharge}%
-  {e}%
-  {1.6\timestento{-19}}{1.6021766208\timestento{-19}}%
+  {\symup{e}}%
+  {1.6\timestento{-19}}{1.602176634\timestento{-19}}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{finestructure}%
-  {\alpha}%
+  {\symup{\alpha}}%
   {\frac{1}{137}}{7.2973525664\timestento{-3}}%
   {}%
 \newphysicalconstant{hydrogenmass}%
-  {m_H}%
+  {\symup{m_H}}%
   {1.7\timestento{-27}}{1.6737236\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{moonearthdistance}%
-  {d_{\symup{ME}}}%
+  {\symup{d_{ME}}}%
   {3.8\timestento{8}}{3.81550\timestento{8}}%
   {\meter}%
 \newphysicalconstant{moonmass}%
-  {M_{\symup{Moon}}}%
+  {\symup{M_{Moon}}}%
   {7.3\timestento{22}}{7.342\timestento{22}}%
   {\kilogram}%
 \newphysicalconstant{moonradius}%
-  {R_{\symup{Moon}}}%
+  {\symup{R_{Moon}}}%
   {1.7\timestento{6}}{1.7371\timestento{6}}%
   {\meter}%
 \newphysicalconstant{mzofp}%
-  {\frac{\mu_o}{4\pi}}%
+  {\symup{\frac{\mu_0}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{neutronmass}%
-  {m_n}%
+  {\symup{m_n}}%
   {1.7\timestento{-27}}{1.674927471\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{oofpez}%
-  {\frac{1}{4\pi\epsilon_o}}%
+  {\symup{\frac{1}{4\pi\epsilon_0}}}%
   {9\timestento{9}}{8.987551787\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{oofpezcs}%
-  {\frac{1}{4\pi\epsilon_o c^2}}%
+  {\symup{\frac{1}{4\pi\epsilon_0 c^2}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\newton\usk\second\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{planck}%
-  {h}%
-  {6.6\timestento{-34}}{6.626070040\timestento{-34}}%
+  {\symup{h}}%
+  {6.6\timestento{-34}}{6.62607015\timestento{-34}}%
   {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]%
 \newphysicalconstant{planckbar}%
-  {\hslash}%
-  {1.1\timestento{-34}}{1.054571800\timestento{-34}}%
+  {\symup{\lower0.18ex\hbox{\mathchar"AF}\mkern-7mu h}}%
+  {1.1\timestento{-34}}{1.054571817\timestento{-34}}%
   {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]
 \newphysicalconstant{planckc}%
-  {hc}%
-  {2.0\timestento{-25}}{1.98644568\timestento{-25}}%
+  {\symup{hc}}%
+  {2.0\timestento{-25}}{1.98644586\timestento{-25}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversetwo}%
   [\joule\usk\meter]%
   [\joule\usk\meter]%
 \newphysicalconstant{protoncharge}%
-  {q_p}%
+  {\symup{q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{protonCharge}%
-  {Q_p}%
+  {\symup{Q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{protonmass}%
-  {m_p}%
+  {\symup{m_p}}%
   {1.7\timestento{-27}}{1.672621898\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{rydberg}%
-  {R_{\infty}}%
+  {\symup{R_{\infty}}}%
   {1.1\timestento{7}}{1.0973731568508\timestento{7}}%
   {\meter\inverse}%
 \newphysicalconstant{speedoflight}%
-  {c}%
+  {\symup{c}}%
   {3\timestento{8}}{2.99792458\timestento{8}}%
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]
 \newphysicalconstant{stefanboltzmann}%
-  {\sigma}%
+  {\symup{\sigma}}%
   {5.7\timestento{-8}}{5.670367\timestento{-8}}%
   {\kilogram\usk\second\totheinversethree\usk\kelvin\totheinversefour}%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]
 \newphysicalconstant{sunearthdistance}%
-  {d_{\symup{SE}}}%
+  {\symup{d_{SE}}}%
   {1.5\timestento{11}}{1.496\timestento{11}}%
   {\meter}%
 \newphysicalconstant{sunmass}%
-  {M_{\symup{Sun}}}%
+  {\symup{M_{Sun}}}%
   {2.0\timestento{30}}{1.98855\timestento{30}}%
   {\kilogram}%
 \newphysicalconstant{sunradius}%
-  {R_{\symup{Sun}}}%
+  {\symup{R_{Sun}}}%
   {7.0\timestento{8}}{6.957\timestento{8}}%
   {\meter}%
 \newphysicalconstant{surfacegravfield}%
-  {g}%
+  {\symup{g}}%
   {9.8}{9.807}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
 \newphysicalconstant{universalgrav}%
-  {G}%
+  {\symup{G}}%
   {6.7\timestento{-11}}{6.67408\timestento{-11}}%
   {\meter\tothethree\usk\kilogram\inverse\usk\second\totheinversetwo}%
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
 \newphysicalconstant{vacuumpermeability}%
-  {\mu_o}%
+  {\symup{\mu_0}}%
   {4\pi\timestento{-7}}{4\pi\timestento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{vacuumpermittivity}%
-  {\epsilon_o}%
+  {\symup{\epsilon_0}}%
   {9\timestento{-12}}{8.854187817\timestento{-12}}%
   {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
   [\farad\per\meter]%
@@ -950,7 +953,8 @@
     \label{#4}%
   \end{figure}%
 }%
-\NewDocumentCommand{\reason}{ O{4cm} m }{&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
+\NewDocumentCommand{\reason}{ O{4cm} m }
+  {&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
 \ExplSyntaxOn
 \NewDocumentCommand{\mivector}{ O{,} m o }%
  {%

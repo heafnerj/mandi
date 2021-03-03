@@ -44,14 +44,17 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 %</readme>
 %
 %<*mandiexp>
-\def\mandiexp@Version{3.0.0f}
-\def\mandiexp@Date{2021-02-27}
+\def\mandiexp@Version{3.0.0g}
+\def\mandiexp@Date{2021-03-03}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0f}{2021-02-27}{mandiexp.sty}
+\DeclareRelease{v3.0.0g}{2021-03-03}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
-\ProvidesPackage{mandiexp}[\mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions]
+\ProvidesPackage{mandiexp}
+ [%
+ \mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions
+ ]
 %
 \newcommand*{\mandiexpversion}{v\mandiexp@Version\space dated \mandiexp@Date}
 %
@@ -151,12 +154,12 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
   _{A\symup{,sys,net}}\,\Delta t%
 }%
 \NewDocumentCommand{\angularmomentumprinciple}{ s }{%
-    \IfBooleanTF{#1}%
+  \IfBooleanTF{#1}%
     {\lhsangularmomentumprinciple* = \rhsangularmomentumprinciple*}%
     {\lhsangularmomentumprinciple = \rhsangularmomentumprinciple}%
 }%
 \NewDocumentCommand{\angularmomentumprincipleupdate}{ s }{%
-    \IfBooleanTF{#1}%
+  \IfBooleanTF{#1}%
     {\lhsangularmomentumprincipleupdate* = \rhsangularmomentumprincipleupdate*}%
     {\lhsangularmomentumprincipleupdate = \rhsangularmomentumprincipleupdate}%
 }%
@@ -376,46 +379,49 @@ while t < 10:
   doc head command = {interior style = {fill,left color = blue!15!white}},%
   doc head environment = {interior style = {fill,left color = blue!15!white}},%
   doc head key = {interior style = {fill,left color = blue!15!white}},%
-  docexample/.style = {colback = gray!10!white,sidebyside,lefthand ratio = 0.5,center},%
+  docexample/.style = {%
+      colback = gray!10!white,sidebyside,lefthand ratio = 0.5,center},%
   listing style = vpython,%
 }%
 % Redefine tcolorbox's \tcbdocnew and \tcbdocupdated defaults.
-\renewcommand*{\tcbdocnew}[1]{\textcolor{green!50!black}{\sffamily\bfseries N} #1}
-\renewcommand*{\tcbdocupdated}[1]{\textcolor{blue!75!black}{\sffamily\bfseries U} #1}
-\hypersetup{colorlinks=true}                          % colored links; no borders
+\renewcommand*{\tcbdocnew}[1]
+  {\textcolor{green!50!black}{\sffamily\bfseries N} #1}
+\renewcommand*{\tcbdocupdated}[1]
+  {\textcolor{blue!75!black}{\sffamily\bfseries U} #1}
+\hypersetup{colorlinks=true}                      % colored links; no borders
 
 %  See https://tex.stackexchange.com/q/156383/218142
-\newcommand*{\pkg}[1]{\textsf{#1}}                    % typeset package names
-\newcommand*{\mandi}{\textsf{mandi}}                  % typeset mandi
-\newcommand*{\mandiexp}{\textsf{mandiexp}}            % typeset mandi
-\newcommand*{\GlowScript}{\texttt{GlowScript}}        % typeset GlowScript
+\newcommand*{\pkg}[1]{\textsf{#1}}                  % typeset package names
+\newcommand*{\mandi}{\textsf{mandi}}                % typeset mandi
+\newcommand*{\mandiexp}{\textsf{mandiexp}}          % typeset mandi
+\newcommand*{\GlowScript}{\texttt{GlowScript}}      % typeset GlowScript
 \newcommand*{\GlowScriptorg}{\texttt{GlowScript.org}} % typeset GlowScript.org
-\newcommand*{\VPython}{\texttt{VPython}}              % typeset VPython
-\newcommand*{\VPythonorg}{\texttt{VPython.org}}       % typeset VPython.org
-\newcommand*{\gsurl}{glowscript.org}                  % GlowScript URL
-\newcommand*{\vpurl}{vpython.org}                     % VPython URL
-\newcommand*{\lualatex}{Lua\LaTeX}                    % typeset LuaLaTeX
+\newcommand*{\VPython}{\texttt{VPython}}            % typeset VPython
+\newcommand*{\VPythonorg}{\texttt{VPython.org}}     % typeset VPython.org
+\newcommand*{\gsurl}{glowscript.org}                % GlowScript URL
+\newcommand*{\vpurl}{vpython.org}                   % VPython URL
+\newcommand*{\lualatex}{Lua\LaTeX}                  % typeset LuaLaTeX
 
 % We need a new command for in-line listings to prevent overfull boxes.
 % Anything in |...| will be in small plain text.
 % Previously used !...! but that conflicts with colors.
 \lstMakeShortInline[basicstyle=\normalfont\ttfamily\small]|
 
-\DisableCrossrefs                                     % index descriptions only
-\PageIndex                                            % index refers to page numbers
-\CodelineNumbered                                     % number source lines
-\RecordChanges                                        % record changes
-\begin{document}                                      % main document
-  \DocInput{\jobname.dtx}                             %
-  \PrintIndex                                         %
-\end{document}                                        % end main document
+\DisableCrossrefs         % index descriptions only
+\PageIndex                % index refers to page numbers
+\CodelineNumbered         % number source lines
+\RecordChanges            % record changes
+\begin{document}          % main document
+  \DocInput{\jobname.dtx} %
+  \PrintIndex             %
+\end{document}            % end main document
 %</driver>
 % \fi
 %
 %  \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %    corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2458}
+% \CheckSum{2489}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -435,7 +441,8 @@ while t < 10:
 %
 % \title{The \href{https://ctan.org/pkg/mandi}{\mandi} Package}
 % \author{Paul J. Heafner%
-% (\href{mailto:heafnerj@gmail.com?subject=[Heafner]\%20mandi}{\nolinkurl{heafnerj@gmail.com}})}
+% (\href{mailto:heafnerj@gmail.com?subject=[Heafner]\%20mandi}
+%   {\nolinkurl{heafnerj@gmail.com}})}
 % \date{\today}
 %
 % \newgeometry{left=1.0in,right=1.0in,top=4.0in}
@@ -468,15 +475,16 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0f}{2021-02-27}{Initial release.} 
+% \changes{v3.0.0g}{2021-03-03}{Initial release.} 
 %
 % \section{Introduction}
 % This is the documentation for the \mandi,\footnote{The package name can 
-% be pronounced either with two syllables, to rhyme with \emph{candy}, or with 
-% three syllables, as \emph{M and I}.} which is designed primarily for students 
-% in introductory physics courses. This document serves to document what commands 
-% \mandi\ provides and does not necessarily fully demonstrate how students 
-% would use them. There is a separate document that serves that purpose.
+% be pronounced either with two syllables, to rhyme with \emph{candy}, or 
+% with three syllables, as \emph{M and I}.} which is designed primarily 
+% for students in introductory physics courses. This document serves to 
+% document what commands \mandi\ provides and does not necessarily fully 
+% demonstrate how students would use them. There is a separate document 
+% that serves that purpose.
 % 
 % \subsection{Loading the Package}
 % Load \mandi\ as you would any package in your preamble. 
@@ -581,11 +589,11 @@ while t < 10:
       doc parameter = \marg{\ensuremath{c_1,\dots,c_n}},%
     },%
   }%
-  Command for momentum and its vector variant. The default units will depend on 
-  the options passed to \mandi\ at load time. Alternate units are the default. 
-  Other units can be forced as demonstrated. The vector variant can take more 
-  than three components. Note the other variants for the quantity's value and
-  units.
+  Command for momentum and its vector variant. The default units will depend 
+  on the options passed to \mandi\ at load time. Alternate units are the 
+  default. Other units can be forced as demonstrated. The vector variant can 
+  take more than three components. Note the other variants for the quantity's 
+  value and units.
 \end{docCommands}
 \begin{dispExample}
   \momentum{5}                \\
@@ -626,10 +634,11 @@ while t < 10:
 % \subsubsection{Commands For Predefined Physical Quantities}
 % Every other defined physical quantity can be treated similarly. Just replace 
 % |momentum| with the quantity's name. Obviously, the variants that begin with 
-% |\vector| will not be defined for scalar quantities. Here are all the physical 
-% quantities, with all their units, defined in \mandi. Rememeber that units 
-% are not present with symbolic (algebraic) quantities, so do not use the |\vector| 
-% variants of these commands for symbolic components. Use \refCom{mivector} instead.
+% |\vector| will not be defined for scalar quantities. Here are all the 
+% physical quantities, with all their units, defined in \mandi. Rememeber that 
+% units are not present with symbolic (algebraic) quantities, so do not use 
+% the |\vector| variants of these commands for symbolic components. 
+% Use \refCom{mivector} instead.
 %
 %\iffalse
 %<*example>
@@ -1201,7 +1210,8 @@ while t < 10:
       doc parameter = \marg{\ensuremath{c_1,\dots,c_n}},%
     },%
     {%
-      doc name = vectorwavenumber, doc parameter = \marg{\ensuremath{c_1,\dots,c_n}},%
+      doc name = vectorwavenumber,% 
+      doc parameter = \marg{\ensuremath{c_1,\dots,c_n}},%
     },%
   }%
 \end{docCommands}
@@ -1430,11 +1440,11 @@ while t < 10:
       doc name = alwaysusealternateunits,%
     },%
   }%
-  Modal commands (switches) for setting the default unit form for the entire document. 
-  When \mandi\ is loaded, one of these three commands is executed depending on whether 
-  the optional |units| key is provided. See the section on loading the package for details. 
-  Alternate units are the default because they are the most likely ones to be seen in 
-  introductory physics textbooks.
+  Modal commands (switches) for setting the default unit form for the entire 
+  document. When \mandi\ is loaded, one of these three commands is executed 
+  depending on whether the optional |units| key is provided. See the section 
+  on loading the package for details. Alternate units are the default because 
+  they are the most likely ones to be seen in introductory physics textbooks.
 \end{docCommands}
 %\iffalse
 %</example>
@@ -1460,9 +1470,9 @@ while t < 10:
       doc name = hereusedalternateunits,%
     },%
   }%
-  Commands for setting the unit form on the fly for a single instance. The example
-  uses momentum and the Coulomb constant, but they work for any defined quantity 
-  and constant.
+  Commands for setting the unit form on the fly for a single instance. The 
+  example uses momentum and the Coulomb constant, but they work for any 
+  defined quantity and constant.
 \end{docCommands}
 \begin{dispExample}
   \hereusebaseunits{\momentum{5}}      \\
@@ -1527,19 +1537,19 @@ while t < 10:
 % Take the quantity \oofpezmathsymbol, sometimes called the 
 % \href{https://en.wikipedia.org/wiki/Coulomb_constant}{Coulomb constant}, 
 % as the prototypical 
-% \href{https://en.wikipedia.org/wiki/Physical_constant}{physical constant} in 
-% an introductory physics course. Here are all the ways to access this quantity 
-% in \mandi. As you can see, these commands are almost identical to the 
-% corresponding commands for physical quantities.
+% \href{https://en.wikipedia.org/wiki/Physical_constant}{physical constant} 
+% in an introductory physics course. Here are all the ways to access this 
+% quantity in \mandi. As you can see, these commands are almost identical 
+% to the corresponding commands for physical quantities.
 %
 %\iffalse
 %<*example>
 %\fi
 \begin{docCommand}[doc label = oofpezdemo]{oofpez}{}
-  Command for the Coulomb constant. The constant's numerical precision and default 
-  units will depend on the options passed to \mandi\ at load time. Alternate 
-  units and approximate numerical values are the defaults. Other units can be 
-  forced as demonstrated.
+  Command for the Coulomb constant. The constant's numerical precision and 
+  default units will depend on the options passed to \mandi\ at load time. 
+  Alternate units and approximate numerical values are the defaults. Other 
+  units can be forced as demonstrated.
 \end{docCommand}
 \begin{dispExample}
   \oofpez                   \\
@@ -1572,12 +1582,14 @@ while t < 10:
 %\fi
 %
 % \subsubsection{Commands For Predefined Physical Constants}
-% Every other defined physical constant can be treated similarly. Just replace 
-% |oofpez| with the constant's name. Unfortunately, there is no universal agreement 
-% on the names of every constant so consult the next section for the names that have 
-% been used. Here are all the physical constants, with all their units, defined in 
-% \mandi. The constants \refCom{coulombconstant} and \refCom{biotsavartconstant} are 
-% defined as semantic aliases for, respectively, \refCom{oofpez} and \refCom{mzofp}.
+% Every other defined physical constant can be treated similarly. Just 
+% replace |oofpez| with the constant's name. Unfortunately, there is no 
+% universal agreement on the names of every constant so consult the next 
+% section for the names that have been used. Here are all the physical 
+% constants, with all their units, defined in \mandi. 
+% The constants \refCom{coulombconstant} and \refCom{biotsavartconstant} are 
+% defined as semantic aliases for, respectively, \refCom{oofpez} and 
+% \refCom{mzofp}.
 %
 %\iffalse
 %<*example>
@@ -1703,8 +1715,10 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docCommands}[%
-    doc parameter = {\marg{name}\marg{symbol}\marg{approximate value}\marg{precise value}\marg{base units}\\
-    \oarg{derived units}\oarg{alternate units}},%
+    doc parameter = {%
+    \marg{name}\marg{symbol}\marg{approximate value}\marg{precise value}\marg{base units}\\
+    \oarg{derived units}\oarg{alternate units}%
+    },%
   ]%
   {%
     {%
@@ -1818,14 +1832,17 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docEnvironment}[doc updated = 2021-02-26,doclang/environment content=GlowScript code]%
+\begin{docEnvironment}[%
+      doc updated = 2021-02-26,doclang/environment content=GlowScript code%
+    ]%
   {glowscriptblock}{\oarg{options}(\meta{link})\marg{caption}}
   Code placed here is nicely formatted and optionally linked to its source on 
-  \href{https://\gsurl}{\GlowScriptorg}. Clicking anywhere in the code window will open 
-  the link in the default browser. A caption is mandatory, and a label is
-  internally generated. The listing always begins on a new page. A URL shortening 
-  utility is recommended to keep the URL from getting unruly. For convenience, 
-  |https://| is automatically prepended to the URL and can thus be omitted.
+  \href{https://\gsurl}{\GlowScriptorg}. Clicking anywhere in the code window 
+  will open the link in the default browser. A caption is mandatory, and a 
+  label is internally generated. The listing always begins on a new page. A 
+  URL shortening utility is recommended to keep the URL from getting unruly. 
+  For convenience, |https://| is automatically prepended to the URL and can 
+  thus be omitted.
 \end{docEnvironment}
 \begin{dispListing*}{sidebyside=false}
 \begin{glowscriptblock}(tinyurl.com/y3lnqyn3){A \texttt{GlowScript} Program}
@@ -1927,7 +1944,8 @@ while t < 10:
 %<*example>
 %\fi
 \begin{dispExample*}{sidebyside=false}
-  \GlowScript\ program \ref{gs:1} is nice. It's called \nameref{gs:1} and is on page \pageref{gs:1}.
+  \GlowScript\ program \ref{gs:1} is nice. 
+  It's called \nameref{gs:1} and is on page \pageref{gs:1}.
 \end{dispExample*}
 %  
 %\iffalse
@@ -1939,18 +1957,22 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-02-26]{vpythonfile}{\oarg{options}\marg{file}\marg{caption}}
-  Command to load and typeset a \VPython\ program. The file is read from \marg{file}.
-  Clicking anywhere in the code window can optionally open a link, passed as an option,
-  in the default browser. A caption is mandatory, and a label is internally generated. 
-  The listing always begins on a new page. A URL shortening utility is recommended to 
-  keep the URL from getting unruly. For convenience, |https://| is automatically prepended 
-  to the URL and can thus be omitted.
+\begin{docCommand}[doc updated = 2021-02-26]{vpythonfile}
+  {\oarg{options}\marg{file}\marg{caption}}
+  Command to load and typeset a \VPython\ program. The file is read from 
+  \marg{file}. Clicking anywhere in the code window can optionally open 
+  a link, passed as an option, in the default browser. A caption is mandatory, 
+  and a label is internally generated. The listing always begins on a new page. 
+  A URL shortening utility is recommended to keep the URL from getting unruly. 
+  For convenience, |https://| is automatically prepended to the URL and can 
+  thus be omitted.
 \end{docCommand}
 \begin{dispListing*}{sidebyside=false}
-\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}{A \VPython\ program}
+\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
+  {A \VPython\ program}
 \end{dispListing*}
-\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}{A \VPython\ program}
+\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
+  {A \VPython\ program}
 %\iffalse
 %</example>
 %\fi
@@ -1959,14 +1981,16 @@ while t < 10:
 %<*example>
 %\fi
 \begin{dispExample*}{sidebyside=false}
-  \VPython\ program \ref{vp:1} is nice. It's called \nameref{vp:1} and is on page \pageref{vp:1}.
+  \VPython\ program \ref{vp:1} is nice. 
+  It's called \nameref{vp:1} and is on page \pageref{vp:1}.
 \end{dispExample*}
 %  
 %\iffalse
 %</example>
 %\fi
 %
-% \subsection{The \texttt{\small glowscriptinline} and \texttt{\small vpythoninline} Commands}
+% \subsection{The \texttt{\small glowscriptinline} and 
+%   \texttt{\small vpythoninline} Commands}
 %
 %\iffalse
 %<*example>
@@ -1997,9 +2021,9 @@ while t < 10:
 %
 % \section{Commands for Writing Physics Problem Solutions}
 % \subsection{Introductory Needs}
-% \mandi\ provides a collection of commands physics students can use for writing problem
-% solutions. This new version focuses on the most frequently needed tools. These commands 
-% should always be used in math mode.
+% \mandi\ provides a collection of commands physics students can use for 
+% writing problem solutions. This new version focuses on the most frequently 
+% needed tools. These commands should always be used in math mode.
 % \subsubsection{Traditional Vector Notation}
 %
 %\iffalse
@@ -2018,12 +2042,13 @@ while t < 10:
       doc description = use this variant for arrow notation,%
     }%
   }%
-  Powerful and intelligent command for symbolic vector notation. The mandatory argument
-  is the symbol for the vector quantity. The optional label(s) consists of superscripts and/or
-  subscripts and can be mathematical or textual in nature. If textual, be sure to wrap them in
-  |\symup{...}| for proper typesetting. The starred variant gives arrow notation whereas without
-  the star you get boldface notation. Subscript and superscript labels can be arbitrarily mixed,
-  and order doesn't matter.
+  Powerful and intelligent command for symbolic vector notation. The 
+  mandatory argument is the symbol for the vector quantity. The optional 
+  label(s) consists of superscripts and/or subscripts and can be 
+  mathematical or textual in nature. If textual, be sure to wrap them in 
+  |\symup{...}| for proper typesetting. The starred variant gives arrow 
+  notation whereas without the star you get boldface notation. Subscript 
+  and superscript labels can be arbitrarily mixed, and order doesn't matter.
 \end{docCommands}
 \begin{dispExample*}{lefthand ratio=0.6}
   \( \vec{p} \)                                \\
@@ -2109,8 +2134,9 @@ while t < 10:
       doc description = use this variant for arrow notation,%
     }%
   }%
-  Command for typesetting the direction of a vector. The starred variant gives arrow notation whereas
-  without the star you get boldface notation. Subscript and superscript labels are not yet supported.
+  Command for typesetting the direction of a vector. The starred variant 
+  gives arrow notation whereas without the star you get boldface notation. 
+  Subscript and superscript labels are not yet supported.
 \end{docCommands}
 \begin{dispExample}
   \( \dirvec{r}  \) \\
@@ -2136,8 +2162,9 @@ while t < 10:
       doc description = use this variant for arrow notation,%
     }%
   }%
-  Command for typesetting the magnitude of a vector. The starred variant gives arrow notation whereas
-  without the star you get boldface notation. Subscript and superscript labels are not yet supported.
+  Command for typesetting the magnitude of a vector. The starred variant 
+  gives arrow notation whereas without the star you get boldface notation. 
+  Subscript and superscript labels are not yet supported.
 \end{docCommands}
 \begin{dispExample}
   \( \magvec{r}  \) \\
@@ -2150,12 +2177,14 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}{mivector}{\oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}}\oarg{units}}
-  Typesets a vector as either numeric or symbolic components with an optional unit (for
-  numerical components only). 
-  There can be more than three components. The delimiter used in the list of components 
-  can be specified; the default is a comma. The notation mirrors that of \emph{Matter \&
-  Interactions}.
+\begin{docCommand}{mivector}{%
+    \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}}\oarg{units}
+  }%
+  Typesets a vector as either numeric or symbolic components with an 
+  optional unit (for numerical components only). There can be more 
+  than three components. The delimiter used in the list of components 
+  can be specified; the default is a comma. The notation mirrors that of 
+  \emph{Matter \& Interactions}.
 \end{docCommand}
 \begin{dispExample*}{lefthand ratio=0.6}
   \mivector{p_0,p_1,p_2,p_3}                        \\
@@ -2196,9 +2225,9 @@ while t < 10:
 %\fi
 %
 % \subsubsection{Coordinate-Free and Index Notation}
-% Beyond the current level of introductory physics, we need intelligent commands for 
-% typesetting vector and tensor symbols and components suitable for both coordinate-free 
-% and index notations.
+% Beyond the current level of introductory physics, we need intelligent 
+% commands for typesetting vector and tensor symbols and components 
+% suitable for both coordinate-free and index notations.
 %
 %\iffalse
 %<*example>
@@ -2256,8 +2285,9 @@ while t < 10:
       doc description = use this variant for in-line lists,%
     },%
   }%
-  Provides an environment for stating physics problems. Each problem will begin
-  on a new page. See the examples for how to handle single and multiple part problems.
+  Provides an environment for stating physics problems. Each problem will 
+  begin on a new page. See the examples for how to handle single and 
+  multiple part problems.
 \end{docEnvironments}
 \begin{dispExample*}{sidebyside=false}
   \begin{physicsproblem}{Problem 1}
@@ -2392,48 +2422,68 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-06]{hilite}{\oarg{color}\marg{target}\oarg{shape}}
+\begin{docCommand}[doc new=2021-02-06]{hilite}{%
+    \oarg{color}\marg{target}\oarg{shape}
+  }%
   Hilites the desired target, which can be an entire mathematical expression 
   or a part thereof. The default color is magenta and the default shape is a
   rectangle.
 \end{docCommand} 
 \begin{dispListing*}{sidebyside=false,listing only}
   \begin{align*}
-    (\Delta s)^2 &= -(\Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rounded rectangle] + (\Delta y)^2 +
-                    (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rectangle] + (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[ellipse] + (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^{\hilite{2}[circle]} &= \hilite[green]{-}[circle](\Delta t)^{\hilite[cyan]{2}[circle]}+
-               (\Delta x)^{\hilite[orange]{2}[circle]} + (\Delta y)^{\hilite[blue!50]{2}[circle]} +
-               (\Delta z)^{\hilite[violet!45]{2}[circle]}
+    (\Delta s)^2 &= -(\Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + 
+                     (\Delta z)^2 \\
+    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rounded rectangle] + 
+                     (\Delta y)^2 + (\Delta z)^2 \\
+    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rectangle] + 
+                     (\Delta y)^2 + (\Delta z)^2 \\
+    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[ellipse] + 
+                     (\Delta y)^2 + (\Delta z)^2 \\
+    (\Delta s)^{\hilite{2}[circle]} &= \hilite[green]{-}[circle]
+                 (\Delta t)^{\hilite[cyan]{2}[circle]}+
+                 (\Delta x)^{\hilite[orange]{2}[circle]} + 
+                 (\Delta y)^{\hilite[blue!50]{2}[circle]} +
+                 (\Delta z)^{\hilite[violet!45]{2}[circle]}
   \end{align*}
 \end{dispListing*}
   \begin{align*}
-    (\Delta s)^2 &= -(\Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rounded rectangle] + (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rectangle] + (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[ellipse] + (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^{\hilite{2}[circle]} &= \hilite[green]{-}[circle](\Delta t)^{\hilite[cyan]{2}[circle]}+
-      (\Delta x)^{\hilite[orange]{2}[circle]} + (\Delta y)^{\hilite[blue!50]{2}[circle]} +
-      (\Delta z)^{\hilite[violet!45]{2}[circle]}
+    (\Delta s)^2 &= -(\Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + 
+                     (\Delta z)^2 \\
+    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rounded rectangle] + 
+                    (\Delta y)^2 + (\Delta z)^2 \\
+    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rectangle] + 
+                    (\Delta y)^2 + (\Delta z)^2 \\
+    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[ellipse] + 
+                    (\Delta y)^2 + (\Delta z)^2 \\
+    (\Delta s)^{\hilite{2}[circle]} &= \hilite[green]{-}[circle]
+                    (\Delta t)^{\hilite[cyan]{2}[circle]}+
+      (\Delta x)^{\hilite[orange]{2}[circle]} + 
+                    (\Delta y)^{\hilite[blue!50]{2}[circle]} +
+                    (\Delta z)^{\hilite[violet!45]{2}[circle]}
   \end{align*}
 \begin{dispListing*}{sidebyside=false,listing only}
   \begin{align*}
     \Dvec{p} &= \vec{F}_{\sumup{net}}\,\Delta t \\
     \hilite[orange]{\Dvec{p}}[circle] &= \vec{F}_{\symup{net}}\,\Delta t \\
-    \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}[rounded rectangle]\,\Delta t \\
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]{\Delta t}[rectangle] \\
-    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}[ellipse] \\
+    \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}
+                     [rounded rectangle]\,\Delta t \\
+    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]
+                     {\Delta t}[rectangle] \\
+    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}
+                     [ellipse] \\
     \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\,\Delta t
   \end{align*}
 \end{dispListing*}
   \begin{align*}
     \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\Delta t \\
-    \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}\,\Delta t \\
-    \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}[rounded rectangle]\,\Delta t \\
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]{\Delta t}[rectangle] \\
-    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}[ellipse] \\
+    \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}
+                     \,\Delta t \\
+    \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}
+                     [rounded rectangle]\,\Delta t \\
+    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]{\Delta t}
+                     [rectangle] \\
+    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}
+                     [ellipse] \\
     \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\,\Delta t
   \end{align*}
 %\iffalse
@@ -2443,23 +2493,32 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-02-26]{image}{\oarg{options}\marg{caption}\marg{label}\marg{image}}
-  Simplified interface for importing an image. The images are treated as floats,
-  so they may not appear at the most logically intuitive place.
+\begin{docCommand}[doc updated = 2021-02-26]{image}{%
+    \oarg{options}\marg{caption}\marg{label}\marg{image}
+  }%
+  Simplified interface for importing an image. The images are treated 
+  as floats, so they may not appear at the most logically intuitive 
+  place.
 \end{docCommand}
 \begin{dispListing*}{sidebyside=false,listing only,verbatim ignore percent}
-  \image[scale=0.20]{example-image-1x1}{Image shown 20 percent actual size.}{reffig1}
+  \image[scale=0.20]{example-image-1x1}
+    {Image shown 20 percent actual size.}{reffig1}
 \end{dispListing*}
-\image[scale=0.20]{example-image-1x1}{Image shown 20 percent actual size.}{reffig1}
+\image[scale=0.20]{example-image-1x1}
+    {Image shown 20 percent actual size.}{reffig1}
 \begin{dispExample*}{sidebyside=false}
-  Figure \ref{reffig1} is nice. It's captioned \nameref{reffig1} and is on page \pageref{reffig1}.
+  Figure \ref{reffig1} is nice. 
+  It's captioned \nameref{reffig1} and is on page \pageref{reffig1}.
 \end{dispExample*}
 \begin{dispListing*}{sidebyside=false,listing only,verbatim ignore percent}
-  \image[scale=0.20,angle=45]{example-image-1x1}{Image shown 20 percent actual size and rotated.}{reffig1}
+  \image[scale=0.20,angle=45]{example-image-1x1}
+  {Image shown 20 percent actual size and rotated.}{reffig1}
 \end{dispListing*}
-\image[scale=0.20,angle=45]{example-image-1x1}{Image shown 20 percent actual size and rotated.}{reffig2}
+\image[scale=0.20,angle=45]{example-image-1x1}
+{Image shown 20 percent actual size and rotated.}{reffig2}
 \begin{dispExample*}{sidebyside=false}
-  Figure \ref{reffig2} is nice. It's captioned \nameref{reffig2} and is on page \pageref{reffig2}.
+  Figure \ref{reffig2} is nice. 
+  It's captioned \nameref{reffig2} and is on page \pageref{reffig2}.
 \end{dispExample*}
 %\iffalse
 %</example>
@@ -3192,7 +3251,8 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{gravitationalpotentialenergy}{\oarg{label}}
+\begin{docCommand}[doc new=2021-02-13]{gravitationalpotentialenergy}
+  {\oarg{label}}
     Symbol for gravitational potential energy.
 \end{docCommand}
 \begin{dispExample*}{lefthand ratio=0.6}
@@ -3241,18 +3301,19 @@ while t < 10:
 % \fi
 % Definine the package version and date for global use, exploiting the fact
 % that in a \pkg{.sty} file there is now no need for |\makeatletter| and
-% |\makeatother|. This simplifies defining internal commands, with |@| in the name, that
-% are not for the user to know about.
+% |\makeatother|. This simplifies defining internal commands, with |@| 
+% in the name, that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@Version{3.0.0f}
-\def\mandi@Date{2021-02-27}
+\def\mandi@Version{3.0.0g}
+\def\mandi@Date{2021-03-03}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0f}{2021-02-27}{mandi.sty}
+\DeclareRelease{v3.0.0g}{2021-03-03}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
-\ProvidesPackage{mandi}[\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
+\ProvidesPackage{mandi}
+  [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
 %    \end{macrocode}
 %
 % Define a convenient package version command.
@@ -3262,8 +3323,8 @@ while t < 10:
 %    \end{macrocode}
 %
 % Set up the fonts to be consistent with ISO 80000-2 notation.
-% The \href{https://www.ctan.org/pkg/unicode-math}{\pkg{unicode-math}} package loads the 
-% \href{https://www.ctan.org/pkg/fontspec}{\pkg{fontspec}} and 
+% The \href{https://www.ctan.org/pkg/unicode-math}{\pkg{unicode-math}} package 
+% loads the \href{https://www.ctan.org/pkg/fontspec}{\pkg{fontspec}} and 
 % \href{https://www.ctan.org/pkg/xparse}{\pkg{xparse}}
 % packages. Note that \pkg{xparse} is now part of the \LaTeX\ kernel.
 % Because \pkg{unicode-math} is required, all documents using \mandi\ must
@@ -3273,24 +3334,27 @@ while t < 10:
 \RequirePackage{unicode-math}
 \unimathsetup{math-style=ISO}
 \unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
-\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % single-storey g everywhere. Based on Arev.
+\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % single-storey g.
 %    \end{macrocode}
 %
-% Use normal math letters from Latin Modern Math for familiarity with textbooks.
+% Use normal math letters from Latin Modern Math for familiarity with 
+% textbooks.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range=it/]{Latin Modern Math}
 %    \end{macrocode}
 %
 % Borrow |mathscr| and |mathbfscr| from XITS Math.\newline
-% See \href{https://tex.stackexchange.com/a/120073/218142}{https://tex.stackexchange.com/a/120073/218142}.
+% See \href{https://tex.stackexchange.com/a/120073/218142}
+%  {https://tex.stackexchange.com/a/120073/218142}.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]{XITS Math}
 %    \end{macrocode}
 %
 % Get original and bold |mathcal| fonts.\newline
-% See \href{https://tex.stackexchange.com/a/21742/218142}{https://tex.stackexchange.com/a/21742/218142}.
+% See \href{https://tex.stackexchange.com/a/21742/218142}
+%  {https://tex.stackexchange.com/a/21742/218142}.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
@@ -3309,27 +3373,28 @@ while t < 10:
 % Load third party packages, documenting why each one is needed.
 %
 %    \begin{macrocode}
-\RequirePackage{amsmath}                   % AMS goodness (don't load amssymb or amsfonts)
-\RequirePackage[inline]{enumitem}          % needed for physicsproblem environment
-\RequirePackage{eso-pic}                   % needed for \hilite
-\RequirePackage[g]{esvect}                 % needed for nice vector arrow, style g
-\RequirePackage{pgfopts}                   % needed for key-value interface
-\RequirePackage{array}                     % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}                     % needed for requiring LuaLaTeX
-\RequirePackage{makebox}                   % needed for consistent \dirvect; \makebox
-\RequirePackage{mathtools}                 % needed for paired delimiters; extends amsmath
-\RequirePackage{nicematrix}                % needed for column and row vectors
-\RequirePackage[most]{tcolorbox}           % needed for program listings
-\RequirePackage{tensor}                    % needed for index notation
-\RequirePackage{tikz}                      % needed for \hilite
-\usetikzlibrary{shapes,fit,tikzmark}       % needed for \hilite
-\RequirePackage{hyperref}                  % load last
-\RequireLuaTeX                             % require this engine
+\RequirePackage{amsmath}             % AMS goodness (don't load amssymb or amsfonts)
+\RequirePackage[inline]{enumitem}    % needed for physicsproblem environment
+\RequirePackage{eso-pic}             % needed for \hilite
+\RequirePackage[g]{esvect}           % needed for nice vector arrow, style g
+\RequirePackage{pgfopts}             % needed for key-value interface
+\RequirePackage{array}               % needed for \checkquantity and \checkconstant
+\RequirePackage{iftex}               % needed for requiring LuaLaTeX
+\RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
+\RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
+\RequirePackage{nicematrix}          % needed for column and row vectors
+\RequirePackage[most]{tcolorbox}     % needed for program listings
+\RequirePackage{tensor}              % needed for index notation
+\RequirePackage{tikz}                % needed for \hilite
+\usetikzlibrary{shapes,fit,tikzmark} % needed for \hilite
+\RequirePackage{hyperref}            % load last
+\RequireLuaTeX                       % require this engine
 %    \end{macrocode}
 %
 % Need to tweak the \href{https://www.ctan.org/pkg/esvect}{\pkg{esvect}} package 
 % fonts to get the correct font size. Code provided by |@egreg|.\newline
-% See \href{https://tex.stackexchange.com/a/566676}{https://tex.stackexchange.com/a/566676}.
+% See \href{https://tex.stackexchange.com/a/566676}
+%  {https://tex.stackexchange.com/a/566676}.
 %
 %    \begin{macrocode}
 \DeclareFontFamily{U}{esvect}{}
@@ -3354,7 +3419,8 @@ while t < 10:
 % Set up a color scheme and a new code environment for listings. The new colors 
 % are more restful on the eye. All listing commands now use 
 % \href{https://www.ctan.org/pkg/tcolorbox}{\pkg{tcolorbox}}.\newline
-% See \href{https://tex.stackexchange.com/a/529421/218142}{https://tex.stackexchange.com/a/529421/218142}.
+% See \href{https://tex.stackexchange.com/a/529421/218142}
+%  {https://tex.stackexchange.com/a/529421/218142}.
 %
 %    \begin{macrocode}
 \newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
@@ -3411,22 +3477,23 @@ while t < 10:
     visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
     ytitle%
   },%
-  morekeywords={print,None,TypeError},%          % additional keywords
-  morestring=[b]{"""},%                          % treat triple quotes as strings
-  numbers=left,%                                 % where to put line numbers
-  numbersep=10pt,%                               % how far line numbers are from code
-  numberstyle=\bfseries\tiny,%                   % set to 'none' for no line numbers
-  showstringspaces=false,%                       % show spaces in strings
-  showtabs=false,%                               % show tabs within strings
-  stringstyle=\gsfontfamily\color{gsgreen},%     % color for strings
-  upquote=true,%                                 % how to typeset quotes
+  morekeywords={print,None,TypeError},%      % additional keywords
+  morestring=[b]{"""},%                      % treat triple quotes as strings
+  numbers=left,%                             % where to put line numbers
+  numbersep=10pt,%                           % how far line numbers are from code
+  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
+  showstringspaces=false,%                   % show spaces in strings
+  showtabs=false,%                           % show tabs within strings
+  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
+  upquote=true,%                             % how to typeset quotes
 }%
 %    \end{macrocode}
 %
 % Introduce a new, more intelligent \refEnv{glowscriptblock} environment.
 %
 %    \begin{macrocode}
-\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}{ O{} D(){glowscript.org} m }{%
+\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
+  { O{} D(){glowscript.org} m }{%
   breakable,%
   center,%
   code = \newpage,%
@@ -3455,7 +3522,8 @@ while t < 10:
 % Introduce a new, more intelligent \refCom{vpythonfile} command.
 %
 %    \begin{macrocode}
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}{ O{} m m }{%
+\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
+  { O{} m m }{%
   breakable,%
   center,%
   code = \newpage,%
@@ -3503,7 +3571,8 @@ while t < 10:
 }{\lstinline[style = vpython]{#1}}%
 %    \end{macrocode}
 %
-% Define \refCom{vpythoninline}, a semantic alias for \VPython\ in-line listings.
+% Define \refCom{vpythoninline}, a semantic alias for \VPython\ 
+% in-line listings.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
@@ -3712,13 +3781,15 @@ while t < 10:
 % \href{https://www.ctan.org/pkg/pgfopts}{\pkg{pgfopts}} and 
 % \href{https://www.ctan.org/pkg/pgfkeys}{\pkg{pgfkeys}}.
 % There are two options:\newline
-% \refKey{units}, with values \docValue{base}, \docValue{derived}, or \docValue{alternate} 
-% selects the default form of units\newline
-% \refKey{preciseconstants}, with values \docValue{true} and \docValue{false}, selects precise 
-% numerical values for constants rather than approximate values. 
+% \refKey{units}, with values \docValue{base}, \docValue{derived}, or 
+% \docValue{alternate} selects the default form of units\newline
+% \refKey{preciseconstants}, with values \docValue{true} and 
+% \docValue{false}, selects precise numerical values for constants 
+% rather than approximate values. 
 %
 % First, define the keys. The key handlers require certain commands defined 
-% by the unit engine, and thus must be defined and processed after the unit engine code.
+% by the unit engine, and thus must be defined and processed after the unit 
+% engine code.
 %
 %    \begin{macrocode}
 \newif\ifusingpreciseconstants
@@ -3782,8 +3853,8 @@ while t < 10:
 %
 % Define every quantity we need in introductory physics, alphabetically
 % for convenience. This is really the core feature of \mandi\ that no other
-% package offers. There are commands for quantities that have no dimensions or units,
-% and these quantities are defined for semantic completeness.
+% package offers. There are commands for quantities that have no dimensions 
+% or units, and these quantities are defined for semantic completeness.
 %
 %    \begin{macrocode}
 \newvectorquantity{acceleration}%
@@ -4093,209 +4164,218 @@ while t < 10:
 %
 %    \begin{macrocode}
 \newphysicalconstant{avogadro}%
-  {N_A}%
-  {6\timestento{23}}{6.022140857\timestento{23}}%
+  {\symup{N_A}}%
+  {6\timestento{23}}{6.02214076\timestento{23}}%
   {\mole\inverse}%
   [\per\mole]%
   [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
-  {\frac{\mu_o}{4\pi}}%
+  {\symup{\frac{\mu_0}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{bohrradius}%
-  {a_0}%
+  {\symup{a_0}}%
   {5.3\timestento{-11}}{5.2917721067\timestento{-11}}%
   {\meter}%
 \newphysicalconstant{boltzmann}%
-  {k_B}%
-  {1.4\timestento{-23}}{1.38064852\timestento{-23}}%
+  {\symup{k_B}}%
+  {1.4\timestento{-23}}{1.380649\timestento{-23}}%
   {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newphysicalconstant{coulombconstant}% % alias for \oofpez
-  {\frac{1}{4\pi\epsilon_o}}%
+  {\symup{\frac{1}{4\pi\epsilon_0}}}%
   {9\timestento{9}}{8.9875517873681764\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{earthmass}%
-  {M_{\symup{Earth}}}%
+  {\symup{M_{Earth}}}%
   {6.0\timestento{24}}{5.97237\timestento{24}}%
   {\kilogram}%
 \newphysicalconstant{earthmoondistance}%
-  {d_{\symup{EM}}}%
+  {\symup{d_{EM}}}%
   {3.8\timestento{8}}{3.81550\timestento{8}}%
   {\meter}%
 \newphysicalconstant{earthradius}%
-  {R_{\symup{Earth}}}%
+  {\symup{R_{Earth}}}%
   {6.4\timestento{6}}{6.371\timestento{6}}%
   {\meter}%
 \newphysicalconstant{earthsundistance}%
-  {d_{\symup{ES}}}%
+  {\symup{d_{ES}}}%
   {1.5\timestento{11}}{1.496\timestento{11}}%
   {\meter}%
 \newphysicalconstant{electroncharge}%
-  {q_e}%
+  {\symup{q_e}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{electronCharge}%
-  {Q_e}%
+  {\symup{Q_e}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{electronmass}%
-  {m_e}%
+  {\symup{m_e}}%
   {9.1\timestento{-31}}{9.10938356\timestento{-31}}%
   {\kilogram}%
 \newphysicalconstant{elementarycharge}%
-  {e}%
-  {1.6\timestento{-19}}{1.6021766208\timestento{-19}}%
+  {\symup{e}}%
+  {1.6\timestento{-19}}{1.602176634\timestento{-19}}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{finestructure}%
-  {\alpha}%
+  {\symup{\alpha}}%
   {\frac{1}{137}}{7.2973525664\timestento{-3}}%
   {}%
 \newphysicalconstant{hydrogenmass}%
-  {m_H}%
+  {\symup{m_H}}%
   {1.7\timestento{-27}}{1.6737236\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{moonearthdistance}%
-  {d_{\symup{ME}}}%
+  {\symup{d_{ME}}}%
   {3.8\timestento{8}}{3.81550\timestento{8}}%
   {\meter}%
 \newphysicalconstant{moonmass}%
-  {M_{\symup{Moon}}}%
+  {\symup{M_{Moon}}}%
   {7.3\timestento{22}}{7.342\timestento{22}}%
   {\kilogram}%
 \newphysicalconstant{moonradius}%
-  {R_{\symup{Moon}}}%
+  {\symup{R_{Moon}}}%
   {1.7\timestento{6}}{1.7371\timestento{6}}%
   {\meter}%
 \newphysicalconstant{mzofp}%
-  {\frac{\mu_o}{4\pi}}%
+  {\symup{\frac{\mu_0}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{neutronmass}%
-  {m_n}%
+  {\symup{m_n}}%
   {1.7\timestento{-27}}{1.674927471\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{oofpez}%
-  {\frac{1}{4\pi\epsilon_o}}%
+  {\symup{\frac{1}{4\pi\epsilon_0}}}%
   {9\timestento{9}}{8.987551787\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{oofpezcs}%
-  {\frac{1}{4\pi\epsilon_o c^2}}%
+  {\symup{\frac{1}{4\pi\epsilon_0 c^2}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\newton\usk\second\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{planck}%
-  {h}%
-  {6.6\timestento{-34}}{6.626070040\timestento{-34}}%
+  {\symup{h}}%
+  {6.6\timestento{-34}}{6.62607015\timestento{-34}}%
   {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]%
+%    \end{macrocode}
+%
+% See \href{https://tex.stackexchange.com/a/448565/218142}
+%  {https://tex.stackexchange.com/a/448565/218142}.
+%
+%    \begin{macrocode}
 \newphysicalconstant{planckbar}%
-  {\hslash}%
-  {1.1\timestento{-34}}{1.054571800\timestento{-34}}%
+  {\symup{\lower0.18ex\hbox{\mathchar"AF}\mkern-7mu h}}%
+  {1.1\timestento{-34}}{1.054571817\timestento{-34}}%
   {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]
 \newphysicalconstant{planckc}%
-  {hc}%
-  {2.0\timestento{-25}}{1.98644568\timestento{-25}}%
+  {\symup{hc}}%
+  {2.0\timestento{-25}}{1.98644586\timestento{-25}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversetwo}%
   [\joule\usk\meter]%
   [\joule\usk\meter]%
 \newphysicalconstant{protoncharge}%
-  {q_p}%
+  {\symup{q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{protonCharge}%
-  {Q_p}%
+  {\symup{Q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{protonmass}%
-  {m_p}%
+  {\symup{m_p}}%
   {1.7\timestento{-27}}{1.672621898\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{rydberg}%
-  {R_{\infty}}%
+  {\symup{R_{\infty}}}%
   {1.1\timestento{7}}{1.0973731568508\timestento{7}}%
   {\meter\inverse}%
 \newphysicalconstant{speedoflight}%
-  {c}%
+  {\symup{c}}%
   {3\timestento{8}}{2.99792458\timestento{8}}%
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]
 \newphysicalconstant{stefanboltzmann}%
-  {\sigma}%
+  {\symup{\sigma}}%
   {5.7\timestento{-8}}{5.670367\timestento{-8}}%
   {\kilogram\usk\second\totheinversethree\usk\kelvin\totheinversefour}%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]
 \newphysicalconstant{sunearthdistance}%
-  {d_{\symup{SE}}}%
+  {\symup{d_{SE}}}%
   {1.5\timestento{11}}{1.496\timestento{11}}%
   {\meter}%
 \newphysicalconstant{sunmass}%
-  {M_{\symup{Sun}}}%
+  {\symup{M_{Sun}}}%
   {2.0\timestento{30}}{1.98855\timestento{30}}%
   {\kilogram}%
 \newphysicalconstant{sunradius}%
-  {R_{\symup{Sun}}}%
+  {\symup{R_{Sun}}}%
   {7.0\timestento{8}}{6.957\timestento{8}}%
   {\meter}%
 \newphysicalconstant{surfacegravfield}%
-  {g}%
+  {\symup{g}}%
   {9.8}{9.807}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
 \newphysicalconstant{universalgrav}%
-  {G}%
+  {\symup{G}}%
   {6.7\timestento{-11}}{6.67408\timestento{-11}}%
   {\meter\tothethree\usk\kilogram\inverse\usk\second\totheinversetwo}%
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
 \newphysicalconstant{vacuumpermeability}%
-  {\mu_o}%
+  {\symup{\mu_0}}%
   {4\pi\timestento{-7}}{4\pi\timestento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{vacuumpermittivity}%
-  {\epsilon_o}%
+  {\symup{\epsilon_0}}%
   {9\timestento{-12}}{8.854187817\timestento{-12}}%
   {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 %    \end{macrocode}
 %
-% A better, intelligent coordinate-free \refCom{vec} command. Note the use of the |e{_^}|
-% type of optional argument. This accounts for much of the flexibility and power of this command. Also
-% note the use of the \TeX\ primitives |\sb{}| and |\sp{}|.
-% Why doesn't it work when I put spaces around |#3| or |#4|?
-% Because outside of |\ExplSyntaxOn...\ExplSyntaxOff|, 
-% the |_| character has a different catcode and is treated as a mathematical entity.\newline
-% See \href{https://tex.stackexchange.com/q/554706/218142}{https://tex.stackexchange.com/q/554706/218142}.\newline
-% See also \href{https://tex.stackexchange.com/a/531037/218142}{https://tex.stackexchange.com/a/531037/218142}.
+% A better, intelligent coordinate-free \refCom{vec} command. Note the use of 
+% the |e{_^}| type of optional argument. This accounts for much of the 
+% flexibility and power of this command. Also note the use of the \TeX\ 
+% primitives |\sb{}| and |\sp{}|. Why doesn't it work when I put spaces 
+% around |#3| or |#4|? Because outside of |\ExplSyntaxOn...\ExplSyntaxOff|, 
+% the |_| character has a different catcode and is treated as a mathematical 
+% entity.\newline
+% See \href{https://tex.stackexchange.com/q/554706/218142}
+%  {https://tex.stackexchange.com/q/554706/218142}.\newline
+% See also \href{https://tex.stackexchange.com/a/531037/218142}
+%  {https://tex.stackexchange.com/a/531037/218142}.
 %
 %    \begin{macrocode}
 \RenewDocumentCommand{\vec}{ s m e{_^} }{%
@@ -4342,8 +4422,10 @@ while t < 10:
 %
 % A command for the direction of a vector.
 % We use a slight tweak is needed to get uniform hats that 
-% requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} package.\newline
-% See \href{https://tex.stackexchange.com/a/391204/218142}{https://tex.stackexchange.com/a/391204/218142}.
+% requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} 
+% package.\newline
+% See \href{https://tex.stackexchange.com/a/391204/218142}
+%  {https://tex.stackexchange.com/a/391204/218142}.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\dirvec}{ s m }{%
@@ -4371,9 +4453,10 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Intelligent commands for typesetting vector and tensor symbols and components 
-% suitable for use with both coordinate-free and index notations. Use starred form for 
-% index notation, unstarred form for coordinate-free.
+% Intelligent commands for typesetting vector and tensor symbols and 
+% components suitable for use with both coordinate-free and index 
+% notations. Use starred form for index notation, unstarred form for 
+% coordinate-free.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\veccomp}{ s m }{%
@@ -4398,7 +4481,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% An environment for problem statements. The starred version allows for 
+% An environment for problem statements. The starred version gives 
 % in-line lists.
 %
 %    \begin{macrocode}
@@ -4448,15 +4531,19 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% See \href{https://tex.stackexchange.com/q/570223/218142}{https://tex.stackexchange.com/q/570223/218142}.
+% See \href{https://tex.stackexchange.com/q/570223/218142}
+%  {https://tex.stackexchange.com/q/570223/218142}.
 %
 %    \begin{macrocode}
-\NewDocumentCommand{\reason}{ O{4cm} m }{&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
+\NewDocumentCommand{\reason}{ O{4cm} m }
+  {&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
 %    \end{macrocode}
 %
-% Notation for column and row vectors. \refCom{mivector} is a workhorse command.\newline
+% Notation for column and row vectors. \refCom{mivector} is a workhorse 
+% command.\newline
 % Orginal code provided by |@egreg|.\newline
-% See \href{https://tex.stackexchange.com/a/39054/218142}{https://tex.stackexchange.com/a/39054/218142}.
+% See \href{https://tex.stackexchange.com/a/39054/218142}
+%  {https://tex.stackexchange.com/a/39054/218142}.
 %
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -4529,13 +4616,20 @@ while t < 10:
 %
 % Command for highlighting parts of, or entire, mathematical expressions.\newline
 % Original code by anonymous user |@abcdefg|, modified by me.\newline
-%  See \href{https://texample.net/tikz/examples/beamer-arrows/}{https://texample.net/tikz/examples/beamer-arrows/}.\newline
-%  See also \href{https://tex.stackexchange.com/a/406084/218142}{https://tex.stackexchange.com/a/406084/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/570858/218142}{https://tex.stackexchange.com/a/570858/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/570789/218142}{https://tex.stackexchange.com/a/570789/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/79659/218142}{https://tex.stackexchange.com/a/79659/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/q/375032/218142}{https://tex.stackexchange.com/q/375032/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/571744/218142}{https://tex.stackexchange.com/a/571744/218142}.
+%  See \href{https://texample.net/tikz/examples/beamer-arrows/}
+%   {https://texample.net/tikz/examples/beamer-arrows/}.\newline
+%  See also \href{https://tex.stackexchange.com/a/406084/218142}
+%   {https://tex.stackexchange.com/a/406084/218142}.\newline
+%  See also \href{https://tex.stackexchange.com/a/570858/218142}
+%   {https://tex.stackexchange.com/a/570858/218142}.\newline
+%  See also \href{https://tex.stackexchange.com/a/570789/218142}
+%   {https://tex.stackexchange.com/a/570789/218142}.\newline
+%  See also \href{https://tex.stackexchange.com/a/79659/218142}
+%   {https://tex.stackexchange.com/a/79659/218142}.\newline
+%  See also \href{https://tex.stackexchange.com/q/375032/218142}
+%   {https://tex.stackexchange.com/q/375032/218142}.\newline
+%  See also \href{https://tex.stackexchange.com/a/571744/218142}%
+%   {https://tex.stackexchange.com/a/571744/218142}.
 %
 %    \begin{macrocode}
 \newcounter{tikzhighlightnode}
