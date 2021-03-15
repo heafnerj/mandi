@@ -25,8 +25,8 @@ fi
 
 echo Editing dtx and ins files...
 sed '35,45d' mandi.dtx > m1.dtx            # rm <readme> lines 35-45
-sed '271,325d' m1.dtx > m2.dtx             # rm <install> lines 271-325
-sed '272,279d' m2.dtx > mandinoreadme.dtx  # rm <internal> lines 272-279
+sed '274,328d' m1.dtx > m2.dtx             # rm <install> lines 274-328
+sed '275,282d' m2.dtx > mandinoreadme.dtx  # rm <internal> lines 275-282
 sed '63,65d' mandi.ins > mandinoreadme.ins # rm lines 63-65
 rm m1.dtx                                  # rm temp file
 rm m2.dtx                                  # rm temp file
@@ -106,6 +106,9 @@ echo Making README for GitHub...
 rm README.md
 # Rename README.txt to README.md for GitHub
 cp README.txt README.md
+echo README.md is now ready for GitHub.
+echo You need to reprocess mandi.dtx to get the old REAME.md back
+echo   before running this script again!
 # README.md is now ready for GitHub
 
 # Create Overleaf zip file...

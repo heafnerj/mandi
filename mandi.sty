@@ -29,12 +29,12 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@Version{3.0.0g}
-\def\mandi@Date{2021-03-03}
+\def\mandi@Version{3.0.0h}
+\def\mandi@Date{2021-03-14}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0g}{2021-03-03}{mandi.sty}
+\DeclareRelease{v3.0.0h}{2021-03-14}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}
   [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
@@ -158,10 +158,10 @@
   list entry = \thetcbcounter~~~~~#3,%
   listing only,%
   listing style = vpython,%
-  nameref = #3,%
+  nameref = {#3},%
   title = \texttt{GlowScript} Program \thetcbcounter: #3,%
   width = 0.9\textwidth,%
-  #1,
+  {#1},
 }%
 \NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
   {List of \texttt{GlowScript} Programs}}%
@@ -179,10 +179,10 @@
   listing file = {#2},%
   listing only,%
   listing style = vpython,%
-  nameref = #3,%
+  nameref = {#3},%
   title = \texttt{VPython} Program \thetcbcounter: #3,%
   width = 0.9\textwidth,%
-  #1,%
+  {#1},%
 }%
 \NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
   {List of \texttt{VPython} Programs}}%
@@ -664,13 +664,13 @@
   [\per\mole]%
   [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
-  {\symup{\frac{\mu_0}{4\pi}}}%
+  {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{bohrradius}%
-  {\symup{a_0}}%
+  {\symup{a_o}}%
   {5.3\timestento{-11}}{5.2917721067\timestento{-11}}%
   {\meter}%
 \newphysicalconstant{boltzmann}%
@@ -680,7 +680,7 @@
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newphysicalconstant{coulombconstant}% % alias for \oofpez
-  {\symup{\frac{1}{4\pi\epsilon_0}}}%
+  {\symup{\frac{1}{4\pi\epsilon_o}}}%
   {9\timestento{9}}{8.9875517873681764\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
@@ -744,7 +744,7 @@
   {1.7\timestento{6}}{1.7371\timestento{6}}%
   {\meter}%
 \newphysicalconstant{mzofp}%
-  {\symup{\frac{\mu_0}{4\pi}}}%
+  {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
@@ -754,13 +754,13 @@
   {1.7\timestento{-27}}{1.674927471\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{oofpez}%
-  {\symup{\frac{1}{4\pi\epsilon_0}}}%
+  {\symup{\frac{1}{4\pi\epsilon_o}}}%
   {9\timestento{9}}{8.987551787\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{oofpezcs}%
-  {\symup{\frac{1}{4\pi\epsilon_0 c^2}}}%
+  {\symup{\frac{1}{4\pi\epsilon_o c^2}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
@@ -840,13 +840,13 @@
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
 \newphysicalconstant{vacuumpermeability}%
-  {\symup{\mu_0}}%
+  {\symup{\mu_o}}%
   {4\pi\timestento{-7}}{4\pi\timestento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{vacuumpermittivity}%
-  {\symup{\epsilon_0}}%
+  {\symup{\epsilon_o}}%
   {9\timestento{-12}}{8.854187817\timestento{-12}}%
   {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
   [\farad\per\meter]%
@@ -854,8 +854,8 @@
 \RenewDocumentCommand{\vec}{ s m e{_^} }{%
   \ensuremath{%
     % Note the \, used to make superscript look better.
-    \IfBooleanTF {#1}        % check for *
-      {\vv{#2}%  % * gives an arrow
+    \IfBooleanTF {#1}
+      {\vv{#2}%      % * gives an arrow
          % Use \sp{} primitive for superscript.
          % Adjust superscript for the arrow.
          \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
@@ -869,53 +869,87 @@
     \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
   }%
 }%
+\NewDocumentCommand{\dirvec}{ s m e{_^} }{%
+  \ensuremath{%
+    \widehat{\makebox*{\(w\)}{\ensuremath{%
+      \IfBooleanTF {#1}
+        {%
+          #2
+        }%
+        {%
+          \symbfit{#2}
+        }%
+       }%
+      }%
+     }%
+    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
+    \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
+  }%
+}%
 \NewDocumentCommand{\zerovec}{ s }{%
   \IfBooleanTF {#1}
     {\vv{0}}%
     {\symbfup{0}}%
 }%
-\NewDocumentCommand{\Dvec}{ s m }{%
-  \Delta
-  \IfBooleanTF{#1}
-    {\vec*}%
-    {\vec}%
-  {#2}
-}%
-\NewDocumentCommand{\dirvec}{ s m }{%
-  \widehat{\makebox*{\(w\)}{%
-    \ensuremath{%
-      \IfBooleanTF{#1}%
-        {#2}%
-        {\symbfit{#2}}%
-      }%
-    }%
+\ExplSyntaxOn
+\NewDocumentCommand{\mivector}{ O{,} m o }%
+ {%
+   \mi_vector:nn { #1 } { #2 }
+   \IfValueT{#3}{\;{#3}}
+ }%
+\seq_new:N \l__mi_list_seq
+\cs_new_protected:Npn \mi_vector:nn #1 #2
+{%
+  \ensuremath{%
+    \seq_set_split:Nnn \l__mi_list_seq { , } { #2 }
+    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \left\langle }
+    \seq_use:Nnnn \l__mi_list_seq { #1 } { #1 } { #1 }
+    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \right\rangle }
   }%
 }%
-\NewDocumentCommand{\magvec}{ s m }{%
-  \doublebars{%
-    \IfBooleanTF{#1}
-      {\vec*}%
-      {\vec}%
-    {#2}
-  }%
+\NewDocumentCommand{\colvec}{ O{,} m }{%
+  \vector_main:nnnn { p } { \\ } { #1 } { #2 }
 }%
+\NewDocumentCommand{\rowvec}{ O{,} m }{%
+  \vector_main:nnnn { p } { & } { #1 } { #2 }
+}%
+\seq_new:N \l__vector_arg_seq
+\cs_new_protected:Npn \vector_main:nnnn #1 #2 #3 #4 {%
+  \seq_set_split:Nnn \l__vector_arg_seq { #3 } { #4 }
+  \begin{#1NiceMatrix}[r]
+    \seq_use:Nnnn \l__vector_arg_seq { #2 } { #2 } { #2 }
+  \end{#1NiceMatrix}
+}%
+\ExplSyntaxOff
+\NewDocumentCommand{\changein}{}{\Delta}
+\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
+\NewDocumentCommand{\magnitude}{}{\doublebars}
+\NewDocumentCommand{\norm}{}{\doublebars}
+\NewDocumentCommand{\absolutevalue}{}{\singlebars}
+\NewDocumentCommand{\direction}{}{\mivector}
+\NewDocumentCommand{\unitvector}{}{\mivector}
 \NewDocumentCommand{\veccomp}{ s m }{%
   % Consider renaming this to \vectorsym.
   \IfBooleanTF{#1}
-  {% We have a *.
+  {%
     \ensuremath{\symnormal{#2}}%
   }%
-  {% We don't have a *.
+  {%
     \ensuremath{\symbfit{#2}}%
   }%
 }%
 \NewDocumentCommand{\tencomp}{ s m }{%
   % Consider renaming this to \tensororsym.
   \IfBooleanTF{#1}
-  {% We have a *.
+  {%
     \ensuremath{\symsfit{#2}}%
   }%
-  {% We don't have a *.
+  {%
     \ensuremath{\symbfsfit{#2}}%
   }%
 }%
@@ -955,51 +989,9 @@
 }%
 \NewDocumentCommand{\reason}{ O{4cm} m }
   {&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
-\ExplSyntaxOn
-\NewDocumentCommand{\mivector}{ O{,} m o }%
- {%
-   \mi_vector:nn { #1 } { #2 }
-   \IfValueT{#3}{\;{#3}}
- }%
-\seq_new:N \l__mi_list_seq
-\cs_new_protected:Npn \mi_vector:nn #1 #2
-{%
-  \ensuremath{%
-    \seq_set_split:Nnn \l__mi_list_seq { , } { #2 }
-    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \left\langle }
-    \seq_use:Nnnn \l__mi_list_seq { #1 } { #1 } { #1 }
-    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \right\rangle }
-  }%
-}%
-\NewDocumentCommand{\colvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { \\ } { #1 } { #2 }
-}%
-\NewDocumentCommand{\rowvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { & } { #1 } { #2 }
-}%
-\seq_new:N \l__vector_arg_seq
-\cs_new_protected:Npn \vector_main:nnnn #1 #2 #3 #4 {%
-  \seq_set_split:Nnn \l__vector_arg_seq { #3 } { #4 }
-  \begin{#1NiceMatrix}[r]
-    \seq_use:Nnnn \l__vector_arg_seq { #2 } { #2 } { #2 }
-  \end{#1NiceMatrix}
-}%
-\ExplSyntaxOff
 \NewDocumentCommand{\tento}{ m }{\ensuremath{10^{#1}}}
 \NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
 \NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-\NewDocumentCommand{\changein}{}{\Delta}
-\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
-\NewDocumentCommand{\magnitude}{}{\doublebars}
-\NewDocumentCommand{\norm}{}{\doublebars}
-\NewDocumentCommand{\absolutevalue}{}{\singlebars}
-\NewDocumentCommand{\direction}{}{\mivector}
-\NewDocumentCommand{\unitvector}{}{\mivector}
 \newcounter{tikzhighlightnode}
 \NewDocumentCommand{\hilite}{ O{magenta!60} m O{rectangle} }{%
   \stepcounter{tikzhighlightnode}%
@@ -1019,7 +1011,7 @@
   % d[] must be used because of the way consecutive optional
   %  arguments are handled. See xparse docs for details.
   \IfBooleanTF{#1}
-  {% We have a *.
+  {%
     \IfValueTF{#2}
     {% Insert a vector, but don't show the slot.
       \smash{\makebox[1.5em]{\ensuremath{#2}}}
@@ -1028,7 +1020,7 @@
       \smash{\makebox[1.5em]{\ensuremath{}}}
     }%
   }%
-  {% We don't have a *.
+  {%
     \IfValueTF{#2}
     {% Insert a vector and show the slot.
       \underline{\smash{\makebox[1.5em]{\ensuremath{#2}}}}
@@ -1040,15 +1032,15 @@
 }%
 \NewDocumentCommand{\contraction}{ s m }{%
   \IfBooleanTF{#1}
-  {\mathsf{C}}% We have a *.
-  {\symbb{C}}% We don't have a *.
+  {\mathsf{C}}%
+  {\symbb{C}}%
   _{#2}
 }%
 \NewDocumentCommand{\dd}{ s }{%
   \mathop{}\!
   \IfBooleanTF{#1}
-  {\symbfsfup{d}}% We have a *.
-  {\symsfup{d}}% We don't have a *.
+  {\symbfsfup{d}}%
+  {\symsfup{d}}%
 }%
 \NewDocumentCommand{\valence}{ s m m }{%
   \IfBooleanTF{#1}

@@ -44,12 +44,12 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 %</readme>
 %
 %<*mandiexp>
-\def\mandiexp@Version{3.0.0g}
-\def\mandiexp@Date{2021-03-03}
+\def\mandiexp@Version{3.0.0h}
+\def\mandiexp@Date{2021-03-14}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0g}{2021-03-03}{mandiexp.sty}
+\DeclareRelease{v3.0.0h}{2021-03-14}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
 \ProvidesPackage{mandiexp}
  [%
@@ -402,6 +402,23 @@ while t < 10:
 \newcommand*{\vpurl}{vpython.org}                   % VPython URL
 \newcommand*{\lualatex}{Lua\LaTeX}                  % typeset LuaLaTeX
 
+% A customized internal hyperref tool to
+% mimic that in tcolorbox.
+\NewDocumentCommand{\setplace}{ s m }{%
+  \IfBooleanTF {#1}%
+    {\phantomsection}%
+    {}%
+  \label{#2}%    
+}%
+\NewDocumentCommand{\linktoplace}{ m m }{%
+  \hyperref[#1]{\texttt{#2}%
+    \ifnum\getpagerefnumber{#1}=\thepage\relax%
+    \else%
+      \textsuperscript{\ding{213}\,{P.}\,\pageref*{#1}}%
+    \fi%
+  }%
+}%
+
 % We need a new command for in-line listings to prevent overfull boxes.
 % Anything in |...| will be in small plain text.
 % Previously used !...! but that conflicts with colors.
@@ -421,7 +438,7 @@ while t < 10:
 %  \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %    corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2489}
+% \CheckSum{2488}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -440,9 +457,12 @@ while t < 10:
 %   Right brace   \}     Tilde         \~}
 %
 % \title{The \href{https://ctan.org/pkg/mandi}{\mandi} Package}
-% \author{Paul J. Heafner%
-% (\href{mailto:heafnerj@gmail.com?subject=[Heafner]\%20mandi}
-%   {\nolinkurl{heafnerj@gmail.com}})}
+% \author{^^A
+%    Paul J. Heafner\thanks{^^A
+%      Email: \href{mailto:heafnerj@gmail.com?subject=[Heafner]\%20mandi}
+%      {heafnerj@gmail.com}^^A
+%    }^^A
+% }^^A
 % \date{\today}
 %
 % \newgeometry{left=1.0in,right=1.0in,top=4.0in}
@@ -458,7 +478,11 @@ while t < 10:
 %   \phantomsection
 %   \addcontentsline{toc}{section}{Acknowledgements}
 %   \section*{Acknowledgements}
-%   \centerline{TO BE COMPLETED}
+%   To all of the students who have learned \LaTeX\ in my introductory
+%   physics courses over the years, I say a heartfelt thank you. You
+%   have contributed directly to the state of this software and to its
+%   use in introductory physics courses and to innovating how physics
+%   is taught. 
 %   \newpage
 %   \phantomsection
 %   \addcontentsline{toc}{section}{Change History}
@@ -475,7 +499,7 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0g}{2021-03-03}{Initial release.} 
+% \changes{v3.0.0h}{2021-03-14}{Initial release.} 
 %
 % \section{Introduction}
 % This is the documentation for the \mandi,\footnote{The package name can 
@@ -498,8 +522,6 @@ while t < 10:
 %\iffalse
 %</example>
 %\fi
-%
-% \subsection{The Package Version}
 %
 %\iffalse
 %<*example>
@@ -561,9 +583,89 @@ while t < 10:
 %</example>
 %\fi
 %
+% \newpage
+% \section{Student/Instructor Quick Guide}
+% Use \refCom{vec} to typeset the symbol for a vector. Use \refCom{magnitude}
+% to typeset the symbol for a vector's magnitude. Use \refCom{dirvec} to
+% typeset the symbol for a vector's direction. Use \refCom{changein} to
+% typeset the symbol for the change in a vector or scalar. Use 
+% \refCom{zerovec} to typeset the zero vector. Use \refCom{timestento} to
+% typeset scientific notation.
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispExample*}{lefthand ratio=0.80}
+  \( \vec{p} \) or \( \vec*{p} \) \\
+  \( \vec{p}_{\symup{final}} \) or \( \vec*{p}_{\symup{final}} \) \\
+  \( \magnitude{\vec{p}} \) or \( \magnitude*{\vec{p}_{\symup{final}}} \) \\
+  \( \dirvec{p} \) or \( \dirvec*{p} \) \\
+  \( \changein \vec{p} \) or \( \changein t \) \\
+  \( \zerovec \) or \( \zerovec* \) \\
+  \( 6.02\timestento{-19} \)
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
+%
+% Use a \linktoplace{ssec:physquants}{physical quantity's} name to typeset 
+% a magnitude and that quantity's units. If the quantity is a vector, you 
+% can add |vector| either to the beginning or the end of the quantity's 
+% name. For example, if you want momentum, use \refCom{momentum} and 
+% its variants.
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispExample}
+  \( \momentum{7.071} \) \\
+  \( \vectormomentum{3,-4,5} \) \\
+  \( \momentumvector{3,-4,5} \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+% Use a \linktoplace{ssec:physconsts}{physical constant's} name 
+% to typeset its numerical value and units. Append |mathsymbol| 
+% to the constant's name to get its mathematical symbol. For 
+% example, if you want to typeset the vacuum permittivity, use 
+% \refCom{vacuumpermittivity} and its variant.
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispExample*}{lefthand ratio=0.70}
+  \( \vacuumpermittivitymathsymbol = \vacuumpermittivity \)
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
+%
+% Use \refCom{mivector} to typeset symbolic vectors with components.
+% Use the aliases \refCom{direction} or \refCom{unitvector} to 
+% typeset a direction or unit vector.
+%\iffalse
+%<*example>
+%\fi
+\begin{dispExample*}{sidebyside=false}
+  \( \mivector{\slot,\slot,\slot} \) or \( \mivector{p_x,p_y,p_z} \) \\
+  \( \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \) or
+  \( \unitvector{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \) 
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
+%
+% Use \refEnv{glowscriptblock} to typeset a \href{https://\gsurl}{\GlowScript} 
+% program. Use \refCom{vpythonfile} to typeset a \href{https://\vpurl}{VPython}
+% program file. Use \refEnv{physicssolution} to typeset step-by-step mathematical
+% solutions.
+%
+% \newpage
 % \section{Intelligent Commands for Physical Quantities and Constants}
 % \subsection{Physical Quantities}
-% \subsubsection{Typesetting Physical Quantities}
+% \subsubsection{Typesetting Physical Quantities}\setplace{ssec:physquants}
 % Typesetting physical quantities and constants using semantically appropriate 
 % names, along with the correct 
 % \href{https://en.wikipedia.org/wiki/International_System_of_Units}{SI units}, 
@@ -1282,7 +1384,6 @@ while t < 10:
 %</example>
 %\fi
 %
-%
 % \subsubsection{Predefined Units and Constructs}
 %
 %\iffalse
@@ -1416,11 +1517,51 @@ while t < 10:
     },%
   }%
 \end{docCommands}
+\begin{dispExample}
+  \per                         \\
+  \usk                         \\
+  \unit{3}{\meter\per\second}  \\
+  \emptyunit                   \\
+  \ampere                      \\
+  \atomicmassunit              \\
+  \candela                     \\
+  \coulomb                     \\
+  \degree                      \\
+  \electronvolt                \\
+  \farad                       \\
+  \henry                       \\
+  \hertz                       \\
+  \joule                       \\
+  \kelvin                      \\
+  \kilogram                    \\
+  \lightspeed                  \\
+  \meter                       \\
+  \metre                       \\
+  \mole                        \\
+  \newton                      \\
+  \ohm                         \\
+  \pascal                      \\
+  \radian                      \\
+  \second                      \\
+  \siemens                     \\
+  \steradian                   \\
+  \tesla                       \\
+  \volt                        \\
+  \watt                        \\
+  \weber                       \\
+  \emptyunit\tothetwo          \\
+  \emptyunit\tothethree        \\
+  \emptyunit\tothefour         \\
+  \emptyunit\inverse           \\
+  \emptyunit\totheinversetwo   \\
+  \emptyunit\totheinversethree \\
+  \emptyunit\totheinversefour 
+\end{dispExample}
 %\iffalse
 %</example>
 %\fi
 %
-% \subsubsection{Setting Global Units}
+% \subsubsection{Changing Units}
 %
 %\iffalse
 %<*example>
@@ -1449,8 +1590,6 @@ while t < 10:
 %\iffalse
 %</example>
 %\fi
-%
-% \subsubsection{Setting Units for a Single Instance}
 %
 %\iffalse
 %<*example>
@@ -1485,8 +1624,6 @@ while t < 10:
 %\iffalse
 %</example>
 %\fi
-%
-% \subsubsection{Setting Units in an Environment} 
 %
 %\iffalse
 %<*example>
@@ -1533,7 +1670,7 @@ while t < 10:
 %\fi
 %
 % \subsection{Physical Constants}
-% \subsubsection{Typesetting Physical Constants}
+% \subsubsection{Typesetting Physical Constants}\setplace{ssec:physconsts}
 % Take the quantity \oofpezmathsymbol, sometimes called the 
 % \href{https://en.wikipedia.org/wiki/Coulomb_constant}{Coulomb constant}, 
 % as the prototypical 
@@ -1738,7 +1875,7 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Setting Global Precision}
+% \subsubsection{Changing Precision}
 %
 %\iffalse
 %<*example>
@@ -1762,8 +1899,6 @@ while t < 10:
 %\iffalse
 %</example>
 %\fi
-%
-% \subsubsection{Setting Precision for a Single Instance}
 %
 %\iffalse
 %<*example>
@@ -1789,8 +1924,6 @@ while t < 10:
 %\iffalse
 %</example>
 %\fi
-%
-% \subsubsection{Setting Precision in an Environment}
 %
 %\iffalse
 %<*example>
@@ -1826,6 +1959,7 @@ while t < 10:
 %</example>
 %\fi
 %
+% \newpage
 % \section{\GlowScript\ and \VPython\ Program Listings}
 % \subsection{The \texttt{\small glowscriptblock} Environment}
 %
@@ -2019,12 +2153,15 @@ while t < 10:
 %</example>
 %\fi
 %
+% \newpage
 % \section{Commands for Writing Physics Problem Solutions}
-% \subsection{Introductory Needs}
-% \mandi\ provides a collection of commands physics students can use for 
-% writing problem solutions. This new version focuses on the most frequently 
-% needed tools. These commands should always be used in math mode.
-% \subsubsection{Traditional Vector Notation}
+% In addition to the \refEnv{glowscriptblock} environment and the
+% \refCom{vpythonfile} command, the \refCom{glowscriptinline} 
+% command, and \refCom{vpythoninline} command \mandi\ provides a 
+% collection of commands physics students can use for writing problem 
+% solutions. This new version focuses on the most frequently needed 
+% tools. These commands should always be used in math mode.
+% \subsection{Traditional Vector Notation}
 %
 %\iffalse
 %<*example>
@@ -2066,63 +2203,8 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommands}
-  {%
-    {%
-      doc name = zerovec,%
-      doc description = use this variant for boldface notation,%
-    },%
-    {%
-      doc name = zerovec*,%
-      doc description = use this variant for arrow notation,%
-    },%
-  }%
-  Command for typesetting the zero vector. The starred version gives 
-  arrow notation whereas without the star you get boldface notation.
-\end{docCommands}
-\begin{dispExample}
-  \( \zerovec  \) \\
-  \( \zerovec* \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
 \begin{docCommands}[%
-    doc parameter = \marg{symbol},%
-  ]%
-  {%
-    {%
-      doc name = Dvec,%
-      doc description = use this variant for boldface notation,%
-    },%
-    {% 
-      doc name = Dvec*,%
-      doc description = use this variant for arrow notation,%
-    }%
-  }%
-  Command for typesetting the change in a vector. The starred variant gives 
-  arrow notation whereas without the star you get boldface notation. Subscript 
-  and superscript labels are not yet supported so if you need the symbol for 
-  the change in a subscripted or superscripted vector, just put
-  |\changein| in front of it. This command must be used in math mode.
-\end{docCommands}
-\begin{dispExample}
-  \( \Dvec{r}  \) \\
-  \( \Dvec*{r} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = \marg{symbol},%
+    doc parameter = \marg{symbol}\oarg{labels},%
   ]%
   {%
     {%
@@ -2134,14 +2216,18 @@ while t < 10:
       doc description = use this variant for arrow notation,%
     }%
   }%
-  Command for typesetting the direction of a vector. The starred variant 
-  gives arrow notation whereas without the star you get boldface notation. 
-  Subscript and superscript labels are not yet supported.
+  Powerful and intelligent command for typesetting the direction of 
+  a vector. The options are the same as those for \refCom{vec}.
 \end{docCommands}
-\begin{dispExample}
-  \( \dirvec{r}  \) \\
-  \( \dirvec*{r} \)
-\end{dispExample}
+\begin{dispExample*}{lefthand ratio=0.65}
+  \( \dirvec{p} \)                                \\
+  \( \dirvec{p}_{2} \)                            \\
+  \( \dirvec{p}^{\symup{ball}} \)                 \\
+  \( \dirvec{p}_{\symup{final}} \)                \\
+  \( \dirvec{p}^{\symup{ball}}_{\symup{final}} \) \\
+  \( \dirvec{p}^{\symup{final}}_{\symup{ball}} \) \\
+  \( \dirvec*{p} \)
+\end{dispExample*}
 %\iffalse
 %</example>
 %\fi
@@ -2149,26 +2235,23 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommands}[%
-    doc parameter = \marg{symbol},%
-  ]%
+\begin{docCommands}
   {%
     {%
-      doc name = magvec,%
+      doc name = zerovec,%
       doc description = use this variant for boldface notation,%
     },%
     {%
-      doc name = magvec*,%
+      doc name = zerovec*,%
       doc description = use this variant for arrow notation,%
-    }%
+    },%
   }%
-  Command for typesetting the magnitude of a vector. The starred variant 
-  gives arrow notation whereas without the star you get boldface notation. 
-  Subscript and superscript labels are not yet supported.
+  Command for typesetting the zero vector. The starred variant gives 
+  arrow notation. Without the star you get boldface notation.
 \end{docCommands}
 \begin{dispExample}
-  \( \magvec{r}  \) \\
-  \( \magvec*{r} \)
+  \( \zerovec  \) \\
+  \( \zerovec* \)
 \end{dispExample}
 %\iffalse
 %</example>
@@ -2224,7 +2307,228 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Coordinate-Free and Index Notation}
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommand}{changein}{}%
+  Semantic alias for |\Delta|.
+\end{docCommand}
+\begin{dispExample}
+ \( \changein t \) \\
+ \( \changein \vec{p} \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc new = 2021-02-21,%
+    doc parameter = \oarg{size}\marg{quantity},%
+  ]%
+  {%
+    {%
+      doc name = doublebars,%
+      doc description = double bars,%
+    },%
+    {%
+      doc name = doublebars*,%
+      doc description = double bars for fractions,%
+    },%
+    {%
+      doc name = singlebars,%
+      doc description = single bars,%
+    },%
+    {%
+      doc name = singlebars*,%
+      doc description = single bars for fractions,%
+    },%
+    {%
+      doc name = anglebrackets,%
+      doc description = angle brackets,%
+    },%
+    {%
+      doc name = anglebrackets*,%
+      doc description = angle brackets for fractions,%
+    },%
+    {%
+      doc name = parentheses,%
+      doc description = parentheses,%
+    },%
+    {%
+      doc name = parentheses*,%
+      doc description = parentheses for fractions,%
+    },%
+    {%
+      doc name = squarebrackets,%
+      doc description = square brackets,%
+    },%
+    {%
+      doc name = squarebrackets*,%
+      doc description = square brackets for fractions,%
+    },%
+    {%
+      doc name = curlybraces,%
+      doc description = curly braces,%
+    },%
+    {%
+      doc name = curlybraces*,%
+      doc description = curly braces for fractions,%
+    },%
+  }%
+  If no argument is given, a placeholder is provided. 
+  Sizers like |\big|,|\Big|,|\bigg|, and |\Bigg| can 
+  be optionally specified. Beginners are encouraged 
+  not to use them. See the 
+  \href{https://www.ctan.org/pkg/mathtools}{\pkg{mathtools}} package 
+  documentation for details. 
+\end{docCommands}
+\begin{dispExample}
+  \[ \doublebars{} \]
+  \[ \doublebars{\vec{a}} \]
+  \[ \doublebars*{\frac{\vec{a}}{3}} \]
+  \[ \doublebars[\Bigg]{\frac{\vec{a}}{3}} \]
+\end{dispExample}
+\begin{dispExample}
+  \[ \singlebars{} \]
+  \[ \singlebars{x} \]
+  \[ \singlebars*{\frac{x}{3}} \]
+  \[ \singlebars[\Bigg]{\frac{x}{3}} \]
+\end{dispExample}
+\begin{dispExample}
+  \[ \anglebrackets{} \]
+  \[ \anglebrackets{\vec{a}} \]
+  \[ \anglebrackets*{\frac{\vec{a}}{3}} \]
+  \[ \anglebrackets[\Bigg]{\frac{\vec{a}}{3}} \]
+\end{dispExample}
+\begin{dispExample}
+  \[ \parentheses{} \]
+  \[ \parentheses{x} \]
+  \[ \parentheses*{\frac{x}{3}} \]
+  \[ \parentheses[\Bigg]{\frac{x}{3}} \]
+\end{dispExample}
+\begin{dispExample}
+  \[ \squarebrackets{} \]
+  \[ \squarebrackets{x} \]
+  \[ \squarebrackets*{\frac{x}{3}} \]
+  \[ \squarebrackets[\Bigg]{\frac{x}{3}} \]
+\end{dispExample}
+\begin{dispExample}
+  \[ \curlybraces{} \]
+  \[ \curlybraces{x} \]
+  \[ \curlybraces*{\frac{x}{3}} \]
+  \[ \curlybraces[\Bigg]{\frac{x}{3}} \]
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc new = 2021-02-21,%
+    doc parameter = \oarg{size}\marg{quantity},%
+  ]%
+  {%
+    {%
+      doc name = magnitude,%
+      doc description = alias for double bars,%
+    },%
+    {%
+      doc name = magnitude*,%
+      doc description = alias for double bars for fractions,%
+    },%
+    {%
+      doc name = norm,%
+      doc description = alias for double bars,%
+    },%
+    {%
+      doc name = norm*,%
+      doc description = alias for double bars for fractions,%
+    },%
+    {%
+      doc name = absolutevalue,%
+      doc description = alias for single bars,%
+    },%
+    {%
+      doc name = absolutevalue*,%
+      doc description = alias for single bars for fractions,%
+    },%
+  }%
+  Semantic aliases. Use \refCom{magnitude} or \refCom{magnitude*} to
+  typeset the magnitude of a vector.
+\end{docCommands}
+\begin{dispExample}
+  \[ \magnitude{\vec{p}} \]
+  \[ \magnitude{\vec*{p}} \]
+  \[ \magnitude*{\vec{p}_{\symup{final}}} \]
+  \[ \magnitude*{\vec*{p}_{\symup{final}}} \]
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc parameter = \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}},%
+  ]%
+  {%
+    {%
+      doc name = colvec,%
+    },%
+    {%
+      doc name = rowvec,%
+    },%
+  }%
+  Typesets column vectors and row vectors as numeric or symbolic components. 
+  There can be more than three components. The delimiter used in the list of 
+  components can be specified; the default is a comma. Units are not 
+  supported, so these are mainly for symbolic work.
+\end{docCommands}
+\begin{dispExample}
+  \[ \colvec{1,2,3} \]
+  \[ \rowvec{1,2,3} \]
+  \[ \colvec{x_0,x_1,x_2,x_3} \]
+  \[ \rowvec{x^0,x^1,x^2,x^3} \]
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc parameter = \marg{number},%
+  ]%
+  {%
+    {%
+      doc name = tento,%
+    },%
+    {%
+      doc name = timestento,%
+    },%
+    {%
+      doc name = xtento,%
+    },%
+  }%
+  Commands for powers of ten and scientific notation.
+\end{docCommands}
+\begin{dispExample}
+ \( \tento{-4} \)      \\
+ \( 3\timestento{8} \) \\
+ \( 3\xtento{8} \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+% \subsection{Coordinate-Free and Index Notation}
 % Beyond the current level of introductory physics, we need intelligent 
 % commands for typesetting vector and tensor symbols and components 
 % suitable for both coordinate-free and index notations.
@@ -2265,7 +2569,84 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Problems and Annoted Problem Solutions}
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+  doc parameter = \marg{index}\marg{index},%
+  ]%
+  {%
+    {%
+      doc name = valence,%
+    },%
+    {%
+      doc name = valence*,%
+    },%
+  }%
+  Typesets tensor valence. The starred variant typesets it horizontally.
+\end{docCommands}
+\begin{dispExample}
+  A vector is a \( \valence{1}{0}  \) tensor. \\
+  A vector is a \( \valence*{1}{0} \) tensor.
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+  doc parameter = \marg{slot,slot},%
+  ]%
+  {%
+    {%
+      doc name = contraction,%
+    },%
+    {%
+      doc name = contraction*,%
+    },%
+  }%
+  Typesets tensor contraction in coordinate-free notation. There
+  is no standard on this so we assert one here.
+\end{docCommands}
+\begin{dispExample}
+  \( \contraction{1,2}  \) \\
+  \( \contraction*{1,2} \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}%
+  {%
+    {%
+      doc name = slot,%
+      doc parameter = \oarg{vector},%
+    },%
+    {%
+      doc name = slot*,%
+      doc parameter = \oarg{vector},%
+    },%
+  }%
+  An intelligent slot command for coordinate-free vector
+  and tensor notation. The starred variants suppress the 
+  underscore.
+\end{docCommands}
+\begin{dispExample}
+  \( (\slot)  \)          \\
+  \( (\slot[\vec{a}])  \) \\
+  \( (\slot*) \)          \\
+  \( (\slot*[\vec{a}]) \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+% \subsection{Problems and Annotated Problem Solutions}
 %
 %\iffalse
 %<*example>
@@ -2463,8 +2844,8 @@ while t < 10:
   \end{align*}
 \begin{dispListing*}{sidebyside=false,listing only}
   \begin{align*}
-    \Dvec{p} &= \vec{F}_{\sumup{net}}\,\Delta t \\
-    \hilite[orange]{\Dvec{p}}[circle] &= \vec{F}_{\symup{net}}\,\Delta t \\
+    \Delta\vec{p} &= \vec{F}_{\sumup{net}}\,\Delta t \\
+    \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}\,\Delta t \\
     \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}
                      [rounded rectangle]\,\Delta t \\
     \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]
@@ -2520,306 +2901,6 @@ while t < 10:
   Figure \ref{reffig2} is nice. 
   It's captioned \nameref{reffig2} and is on page \pageref{reffig2}.
 \end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{Intermediate and Advanced Needs}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}},%
-  ]%
-  {%
-    {%
-      doc name = colvec,%
-    },%
-    {%
-      doc name = rowvec,%
-    },%
-  }%
-  Typesets column vectors and row vectors as numeric or symbolic components. 
-  There can be more than three components. The delimiter used in the list of 
-  components can be specified; the default is a comma. 
-\end{docCommands}
-\begin{dispExample}
-  \( \colvec{1,2,3} \) \\
-  \( \rowvec{1,2,3} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc parameter = \marg{index}\marg{index},%
-  ]%
-  {%
-    {%
-      doc name = valence,%
-    },%
-    {%
-      doc name = valence*,%
-    },%
-  }%
-  Typesets tensor valence. The starred variant typesets it horizontally.
-\end{docCommands}
-\begin{dispExample}
-  A vector is a \( \valence{1}{0}  \) tensor. \\
-  A vector is a \( \valence*{1}{0} \) tensor.
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc parameter = \marg{slot,slot},%
-  ]%
-  {%
-    {%
-      doc name = contraction,%
-    },%
-    {%
-      doc name = contraction*,%
-    },%
-  }%
-  Typesets tensor contraction in coordinate-free notation. There
-  is no standard on this so we assert one here.
-\end{docCommands}
-\begin{dispExample}
-  \( \contraction{1,2}  \) \\
-  \( \contraction*{1,2} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}%
-  {%
-    {%
-      doc name = slot,%
-      doc parameter = \oarg{vector},%
-    },%
-    {%
-      doc name = slot*,%
-      doc parameter = \oarg{vector},%
-    },%
-  }%
-  An intelligent slot command for coordinate-free vector
-  and tensor notation. The starred variants suppress the 
-  underscore.
-\end{docCommands}
-\begin{dispExample}
-  \( (\slot)  \)          \\
-  \( (\slot[\vec{a}])  \) \\
-  \( (\slot*) \)          \\
-  \( (\slot*[\vec{a}]) \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{Useful Math Commands}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = \marg{number},%
-  ]%
-  {%
-    {%
-      doc name = tento,%
-    },%
-    {%
-      doc name = timestento,%
-    },%
-    {%
-      doc name = xtento,%
-    },%
-  }%
-  Commands for powers of ten and scientific notation.
-\end{docCommands}
-\begin{dispExample}
-  \tento{-4}      \\
-  3\timestento{8} \\
-  3\xtento{8}
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}{changein}{}%
-  Semantic alias for |\Delta|.
-\end{docCommand}
-\begin{dispExample}
- \( \changein t \) \\
- \( \changein \vec{p} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc new = 2021-02-21,%
-    doc parameter = \oarg{size}\marg{quantity},%
-  ]%
-  {%
-    {%
-      doc name = doublebars,%
-      doc description = double bars,%
-    },%
-    {%
-      doc name = doublebars*,%
-      doc description = double bars for fractions,%
-    },%
-    {%
-      doc name = singlebars,%
-      doc description = single bars,%
-    },%
-    {%
-      doc name = singlebars*,%
-      doc description = single bars for fractions,%
-    },%
-    {%
-      doc name = anglebrackets,%
-      doc description = angle brackets,%
-    },%
-    {%
-      doc name = anglebrackets*,%
-      doc description = angle brackets for fractions,%
-    },%
-    {%
-      doc name = parentheses,%
-      doc description = parentheses,%
-    },%
-    {%
-      doc name = parentheses*,%
-      doc description = parentheses for fractions,%
-    },%
-    {%
-      doc name = squarebrackets,%
-      doc description = square brackets,%
-    },%
-    {%
-      doc name = squarebrackets*,%
-      doc description = square brackets for fractions,%
-    },%
-    {%
-      doc name = curlybraces,%
-      doc description = curly braces,%
-    },%
-    {%
-      doc name = curlybraces*,%
-      doc description = curly braces for fractions,%
-    },%
-  }%
-  If no argument is given, a placeholder is provided. 
-  Sizers like |\big|,|\Big|,|\bigg|, and |\Bigg| can 
-  be optionally specified. Beginners are encouraged 
-  not to use them. See the 
-  \href{https://www.ctan.org/pkg/mathtools}{\pkg{mathtools}} package 
-  documentation for details. 
-\end{docCommands}
-\begin{dispExample}
-  \[ \doublebars{} \]
-  \[ \doublebars{\vec{a}} \]
-  \[ \doublebars*{\frac{\vec{a}}{3}} \]
-  \[ \doublebars[\Bigg]{\frac{\vec{a}}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \singlebars{} \]
-  \[ \singlebars{x} \]
-  \[ \singlebars*{\frac{x}{3}} \]
-  \[ \singlebars[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \anglebrackets{} \]
-  \[ \anglebrackets{\vec{a}} \]
-  \[ \anglebrackets*{\frac{\vec{a}}{3}} \]
-  \[ \anglebrackets[\Bigg]{\frac{\vec{a}}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \parentheses{} \]
-  \[ \parentheses{x} \]
-  \[ \parentheses*{\frac{x}{3}} \]
-  \[ \parentheses[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \squarebrackets{} \]
-  \[ \squarebrackets{x} \]
-  \[ \squarebrackets*{\frac{x}{3}} \]
-  \[ \squarebrackets[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \curlybraces{} \]
-  \[ \curlybraces{x} \]
-  \[ \curlybraces*{\frac{x}{3}} \]
-  \[ \curlybraces[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc new = 2021-02-21,%
-    doc parameter = \oarg{size}\marg{quantity},%
-  ]%
-  {%
-    {%
-      doc name = magnitude,%
-      doc description = alias for double bars,%
-    },%
-    {%
-      doc name = magnitude*,%
-      doc description = alias for double bars for fractions,%
-    },%
-    {%
-      doc name = norm,%
-      doc description = alias for double bars,%
-    },%
-    {%
-      doc name = norm*,%
-      doc description = alias for double bars for fractions,%
-    },%
-    {%
-      doc name = absolutevalue,%
-      doc description = alias for single bars,%
-    },%
-    {%
-      doc name = absolutevalue*,%
-      doc description = alias for single bars for fractions,%
-    },%
-  }%
-  Semantic aliases.
-\end{docCommands}
-\begin{dispExample}
-  \[ \magnitude{\vec{a}} \]
-  \[ \magnitude*{\frac{\vec{a}}{3}} \]
-  \[ \norm{\vec{a}} \]
-  \[ \norm*{\frac{\vec{a}}{3}} \]
-  \[ \absolutevalue{-a} \]
-  \[ \absolutevalue*{-\frac{a}{3}} \]
-\end{dispExample}
 %\iffalse
 %</example>
 %\fi
@@ -3305,12 +3386,12 @@ while t < 10:
 % in the name, that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@Version{3.0.0g}
-\def\mandi@Date{2021-03-03}
+\def\mandi@Version{3.0.0h}
+\def\mandi@Date{2021-03-14}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0g}{2021-03-03}{mandi.sty}
+\DeclareRelease{v3.0.0h}{2021-03-14}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}
   [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
@@ -3505,10 +3586,10 @@ while t < 10:
   list entry = \thetcbcounter~~~~~#3,%
   listing only,%
   listing style = vpython,%
-  nameref = #3,%
+  nameref = {#3},%
   title = \texttt{GlowScript} Program \thetcbcounter: #3,%
   width = 0.9\textwidth,%
-  #1,
+  {#1},
 }%
 %    \end{macrocode}
 %
@@ -3536,10 +3617,10 @@ while t < 10:
   listing file = {#2},%
   listing only,%
   listing style = vpython,%
-  nameref = #3,%
+  nameref = {#3},%
   title = \texttt{VPython} Program \thetcbcounter: #3,%
   width = 0.9\textwidth,%
-  #1,%
+  {#1},%
 }%
 %    \end{macrocode}
 %
@@ -3679,7 +3760,10 @@ while t < 10:
 \NewDocumentEnvironment{usepreciseconstants}{}{\alwaysusepreciseconstants}{}%
 %    \end{macrocode}
 %
-% Defining a new scalar quantity:
+% Defining a new scalar quantity. I am very much aware that this family of commands
+% doesn't yet correctly abide by the \LaTeX3 concept of separating document commands
+% from the programming layer. The problem is that current documentation is not
+% completely understandable to me and getting help is difficult for non-experts.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\newscalarquantity}{ m m O{#2} O{#2} }{%
@@ -3694,7 +3778,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Redefining a new scalar quantity:
+% Redefining a new scalar quantity.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }{%
@@ -3729,7 +3813,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Defining a new physical constant:
+% Defining a new physical constant.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\newphysicalconstant}{ m m m m m O{#5} O{#5} }{%
@@ -3753,7 +3837,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Redefining a new physical constant:
+% Redefining a new physical constant.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }{%
@@ -4170,13 +4254,13 @@ while t < 10:
   [\per\mole]%
   [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
-  {\symup{\frac{\mu_0}{4\pi}}}%
+  {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{bohrradius}%
-  {\symup{a_0}}%
+  {\symup{a_o}}%
   {5.3\timestento{-11}}{5.2917721067\timestento{-11}}%
   {\meter}%
 \newphysicalconstant{boltzmann}%
@@ -4186,7 +4270,7 @@ while t < 10:
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newphysicalconstant{coulombconstant}% % alias for \oofpez
-  {\symup{\frac{1}{4\pi\epsilon_0}}}%
+  {\symup{\frac{1}{4\pi\epsilon_o}}}%
   {9\timestento{9}}{8.9875517873681764\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
@@ -4250,7 +4334,7 @@ while t < 10:
   {1.7\timestento{6}}{1.7371\timestento{6}}%
   {\meter}%
 \newphysicalconstant{mzofp}%
-  {\symup{\frac{\mu_0}{4\pi}}}%
+  {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
@@ -4260,13 +4344,13 @@ while t < 10:
   {1.7\timestento{-27}}{1.674927471\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{oofpez}%
-  {\symup{\frac{1}{4\pi\epsilon_0}}}%
+  {\symup{\frac{1}{4\pi\epsilon_o}}}%
   {9\timestento{9}}{8.987551787\timestento{9}}%
   {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{oofpezcs}%
-  {\symup{\frac{1}{4\pi\epsilon_0 c^2}}}%
+  {\symup{\frac{1}{4\pi\epsilon_o c^2}}}%
   {\tento{-7}}{\tento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
@@ -4352,13 +4436,13 @@ while t < 10:
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
 \newphysicalconstant{vacuumpermeability}%
-  {\symup{\mu_0}}%
+  {\symup{\mu_o}}%
   {4\pi\timestento{-7}}{4\pi\timestento{-7}}%
   {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{vacuumpermittivity}%
-  {\symup{\epsilon_0}}%
+  {\symup{\epsilon_o}}%
   {9\timestento{-12}}{8.854187817\timestento{-12}}%
   {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
   [\farad\per\meter]%
@@ -4381,8 +4465,8 @@ while t < 10:
 \RenewDocumentCommand{\vec}{ s m e{_^} }{%
   \ensuremath{%
     % Note the \, used to make superscript look better.
-    \IfBooleanTF {#1}        % check for *
-      {\vv{#2}%  % * gives an arrow
+    \IfBooleanTF {#1}
+      {\vv{#2}%      % * gives an arrow
          % Use \sp{} primitive for superscript.
          % Adjust superscript for the arrow.
          \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
@@ -4398,6 +4482,33 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
+% A command for the direction of a vector.
+% We use a slight tweak is needed to get uniform hats that 
+% requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} 
+% package.\newline
+% See \href{https://tex.stackexchange.com/a/391204/218142}
+%  {https://tex.stackexchange.com/a/391204/218142}.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\dirvec}{ s m e{_^} }{%
+  \ensuremath{%
+    \widehat{\makebox*{\(w\)}{\ensuremath{%
+      \IfBooleanTF {#1}
+        {%
+          #2
+        }%
+        {%
+          \symbfit{#2}
+        }%
+       }%
+      }%
+     }%
+    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
+    \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}      
+  }%
+}%
+%    \end{macrocode}
+%
 % The zero vector.
 %
 %    \begin{macrocode}
@@ -4408,49 +4519,75 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% A command for the change in a vector.
+% Notation for column and row vectors. \refCom{mivector} is a workhorse 
+% command.\newline
+% Orginal code provided by |@egreg|.\newline
+% See \href{https://tex.stackexchange.com/a/39054/218142}
+%  {https://tex.stackexchange.com/a/39054/218142}.
 %
 %    \begin{macrocode}
-\NewDocumentCommand{\Dvec}{ s m }{%
-  \Delta
-  \IfBooleanTF{#1}
-    {\vec*}%
-    {\vec}%
-  {#2}
-}%
-%    \end{macrocode}
-%
-% A command for the direction of a vector.
-% We use a slight tweak is needed to get uniform hats that 
-% requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} 
-% package.\newline
-% See \href{https://tex.stackexchange.com/a/391204/218142}
-%  {https://tex.stackexchange.com/a/391204/218142}.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\dirvec}{ s m }{%
-  \widehat{\makebox*{\(w\)}{%
-    \ensuremath{%
-      \IfBooleanTF{#1}%
-        {#2}%
-        {\symbfit{#2}}%
-      }%
-    }%
+\ExplSyntaxOn
+\NewDocumentCommand{\mivector}{ O{,} m o }%
+ {%
+   \mi_vector:nn { #1 } { #2 }
+   \IfValueT{#3}{\;{#3}}
+ }%
+\seq_new:N \l__mi_list_seq
+\cs_new_protected:Npn \mi_vector:nn #1 #2
+{%
+  \ensuremath{%
+    \seq_set_split:Nnn \l__mi_list_seq { , } { #2 }
+    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \left\langle }
+    \seq_use:Nnnn \l__mi_list_seq { #1 } { #1 } { #1 }
+    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \right\rangle }
   }%
 }%
+\NewDocumentCommand{\colvec}{ O{,} m }{%
+  \vector_main:nnnn { p } { \\ } { #1 } { #2 }
+}%
+\NewDocumentCommand{\rowvec}{ O{,} m }{%
+  \vector_main:nnnn { p } { & } { #1 } { #2 }
+}%
+\seq_new:N \l__vector_arg_seq
+\cs_new_protected:Npn \vector_main:nnnn #1 #2 #3 #4 {%
+  \seq_set_split:Nnn \l__vector_arg_seq { #3 } { #4 }
+  \begin{#1NiceMatrix}[r]
+    \seq_use:Nnnn \l__vector_arg_seq { #2 } { #2 } { #2 }
+  \end{#1NiceMatrix}
+}%
+\ExplSyntaxOff
 %    \end{macrocode}
 %
-% A command for the magnitude of a vector.
+%    \begin{macrocode}
+\NewDocumentCommand{\changein}{}{\Delta}
+%    \end{macrocode}
+%
+% Intelligent delimiters provided via the 
+% \href{https://www.ctan.org/pkg/mathtools}{\pkg{mathtools}} package.
+% Use the starred variants for fractions. You can supply optional sizes. Note that
+% default placeholders are used when the argument is empty.
 %
 %    \begin{macrocode}
-\NewDocumentCommand{\magvec}{ s m }{%
-  \doublebars{%
-    \IfBooleanTF{#1}
-      {\vec*}%
-      {\vec}%
-    {#2}
-  }%
-}%
+\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
+%    \end{macrocode}
+%
+% Some semantic aliases. Because of the way \refCom{vec} and
+% \refCom{dirvec} are defined, I reluctantly decided not to
+% implement a |\magvec| command. It would require accounting
+% for too mamy options. So \refCom{magnitude} is the new
+% solution.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\magnitude}{}{\doublebars}
+\NewDocumentCommand{\norm}{}{\doublebars}
+\NewDocumentCommand{\absolutevalue}{}{\singlebars}
+\NewDocumentCommand{\direction}{}{\mivector}
+\NewDocumentCommand{\unitvector}{}{\mivector}
 %    \end{macrocode}
 %
 % Intelligent commands for typesetting vector and tensor symbols and 
@@ -4462,26 +4599,26 @@ while t < 10:
 \NewDocumentCommand{\veccomp}{ s m }{%
   % Consider renaming this to \vectorsym.
   \IfBooleanTF{#1}
-  {% We have a *.
+  {%
     \ensuremath{\symnormal{#2}}%
   }%
-  {% We don't have a *.
+  {%
     \ensuremath{\symbfit{#2}}%
   }%
 }%
 \NewDocumentCommand{\tencomp}{ s m }{%
   % Consider renaming this to \tensororsym.
   \IfBooleanTF{#1}
-  {% We have a *.
+  {%
     \ensuremath{\symsfit{#2}}%
   }%
-  {% We don't have a *.
+  {%
     \ensuremath{\symbfsfit{#2}}%
   }%
 }%
 %    \end{macrocode}
 %
-% An environment for problem statements. The starred version gives 
+% An environment for problem statements. The starred variant gives 
 % in-line lists.
 %
 %    \begin{macrocode}
@@ -4539,79 +4676,12 @@ while t < 10:
   {&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
 %    \end{macrocode}
 %
-% Notation for column and row vectors. \refCom{mivector} is a workhorse 
-% command.\newline
-% Orginal code provided by |@egreg|.\newline
-% See \href{https://tex.stackexchange.com/a/39054/218142}
-%  {https://tex.stackexchange.com/a/39054/218142}.
-%
-%    \begin{macrocode}
-\ExplSyntaxOn
-\NewDocumentCommand{\mivector}{ O{,} m o }%
- {%
-   \mi_vector:nn { #1 } { #2 }
-   \IfValueT{#3}{\;{#3}}
- }%
-\seq_new:N \l__mi_list_seq
-\cs_new_protected:Npn \mi_vector:nn #1 #2
-{%
-  \ensuremath{%
-    \seq_set_split:Nnn \l__mi_list_seq { , } { #2 }
-    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \left\langle }
-    \seq_use:Nnnn \l__mi_list_seq { #1 } { #1 } { #1 }
-    \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \right\rangle }
-  }%
-}%
-\NewDocumentCommand{\colvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { \\ } { #1 } { #2 }
-}%
-\NewDocumentCommand{\rowvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { & } { #1 } { #2 }
-}%
-\seq_new:N \l__vector_arg_seq
-\cs_new_protected:Npn \vector_main:nnnn #1 #2 #3 #4 {%
-  \seq_set_split:Nnn \l__vector_arg_seq { #3 } { #4 }
-  \begin{#1NiceMatrix}[r]
-    \seq_use:Nnnn \l__vector_arg_seq { #2 } { #2 } { #2 }
-  \end{#1NiceMatrix}
-}%
-\ExplSyntaxOff
-%    \end{macrocode}
-%
 % Commands for scientific notation.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\tento}{ m }{\ensuremath{10^{#1}}}
 \NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
 \NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\changein}{}{\Delta}
-%    \end{macrocode}
-%
-% Intelligent delimiters provided via the 
-% \href{https://www.ctan.org/pkg/mathtools}{\pkg{mathtools}} package.
-% Use the starred versions for fractions. You can supply optional sizes. Note that
-% default placeholders are used when the argument is empty.
-%
-%    \begin{macrocode}
-\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
-%    \end{macrocode}
-%
-% Some semantic aliases.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\magnitude}{}{\doublebars}
-\NewDocumentCommand{\norm}{}{\doublebars}
-\NewDocumentCommand{\absolutevalue}{}{\singlebars}
-\NewDocumentCommand{\direction}{}{\mivector}
-\NewDocumentCommand{\unitvector}{}{\mivector}
 %    \end{macrocode}
 %
 % Command for highlighting parts of, or entire, mathematical expressions.\newline
@@ -4656,7 +4726,7 @@ while t < 10:
   % d[] must be used because of the way consecutive optional
   %  arguments are handled. See xparse docs for details.
   \IfBooleanTF{#1}
-  {% We have a *.
+  {%
     \IfValueTF{#2}
     {% Insert a vector, but don't show the slot.
       \smash{\makebox[1.5em]{\ensuremath{#2}}}
@@ -4665,7 +4735,7 @@ while t < 10:
       \smash{\makebox[1.5em]{\ensuremath{}}}
     }%
   }%
-  {% We don't have a *.
+  {%
     \IfValueTF{#2}
     {% Insert a vector and show the slot.
       \underline{\smash{\makebox[1.5em]{\ensuremath{#2}}}}
@@ -4682,8 +4752,8 @@ while t < 10:
 %    \begin{macrocode}
 \NewDocumentCommand{\contraction}{ s m }{%
   \IfBooleanTF{#1}
-  {\mathsf{C}}% We have a *.
-  {\symbb{C}}% We don't have a *.
+  {\mathsf{C}}%
+  {\symbb{C}}%
   _{#2}
 }%
 %    \end{macrocode}
@@ -4694,8 +4764,8 @@ while t < 10:
 \NewDocumentCommand{\dd}{ s }{%
   \mathop{}\!
   \IfBooleanTF{#1}
-  {\symbfsfup{d}}% We have a *.
-  {\symsfup{d}}% We don't have a *.
+  {\symbfsfup{d}}%
+  {\symsfup{d}}%
 }%
 %    \end{macrocode}
 %
