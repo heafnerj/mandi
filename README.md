@@ -10,7 +10,7 @@ instructions.
 
 mandi.zip contains:
  
-  - README.md    (README with manual install instructions)
+  - README.md    (different README with manual install instructions)
   - mandi.sty    (main package file)
   - mandiexp.sty (accessory package file)
   - mandi.pdf    (documentation)
