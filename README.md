@@ -1,4 +1,4 @@
-# mandi Version 3
+# mandi Version 3.0.0j
 
 This is  the home of the  mandi  LaTeX package  for introductory physics. 
 TeX Live includes mandi but not necessarily the latest version, which can 

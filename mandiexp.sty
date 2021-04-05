@@ -29,18 +29,19 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandiexp@Version{3.0.0i}
-\def\mandiexp@Date{2021-03-18}
+\def\mandiexp@Version{3.0.0j}
+\def\mandiexp@Date{2021-04-04}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0i}{2021-03-18}{mandiexp.sty}
+\DeclareRelease{v3.0.0j}{2021-04-04}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
 \ProvidesPackage{mandiexp}
  [%
  \mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions
  ]
 \newcommand*{\mandiexpversion}{v\mandiexp@Version\space dated \mandiexp@Date}
+\RequirePackage{mandi}
 \typeout{}%
 \typeout{mandiexp: You are using mandiexp \mandiexpversion.}
 \typeout{}%

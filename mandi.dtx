@@ -46,12 +46,12 @@ The vdemo.py file is not needed.
 %</readme>
 %
 %<*mandiexp>
-\def\mandiexp@Version{3.0.0i}
-\def\mandiexp@Date{2021-03-18}
+\def\mandiexp@Version{3.0.0j}
+\def\mandiexp@Date{2021-04-04}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0i}{2021-03-18}{mandiexp.sty}
+\DeclareRelease{v3.0.0j}{2021-04-04}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
 \ProvidesPackage{mandiexp}
  [%
@@ -59,6 +59,8 @@ The vdemo.py file is not needed.
  ]
 %
 \newcommand*{\mandiexpversion}{v\mandiexp@Version\space dated \mandiexp@Date}
+%
+\RequirePackage{mandi}
 %
 \typeout{}%
 \typeout{mandiexp: You are using mandiexp \mandiexpversion.}
@@ -396,7 +398,7 @@ while t < 10:
 %  See https://tex.stackexchange.com/q/156383/218142
 \newcommand*{\pkg}[1]{\textsf{#1}}                  % typeset package names
 \newcommand*{\mandi}{\textsf{mandi}}                % typeset mandi
-\newcommand*{\mandiexp}{\textsf{mandiexp}}          % typeset mandi
+\newcommand*{\mandiexp}{\textsf{mandiexp}}          % typeset mandiexp
 \newcommand*{\GlowScript}{\texttt{GlowScript}}      % typeset GlowScript
 \newcommand*{\GlowScriptorg}{\texttt{GlowScript.org}} % typeset GlowScript.org
 \newcommand*{\VPython}{\texttt{VPython}}            % typeset VPython
@@ -441,7 +443,7 @@ while t < 10:
 % \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %   corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2488}
+% \CheckSum{2490}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -502,7 +504,7 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0i}{2021-03-18}{Initial release.} 
+% \changes{v3.0.0j}{2021-04-04}{Initial release.} 
 %
 % \section{Introduction}
 % This is the documentation for the \mandi,\footnote{The package name can 
@@ -1964,207 +1966,16 @@ while t < 10:
 %\fi
 %
 % \newpage
-% \section{\GlowScript\ and \VPython\ Program Listings}
-% \subsection{The \texttt{\small glowscriptblock} Environment}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docEnvironment}[%
-      doc updated = 2021-02-26,doclang/environment content=GlowScript code%
-    ]%
-  {glowscriptblock}{\oarg{options}(\meta{link})\marg{caption}}
-  Code placed here is nicely formatted and optionally linked to its source on 
-  \href{https://\gsurl}{\GlowScriptorg}. Clicking anywhere in the code window 
-  will open the link in the default browser. A caption is mandatory, and a 
-  label is internally generated. The listing always begins on a new page. A 
-  URL shortening utility is recommended to keep the URL from getting unruly. 
-  For convenience, |https://| is automatically prepended to the URL and can 
-  thus be omitted.
-\end{docEnvironment}
-\begin{dispListing*}{sidebyside=false}
-\begin{glowscriptblock}(tinyurl.com/y3lnqyn3){A \texttt{GlowScript} Program}
-GlowScript 3.0 vpython
-
-scene.width = 400
-scene.height = 760
-# constants and data
-g = 9.8       # m/s^2
-mball = 0.03  # kg
-Lo = 0.26     # m
-ks = 1.8      # N/m
-deltat = 0.01 # s
-
-# objects (origin is at ceiling)
-ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
-              width=0.2)
-ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
-              color=color.orange)
-spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
-               color=color.cyan,thickness=0.003,coils=40,
-               radius=0.010)
-
-# initial values
-pball = mball * vector(0,0,0)      # kg m/s
-Fgrav = mball * g * vector(0,-1,0) # N
-t = 0
-
-# improve the display
-scene.autoscale = False        # turn off automatic camera zoom
-scene.center = vector(0,-Lo,0) # move camera down
-scene.waitfor('click')         # wait for a mouse click
-
-# initial calculation loop
-# calculation loop
-while t < 10:
-    rate(100)
-    # we need the stretch
-    s = mag(ball.pos) - Lo
-    # we need the spring force
-    Fspring = ks * s * -norm(spring.axis)
-    Fnet = Fgrav + Fspring
-    pball = pball + Fnet * deltat
-    ball.pos = ball.pos + (pball / mball) * deltat
-    spring.axis = ball.pos - ceiling.pos
-    t = t + deltat
-\end{glowscriptblock}
-\end{dispListing*}
-\begin{glowscriptblock}(tinyurl.com/y3lnqyn3){A \texttt{GlowScript} program}
-GlowScript 3.0 vpython
-
-scene.width = 400
-scene.height = 760
-# constants and data
-g = 9.8       # m/s^2
-mball = 0.03  # kg
-Lo = 0.26     # m
-ks = 1.8      # N/m
-deltat = 0.01 # s
-
-# objects (origin is at ceiling)
-ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
-              width=0.2)
-ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
-              color=color.orange)
-spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
-               color=color.cyan,thickness=0.003,coils=40,
-               radius=0.010)
-
-# initial values
-pball = mball * vector(0,0,0)      # kg m/s
-Fgrav = mball * g * vector(0,-1,0) # N
-t = 0
-
-# improve the display
-scene.autoscale = False        # turn off automatic camera zoom
-scene.center = vector(0,-Lo,0) # move camera down
-scene.waitfor('click')         # wait for a mouse click
-
-# initial calculation loop
-# calculation loop
-while t < 10:
-    rate(100)
-    # we need the stretch
-    s = mag(ball.pos) - Lo
-    # we need the spring force
-    Fspring = ks * s * -norm(spring.axis)
-    Fnet = Fgrav + Fspring
-    pball = pball + Fnet * deltat
-    ball.pos = ball.pos + (pball / mball) * deltat
-    spring.axis = ball.pos - ceiling.pos
-    t = t + deltat
-\end{glowscriptblock}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{dispExample*}{sidebyside=false}
-  \GlowScript\ program \ref{gs:1} is nice. 
-  It's called \nameref{gs:1} and is on page \pageref{gs:1}.
-\end{dispExample*}
-%  
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{The \texttt{\small vpythonfile} Command}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc updated = 2021-02-26]{vpythonfile}
-  {\oarg{options}\marg{file}\marg{caption}}
-  Command to load and typeset a \VPython\ program. The file is read from 
-  \marg{file}. Clicking anywhere in the code window can optionally open 
-  a link, passed as an option, in the default browser. A caption is mandatory, 
-  and a label is internally generated. The listing always begins on a new page. 
-  A URL shortening utility is recommended to keep the URL from getting unruly. 
-  For convenience, |https://| is automatically prepended to the URL and can 
-  thus be omitted.
-\end{docCommand}
-\begin{dispListing*}{sidebyside=false}
-\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
-  {A \VPython\ program}
-\end{dispListing*}
-\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
-  {A \VPython\ program}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{dispExample*}{sidebyside=false}
-  \VPython\ program \ref{vp:1} is nice. 
-  It's called \nameref{vp:1} and is on page \pageref{vp:1}.
-\end{dispExample*}
-%  
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{The \texttt{\small glowscriptinline} and 
-%   \texttt{\small vpythoninline} Commands}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc updated = 2021-02-26,%
-  ]%
-  {%
-    {%
-      doc name = glowscriptinline,%
-      doc parameter = \marg{GlowScript code},%
-    },%
-    {%
-      doc name = vpythoninline,%
-      doc parameter = \marg{VPython code},%
-    },%
-  }%
-  Typesets a small, in-line snippet of code. The snippet should be
-  less than one line long.
-\end{docCommands}
-\begin{dispExample*}{sidebyside=false}
-  \GlowScript\ programs begin with \glowscriptinline{GlowScript 3.0 VPython}
-  and \VPython\ programs begin with \vpythoninline{from vpython import *}. 
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-% \newpage
-% \section{Commands for Writing Physics Problem Solutions}
+% \section{Other Commands for Physics Students}
 % In addition to the \refEnv{glowscriptblock} environment and the
 % \refCom{vpythonfile} command, the \refCom{glowscriptinline} 
 % command, and \refCom{vpythoninline} command \mandi\ provides a 
 % collection of commands physics students can use for writing problem 
-% solutions. This new version focuses on the most frequently needed 
-% tools. These commands should always be used in math mode.
+% solutions. These are not part of \mandi's core functionality, but
+% are included as a convenience to the package's target audience 
+% (introductory physics students). This new version focuses on the 
+% most frequently needed tools. These commands should always be used 
+% in math mode.
 % \subsection{Traditional Vector Notation}
 %
 %\iffalse
@@ -2190,6 +2001,7 @@ while t < 10:
   |\symup{...}| for proper typesetting. The starred variant gives arrow 
   notation whereas without the star you get boldface notation. Subscript 
   and superscript labels can be arbitrarily mixed, and order doesn't matter.
+  This command redefines the default \LaTeX\ |\vec| command.
 \end{docCommands}
 \begin{dispExample*}{lefthand ratio=0.6}
   \( \vec{p} \)                                \\
@@ -2532,124 +2344,6 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsection{Coordinate-Free and Index Notation}
-% Beyond the current level of introductory physics, we need intelligent 
-% commands for typesetting vector and tensor symbols and components 
-% suitable for both coordinate-free and index notations.
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = \marg{symbol},%
-  ]%
-  {%
-    {%
-      doc name = veccomp,%
-      doc description = use this variant for coordinate-free vector notation,%
-    },%
-    {%
-      doc name = veccomp*,%
-      doc description = use this variant for index vector notation,%
-    },%
-    {%
-      doc name = tencomp,%
-      doc description = use this variant for coordinate-free tensor notation,%
-    },%
-    {%
-      doc name = tencomp*,%
-      doc description = use this variant for index tensor notation,%
-    },%
-  }%
-  Conforms to ISO 80000-2 notation.
-\end{docCommands}
-\begin{dispExample}
-  \( \veccomp{r}  \) \\
-  \( \veccomp*{r} \) \\
-  \( \tencomp{r}  \) \\
-  \( \tencomp*{r} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc parameter = \marg{index}\marg{index},%
-  ]%
-  {%
-    {%
-      doc name = valence,%
-    },%
-    {%
-      doc name = valence*,%
-    },%
-  }%
-  Typesets tensor valence. The starred variant typesets it horizontally.
-\end{docCommands}
-\begin{dispExample}
-  A vector is a \( \valence{1}{0}  \) tensor. \\
-  A vector is a \( \valence*{1}{0} \) tensor.
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc parameter = \marg{slot,slot},%
-  ]%
-  {%
-    {%
-      doc name = contraction,%
-    },%
-    {%
-      doc name = contraction*,%
-    },%
-  }%
-  Typesets tensor contraction in coordinate-free notation. There
-  is no standard on this so we assert one here.
-\end{docCommands}
-\begin{dispExample}
-  \( \contraction{1,2}  \) \\
-  \( \contraction*{1,2} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}%
-  {%
-    {%
-      doc name = slot,%
-      doc parameter = \oarg{vector},%
-    },%
-    {%
-      doc name = slot*,%
-      doc parameter = \oarg{vector},%
-    },%
-  }%
-  An intelligent slot command for coordinate-free vector
-  and tensor notation. The starred variants suppress the 
-  underscore.
-\end{docCommands}
-\begin{dispExample}
-  \( (\slot)  \)          \\
-  \( (\slot[\vec{a}])  \) \\
-  \( (\slot*) \)          \\
-  \( (\slot*[\vec{a}]) \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
 % \subsection{Problems and Annotated Problem Solutions}
 %
 %\iffalse
@@ -2917,6 +2611,325 @@ while t < 10:
 %</example>
 %\fi
 %
+% \subsection{Coordinate-Free and Index Notation}
+% Beyond the current level of introductory physics, we need intelligent 
+% commands for typesetting vector and tensor symbols and components 
+% suitable for both coordinate-free and index notations.
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc parameter = \marg{symbol},%
+  ]%
+  {%
+    {%
+      doc name = veccomp,%
+      doc description = use this variant for coordinate-free vector notation,%
+    },%
+    {%
+      doc name = veccomp*,%
+      doc description = use this variant for index vector notation,%
+    },%
+    {%
+      doc name = tencomp,%
+      doc description = use this variant for coordinate-free tensor notation,%
+    },%
+    {%
+      doc name = tencomp*,%
+      doc description = use this variant for index tensor notation,%
+    },%
+  }%
+  Conforms to ISO 80000-2 notation.
+\end{docCommands}
+\begin{dispExample}
+  \( \veccomp{r}  \) \\
+  \( \veccomp*{r} \) \\
+  \( \tencomp{r}  \) \\
+  \( \tencomp*{r} \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+  doc parameter = \marg{index}\marg{index},%
+  ]%
+  {%
+    {%
+      doc name = valence,%
+    },%
+    {%
+      doc name = valence*,%
+    },%
+  }%
+  Typesets tensor valence. The starred variant typesets it horizontally.
+\end{docCommands}
+\begin{dispExample}
+  A vector is a \( \valence{1}{0}  \) tensor. \\
+  A vector is a \( \valence*{1}{0} \) tensor.
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+  doc parameter = \marg{slot,slot},%
+  ]%
+  {%
+    {%
+      doc name = contraction,%
+    },%
+    {%
+      doc name = contraction*,%
+    },%
+  }%
+  Typesets tensor contraction in coordinate-free notation. There
+  is no standard on this so we assert one here.
+\end{docCommands}
+\begin{dispExample}
+  \( \contraction{1,2}  \) \\
+  \( \contraction*{1,2} \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}%
+  {%
+    {%
+      doc name = slot,%
+      doc parameter = \oarg{vector},%
+    },%
+    {%
+      doc name = slot*,%
+      doc parameter = \oarg{vector},%
+    },%
+  }%
+  An intelligent slot command for coordinate-free vector
+  and tensor notation. The starred variants suppress the 
+  underscore.
+\end{docCommands}
+\begin{dispExample}
+  \( (\slot)  \)          \\
+  \( (\slot[\vec{a}])  \) \\
+  \( (\slot*) \)          \\
+  \( (\slot*[\vec{a}]) \)
+\end{dispExample}
+%\iffalse
+%</example>
+%\fi
+%
+% \newpage
+% \section{\GlowScript\ and \VPython\ Program Listings}
+% \href{https://\gsurl}{\GlowScript}\footnote{\href{https://\gsurl}{https://\gsurl}} 
+% and 
+% \href{https://\vpurl}{VPython}\footnote{\href{https://\vpurl}{https://\vpurl}} 
+% are programming environments (both use \href{https://www.python.org}{Python})
+% frequently used in introductory physics to introduce students
+% for modeling physical systems. \mandi\ makes including code listings
+% very simple for students.
+% \subsection{The \texttt{\small glowscriptblock} Environment}
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docEnvironment}[%
+      doc updated = 2021-02-26,doclang/environment content=GlowScript code%
+    ]%
+  {glowscriptblock}{\oarg{options}(\meta{link})\marg{caption}}
+  Code placed here is nicely formatted and optionally linked to its source on 
+  \href{https://\gsurl}{\GlowScriptorg}. Clicking anywhere in the code window 
+  will open the link in the default browser. A caption is mandatory, and a 
+  label is internally generated. The listing always begins on a new page. A 
+  URL shortening utility is recommended to keep the URL from getting unruly. 
+  For convenience, |https://| is automatically prepended to the URL and can 
+  thus be omitted. The program must exist in a public, not private, folder.
+\end{docEnvironment}
+\begin{dispListing*}{sidebyside=false}
+\begin{glowscriptblock}(tinyurl.com/y3lnqyn3){A \texttt{GlowScript} Program}
+GlowScript 3.0 vpython
+
+scene.width = 400
+scene.height = 760
+# constants and data
+g = 9.8       # m/s^2
+mball = 0.03  # kg
+Lo = 0.26     # m
+ks = 1.8      # N/m
+deltat = 0.01 # s
+
+# objects (origin is at ceiling)
+ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
+              width=0.2)
+ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
+              color=color.orange)
+spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
+               color=color.cyan,thickness=0.003,coils=40,
+               radius=0.010)
+
+# initial values
+pball = mball * vector(0,0,0)      # kg m/s
+Fgrav = mball * g * vector(0,-1,0) # N
+t = 0
+
+# improve the display
+scene.autoscale = False        # turn off automatic camera zoom
+scene.center = vector(0,-Lo,0) # move camera down
+scene.waitfor('click')         # wait for a mouse click
+
+# initial calculation loop
+# calculation loop
+while t < 10:
+    rate(100)
+    # we need the stretch
+    s = mag(ball.pos) - Lo
+    # we need the spring force
+    Fspring = ks * s * -norm(spring.axis)
+    Fnet = Fgrav + Fspring
+    pball = pball + Fnet * deltat
+    ball.pos = ball.pos + (pball / mball) * deltat
+    spring.axis = ball.pos - ceiling.pos
+    t = t + deltat
+\end{glowscriptblock}
+\end{dispListing*}
+\begin{glowscriptblock}(tinyurl.com/y3lnqyn3){A \texttt{GlowScript} Program}
+GlowScript 3.0 vpython
+
+scene.width = 400
+scene.height = 760
+# constants and data
+g = 9.8       # m/s^2
+mball = 0.03  # kg
+Lo = 0.26     # m
+ks = 1.8      # N/m
+deltat = 0.01 # s
+
+# objects (origin is at ceiling)
+ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
+              width=0.2)
+ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
+              color=color.orange)
+spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
+               color=color.cyan,thickness=0.003,coils=40,
+               radius=0.010)
+
+# initial values
+pball = mball * vector(0,0,0)      # kg m/s
+Fgrav = mball * g * vector(0,-1,0) # N
+t = 0
+
+# improve the display
+scene.autoscale = False        # turn off automatic camera zoom
+scene.center = vector(0,-Lo,0) # move camera down
+scene.waitfor('click')         # wait for a mouse click
+
+# initial calculation loop
+# calculation loop
+while t < 10:
+    rate(100)
+    # we need the stretch
+    s = mag(ball.pos) - Lo
+    # we need the spring force
+    Fspring = ks * s * -norm(spring.axis)
+    Fnet = Fgrav + Fspring
+    pball = pball + Fnet * deltat
+    ball.pos = ball.pos + (pball / mball) * deltat
+    spring.axis = ball.pos - ceiling.pos
+    t = t + deltat
+\end{glowscriptblock}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispExample*}{sidebyside=false}
+  \GlowScript\ program \ref{gs:1} is nice. 
+  It's called \nameref{gs:1} and is on page \pageref{gs:1}.
+\end{dispExample*}
+%  
+%\iffalse
+%</example>
+%\fi
+%
+% \subsection{The \texttt{\small vpythonfile} Command}
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommand}[doc updated = 2021-02-26]{vpythonfile}
+  {\oarg{options}\marg{file}\marg{caption}}
+  Command to load and typeset a \VPython\ program. The file is read from 
+  \marg{file}. Clicking anywhere in the code window can optionally open 
+  a link, passed as an option, in the default browser. A caption is mandatory, 
+  and a label is internally generated. The listing always begins on a new page. 
+  A URL shortening utility is recommended to keep the URL from getting unruly. 
+  For convenience, |https://| is automatically prepended to the URL and can 
+  thus be omitted.
+\end{docCommand}
+\begin{dispListing*}{sidebyside=false}
+\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
+  {A \VPython\ Program}
+\end{dispListing*}
+\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
+  {A \VPython\ Program}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispExample*}{sidebyside=false}
+  \VPython\ program \ref{vp:1} is nice. 
+  It's called \nameref{vp:1} and is on page \pageref{vp:1}.
+\end{dispExample*}
+%  
+%\iffalse
+%</example>
+%\fi
+%
+% \subsection{The \texttt{\small glowscriptinline} and 
+%   \texttt{\small vpythoninline} Commands}
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommands}[%
+    doc updated = 2021-02-26,%
+  ]%
+  {%
+    {%
+      doc name = glowscriptinline,%
+      doc parameter = \marg{GlowScript code},%
+    },%
+    {%
+      doc name = vpythoninline,%
+      doc parameter = \marg{VPython code},%
+    },%
+  }%
+  Typesets a small, in-line snippet of code. The snippet should be
+  less than one line long.
+\end{docCommands}
+\begin{dispExample*}{sidebyside=false}
+  \GlowScript\ programs begin with \glowscriptinline{GlowScript 3.0 VPython}
+  and \VPython\ programs begin with \vpythoninline{from vpython import *}. 
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
+%
 % \newpage
 % \section{Commands Specific to \emph{Matter \& Interactions}}
 % \mandi\ comes with an accessory package \mandiexp\  
@@ -2928,7 +2941,9 @@ while t < 10:
 % for details}. The commands are primarily for typesetting 
 % mathematical expressions used in the text. Use of \mandiexp\ is 
 % optional and so must be manually loaded by including the line 
-% |\usepackage{mandiexp}| in your document's preamble.
+% |\usepackage{mandiexp}| in your document's preamble. Note that \mandiexp\
+% requires, and loads, \mandi\ but \mandi\ doesn't require, and doesn't load,
+% \mandiexp.
 % \subsection{The Momentum Principle}
 %
 %\iffalse
@@ -3398,12 +3413,12 @@ while t < 10:
 % in the name, that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@Version{3.0.0i}
-\def\mandi@Date{2021-03-18}
+\def\mandi@Version{3.0.0j}
+\def\mandi@Date{2021-04-04}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0i}{2021-03-18}{mandi.sty}
+\DeclareRelease{v3.0.0j}{2021-04-04}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}
   [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
@@ -3501,222 +3516,6 @@ while t < 10:
 }{}%
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-\directlua{%
- luaotfload.add_colorscheme("colordigits",
-   {["8000FF"] = {"one","two","three","four","five","six","seven","eight","nine","zero"}})
-}%
-\newfontfamily\colordigits{DejaVuSansMono}[RawFeature={color=colordigits}]
-%    \end{macrocode}
-%
-% Set up a color scheme and a new code environment for listings. The new colors 
-% are more restful on the eye. All listing commands now use 
-% \href{https://www.ctan.org/pkg/tcolorbox}{\pkg{tcolorbox}}.\newline
-% See \href{https://tex.stackexchange.com/a/529421/218142}
-%  {https://tex.stackexchange.com/a/529421/218142}.
-%
-%    \begin{macrocode}
-\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
-\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
-\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
-\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
-\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
-\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
-\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
-\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
-\lstdefinestyle{vpython}{%                       % style for listings
-  backgroundcolor=\color{gsbggray},%             % background color
-  basicstyle=\colordigits\footnotesize,%         % default style
-  breakatwhitespace=true%                        % break at whitespace
-  breaklines=true,%                              % break long lines
-  captionpos=b,%                                 % position caption
-  classoffset=1,%                                % STILL DON'T UNDERSTAND THIS
-  commentstyle=\color{gsgray},%                  % font for comments
-  deletekeywords={print},%                       % delete keywords from the given language
-  emph={self,cls,@classmethod,@property},%       % words to emphasize
-  emphstyle=\color{gsorange}\itshape,%           % font for emphasis
-  escapeinside={(*@}{@*)},%                      % add LaTeX within your code
-  frame=tb,%                                     % frame style
-  framerule=2.0pt,%                              % frame thickness
-  framexleftmargin=5pt,%                         % extra frame left margin
-  %identifierstyle=\sffamily,%                    % style for identifiers
-  keywordstyle=\gsfontfamily\color{gsplum},%     % color for keywords
-  language=Python,%                              % select language
-  linewidth=\linewidth,%                         % width of listings
-  morekeywords={%                                % VPython/GlowScript specific keywords
-    __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
-    append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
-    attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
-    bounding_box,box,bumpaxis,bumpmap,bumpmaps,camera,canvas,caption,capture,%
-    ceil,center,clear,clear_trail,click,clone,CoffeeScript,coils,color,combin,%
-    comp,compound,cone,convex,cos,cross,curve,cyan,cylinder,data,degrees,del,%
-    delete,depth,descender,diff_angle,digits,division,dot,draw_complete,%
-    ellipsoid,emissive,end_face_color,equals,explog,extrusion,faces,factorial,%
-    False,floor,follow,font,format,forward,fov,frame,gcurve,gdisplay,gdots,%
-    get_library,get_selected,ghbars,global,GlowScript,graph,graphs,green,gvbars,%
-    hat,headlength,headwidth,height,helix,hsv_to_rgb,index,interval,keydown,%
-    keyup,label,length,lights,line,linecolor,linewidth,logx,logy,lower_left,%
-    lower_right,mag,mag2,magenta,make_trail,marker_color,markers,material,%
-    max,min,mouse,mousedown,mousemove,mouseup,newball,norm,normal,objects,%
-    offset,one,opacity,orange,origin,path,pause,pi,pixel_to_world,pixels,plot,%
-    points,pos,pow,pps,print,print_function,print_options,proj,purple,pyramid,%
-    quad,radians,radius,random,rate,ray,read_local_file,readonly,red,redraw,%
-    retain,rgb_to_hsv,ring,rotate,round,scene,scroll,shaftwidth,shape,shapes,%
-    shininess,show_end_face,show_start_face,sign,sin,size,size_units,sleep,%
-    smooth,space,sphere,sqrt,start,start_face_color,stop,tan,text,textpos,%
-    texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
-    trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
-    userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
-    visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
-    ytitle%
-  },%
-  morekeywords={print,None,TypeError},%      % additional keywords
-  morestring=[b]{"""},%                      % treat triple quotes as strings
-  numbers=left,%                             % where to put line numbers
-  numbersep=10pt,%                           % how far line numbers are from code
-  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
-  showstringspaces=false,%                   % show spaces in strings
-  showtabs=false,%                           % show tabs within strings
-  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
-  upquote=true,%                             % how to typeset quotes
-}%
-%    \end{macrocode}
-%
-% Introduce a new, more intelligent \refEnv{glowscriptblock} environment.
-%
-%    \begin{macrocode}
-\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
-  { O{} D(){glowscript.org} m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivpeach,%
-  enhanced,%
-  hyperurl interior = https://#2,%
-  label = {gs:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{GlowScript} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},
-}%
-%    \end{macrocode}
-%
-% A new command for generating a list of \GlowScript\ programs.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
-  {List of \texttt{GlowScript} Programs}}%
-%    \end{macrocode}
-%
-% Introduce a new, more intelligent \refCom{vpythonfile} command.
-%
-%    \begin{macrocode}
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
-  { O{} m m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivgray,%
-  enhanced,%
-  hyperurl interior = https://,%
-  label = {vp:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing file = {#2},%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{VPython} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},%
-}%
-%    \end{macrocode}
-%
-%  A new command for generating a list of \VPython\ programs.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
-  {List of \texttt{VPython} Programs}}%
-%    \end{macrocode}
-%
-% Introduce a new \refCom{glowscriptinline} command.
-%
-%    \begin{macrocode}
-\DeclareTotalTCBox{\glowscriptinline}{ m }{%
-  bottom = 0pt,%
-  bottomrule = 0.0mm,%
-  boxsep = 1.0mm,%
-  colback = gsbggray,%
-  colframe = gsbggray,%
-  left = 0pt,%
-  leftrule = 0.0mm,%
-  nobeforeafter,%
-  right = 0pt,%
-  rightrule = 0.0mm,%
-  sharp corners,%
-  tcbox raise base,%
-  top = 0pt,%
-  toprule = 0.0mm,%
-}{\lstinline[style = vpython]{#1}}%
-%    \end{macrocode}
-%
-% Define \refCom{vpythoninline}, a semantic alias for \VPython\ 
-% in-line listings.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
-%    \end{macrocode}
-%
-% Define units to be used with the unit engine. All single letter macros 
-% are now gone. We basically absorbed and adapted the now outdated 
-% \href{https://ctan.org/pkg/siunits}{\pkg{SIunits}} package. 
-% We make use of |\symup{...}| from the \pkg{unicode-math} package.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\per}{}{\ensuremath{\,/\,}}
-\NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
-\NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
-\NewDocumentCommand{\ampere}{}{\ensuremath{\symup{A}}}
-\NewDocumentCommand{\atomicmassunit}{}{\ensuremath{\symup{u}}}
-\NewDocumentCommand{\candela}{}{\ensuremath{\symup{cd}}}
-\NewDocumentCommand{\coulomb}{}{\ensuremath{\symup{C}}}
-\NewDocumentCommand{\degree}{}{\ensuremath{^{\circ}}}
-\NewDocumentCommand{\electronvolt}{}{\ensuremath{\symup{eV}}}
-\NewDocumentCommand{\farad}{}{\ensuremath{\symup{F}}}
-\NewDocumentCommand{\henry}{}{\ensuremath{\symup{H}}}
-\NewDocumentCommand{\hertz}{}{\ensuremath{\symup{Hz}}}
-\NewDocumentCommand{\joule}{}{\ensuremath{\symup{J}}}
-\NewDocumentCommand{\kelvin}{}{\ensuremath{\symup{K}}}
-\NewDocumentCommand{\kilogram}{}{\ensuremath{\symup{kg}}}
-\NewDocumentCommand{\lightspeed}{}{\ensuremath{\symup{c}}}
-\NewDocumentCommand{\meter}{}{\ensuremath{\symup{m}}}
-\NewDocumentCommand{\metre}{}{\meter}
-\NewDocumentCommand{\mole}{}{\ensuremath{\symup{mol}}}
-\NewDocumentCommand{\newton}{}{\ensuremath{\symup{N}}}
-\NewDocumentCommand{\ohm}{}{\ensuremath{\symup\Omega}}
-\NewDocumentCommand{\pascal}{}{\ensuremath{\symup{Pa}}}
-\NewDocumentCommand{\radian}{}{\ensuremath{\symup{rad}}}
-\NewDocumentCommand{\second}{}{\ensuremath{\symup{s}}}
-\NewDocumentCommand{\siemens}{}{\ensuremath{\symup{S}}}
-\NewDocumentCommand{\steradian}{}{\ensuremath{\symup{sr}}}
-\NewDocumentCommand{\tesla}{}{\ensuremath{\symup{T}}}
-\NewDocumentCommand{\volt}{}{\ensuremath{\symup{V}}}
-\NewDocumentCommand{\watt}{}{\ensuremath{\symup{W}}}
-\NewDocumentCommand{\weber}{}{\ensuremath{\symup{Wb}}}
-\NewDocumentCommand{\tothetwo}{}{\ensuremath{^2}}             % postfix  2
-\NewDocumentCommand{\tothethree}{}{\ensuremath{^3}}           % postfix  3
-\NewDocumentCommand{\tothefour}{}{\ensuremath{^4}}            % postfix  4
-\NewDocumentCommand{\inverse}{}{\ensuremath{^{-1}}}           % postfix -1
-\NewDocumentCommand{\totheinversetwo}{}{\ensuremath{^{-2}}}   % postfix -2
-\NewDocumentCommand{\totheinversethree}{}{\ensuremath{^{-3}}} % postfix -3
-\NewDocumentCommand{\totheinversefour}{}{\ensuremath{^{-4}}}  % postfix -4
-\NewDocumentCommand{\emptyunit}{}{\ensuremath{\mdlgwhtsquare}}
-%    \end{macrocode}
-%
 % The core unit engine has been completely rewritten in 
 % \href{https://www.ctan.org/pkg/expl3}{\pkg{expl3}} for both clarity and power.
 %
@@ -3770,6 +3569,133 @@ while t < 10:
 \NewDocumentEnvironment{usealternateunits}{}{\alwaysusealternateunits}{}%
 \NewDocumentEnvironment{useapproximateconstants}{}{\alwaysuseapproximateconstants}{}%
 \NewDocumentEnvironment{usepreciseconstants}{}{\alwaysusepreciseconstants}{}%
+%    \end{macrocode}
+%
+% \mandi\ now has a key-value interface, implemented with 
+% \href{https://www.ctan.org/pkg/pgfopts}{\pkg{pgfopts}} and 
+% \href{https://www.ctan.org/pkg/pgfkeys}{\pkg{pgfkeys}}.
+% There are two options:\newline
+% \refKey{units}, with values \docValue{base}, \docValue{derived}, or 
+% \docValue{alternate} selects the default form of units\newline
+% \refKey{preciseconstants}, with values \docValue{true} and 
+% \docValue{false}, selects precise numerical values for constants 
+% rather than approximate values. 
+%
+% First, define the keys. The key handlers require certain commands defined 
+% by the unit engine.
+%
+%    \begin{macrocode}
+\newif\ifusingpreciseconstants
+\pgfkeys{%
+  /mandi/options/.cd,
+  initial@setup/.style={%
+    /mandi/options/buffered@units/.initial=alternate,%
+  },%
+  initial@setup,%
+  preciseconstants/.is if=usingpreciseconstants,%
+  units/.is choice,%
+  units/.default=derived,%
+  units/alternate/.style={/mandi/options/buffered@units=alternate},%
+  units/base/.style={/mandi/options/buffered@units=base},%
+  units/derived/.style={/mandi/options/buffered@units=derived},%
+}%
+%    \end{macrocode}
+%
+% Process the options.
+%
+%    \begin{macrocode}
+\ProcessPgfPackageOptions{/mandi/options}
+%    \end{macrocode}
+%
+% Write a banner to the console showing the options in use.
+%
+%    \begin{macrocode}
+\typeout{}%
+\typeout{mandi: You are using mandi \mandiversion.}%
+\typeout{mandi: This package requires LuaLaTeX.}%
+\typeout{mandi: This package changes the default math font.}%
+\typeout{mandi: This package redefines the \protect\vec\space command.}%
+\typeout{mandi: Loadtime options...}
+%    \end{macrocode}
+%
+% Complete the banner by showing currently selected options.
+% The value of the \refKey{units} key is used in situ to set
+% the default units.
+%
+%    \begin{macrocode}
+\newcommand*{\mandi@do@setup}{%
+  \csname alwaysuse\pgfkeysvalueof{/mandi/options/buffered@units}units\endcsname%
+  \typeout{mandi: You will get \pgfkeysvalueof{/mandi/options/buffered@units}\space units.}%
+  \ifusingpreciseconstants
+    \alwaysusepreciseconstants
+    \typeout{mandi: You will get precise constants.}%
+  \else
+    \alwaysuseapproximateconstants
+    \typeout{mandi: You will get approximate constants.}%
+  \fi
+  \typeout{}%
+}%
+\mandi@do@setup
+%    \end{macrocode}
+%
+% Define a setup command that overrides the loadtime options
+% when called with new options. A new banner is written to the console.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\mandisetup}{ m }{%
+  \IfValueT{#1}{%
+    \pgfqkeys{/mandi/options}{#1}
+    \typeout{}%
+    \typeout{mandi: mandisetup options...}
+    \mandi@do@setup
+  }%
+}%
+%    \end{macrocode}
+%
+% Define units to be used with the unit engine. All single letter macros 
+% are now gone. We basically absorbed and adapted the now outdated 
+% \href{https://ctan.org/pkg/siunits}{\pkg{SIunits}} package. 
+% We make use of |\symup{...}| from the \pkg{unicode-math} package.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\per}{}{\ensuremath{\,/\,}}
+\NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
+\NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
+\NewDocumentCommand{\ampere}{}{\ensuremath{\symup{A}}}
+\NewDocumentCommand{\atomicmassunit}{}{\ensuremath{\symup{u}}}
+\NewDocumentCommand{\candela}{}{\ensuremath{\symup{cd}}}
+\NewDocumentCommand{\coulomb}{}{\ensuremath{\symup{C}}}
+\NewDocumentCommand{\degree}{}{\ensuremath{^{\circ}}}
+\NewDocumentCommand{\electronvolt}{}{\ensuremath{\symup{eV}}}
+\NewDocumentCommand{\farad}{}{\ensuremath{\symup{F}}}
+\NewDocumentCommand{\henry}{}{\ensuremath{\symup{H}}}
+\NewDocumentCommand{\hertz}{}{\ensuremath{\symup{Hz}}}
+\NewDocumentCommand{\joule}{}{\ensuremath{\symup{J}}}
+\NewDocumentCommand{\kelvin}{}{\ensuremath{\symup{K}}}
+\NewDocumentCommand{\kilogram}{}{\ensuremath{\symup{kg}}}
+\NewDocumentCommand{\lightspeed}{}{\ensuremath{\symup{c}}}
+\NewDocumentCommand{\meter}{}{\ensuremath{\symup{m}}}
+\NewDocumentCommand{\metre}{}{\meter}
+\NewDocumentCommand{\mole}{}{\ensuremath{\symup{mol}}}
+\NewDocumentCommand{\newton}{}{\ensuremath{\symup{N}}}
+\NewDocumentCommand{\ohm}{}{\ensuremath{\symup\Omega}}
+\NewDocumentCommand{\pascal}{}{\ensuremath{\symup{Pa}}}
+\NewDocumentCommand{\radian}{}{\ensuremath{\symup{rad}}}
+\NewDocumentCommand{\second}{}{\ensuremath{\symup{s}}}
+\NewDocumentCommand{\siemens}{}{\ensuremath{\symup{S}}}
+\NewDocumentCommand{\steradian}{}{\ensuremath{\symup{sr}}}
+\NewDocumentCommand{\tesla}{}{\ensuremath{\symup{T}}}
+\NewDocumentCommand{\volt}{}{\ensuremath{\symup{V}}}
+\NewDocumentCommand{\watt}{}{\ensuremath{\symup{W}}}
+\NewDocumentCommand{\weber}{}{\ensuremath{\symup{Wb}}}
+\NewDocumentCommand{\tothetwo}{}{\ensuremath{^2}}             % postfix  2
+\NewDocumentCommand{\tothethree}{}{\ensuremath{^3}}           % postfix  3
+\NewDocumentCommand{\tothefour}{}{\ensuremath{^4}}            % postfix  4
+\NewDocumentCommand{\inverse}{}{\ensuremath{^{-1}}}           % postfix -1
+\NewDocumentCommand{\totheinversetwo}{}{\ensuremath{^{-2}}}   % postfix -2
+\NewDocumentCommand{\totheinversethree}{}{\ensuremath{^{-3}}} % postfix -3
+\NewDocumentCommand{\totheinversefour}{}{\ensuremath{^{-4}}}  % postfix -4
+\NewDocumentCommand{\emptyunit}{}{\ensuremath{\mdlgwhtsquare}}
 %    \end{macrocode}
 %
 % Defining a new scalar quantity. I am very much aware that this family of commands
@@ -3870,80 +3796,6 @@ while t < 10:
     {\mandi@selectderivedunits{#5}{#6}{#7}}%
   \expandafter\renewcommand\csname #1onlyalternateunits\endcsname
     {\mandi@selectalternateunits{#5}{#6}{#7}}%
-}%
-%    \end{macrocode}
-%
-% \mandi\ now has a key-value interface, implemented with 
-% \href{https://www.ctan.org/pkg/pgfopts}{\pkg{pgfopts}} and 
-% \href{https://www.ctan.org/pkg/pgfkeys}{\pkg{pgfkeys}}.
-% There are two options:\newline
-% \refKey{units}, with values \docValue{base}, \docValue{derived}, or 
-% \docValue{alternate} selects the default form of units\newline
-% \refKey{preciseconstants}, with values \docValue{true} and 
-% \docValue{false}, selects precise numerical values for constants 
-% rather than approximate values. 
-%
-% First, define the keys. The key handlers require certain commands defined 
-% by the unit engine, and thus must be defined and processed after the unit 
-% engine code.
-%
-%    \begin{macrocode}
-\newif\ifusingpreciseconstants
-\pgfkeys{%
-  /mandi/options/.cd,
-  initial@setup/.style={%
-    /mandi/options/buffered@units/.initial=alternate,%
-  },%
-  initial@setup,%
-  preciseconstants/.is if=usingpreciseconstants,%
-  units/.is choice,%
-  units/.default=derived,%
-  units/alternate/.style={/mandi/options/buffered@units=alternate},%
-  units/base/.style={/mandi/options/buffered@units=base},%
-  units/derived/.style={/mandi/options/buffered@units=derived},%
-}%
-%    \end{macrocode}
-%
-% Process the options.
-%
-%    \begin{macrocode}
-\ProcessPgfPackageOptions{/mandi/options}
-%    \end{macrocode}
-%
-% Write a banner to the console showing the options in use.
-% The value of the \refKey{units} key is used in situ to set
-% the default units.
-%
-%    \begin{macrocode}
-\newcommand*{\mandi@linetwo}{\typeout{mandi: Loadtime options...}}
-\newcommand*{\mandi@do@setup}{%
-  \typeout{}%
-  \typeout{mandi: You are using mandi \mandiversion.}%
-  \mandi@linetwo
-  \csname alwaysuse\pgfkeysvalueof{/mandi/options/buffered@units}units\endcsname%
-  \typeout{mandi: You will get \pgfkeysvalueof{/mandi/options/buffered@units}\space units.}%
-  \ifusingpreciseconstants
-    \alwaysusepreciseconstants
-    \typeout{mandi: You will get precise constants.}%
-  \else
-    \alwaysuseapproximateconstants
-    \typeout{mandi: You will get approximate constants.}%
-  \fi
-  \typeout{}%
-}%
-\mandi@do@setup
-%    \end{macrocode}
-%
-% Define a setup command that overrides the loadtime options
-% when called with new options. A new banner is written to the console.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\mandisetup}{ m }{%
-  \IfValueT{#1}{%
-    \pgfqkeys{/mandi/options}{#1}
-    \renewcommand*{\mandi@linetwo}{\typeout{mandi: mandisetup options...}}
-    \mandi@do@setup
-  }%
 }%
 %    \end{macrocode}
 %
@@ -4461,6 +4313,39 @@ while t < 10:
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 %    \end{macrocode}
 %
+% Diagnostic commands to provide sanity checks on commands that 
+% represent physical quantities and constants.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\checkquantity}{ m }{%
+  % Works for both scalar and vector quantities.
+  \begin{center}
+    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
+      name & base & derived & alternate \tabularnewline
+      \ttfamily\small{\expandafter\string\csname #1\endcsname} & 
+      \small{\csname #1onlybaseunits\endcsname} & 
+      \small{\csname #1onlyderivedunits\endcsname} &
+      \small{\csname #1onlyalternateunits\endcsname}
+    \end{tabular}
+  \end{center}
+}%
+\NewDocumentCommand{\checkconstant}{ m }{%
+  \begin{center}
+    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
+      name & base & derived & alternate \tabularnewline
+      \ttfamily\small{\expandafter\string\csname #1\endcsname} & 
+      \small{\csname #1onlybaseunits\endcsname} & 
+      \small{\csname #1onlyderivedunits\endcsname} &
+      \small{\csname #1onlyalternateunits\endcsname} \tabularnewline
+      symbol & approximate & precise \tabularnewline
+      \small{\csname #1mathsymbol\endcsname} & 
+      \small{\csname #1approximatevalue\endcsname} &
+      \small{\csname #1precisevalue\endcsname} \tabularnewline
+    \end{tabular}
+  \end{center}
+}%
+%    \end{macrocode}
+%
 % A better, intelligent coordinate-free \refCom{vec} command. Note the use of 
 % the |e{_^}| type of optional argument. This accounts for much of the 
 % flexibility and power of this command. Also note the use of the \TeX\ 
@@ -4576,8 +4461,8 @@ while t < 10:
 %
 % Intelligent delimiters provided via the 
 % \href{https://www.ctan.org/pkg/mathtools}{\pkg{mathtools}} package.
-% Use the starred variants for fractions. You can supply optional sizes. Note that
-% default placeholders are used when the argument is empty.
+% Use the starred variants for fractions. You can supply optional sizes.
+% Note that default placeholders are used when the argument is empty.
 %
 %    \begin{macrocode}
 \DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
@@ -4600,6 +4485,176 @@ while t < 10:
 \NewDocumentCommand{\absolutevalue}{}{\singlebars}
 \NewDocumentCommand{\direction}{}{\mivector}
 \NewDocumentCommand{\unitvector}{}{\mivector}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\directlua{%
+ luaotfload.add_colorscheme("colordigits",
+   {["8000FF"] = {"one","two","three","four","five","six","seven","eight","nine","zero"}})
+}%
+\newfontfamily\colordigits{DejaVuSansMono}[RawFeature={color=colordigits}]
+%    \end{macrocode}
+%
+% Set up a color scheme and a new code environment for listings. The new colors 
+% are more restful on the eye. All listing commands now use 
+% \href{https://www.ctan.org/pkg/tcolorbox}{\pkg{tcolorbox}}.\newline
+% See \href{https://tex.stackexchange.com/a/529421/218142}
+%  {https://tex.stackexchange.com/a/529421/218142}.
+%
+%    \begin{macrocode}
+\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
+\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
+\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
+\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
+\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
+\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
+\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
+\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
+\lstdefinestyle{vpython}{%                       % style for listings
+  backgroundcolor=\color{gsbggray},%             % background color
+  basicstyle=\colordigits\footnotesize,%         % default style
+  breakatwhitespace=true%                        % break at whitespace
+  breaklines=true,%                              % break long lines
+  captionpos=b,%                                 % position caption
+  classoffset=1,%                                % STILL DON'T UNDERSTAND THIS
+  commentstyle=\color{gsgray},%                  % font for comments
+  deletekeywords={print},%                       % delete keywords from the given language
+  emph={self,cls,@classmethod,@property},%       % words to emphasize
+  emphstyle=\color{gsorange}\itshape,%           % font for emphasis
+  escapeinside={(*@}{@*)},%                      % add LaTeX within your code
+  frame=tb,%                                     % frame style
+  framerule=2.0pt,%                              % frame thickness
+  framexleftmargin=5pt,%                         % extra frame left margin
+  %identifierstyle=\sffamily,%                    % style for identifiers
+  keywordstyle=\gsfontfamily\color{gsplum},%     % color for keywords
+  language=Python,%                              % select language
+  linewidth=\linewidth,%                         % width of listings
+  morekeywords={%                                % VPython/GlowScript specific keywords
+    __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
+    append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
+    attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
+    bounding_box,box,bumpaxis,bumpmap,bumpmaps,camera,canvas,caption,capture,%
+    ceil,center,clear,clear_trail,click,clone,CoffeeScript,coils,color,combin,%
+    comp,compound,cone,convex,cos,cross,curve,cyan,cylinder,data,degrees,del,%
+    delete,depth,descender,diff_angle,digits,division,dot,draw_complete,%
+    ellipsoid,emissive,end_face_color,equals,explog,extrusion,faces,factorial,%
+    False,floor,follow,font,format,forward,fov,frame,gcurve,gdisplay,gdots,%
+    get_library,get_selected,ghbars,global,GlowScript,graph,graphs,green,gvbars,%
+    hat,headlength,headwidth,height,helix,hsv_to_rgb,index,interval,keydown,%
+    keyup,label,length,lights,line,linecolor,linewidth,logx,logy,lower_left,%
+    lower_right,mag,mag2,magenta,make_trail,marker_color,markers,material,%
+    max,min,mouse,mousedown,mousemove,mouseup,newball,norm,normal,objects,%
+    offset,one,opacity,orange,origin,path,pause,pi,pixel_to_world,pixels,plot,%
+    points,pos,pow,pps,print,print_function,print_options,proj,purple,pyramid,%
+    quad,radians,radius,random,rate,ray,read_local_file,readonly,red,redraw,%
+    retain,rgb_to_hsv,ring,rotate,round,scene,scroll,shaftwidth,shape,shapes,%
+    shininess,show_end_face,show_start_face,sign,sin,size,size_units,sleep,%
+    smooth,space,sphere,sqrt,start,start_face_color,stop,tan,text,textpos,%
+    texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
+    trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
+    userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
+    visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
+    ytitle%
+  },%
+  morekeywords={print,None,TypeError},%      % additional keywords
+  morestring=[b]{"""},%                      % treat triple quotes as strings
+  numbers=left,%                             % where to put line numbers
+  numbersep=10pt,%                           % how far line numbers are from code
+  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
+  showstringspaces=false,%                   % show spaces in strings
+  showtabs=false,%                           % show tabs within strings
+  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
+  upquote=true,%                             % how to typeset quotes
+}%
+%    \end{macrocode}
+%
+% Introduce a new, more intelligent \refEnv{glowscriptblock} environment.
+%
+%    \begin{macrocode}
+\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
+  { O{} D(){glowscript.org} m }{%
+  breakable,%
+  center,%
+  code = \newpage,%
+  %derivpeach,%
+  enhanced,%
+  hyperurl interior = https://#2,%
+  label = {gs:\thetcbcounter},%
+  left = 8mm,%
+  list entry = \thetcbcounter~~~~~#3,%
+  listing only,%
+  listing style = vpython,%
+  nameref = {#3},%
+  title = \texttt{GlowScript} Program \thetcbcounter: #3,%
+  width = 0.9\textwidth,%
+  {#1},
+}%
+%    \end{macrocode}
+%
+% A new command for generating a list of \GlowScript\ programs.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
+  {List of \texttt{GlowScript} Programs}}%
+%    \end{macrocode}
+%
+% Introduce a new, more intelligent \refCom{vpythonfile} command.
+%
+%    \begin{macrocode}
+\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
+  { O{} m m }{%
+  breakable,%
+  center,%
+  code = \newpage,%
+  %derivgray,%
+  enhanced,%
+  hyperurl interior = https://,%
+  label = {vp:\thetcbcounter},%
+  left = 8mm,%
+  list entry = \thetcbcounter~~~~~#3,%
+  listing file = {#2},%
+  listing only,%
+  listing style = vpython,%
+  nameref = {#3},%
+  title = \texttt{VPython} Program \thetcbcounter: #3,%
+  width = 0.9\textwidth,%
+  {#1},%
+}%
+%    \end{macrocode}
+%
+%  A new command for generating a list of \VPython\ programs.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
+  {List of \texttt{VPython} Programs}}%
+%    \end{macrocode}
+%
+% Introduce a new \refCom{glowscriptinline} command.
+%
+%    \begin{macrocode}
+\DeclareTotalTCBox{\glowscriptinline}{ m }{%
+  bottom = 0pt,%
+  bottomrule = 0.0mm,%
+  boxsep = 1.0mm,%
+  colback = gsbggray,%
+  colframe = gsbggray,%
+  left = 0pt,%
+  leftrule = 0.0mm,%
+  nobeforeafter,%
+  right = 0pt,%
+  rightrule = 0.0mm,%
+  sharp corners,%
+  tcbox raise base,%
+  top = 0pt,%
+  toprule = 0.0mm,%
+}{\lstinline[style = vpython]{#1}}%
+%    \end{macrocode}
+%
+% Define \refCom{vpythoninline}, a semantic alias for \VPython\ 
+% in-line listings.
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
 %    \end{macrocode}
 %
 % Intelligent commands for typesetting vector and tensor symbols and 
@@ -4773,7 +4828,7 @@ while t < 10:
 % Intelligent differential (exterior derivative) operator.
 %
 %    \begin{macrocode}
-\NewDocumentCommand{\dd}{ s }{%
+\NewDocumentCommand{\diff}{ s }{%
   \mathop{}\!
   \IfBooleanTF{#1}
   {\symbfsfup{d}}%
@@ -4788,39 +4843,6 @@ while t < 10:
   \IfBooleanTF{#1}
     {(#2,#3)}
     {\binom{#2}{#3}}
-}%
-%    \end{macrocode}
-%
-% Diagnostic commands to provide sanity checks on commands that 
-% represent physical quantities and constants.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\checkquantity}{ m }{%
-  % Works for both scalar and vector quantities.
-  \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} & 
-      \small{\csname #1onlybaseunits\endcsname} & 
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname}
-    \end{tabular}
-  \end{center}
-}%
-\NewDocumentCommand{\checkconstant}{ m }{%
-  \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} & 
-      \small{\csname #1onlybaseunits\endcsname} & 
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname} \tabularnewline
-      symbol & approximate & precise \tabularnewline
-      \small{\csname #1mathsymbol\endcsname} & 
-      \small{\csname #1approximatevalue\endcsname} &
-      \small{\csname #1precisevalue\endcsname} \tabularnewline
-    \end{tabular}
-  \end{center}
 }%
 %    \end{macrocode}
 % \restoregeometry

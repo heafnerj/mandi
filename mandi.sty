@@ -29,12 +29,12 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@Version{3.0.0i}
-\def\mandi@Date{2021-03-18}
+\def\mandi@Version{3.0.0j}
+\def\mandi@Date{2021-04-04}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0i}{2021-03-18}{mandi.sty}
+\DeclareRelease{v3.0.0j}{2021-04-04}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}
   [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
@@ -76,133 +76,75 @@
   <8.5-9.5> vect9
   <9.5-> vect10
 }{}%
-\directlua{%
- luaotfload.add_colorscheme("colordigits",
-   {["8000FF"] = {"one","two","three","four","five","six","seven","eight","nine","zero"}})
-}%
-\newfontfamily\colordigits{DejaVuSansMono}[RawFeature={color=colordigits}]
-\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
-\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
-\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
-\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
-\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
-\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
-\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
-\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
-\lstdefinestyle{vpython}{%                       % style for listings
-  backgroundcolor=\color{gsbggray},%             % background color
-  basicstyle=\colordigits\footnotesize,%         % default style
-  breakatwhitespace=true%                        % break at whitespace
-  breaklines=true,%                              % break long lines
-  captionpos=b,%                                 % position caption
-  classoffset=1,%                                % STILL DON'T UNDERSTAND THIS
-  commentstyle=\color{gsgray},%                  % font for comments
-  deletekeywords={print},%                       % delete keywords from the given language
-  emph={self,cls,@classmethod,@property},%       % words to emphasize
-  emphstyle=\color{gsorange}\itshape,%           % font for emphasis
-  escapeinside={(*@}{@*)},%                      % add LaTeX within your code
-  frame=tb,%                                     % frame style
-  framerule=2.0pt,%                              % frame thickness
-  framexleftmargin=5pt,%                         % extra frame left margin
-  %identifierstyle=\sffamily,%                    % style for identifiers
-  keywordstyle=\gsfontfamily\color{gsplum},%     % color for keywords
-  language=Python,%                              % select language
-  linewidth=\linewidth,%                         % width of listings
-  morekeywords={%                                % VPython/GlowScript specific keywords
-    __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
-    append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
-    attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
-    bounding_box,box,bumpaxis,bumpmap,bumpmaps,camera,canvas,caption,capture,%
-    ceil,center,clear,clear_trail,click,clone,CoffeeScript,coils,color,combin,%
-    comp,compound,cone,convex,cos,cross,curve,cyan,cylinder,data,degrees,del,%
-    delete,depth,descender,diff_angle,digits,division,dot,draw_complete,%
-    ellipsoid,emissive,end_face_color,equals,explog,extrusion,faces,factorial,%
-    False,floor,follow,font,format,forward,fov,frame,gcurve,gdisplay,gdots,%
-    get_library,get_selected,ghbars,global,GlowScript,graph,graphs,green,gvbars,%
-    hat,headlength,headwidth,height,helix,hsv_to_rgb,index,interval,keydown,%
-    keyup,label,length,lights,line,linecolor,linewidth,logx,logy,lower_left,%
-    lower_right,mag,mag2,magenta,make_trail,marker_color,markers,material,%
-    max,min,mouse,mousedown,mousemove,mouseup,newball,norm,normal,objects,%
-    offset,one,opacity,orange,origin,path,pause,pi,pixel_to_world,pixels,plot,%
-    points,pos,pow,pps,print,print_function,print_options,proj,purple,pyramid,%
-    quad,radians,radius,random,rate,ray,read_local_file,readonly,red,redraw,%
-    retain,rgb_to_hsv,ring,rotate,round,scene,scroll,shaftwidth,shape,shapes,%
-    shininess,show_end_face,show_start_face,sign,sin,size,size_units,sleep,%
-    smooth,space,sphere,sqrt,start,start_face_color,stop,tan,text,textpos,%
-    texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
-    trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
-    userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
-    visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
-    ytitle%
+\newcommand*{\mandi@selectunits}{}
+\newcommand*{\mandi@selectprecision}{}
+\newcommand*{\mandi@selectapproximate}[2]{#1}    % really \@firstoftwo
+\newcommand*{\mandi@selectprecise}[2]{#2}        % really \@secondoftwo
+\newcommand*{\mandi@selectbaseunits}[3]{#1}      % really \@firstofthree
+\newcommand*{\mandi@selectderivedunits}[3]{#2}   % really \@secondofthree
+\newcommand*{\mandi@selectalternateunits}[3]{#3} % really \@thirdofthree
+\NewDocumentCommand{\alwaysusebaseunits}{}
+  {\renewcommand*{\mandi@selectunits}{\mandi@selectbaseunits}}%
+\NewDocumentCommand{\alwaysusederivedunits}{}
+  {\renewcommand*{\mandi@selectunits}{\mandi@selectderivedunits}}%
+\NewDocumentCommand{\alwaysusealternateunits}{}
+  {\renewcommand*{\mandi@selectunits}{\mandi@selectalternateunits}}%
+\NewDocumentCommand{\alwaysuseapproximateconstants}{}
+  {\renewcommand*{\mandi@selectprecision}{\mandi@selectapproximate}}%
+\NewDocumentCommand{\alwaysusepreciseconstants}{}
+  {\renewcommand*{\mandi@selectprecision}{\mandi@selectprecise}}%
+\NewDocumentCommand{\hereusebaseunits}{ m }{\begingroup\alwaysusebaseunits#1\endgroup}%
+\NewDocumentCommand{\hereusederivedunits}{ m }{\begingroup\alwaysusederivedunits#1\endgroup}%
+\NewDocumentCommand{\hereusealternateunits}{ m }{\begingroup\alwaysusealternateunits#1\endgroup}%
+\NewDocumentCommand{\hereuseapproximateconstants}{ m }{\begingroup\alwaysuseapproximateconstants#1\endgroup}%
+\NewDocumentCommand{\hereusepreciseconstants}{ m }{\begingroup\alwaysusepreciseconstants#1\endgroup}%
+\NewDocumentEnvironment{usebaseunits}{}{\alwaysusebaseunits}{}%
+\NewDocumentEnvironment{usederivedunits}{}{\alwaysusederivedunits}{}%
+\NewDocumentEnvironment{usealternateunits}{}{\alwaysusealternateunits}{}%
+\NewDocumentEnvironment{useapproximateconstants}{}{\alwaysuseapproximateconstants}{}%
+\NewDocumentEnvironment{usepreciseconstants}{}{\alwaysusepreciseconstants}{}%
+\newif\ifusingpreciseconstants
+\pgfkeys{%
+  /mandi/options/.cd,
+  initial@setup/.style={%
+    /mandi/options/buffered@units/.initial=alternate,%
   },%
-  morekeywords={print,None,TypeError},%      % additional keywords
-  morestring=[b]{"""},%                      % treat triple quotes as strings
-  numbers=left,%                             % where to put line numbers
-  numbersep=10pt,%                           % how far line numbers are from code
-  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
-  showstringspaces=false,%                   % show spaces in strings
-  showtabs=false,%                           % show tabs within strings
-  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
-  upquote=true,%                             % how to typeset quotes
+  initial@setup,%
+  preciseconstants/.is if=usingpreciseconstants,%
+  units/.is choice,%
+  units/.default=derived,%
+  units/alternate/.style={/mandi/options/buffered@units=alternate},%
+  units/base/.style={/mandi/options/buffered@units=base},%
+  units/derived/.style={/mandi/options/buffered@units=derived},%
 }%
-\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
-  { O{} D(){glowscript.org} m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivpeach,%
-  enhanced,%
-  hyperurl interior = https://#2,%
-  label = {gs:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{GlowScript} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},
+\ProcessPgfPackageOptions{/mandi/options}
+\typeout{}%
+\typeout{mandi: You are using mandi \mandiversion.}%
+\typeout{mandi: This package requires LuaLaTeX.}%
+\typeout{mandi: This package changes the default math font.}%
+\typeout{mandi: This package redefines the \protect\vec\space command.}%
+\typeout{mandi: Loadtime options...}
+\newcommand*{\mandi@do@setup}{%
+  \csname alwaysuse\pgfkeysvalueof{/mandi/options/buffered@units}units\endcsname%
+  \typeout{mandi: You will get \pgfkeysvalueof{/mandi/options/buffered@units}\space units.}%
+  \ifusingpreciseconstants
+    \alwaysusepreciseconstants
+    \typeout{mandi: You will get precise constants.}%
+  \else
+    \alwaysuseapproximateconstants
+    \typeout{mandi: You will get approximate constants.}%
+  \fi
+  \typeout{}%
 }%
-\NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
-  {List of \texttt{GlowScript} Programs}}%
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
-  { O{} m m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivgray,%
-  enhanced,%
-  hyperurl interior = https://,%
-  label = {vp:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing file = {#2},%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{VPython} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},%
+\mandi@do@setup
+\NewDocumentCommand{\mandisetup}{ m }{%
+  \IfValueT{#1}{%
+    \pgfqkeys{/mandi/options}{#1}
+    \typeout{}%
+    \typeout{mandi: mandisetup options...}
+    \mandi@do@setup
+  }%
 }%
-\NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
-  {List of \texttt{VPython} Programs}}%
-\DeclareTotalTCBox{\glowscriptinline}{ m }{%
-  bottom = 0pt,%
-  bottomrule = 0.0mm,%
-  boxsep = 1.0mm,%
-  colback = gsbggray,%
-  colframe = gsbggray,%
-  left = 0pt,%
-  leftrule = 0.0mm,%
-  nobeforeafter,%
-  right = 0pt,%
-  rightrule = 0.0mm,%
-  sharp corners,%
-  tcbox raise base,%
-  top = 0pt,%
-  toprule = 0.0mm,%
-}{\lstinline[style = vpython]{#1}}%
-\NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
 \NewDocumentCommand{\per}{}{\ensuremath{\,/\,}}
 \NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
 \NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
@@ -241,33 +183,6 @@
 \NewDocumentCommand{\totheinversethree}{}{\ensuremath{^{-3}}} % postfix -3
 \NewDocumentCommand{\totheinversefour}{}{\ensuremath{^{-4}}}  % postfix -4
 \NewDocumentCommand{\emptyunit}{}{\ensuremath{\mdlgwhtsquare}}
-\newcommand*{\mandi@selectunits}{}
-\newcommand*{\mandi@selectprecision}{}
-\newcommand*{\mandi@selectapproximate}[2]{#1}    % really \@firstoftwo
-\newcommand*{\mandi@selectprecise}[2]{#2}        % really \@secondoftwo
-\newcommand*{\mandi@selectbaseunits}[3]{#1}      % really \@firstofthree
-\newcommand*{\mandi@selectderivedunits}[3]{#2}   % really \@secondofthree
-\newcommand*{\mandi@selectalternateunits}[3]{#3} % really \@thirdofthree
-\NewDocumentCommand{\alwaysusebaseunits}{}
-  {\renewcommand*{\mandi@selectunits}{\mandi@selectbaseunits}}%
-\NewDocumentCommand{\alwaysusederivedunits}{}
-  {\renewcommand*{\mandi@selectunits}{\mandi@selectderivedunits}}%
-\NewDocumentCommand{\alwaysusealternateunits}{}
-  {\renewcommand*{\mandi@selectunits}{\mandi@selectalternateunits}}%
-\NewDocumentCommand{\alwaysuseapproximateconstants}{}
-  {\renewcommand*{\mandi@selectprecision}{\mandi@selectapproximate}}%
-\NewDocumentCommand{\alwaysusepreciseconstants}{}
-  {\renewcommand*{\mandi@selectprecision}{\mandi@selectprecise}}%
-\NewDocumentCommand{\hereusebaseunits}{ m }{\begingroup\alwaysusebaseunits#1\endgroup}%
-\NewDocumentCommand{\hereusederivedunits}{ m }{\begingroup\alwaysusederivedunits#1\endgroup}%
-\NewDocumentCommand{\hereusealternateunits}{ m }{\begingroup\alwaysusealternateunits#1\endgroup}%
-\NewDocumentCommand{\hereuseapproximateconstants}{ m }{\begingroup\alwaysuseapproximateconstants#1\endgroup}%
-\NewDocumentCommand{\hereusepreciseconstants}{ m }{\begingroup\alwaysusepreciseconstants#1\endgroup}%
-\NewDocumentEnvironment{usebaseunits}{}{\alwaysusebaseunits}{}%
-\NewDocumentEnvironment{usederivedunits}{}{\alwaysusederivedunits}{}%
-\NewDocumentEnvironment{usealternateunits}{}{\alwaysusealternateunits}{}%
-\NewDocumentEnvironment{useapproximateconstants}{}{\alwaysuseapproximateconstants}{}%
-\NewDocumentEnvironment{usepreciseconstants}{}{\alwaysusepreciseconstants}{}%
 \NewDocumentCommand{\newscalarquantity}{ m m O{#2} O{#2} }{%
   \expandafter\newcommand\csname #1\endcsname[1]{##1\,\mandi@selectunits{#2}{#3}{#4}}%
   \expandafter\newcommand\csname #1value\endcsname[1]{##1}%
@@ -335,45 +250,6 @@
     {\mandi@selectderivedunits{#5}{#6}{#7}}%
   \expandafter\renewcommand\csname #1onlyalternateunits\endcsname
     {\mandi@selectalternateunits{#5}{#6}{#7}}%
-}%
-\newif\ifusingpreciseconstants
-\pgfkeys{%
-  /mandi/options/.cd,
-  initial@setup/.style={%
-    /mandi/options/buffered@units/.initial=alternate,%
-  },%
-  initial@setup,%
-  preciseconstants/.is if=usingpreciseconstants,%
-  units/.is choice,%
-  units/.default=derived,%
-  units/alternate/.style={/mandi/options/buffered@units=alternate},%
-  units/base/.style={/mandi/options/buffered@units=base},%
-  units/derived/.style={/mandi/options/buffered@units=derived},%
-}%
-\ProcessPgfPackageOptions{/mandi/options}
-\newcommand*{\mandi@linetwo}{\typeout{mandi: Loadtime options...}}
-\newcommand*{\mandi@do@setup}{%
-  \typeout{}%
-  \typeout{mandi: You are using mandi \mandiversion.}%
-  \mandi@linetwo
-  \csname alwaysuse\pgfkeysvalueof{/mandi/options/buffered@units}units\endcsname%
-  \typeout{mandi: You will get \pgfkeysvalueof{/mandi/options/buffered@units}\space units.}%
-  \ifusingpreciseconstants
-    \alwaysusepreciseconstants
-    \typeout{mandi: You will get precise constants.}%
-  \else
-    \alwaysuseapproximateconstants
-    \typeout{mandi: You will get approximate constants.}%
-  \fi
-  \typeout{}%
-}%
-\mandi@do@setup
-\NewDocumentCommand{\mandisetup}{ m }{%
-  \IfValueT{#1}{%
-    \pgfqkeys{/mandi/options}{#1}
-    \renewcommand*{\mandi@linetwo}{\typeout{mandi: mandisetup options...}}
-    \mandi@do@setup
-  }%
 }%
 \newvectorquantity{acceleration}%
   {\meter\usk\second\totheinversetwo}%
@@ -851,6 +727,33 @@
   {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
+\NewDocumentCommand{\checkquantity}{ m }{%
+  % Works for both scalar and vector quantities.
+  \begin{center}
+    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
+      name & base & derived & alternate \tabularnewline
+      \ttfamily\small{\expandafter\string\csname #1\endcsname} &
+      \small{\csname #1onlybaseunits\endcsname} &
+      \small{\csname #1onlyderivedunits\endcsname} &
+      \small{\csname #1onlyalternateunits\endcsname}
+    \end{tabular}
+  \end{center}
+}%
+\NewDocumentCommand{\checkconstant}{ m }{%
+  \begin{center}
+    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
+      name & base & derived & alternate \tabularnewline
+      \ttfamily\small{\expandafter\string\csname #1\endcsname} &
+      \small{\csname #1onlybaseunits\endcsname} &
+      \small{\csname #1onlyderivedunits\endcsname} &
+      \small{\csname #1onlyalternateunits\endcsname} \tabularnewline
+      symbol & approximate & precise \tabularnewline
+      \small{\csname #1mathsymbol\endcsname} &
+      \small{\csname #1approximatevalue\endcsname} &
+      \small{\csname #1precisevalue\endcsname} \tabularnewline
+    \end{tabular}
+  \end{center}
+}%
 \RenewDocumentCommand{\vec}{ s m e{_^} }{%
   \ensuremath{%
     % Note the \, used to make superscript look better.
@@ -933,6 +836,133 @@
 \NewDocumentCommand{\absolutevalue}{}{\singlebars}
 \NewDocumentCommand{\direction}{}{\mivector}
 \NewDocumentCommand{\unitvector}{}{\mivector}
+\directlua{%
+ luaotfload.add_colorscheme("colordigits",
+   {["8000FF"] = {"one","two","three","four","five","six","seven","eight","nine","zero"}})
+}%
+\newfontfamily\colordigits{DejaVuSansMono}[RawFeature={color=colordigits}]
+\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
+\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
+\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
+\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
+\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
+\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
+\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
+\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
+\lstdefinestyle{vpython}{%                       % style for listings
+  backgroundcolor=\color{gsbggray},%             % background color
+  basicstyle=\colordigits\footnotesize,%         % default style
+  breakatwhitespace=true%                        % break at whitespace
+  breaklines=true,%                              % break long lines
+  captionpos=b,%                                 % position caption
+  classoffset=1,%                                % STILL DON'T UNDERSTAND THIS
+  commentstyle=\color{gsgray},%                  % font for comments
+  deletekeywords={print},%                       % delete keywords from the given language
+  emph={self,cls,@classmethod,@property},%       % words to emphasize
+  emphstyle=\color{gsorange}\itshape,%           % font for emphasis
+  escapeinside={(*@}{@*)},%                      % add LaTeX within your code
+  frame=tb,%                                     % frame style
+  framerule=2.0pt,%                              % frame thickness
+  framexleftmargin=5pt,%                         % extra frame left margin
+  %identifierstyle=\sffamily,%                    % style for identifiers
+  keywordstyle=\gsfontfamily\color{gsplum},%     % color for keywords
+  language=Python,%                              % select language
+  linewidth=\linewidth,%                         % width of listings
+  morekeywords={%                                % VPython/GlowScript specific keywords
+    __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
+    append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
+    attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
+    bounding_box,box,bumpaxis,bumpmap,bumpmaps,camera,canvas,caption,capture,%
+    ceil,center,clear,clear_trail,click,clone,CoffeeScript,coils,color,combin,%
+    comp,compound,cone,convex,cos,cross,curve,cyan,cylinder,data,degrees,del,%
+    delete,depth,descender,diff_angle,digits,division,dot,draw_complete,%
+    ellipsoid,emissive,end_face_color,equals,explog,extrusion,faces,factorial,%
+    False,floor,follow,font,format,forward,fov,frame,gcurve,gdisplay,gdots,%
+    get_library,get_selected,ghbars,global,GlowScript,graph,graphs,green,gvbars,%
+    hat,headlength,headwidth,height,helix,hsv_to_rgb,index,interval,keydown,%
+    keyup,label,length,lights,line,linecolor,linewidth,logx,logy,lower_left,%
+    lower_right,mag,mag2,magenta,make_trail,marker_color,markers,material,%
+    max,min,mouse,mousedown,mousemove,mouseup,newball,norm,normal,objects,%
+    offset,one,opacity,orange,origin,path,pause,pi,pixel_to_world,pixels,plot,%
+    points,pos,pow,pps,print,print_function,print_options,proj,purple,pyramid,%
+    quad,radians,radius,random,rate,ray,read_local_file,readonly,red,redraw,%
+    retain,rgb_to_hsv,ring,rotate,round,scene,scroll,shaftwidth,shape,shapes,%
+    shininess,show_end_face,show_start_face,sign,sin,size,size_units,sleep,%
+    smooth,space,sphere,sqrt,start,start_face_color,stop,tan,text,textpos,%
+    texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
+    trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
+    userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
+    visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
+    ytitle%
+  },%
+  morekeywords={print,None,TypeError},%      % additional keywords
+  morestring=[b]{"""},%                      % treat triple quotes as strings
+  numbers=left,%                             % where to put line numbers
+  numbersep=10pt,%                           % how far line numbers are from code
+  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
+  showstringspaces=false,%                   % show spaces in strings
+  showtabs=false,%                           % show tabs within strings
+  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
+  upquote=true,%                             % how to typeset quotes
+}%
+\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
+  { O{} D(){glowscript.org} m }{%
+  breakable,%
+  center,%
+  code = \newpage,%
+  %derivpeach,%
+  enhanced,%
+  hyperurl interior = https://#2,%
+  label = {gs:\thetcbcounter},%
+  left = 8mm,%
+  list entry = \thetcbcounter~~~~~#3,%
+  listing only,%
+  listing style = vpython,%
+  nameref = {#3},%
+  title = \texttt{GlowScript} Program \thetcbcounter: #3,%
+  width = 0.9\textwidth,%
+  {#1},
+}%
+\NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
+  {List of \texttt{GlowScript} Programs}}%
+\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
+  { O{} m m }{%
+  breakable,%
+  center,%
+  code = \newpage,%
+  %derivgray,%
+  enhanced,%
+  hyperurl interior = https://,%
+  label = {vp:\thetcbcounter},%
+  left = 8mm,%
+  list entry = \thetcbcounter~~~~~#3,%
+  listing file = {#2},%
+  listing only,%
+  listing style = vpython,%
+  nameref = {#3},%
+  title = \texttt{VPython} Program \thetcbcounter: #3,%
+  width = 0.9\textwidth,%
+  {#1},%
+}%
+\NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
+  {List of \texttt{VPython} Programs}}%
+\DeclareTotalTCBox{\glowscriptinline}{ m }{%
+  bottom = 0pt,%
+  bottomrule = 0.0mm,%
+  boxsep = 1.0mm,%
+  colback = gsbggray,%
+  colframe = gsbggray,%
+  left = 0pt,%
+  leftrule = 0.0mm,%
+  nobeforeafter,%
+  right = 0pt,%
+  rightrule = 0.0mm,%
+  sharp corners,%
+  tcbox raise base,%
+  top = 0pt,%
+  toprule = 0.0mm,%
+}{\lstinline[style = vpython]{#1}}%
+\NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
 \NewDocumentCommand{\veccomp}{ s m }{%
   % Consider renaming this to \vectorsym.
   \IfBooleanTF{#1}
@@ -1036,7 +1066,7 @@
   {\symbb{C}}%
   _{#2}
 }%
-\NewDocumentCommand{\dd}{ s }{%
+\NewDocumentCommand{\diff}{ s }{%
   \mathop{}\!
   \IfBooleanTF{#1}
   {\symbfsfup{d}}%
@@ -1046,33 +1076,6 @@
   \IfBooleanTF{#1}
     {(#2,#3)}
     {\binom{#2}{#3}}
-}%
-\NewDocumentCommand{\checkquantity}{ m }{%
-  % Works for both scalar and vector quantities.
-  \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} &
-      \small{\csname #1onlybaseunits\endcsname} &
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname}
-    \end{tabular}
-  \end{center}
-}%
-\NewDocumentCommand{\checkconstant}{ m }{%
-  \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} &
-      \small{\csname #1onlybaseunits\endcsname} &
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname} \tabularnewline
-      symbol & approximate & precise \tabularnewline
-      \small{\csname #1mathsymbol\endcsname} &
-      \small{\csname #1approximatevalue\endcsname} &
-      \small{\csname #1precisevalue\endcsname} \tabularnewline
-    \end{tabular}
-  \end{center}
 }%
 \endinput
 %%

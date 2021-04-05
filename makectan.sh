@@ -25,8 +25,8 @@ fi
 
 echo Editing dtx and ins files...
 sed '35,47d' mandi.dtx > m1.dtx            # rm <readme>   lines 35-47
-sed '274,329d' m1.dtx > m2.dtx             # rm <install>  lines 274-329
-sed '275,282d' m2.dtx > mandinoreadme.dtx  # rm <internal> lines 275-282
+sed '276,331d' m1.dtx > m2.dtx             # rm <install>  lines 276-331
+sed '277,284d' m2.dtx > mandinoreadme.dtx  # rm <internal> lines 277-284
 sed '63,65d' mandi.ins > mandinoreadme.ins # rm            lines 63-65
 rm m1.dtx                                  # rm temp file
 rm m2.dtx                                  # rm temp file
