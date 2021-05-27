@@ -15,11 +15,14 @@
 % The Current Maintainer of this work is Paul J. Heafner.
 %
 % This work consists of the files mandi.dtx
+%                                 mandistudent.dtx
+%                                 mandiexp.dtx
 %                                 mandi.ins
 %                                 mandi.pdf
 %                                 README.md
 %
 % and includes the derived files  mandi.sty
+%                                 mandistudent.sty
 %                                 mandiexp.sty
 %                                 vdemo.py
 % ---------------------------------------------------------------------------
@@ -44,239 +47,6 @@ line  and  type  the  following,  repeating 2-4 until there are no warnings:
 Move the *.sty files into a directory searched by TeX.
 The vdemo.py file is not needed.
 %</readme>
-%
-%<*mandiexp>
-\def\mandiexp@Version{3.0.0j}
-\def\mandiexp@Date{2021-04-04}
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\providecommand\DeclareRelease[3]{}
-\providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0j}{2021-04-04}{mandiexp.sty}
-\DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
-\ProvidesPackage{mandiexp}
- [%
- \mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions
- ]
-%
-\newcommand*{\mandiexpversion}{v\mandiexp@Version\space dated \mandiexp@Date}
-%
-\RequirePackage{mandi}
-%
-\typeout{}%
-\typeout{mandiexp: You are using mandiexp \mandiexpversion.}
-\typeout{}%
-%
-% Commands specific to Matter & Interactions
-% The momentum principle
-\NewDocumentCommand{\lhsmomentumprinciple}{ s }{%
-  \Delta
-  \IfBooleanTF{#1}%
-    {\vec*{p}}%
-    {\vec{p}}%
-  _{\symup{sys}}%
-}%
-\NewDocumentCommand{\rhsmomentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{F}}%
-    {\vec{F}}%
-  _{\symup{sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\lhsmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{p}}%
-    {\vec{p}}%
-  _{\symup{sys,final}}%
-}%
-\NewDocumentCommand{\rhsmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{p}}%
-    {\vec{p}}%
-  _{\symup{sys,initial}}+%
-  \IfBooleanTF{#1}%
-    {\vec*{F}}%
-    {\vec{F}}%
-  _{\symup{sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\momentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsmomentumprinciple* = \rhsmomentumprinciple*}%
-    {\lhsmomentumprinciple = \rhsmomentumprinciple}%
-}%
-\NewDocumentCommand{\momentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsmomentumprincipleupdate* = \rhsmomentumprincipleupdate*}%
-    {\lhsmomentumprincipleupdate = \rhsmomentumprincipleupdate}%
-}%
-% The momentum principle
-\NewDocumentCommand{\lhsenergyprinciple}{}{%
-  \Delta E_{\symup{sys}}%
-}%
-\NewDocumentCommand{\rhsenergyprinciple}{ O{} }{%
-  W_{\symup{ext}}#1%
-}%
-\NewDocumentCommand{\lhsenergyprincipleupdate}{}{%
-  E_{\symup{sys,final}}%
-}%
-\NewDocumentCommand{\rhsenergyprincipleupdate}{ O{} }{%
-  E_{\symup{sys,initial}}+%
-  W_{\symup{ext}}#1%
-}%
-\NewDocumentCommand{\energyprinciple}{ O{} }{%
-  \lhsenergyprinciple = \rhsenergyprinciple[#1]%
-}%
-\NewDocumentCommand{\energyprincipleupdate}{ O{} }{%
-  \lhsenergyprincipleupdate = \rhsenergyprincipleupdate[#1]%
-}%
-% The angular momentum principle
-\NewDocumentCommand{\lhsangularmomentumprinciple}{ s }{%
-  \Delta
-  \IfBooleanTF{#1}%
-    {\vec*{L}}%
-    {\vec{L}}%
-  _{A\symup{,sys,net}}%
-}%
-\NewDocumentCommand{\rhsangularmomentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{\tau}}%
-    {\vec{\tau}}%
-  _{A\symup{,sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\lhsangularmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{L}}%
-    {\vec{L}}%
-  _{A,\symup{sys,final}}%
-}%
-\NewDocumentCommand{\rhsangularmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{L}}%
-    {\vec{L}}%
-  _{A\symup{,sys,initial}}+%
-  \IfBooleanTF{#1}%
-    {\vec*{\tau}}%
-    {\vec{\tau}}%
-  _{A\symup{,sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\angularmomentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsangularmomentumprinciple* = \rhsangularmomentumprinciple*}%
-    {\lhsangularmomentumprinciple = \rhsangularmomentumprinciple}%
-}%
-\NewDocumentCommand{\angularmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsangularmomentumprincipleupdate* = \rhsangularmomentumprincipleupdate*}%
-    {\lhsangularmomentumprincipleupdate = \rhsangularmomentumprincipleupdate}%
-}%
-\NewDocumentCommand{\energyof}{ m o }{%
-  E_{#1\IfValueT{#2}{,#2}}%
-}%
-\NewDocumentCommand{\systemenergy}{ o }{%
-  E_{\symup{sys}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\particleenergy}{ o }{%
-  E_{\symup{particle}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\restenergy}{ o }{%
-  E_{\symup{rest}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\internalenergy}{ o }{%
-  E_{\symup{internal}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\chemicalenergy}{ o }{%
-  E_{\symup{chem}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\thermalenergy}{ o }{%
-  E_{\symup{therm}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\photonenergy}{ o }{%
-  E_{\symup{photon}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\translationalkineticenergy}{ s d[] }{%
-% d[] must be used because of the way consecutive optional
-%  arguments are handled. See xparse docs for details.
-%  See https://tex.stackexchange.com/a/569011/218142
-  \IfBooleanTF{#1}%
-  {E_\bgroup \symup{K}}%
-  {K_\bgroup\symup{trans}}%
-       \IfValueT{#2}{,#2}%
-     \egroup%
-}%
-\NewDocumentCommand{\rotationalkineticenergy}{ s d[] }{%
-% d[] must be used because of the way consecutive optional
-%  arguments are handled. See xparse docs for details.
-%  See https://tex.stackexchange.com/a/569011/218142
-  \IfBooleanTF{#1}%
-  {E_\bgroup}%
-  {K_\bgroup}%
-       \symup{rot}\IfValueT{#2}{,#2}%
-     \egroup%
-}%
-\NewDocumentCommand{\vibrationalkineticenergy}{ s d[] }{%
-% d[] must be used because of the way consecutive optional
-%  arguments are handled. See xparse docs for details.
-%  See https://tex.stackexchange.com/a/569011/218142
-  \IfBooleanTF{#1}%
-  {E_\bgroup}%
-  {K_\bgroup}%
-       \symup{vib}\IfValueT{#2}{,#2}%
-     \egroup%
-}%
-\NewDocumentCommand{\gravitationalpotentialenergy}{ o }{%
-  U_{\symup{g}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\electricpotentialenergy}{ o }{%
-  U_{\symup{e}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\springpotentialenergy}{ o }{%
-  U_{\symup{s}\IfValueT{#1}{,#1}}%
-}%
-%</mandiexp>
-%
-%<*vdemo>
-from vpython import *
-
-scene.width = 400
-scene.height = 760
-# constants and data
-g = 9.8       # m/s^2
-mball = 0.03  # kg
-Lo = 0.26     # m
-ks = 1.8      # N/m
-deltat = 0.01 # s 
-
-# objects (origin is at ceiling)
-ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
-              width=0.2)
-ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
-              color=color.orange)
-spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
-               color=color.cyan,thickness=0.003,coils=40,
-               radius=0.010)
-
-# initial values
-pball = mball * vector(0,0,0)      # kg m/s
-Fgrav = mball * g * vector(0,-1,0) # N
-t = 0
-
-# improve the display
-scene.autoscale = False        # turn off automatic camera zoom
-scene.center = vector(0,-Lo,0) # move camera down
-scene.waitfor('click')         # wait for a mouse click
-
-# initial calculation loop
-# calculation loop
-while t < 10:
-    rate(100)
-    # we need the stretch
-    s = mag(ball.pos) - Lo
-    # we need the spring force
-    Fspring = ks * s * -norm(spring.axis)
-    Fnet = Fgrav + Fspring
-    pball = pball + Fnet * deltat
-    ball.pos = ball.pos + (pball / mball) * deltat
-    spring.axis = ball.pos - ceiling.pos
-    t = t + deltat
-%</vdemo>
 %
 %<*internal>
 \fi
@@ -307,11 +77,14 @@ while t < 10:
  The Current Maintainer of this work is Paul J. Heafner.
 
  This work consists of the files mandi.dtx
+                                 mandistudent.dtx
+                                 mandiexp.dtx
                                  mandi.ins
                                  mandi.pdf
                                  README.md
 
  and includes the derived files  mandi.sty
+                                 mandistudent.sty
                                  mandiexp.sty
                                  vdemo.py
  ---------------------------------------------------------------------------
@@ -322,9 +95,10 @@ while t < 10:
           \file{README.md}{\from{\jobname.dtx}{readme}}}
 \generate{\file{\jobname.ins}{\from{\jobname.dtx}{install}}}
 \generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
-\generate{\file{mandiexp.sty}{\from{\jobname.dtx}{mandiexp}}}
+\generate{\file{mandistudent.sty}{\from{mandistudent.dtx}{package}}}
+\generate{\file{mandiexp.sty}{\from{mandiexp.dtx}{package}}}
 \generate{\usepreamble\empty\usepostamble\empty
-          \file{vdemo.py}{\from{\jobname.dtx}{vdemo}}}
+          \file{vdemo.py}{\from{mandistudent.dtx}{vdemo}}}
 
 \obeyspaces
 \Msg{*************************************************************}
@@ -348,9 +122,10 @@ while t < 10:
           \file{README.md}{\from{\jobname.dtx}{readme}}}
 \generate{\file{\jobname.ins}{\from{\jobname.dtx}{install}}}
 \generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
-\generate{\file{mandiexp.sty}{\from{\jobname.dtx}{mandiexp}}}
+\generate{\file{mandistudent.sty}{\from{mandistudent.dtx}{package}}}
+\generate{\file{mandiexp.sty}{\from{mandiexp.dtx}{package}}}
 \generate{\usepreamble\empty\usepostamble\empty
-          \file{vdemo.py}{\from{\jobname.dtx}{vdemo}}}
+          \file{vdemo.py}{\from{mandistudent.dtx}{vdemo}}}
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
 \else
@@ -360,13 +135,11 @@ while t < 10:
 %
 %<*driver>
 \ProvidesFile{mandi.dtx}
-%</driver>
-%
-%<*driver>
 \documentclass[10pt]{ltxdoc}
 \PassOptionsToPackage{listings,documentation}{tcolorbox} % prevent option clash
 \usepackage{\jobname}                                    % load mandi.sty
-\usepackage{\jobname exp}                                % load mandiexp.sty
+\usepackage{mandistudent}                                % load mandistudent.sty
+\usepackage{mandiexp}                                    % load mandiexp.sty
 \usepackage{mwe}                                         % provides test images
 \usepackage[left = 1.00in,%                              %
             right = 1.00in,%                             %
@@ -396,19 +169,19 @@ while t < 10:
 \hypersetup{colorlinks=true}                      % colored links; no borders
 
 %  See https://tex.stackexchange.com/q/156383/218142
-\newcommand*{\pkg}[1]{\textsf{#1}}                  % typeset package names
-\newcommand*{\mandi}{\textsf{mandi}}                % typeset mandi
-\newcommand*{\mandiexp}{\textsf{mandiexp}}          % typeset mandiexp
-\newcommand*{\GlowScript}{\texttt{GlowScript}}      % typeset GlowScript
+\newcommand*{\pkg}[1]{\textsf{#1}}                    % typeset package names
+\newcommand*{\mandi}{\textsf{mandi}}                  % typeset mandi
+\newcommand*{\mandistudent}{\textsf{mandistudent}}    % typeset mandistudent
+\newcommand*{\mandiexp}{\textsf{mandiexp}}            % typeset mandiexp
+\newcommand*{\GlowScript}{\texttt{GlowScript}}        % typeset GlowScript
 \newcommand*{\GlowScriptorg}{\texttt{GlowScript.org}} % typeset GlowScript.org
-\newcommand*{\VPython}{\texttt{VPython}}            % typeset VPython
-\newcommand*{\VPythonorg}{\texttt{VPython.org}}     % typeset VPython.org
-\newcommand*{\gsurl}{glowscript.org}                % GlowScript URL
-\newcommand*{\vpurl}{vpython.org}                   % VPython URL
-\newcommand*{\lualatex}{Lua\LaTeX}                  % typeset LuaLaTeX
+\newcommand*{\VPython}{\texttt{VPython}}              % typeset VPython
+\newcommand*{\VPythonorg}{\texttt{VPython.org}}       % typeset VPython.org
+\newcommand*{\gsurl}{glowscript.org}                  % GlowScript URL
+\newcommand*{\vpurl}{vpython.org}                     % VPython URL
+\newcommand*{\lualatex}{Lua\LaTeX}                    % typeset LuaLaTeX
 
-% A customized internal hyperref tool to
-% mimic that in tcolorbox.
+% A customized internal hyperref tool to mimic that in tcolorbox.
 \NewDocumentCommand{\setplace}{ s m }{%
   \IfBooleanTF {#1}%
     {\phantomsection}%
@@ -429,21 +202,25 @@ while t < 10:
 % Previously used !...! but that conflicts with colors.
 \lstMakeShortInline[basicstyle=\normalfont\ttfamily\small]|
 
-\DisableCrossrefs         % index descriptions only
-\PageIndex                % index refers to page numbers
-\CodelineNumbered         % number source lines
-\RecordChanges            % record changes
-\begin{document}          % main document
-  \DocInput{\jobname.dtx} %
-  \PrintIndex             %
-\end{document}            % end main document
+\DisableCrossrefs                 % index descriptions only
+\PageIndex                        % index refers to page numbers
+\CodelineNumbered                 % number source lines
+\RecordChanges                    % record changes
+\begin{document}                  % main document
+  \DocInput{\jobname.dtx}         %
+  %\setcounter{CodelineNo}{0}      % reset line numbers if desired 
+  \DocInput{\jobname student.dtx} %
+  %\setcounter{CodelineNo}{0}      % reset line numbers if desired 
+  \DocInput{\jobname exp.dtx}     %
+  \PrintIndex                     %
+\end{document}                    % end main document
 %</driver>
 % \fi
 %
 % \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %   corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2490}
+% \CheckSum{2228}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -461,7 +238,7 @@ while t < 10:
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \title{The \href{https://ctan.org/pkg/mandi}{\mandi} Package}
+% \title{The \href{https://ctan.org/pkg/mandi}{\mandi} Bundle}
 % \author{^^A
 %    Paul J. Heafner\thanks{^^A
 %      Email: \href{mailto:heafnerj@gmail.com?subject=[Heafner]\%20mandi}
@@ -471,10 +248,10 @@ while t < 10:
 % \date{\today}
 %
 % \newgeometry{left=1.0in,right=1.0in,top=4.0in}
-% \maketitle
-% \thispagestyle{empty}
-% \centerline{Version \mandiversion}
-% \centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS VERSION.}}
+%   \maketitle
+%   \thispagestyle{empty}
+%   \centerline{Version \mandiversion}
+%   \centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS VERSION.}}
 % \restoregeometry
 %
 % \newgeometry{left=1.0in,right=1.0in,top=0.5in,bottom=1.0in}
@@ -487,7 +264,17 @@ while t < 10:
 %   physics courses over the years, I say a heartfelt thank you. You
 %   have contributed directly to the state of this software and to its
 %   use in introductory physics courses and to innovating how physics
-%   is taught. 
+%   is taught.
+%
+%   I also acknowledge the \LaTeX\ developers who inhabit the
+%   \href{https://tex.stackexchange.com/}{\TeX\ StackExchange} site. 
+%   Entering a new culture is daunting for anyone, especially for
+%   newcomers. The \LaTeX\ development culture is no exception. We all
+%   share a passion for creating beautiful documents and I have learned
+%   much over the past year that improved my ability to do just that.
+%   There are too many of you to list individually, and I would surely 
+%   accidentally omit some were I to try. Collectively, I thank you all
+%   for your patience and advice.
 %   \newpage
 %   \phantomsection
 %   \addcontentsline{toc}{section}{Change History}
@@ -504,92 +291,29 @@ while t < 10:
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0j}{2021-04-04}{Initial release.} 
+% \changes{v3.0.0m}{2021-05-27}{Initial release.} 
 %
 % \section{Introduction}
-% This is the documentation for the \mandi,\footnote{The package name can 
-% be pronounced either with two syllables, to rhyme with \emph{candy}, or 
-% with three syllables, as \emph{M and I}.} which is designed primarily 
-% for students in introductory physics courses. This document serves to 
-% document what commands \mandi\ provides and does not necessarily fully 
-% demonstrate how students would use them. There is a separate document 
-% that serves that purpose.
+%
+% The \mandi \footnote{The bundle name can be pronounced either with two 
+% syllables, to rhyme with \emph{candy}, or with three syllables, as 
+% \emph{M and I}.} bundle consists of three packages: \mandi, \mandistudent,
+% and \mandiexp. Package \linktoplace{sec:mandipkg}{mandi} provides the
+% core functionality, namely correctly typesetting physical quantities
+% and constants with their correct SI units as either scalars or vectors,
+% depending on which is appropriate. Package 
+% \linktoplace{sec:mandistudentpkg}{mandistudent} provides other typesetting
+% capability appropriate for written problem solutions. Finally, package
+% \linktoplace{sec:mandiexppkg}{mandiexp} provides commands for typesetting
+% expressions from \emph{Matter \& Interactions}\footnote{See 
+% \href{https://www.wiley.com/en-us/Matter+and+Interactions%2C+4th+Edition-p-9781118875865}
+% {\emph{Matter \& Interactions}} and
+% \href{https://matterandinteractions.org/}{https://matterandinteractions.org/}
+% for details.}
 % 
-% \subsection{Loading the Package}
-% Load \mandi\ as you would any package in your preamble. 
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{dispListing*}{sidebyside=false,listing only}
-  \usepackage[options]{mandi}
-\end{dispListing*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}{mandiversion}{}
-  Typesets the current version and build date.
-\end{docCommand}
-\begin{dispExample*}{sidebyside=false}
-  The version is \mandiversion\ and is a stable build.
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{Package Options}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docKeys}[%
-    doc new = 2021-01-30,%
-    doc keypath = {},%
-  ]%
-  {%
-    {%
-      doc name = units,%
-      doc parameter = {=\meta{type of unit}},%
-      doc description = {initially unspecified, set to \docValue{alternate}},%
-    },%
-    {%
-      doc name = preciseconstants,%
-      doc parameter = {=\meta{boolean}},%
-      doc description = {initially unspecified, set to \docValue{false}},%
-    },%
-  }%
-  Now \mandi\ uses a key-value interface for options.
-  The \refKey{units} key can be set to \docValue{base}, \docValue{derived}, 
-  or \docValue{alternate}. The \refKey{preciseconstants} key is always 
-  either \docValue{true} or \docValue{false}.
-\end{docKeys}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{The \texttt{mandisetup} Command}
-% 
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-17]{mandisetup}{\marg{options}}
-  Command to set package options on the fly after loadtime. This 
-  can be done in the preamble or inside the 
-  |\begin{document}...\end{document}| environment.
-\end{docCommand}
-\begin{dispListing*}{sidebyside=false,listing only}
-  \mandisetup{units=base}
-\end{dispListing*}
-%\iffalse
-%</example>
-%\fi
-%
 % \newpage
 % \section{Student/Instructor Quick Guide}
+%
 % Use \refCom{vec} to typeset the symbol for a vector. Use \refCom{magnitude}
 % to typeset the symbol for a vector's magnitude. Use \refCom{dirvec} to
 % typeset the symbol for a vector's direction. Use \refCom{changein} to
@@ -662,16 +386,97 @@ while t < 10:
 %</example>
 %\fi
 %
-% Use \refEnv{physicsproblem} and \refEnv{parts} and \refCom{problempart} to 
-% typeset problems. Use \refEnv{physicssolution} to typeset step-by-step 
-% mathematical solutions. Use \refEnv{glowscriptblock} to typeset  
+% Use \refEnv{physicsproblem} and \refEnv{parts} and \refCom{problempart} 
+% for problems. For step-by-step mathematical solutions use
+% \refEnv{physicssolution}. Use \refEnv{glowscriptblock} to typeset  
 % \href{https://\gsurl}{\GlowScript} programs. Use \refCom{vpythonfile} to 
 % typeset \href{https://\vpurl}{VPython} program files. 
 %
 % \newpage
-% \section{Intelligent Commands for Physical Quantities and Constants}
+% \section{The \mandi\ Package}\setplace{sec:mandipkg}
+%
+% Load \mandi\ as you would any package in your preamble. 
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispListing*}{sidebyside=false,listing only}
+  \usepackage[options]{mandi}
+\end{dispListing*}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommand}{mandiversion}{}
+  Typesets the current version and build date.
+\end{docCommand}
+\begin{dispExample*}{sidebyside=false}
+  The version is \mandiversion\ and is a stable build.
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
+%
+% \subsection{Package Options}
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docKeys}[%
+    doc new = 2021-01-30,%
+    doc keypath = {},%
+  ]%
+  {%
+    {%
+      doc name = units,%
+      doc parameter = {=\meta{type of unit}},%
+      doc description = {initially unspecified, set to \docValue{alternate}},%
+    },%
+    {%
+      doc name = preciseconstants,%
+      doc parameter = {=\meta{boolean}},%
+      doc description = {initially unspecified, set to \docValue{false}},%
+    },%
+  }%
+  Now \mandi\ uses a key-value interface for options.
+  The \refKey{units} key can be set to \docValue{base}, \docValue{derived}, 
+  or \docValue{alternate}. The \refKey{preciseconstants} key is always 
+  either \docValue{true} or \docValue{false}.
+\end{docKeys}
+%\iffalse
+%</example>
+%\fi
+%
+% \subsection{The \texttt{mandisetup} Command}
+% 
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommand}[doc new = 2021-02-17]{mandisetup}{\marg{options}}
+  Command to set package options on the fly after loadtime. This 
+  can be done in the preamble or inside the 
+  |\begin{document}...\end{document}| environment.
+\end{docCommand}
+\begin{dispListing*}{sidebyside=false,listing only}
+  \mandisetup{units=base}
+\end{dispListing*}
+\begin{dispListing*}{sidebyside=false,listing only}
+  \mandisetup{preciseconstants}
+\end{dispListing*}
+\begin{dispListing*}{sidebyside=false,listing only}
+  \mandisetup{preciseconstants=false}
+\end{dispListing*}
+%\iffalse
+%</example>
+%\fi
+%
+% \newpage
 % \subsection{Physical Quantities}
 % \subsubsection{Typesetting Physical Quantities}\setplace{ssec:physquants}
+%
 % Typesetting physical quantities and constants using semantically appropriate 
 % names, along with the correct 
 % \href{https://en.wikipedia.org/wiki/International_System_of_Units}{SI units}, 
@@ -697,9 +502,9 @@ while t < 10:
       doc parameter = \marg{\ensuremath{c_1,\dots,c_n}},%
     },%
   }%
-  Command for momentum and its vector variant. The default units will depend 
+  Command for momentum and its vector variants. The default units will depend 
   on the options passed to \mandi\ at load time. Alternate units are the 
-  default. Other units can be forced as demonstrated. The vector variant can 
+  default. Other units can be forced as demonstrated. The vector variants can 
   take more than three components. Note the other variants for the quantity's 
   value and units.
 \end{docCommands}
@@ -709,12 +514,12 @@ while t < 10:
   \momentumbaseunits{5}       \\
   \momentumderivedunits{5}    \\
   \momentumalternateunits{5}  \\
-  \momentumonlybaseunits      \\
-  \momentumonlyderivedunits   \\
-  \momentumonlyalternateunits \\
   \vectormomentum{2,3,4}      \\
   \momentumvector{2,3,4}      \\
-  \momentum{\mivector{2,3,4}} 
+  \momentum{\mivector{2,3,4}} \\
+  \momentumonlybaseunits      \\
+  \momentumonlyderivedunits   \\
+  \momentumonlyalternateunits
 \end{dispExample}
 %\iffalse
 %</example>
@@ -725,12 +530,16 @@ while t < 10:
 % For example, one shouldn't use |\vectormomentum{mv_x,mv_y,mv_z}| but
 % instead the generic |\mivector{mv_x,mv_y,mv_z}| instead.
 %
+% The vector variants do not have special variants that isolate units
+% because that would be redundant. A vector and its magnitude have
+% the same unit.
+%
 % \subsubsection{Checking Physical Quantities}
 %
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-16]{checkquantity}{\marg{name}}
+\begin{docCommand}[doc new = 2021-02-16]{checkquantity}{\marg{name}}
   Command to check and typeset the command, base units, 
   derived units, and alternate units of a defined physical 
   quantity.
@@ -739,7 +548,8 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Commands For Predefined Physical Quantities}
+% \subsubsection{Predefined Physical Quantities}
+%
 % Every other defined physical quantity can be treated similarly. Just replace 
 % |momentum| with the quantity's name. Obviously, the variants that begin with 
 % |\vector| will not be defined for scalar quantities. Here are all the 
@@ -975,6 +785,9 @@ while t < 10:
 \begin{docCommand}{electricpotential}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{electricpotential}
+\begin{docCommand}[doc new = 2021-05-01]{electricpotentialdifference}{\marg{magnitude}}
+\end{docCommand}
+\checkquantity{electricpotentialdifference}
 \begin{docCommand}{electroncurrent}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{electroncurrent}
@@ -984,6 +797,15 @@ while t < 10:
 \begin{docCommand}{energy}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{energy}
+\begin{docCommand}[doc new = 2021-04-15]{energyinev}{\marg{magnitude}}
+\end{docCommand}
+\checkquantity{energyinev}
+\begin{docCommand}[doc new = 2021-04-15]{energyinkev}{\marg{magnitude}}
+\end{docCommand}
+\checkquantity{energyinkev}
+\begin{docCommand}[doc new = 2021-04-15]{energyinmev}{\marg{magnitude}}
+\end{docCommand}
+\checkquantity{energyinmev}
 \begin{docCommand}{energydensity}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{energydensity}
@@ -1050,6 +872,9 @@ while t < 10:
 \begin{docCommand}{gravitationalpotential}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{gravitationalpotential}
+\begin{docCommand}[doc new = 2021-05-01]{gravitationalpotentialdifference}{\marg{magnitude}}
+\end{docCommand}
+\checkquantity{gravitationalpotentialdifference}
 \begin{docCommands}
   {%
     {%
@@ -1080,9 +905,9 @@ while t < 10:
 \begin{docCommand}{linearmassdensity}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{linearmassdensity}
-\begin{docCommand}{luminous}{\marg{magnitude}}
+\begin{docCommand}[doc updated = 2021-05-02]{luminousintensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{luminous}
+\checkquantity{luminousintensity}
 \begin{docCommand}{magneticcharge}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{magneticcharge}
@@ -1334,7 +1159,7 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Defining and Redefining Your Own Physical Quantities}
+% \subsubsection{Defining and Redefining Physical Quantities}
 %
 %\iffalse
 %<*example>
@@ -1390,184 +1215,17 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Predefined Units and Constructs}
+% \subsubsection{Changing Units}\setplace{ssec:chgunits}
 %
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = {},%
-  ]%
-  {%
-    {%
-      doc name = per,%
-    },%
-    {%
-      doc name = usk,%
-    },%
-    {%
-      doc parameter = \marg{magnitude}\marg{unit},%
-      doc name = unit,%
-    },%
-    {%
-      doc name = emptyunit,%
-    },%
-    {%
-      doc name = ampere,%
-    },%
-    {%
-      doc name = atomicmassunit,%
-    },%
-    {%
-      doc name = candela,%
-    },%
-    {%
-      doc name = coulomb,%
-    },%
-    {%
-      doc name = degree,%
-    },%
-    {%
-      doc name = electronvolt,%
-    },%
-    {%
-      doc name = farad,%
-    },%
-    {%
-      doc name = henry,%
-    },%
-    {%
-      doc name = hertz,%
-    },%
-    {%
-      doc name = joule,%
-    },%
-    {%
-      doc name = kelvin,%
-    },%
-    {%
-      doc name = kilogram,%
-    },%
-    {%
-      doc name = lightspeed,%
-    },%
-    {%
-      doc name = meter,%
-    },%
-    {%
-      doc name = metre,%
-    },%
-    {%
-      doc name = mole,%
-    },%
-    {%
-      doc name = newton,%
-    },%
-    {%
-      doc name = ohm,%
-    },%
-    {%
-      doc name = pascal,%
-    },%
-    {%
-      doc name = radian,%
-    },%
-    {%
-      doc name = second,%
-    },%
-    {%
-      doc name = siemens,%
-    },%
-    {%
-      doc name = steradian,%
-    },%
-    {%
-      doc name = tesla,%
-    },%
-    {%
-      doc name = volt,%
-    },%
-    {%
-      doc name = watt,%
-    },%
-    {%
-      doc name = weber,%
-    },%
-    {%
-      doc name = tothetwo,%
-      doc description = postfix,%
-    },%
-    {%
-      doc name = tothethree,%
-      doc description = postfix,%
-    },%
-    {%
-      doc name = tothefour,%
-      doc description = postfix,%
-    },%
-    {%
-      doc name = inverse,%
-      doc description = postfix,%
-    },%
-    {%
-      doc name = totheinversetwo,%
-      doc description = postfix,%
-    },%
-    {%
-      doc name = totheinversethree,%
-      doc description = postfix,%
-    },%
-    {%
-      doc name = totheinversefour,%
-      doc description = postfix,%
-    },%
-  }%
-\end{docCommands}
-\begin{dispExample}
-  \per                         \\
-  \usk                         \\
-  \unit{3}{\meter\per\second}  \\
-  \emptyunit                   \\
-  \ampere                      \\
-  \atomicmassunit              \\
-  \candela                     \\
-  \coulomb                     \\
-  \degree                      \\
-  \electronvolt                \\
-  \farad                       \\
-  \henry                       \\
-  \hertz                       \\
-  \joule                       \\
-  \kelvin                      \\
-  \kilogram                    \\
-  \lightspeed                  \\
-  \meter                       \\
-  \metre                       \\
-  \mole                        \\
-  \newton                      \\
-  \ohm                         \\
-  \pascal                      \\
-  \radian                      \\
-  \second                      \\
-  \siemens                     \\
-  \steradian                   \\
-  \tesla                       \\
-  \volt                        \\
-  \watt                        \\
-  \weber                       \\
-  \emptyunit\tothetwo          \\
-  \emptyunit\tothethree        \\
-  \emptyunit\tothefour         \\
-  \emptyunit\inverse           \\
-  \emptyunit\totheinversetwo   \\
-  \emptyunit\totheinversethree \\
-  \emptyunit\totheinversefour 
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsubsection{Changing Units}
+% Units are set when \mandi\ is loaded, but the default setting
+% can be easily overridden in four ways: command variants that
+% are defined when a \linktoplace{ssec:physquants}{physical quantity}
+% or \linktoplace{ssec:physconsts}{physical constant} is
+% defined, a global modal command (switch), a 
+% command that sets units for a single instance, and an
+% environment that sets units for its duration. All of these
+% methods work for both physical quantities and physical 
+% constants. 
 %
 %\iffalse
 %<*example>
@@ -1677,6 +1335,7 @@ while t < 10:
 %
 % \subsection{Physical Constants}
 % \subsubsection{Typesetting Physical Constants}\setplace{ssec:physconsts}
+%
 % Take the quantity \oofpezmathsymbol, sometimes called the 
 % \href{https://en.wikipedia.org/wiki/Coulomb_constant}{Coulomb constant}, 
 % as the prototypical 
@@ -1724,11 +1383,12 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Commands For Predefined Physical Constants}
+% \subsubsection{Predefined Physical Constants}
+%
 % Every other defined physical constant can be treated similarly. Just 
 % replace |oofpez| with the constant's name. Unfortunately, there is no 
-% universal agreement on the names of every constant so consult the next 
-% section for the names that have been used. Here are all the physical 
+% universal agreement on the names of every constant so don't fret if 
+% the names used here vary from other sources. Here are all the physical 
 % constants, with all their units, defined in \mandi. 
 % The constants \refCom{coulombconstant} and \refCom{biotsavartconstant} are 
 % defined as semantic aliases for, respectively, \refCom{oofpez} and 
@@ -1737,7 +1397,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}{avogadro}{}
+\begin{docCommand}[doc description = exact]{avogadro}{}
 \end{docCommand}
 \checkconstant{avogadro}
 \begin{docCommand}[doc new = 2021-02-02]{biotsavartconstant}{}
@@ -1746,7 +1406,7 @@ while t < 10:
 \begin{docCommand}{bohrradius}{}
 \end{docCommand}
 \checkconstant{bohrradius}
-\begin{docCommand}{boltzmann}{}
+\begin{docCommand}[doc description = exact]{boltzmann}{}
 \end{docCommand}
 \checkconstant{boltzmann}
 \begin{docCommand}[doc new = 2021-02-02]{coulombconstant}{}
@@ -1773,7 +1433,7 @@ while t < 10:
 \begin{docCommand}{electronmass}{}
 \end{docCommand}
 \checkconstant{electronmass}
-\begin{docCommand}{elementarycharge}{}
+\begin{docCommand}[doc description = exact]{elementarycharge}{}
 \end{docCommand}
 \checkconstant{elementarycharge}
 \begin{docCommand}{finestructure}{}
@@ -1803,7 +1463,7 @@ while t < 10:
 \begin{docCommand}{oofpezcs}{}
 \end{docCommand}
 \checkconstant{oofpezcs}
-\begin{docCommand}{planck}{}
+\begin{docCommand}[doc description = exact]{planck}{}
 \end{docCommand}
 \checkconstant{planck}
 \begin{docCommand}{planckbar}{}
@@ -1824,7 +1484,7 @@ while t < 10:
 \begin{docCommand}{rydberg}{}
 \end{docCommand}
 \checkconstant{rydberg}
-\begin{docCommand}{speedoflight}{}
+\begin{docCommand}[doc description = exact]{speedoflight}{}
 \end{docCommand}
 \checkconstant{speedoflight}
 \begin{docCommand}{stefanboltzmann}{}
@@ -1852,7 +1512,7 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsubsection{Defining and Redefining Your Own Physical Constants}
+% \subsubsection{Defining and Redefining Physical Constants}
 %
 %\iffalse
 %<*example>
@@ -1883,6 +1543,11 @@ while t < 10:
 %
 % \subsubsection{Changing Precision}
 %
+% \linktoplace{ssec:chgunits}{Changing units} works for
+% physical constants just as it does for physical quantities.
+% A similar mechanism is provided for changing the precision
+% of physical constants' numerical values.
+%
 %\iffalse
 %<*example>
 %\fi
@@ -1899,7 +1564,7 @@ while t < 10:
     },%
   }%
   Modal commands (switches) for setting the default precision for the entire 
-  document. The default with the package is loaded is set by the presence or
+  document. The default when the package is loaded is set by the presence or
   absence of the \refKey{preciseconstants} key. 
 \end{docCommands}
 %\iffalse
@@ -1965,352 +1630,213 @@ while t < 10:
 %</example>
 %\fi
 %
-% \newpage
-% \section{Other Commands for Physics Students}
-% In addition to the \refEnv{glowscriptblock} environment and the
-% \refCom{vpythonfile} command, the \refCom{glowscriptinline} 
-% command, and \refCom{vpythoninline} command \mandi\ provides a 
-% collection of commands physics students can use for writing problem 
-% solutions. These are not part of \mandi's core functionality, but
-% are included as a convenience to the package's target audience 
-% (introductory physics students). This new version focuses on the 
-% most frequently needed tools. These commands should always be used 
-% in math mode.
-% \subsection{Traditional Vector Notation}
+% \subsection{Predefined Units and Constructs}
+%
+% These commands should be used only in defining or
+% redefining physical quantities or physical
+% constants. One exception is \refCom{emptyunit},
+% which may be used for explanatory purposes.
 %
 %\iffalse
 %<*example>
 %\fi
 \begin{docCommands}[%
-    doc parameter = \marg{symbol}\oarg{labels},%
+    doc parameter = {},%
   ]%
   {%
     {%
-      doc name = vec,%
-      doc description = use this variant for boldface notation,%
+      doc name = per,%
     },%
     {%
-      doc name = vec*,%
-      doc description = use this variant for arrow notation,%
-    }%
-  }%
-  Powerful and intelligent command for symbolic vector notation. The 
-  mandatory argument is the symbol for the vector quantity. The optional 
-  label(s) consists of superscripts and/or subscripts and can be 
-  mathematical or textual in nature. If textual, be sure to wrap them in 
-  |\symup{...}| for proper typesetting. The starred variant gives arrow 
-  notation whereas without the star you get boldface notation. Subscript 
-  and superscript labels can be arbitrarily mixed, and order doesn't matter.
-  This command redefines the default \LaTeX\ |\vec| command.
-\end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \( \vec{p} \)                                \\
-  \( \vec{p}_{2} \)                            \\
-  \( \vec{p}^{\symup{ball}} \)                 \\
-  \( \vec{p}_{\symup{final}} \)                \\
-  \( \vec{p}^{\symup{ball}}_{\symup{final}} \) \\
-  \( \vec{p}^{\symup{final}}_{\symup{ball}} \) \\
-  \( \vec*{p} \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = \marg{symbol}\oarg{labels},%
-  ]%
-  {%
-    {%
-      doc name = dirvec,%
-      doc description = use this variant for boldface notation,%
+      doc name = usk,%
     },%
     {%
-      doc name = dirvec*,%
-      doc description = use this variant for arrow notation,%
-    }%
-  }%
-  Powerful and intelligent command for typesetting the direction of 
-  a vector. The options are the same as those for \refCom{vec}.
-\end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.65}
-  \( \dirvec{p} \)                                \\
-  \( \dirvec{p}_{2} \)                            \\
-  \( \dirvec{p}^{\symup{ball}} \)                 \\
-  \( \dirvec{p}_{\symup{final}} \)                \\
-  \( \dirvec{p}^{\symup{ball}}_{\symup{final}} \) \\
-  \( \dirvec{p}^{\symup{final}}_{\symup{ball}} \) \\
-  \( \dirvec*{p} \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}
-  {%
-    {%
-      doc name = zerovec,%
-      doc description = use this variant for boldface notation,%
+      doc parameter = \marg{magnitude}\marg{unit},%
+      doc name = unit,%
     },%
     {%
-      doc name = zerovec*,%
-      doc description = use this variant for arrow notation,%
-    },%
-  }%
-  Command for typesetting the zero vector. The starred variant gives 
-  arrow notation. Without the star you get boldface notation.
-\end{docCommands}
-\begin{dispExample}
-  \( \zerovec  \) \\
-  \( \zerovec* \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}{mivector}{%
-    \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}}\oarg{units}
-  }%
-  Typesets a vector as either numeric or symbolic components with an 
-  optional unit (for numerical components only). There can be more 
-  than three components. The delimiter used in the list of components 
-  can be specified; the default is a comma. The notation mirrors that of 
-  \emph{Matter \& Interactions}.
-\end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \mivector{p_0,p_1,p_2,p_3}                        \\
-  \mivector{\gamma m v_x,\gamma m v_y,\gamma m v_z} \\
-  \mivector{\frac{Q_1Q_2}{x^2},0,0}                 \\
-  \mivector{-1,0,0}                                 \\
-  \mivector{-1,0,0}[\velocityonlyderivedunits]      \\
-  \mivector{-1,0,0}[\meter\per\second]              \\
-  \velocity{\mivector{-1,0,0}}
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc new = 2021-02-21,%
-    doc parameter = \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}},%
-  ]%
-  {%
-    {%
-      doc name = direction,%
+      doc name = emptyunit,%
     },%
     {%
-      doc name = unitvector
-    },%
-  }%
-  Semantic aliases for \refCom{mivector}.
-\end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.80}
-  \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \\
-  \unitvector{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}}
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}{changein}{}%
-  Semantic alias for |\Delta|.
-\end{docCommand}
-\begin{dispExample}
- \( \changein t \) \\
- \( \changein \vec{p} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc new = 2021-02-21,%
-    doc parameter = \oarg{size}\marg{quantity},%
-  ]%
-  {%
-    {%
-      doc name = doublebars,%
-      doc description = double bars,%
+      doc name = ampere,%
     },%
     {%
-      doc name = doublebars*,%
-      doc description = double bars for fractions,%
+      doc name = atomicmassunit,%
     },%
     {%
-      doc name = singlebars,%
-      doc description = single bars,%
+      doc name = candela,%
     },%
     {%
-      doc name = singlebars*,%
-      doc description = single bars for fractions,%
+      doc name = coulomb,%
     },%
     {%
-      doc name = anglebrackets,%
-      doc description = angle brackets,%
+      doc name = degree,%
     },%
     {%
-      doc name = anglebrackets*,%
-      doc description = angle brackets for fractions,%
+      doc name = electronvolt,%
+      doc description = not SI but common in introductory physics,%
     },%
     {%
-      doc name = parentheses,%
-      doc description = parentheses,%
+      doc new = 2021-04-15,%
+      doc name = ev,%
+      doc description = alias,%
     },%
     {%
-      doc name = parentheses*,%
-      doc description = parentheses for fractions,%
+      doc name = farad,%
     },%
     {%
-      doc name = squarebrackets,%
-      doc description = square brackets,%
+      doc name = henry,%
     },%
     {%
-      doc name = squarebrackets*,%
-      doc description = square brackets for fractions,%
+      doc name = hertz,%
     },%
     {%
-      doc name = curlybraces,%
-      doc description = curly braces,%
+      doc name = joule,%
     },%
     {%
-      doc name = curlybraces*,%
-      doc description = curly braces for fractions,%
+      doc name = kelvin,%
+    },%
+    {%
+      doc new = 2021-04-15,%
+      doc name = kev,%
+      doc description = alias,%
+    },%
+    {%
+      doc new = 2021-04-15,%
+      doc name = kiloelectronvolt,%
+      doc description = not SI but common in introductory physics,%
+    },%
+    {%
+      doc name = kilogram,%
+    },%
+    {%
+      doc name = lightspeed,%
+      doc description = not SI but common relativity,%
+    },%
+    {%
+      doc new = 2021-04-15,%
+      doc name = megaelectronvolt,%
+      doc description = not SI but common in introductory physics,%
+    },%
+    {%
+      doc name = meter,%
+    },%
+    {%
+      doc name = metre,%
+      doc description = alias,%
+    },%
+    {%
+      doc new = 2021-04-15,%
+      doc name = mev,%
+      doc description = alias,%
+    },%
+    {%
+      doc name = mole,%
+    },%
+    {%
+      doc name = newton,%
+    },%
+    {%
+      doc name = ohm,%
+    },%
+    {%
+      doc name = pascal,%
+    },%
+    {%
+      doc name = radian,%
+    },%
+    {%
+      doc name = second,%
+    },%
+    {%
+      doc name = siemens,%
+    },%
+    {%
+      doc name = steradian,%
+    },%
+    {%
+      doc name = tesla,%
+    },%
+    {%
+      doc name = volt,%
+    },%
+    {%
+      doc name = watt,%
+    },%
+    {%
+      doc name = weber,%
+    },%
+    {%
+      doc name = tothetwo,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = tothethree,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = tothefour,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = inverse,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = totheinversetwo,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = totheinversethree,%
+      doc description = postfix,%
+    },%
+    {%
+      doc name = totheinversefour,%
+      doc description = postfix,%
     },%
   }%
-  If no argument is given, a placeholder is provided. 
-  Sizers like |\big|,|\Big|,|\bigg|, and |\Bigg| can 
-  be optionally specified. Beginners are encouraged 
-  not to use them. See the 
-  \href{https://www.ctan.org/pkg/mathtools}{\pkg{mathtools}} package 
-  documentation for details. 
 \end{docCommands}
 \begin{dispExample}
-  \[ \doublebars{} \]
-  \[ \doublebars{\vec{a}} \]
-  \[ \doublebars*{\frac{\vec{a}}{3}} \]
-  \[ \doublebars[\Bigg]{\frac{\vec{a}}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \singlebars{} \]
-  \[ \singlebars{x} \]
-  \[ \singlebars*{\frac{x}{3}} \]
-  \[ \singlebars[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \anglebrackets{} \]
-  \[ \anglebrackets{\vec{a}} \]
-  \[ \anglebrackets*{\frac{\vec{a}}{3}} \]
-  \[ \anglebrackets[\Bigg]{\frac{\vec{a}}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \parentheses{} \]
-  \[ \parentheses{x} \]
-  \[ \parentheses*{\frac{x}{3}} \]
-  \[ \parentheses[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \squarebrackets{} \]
-  \[ \squarebrackets{x} \]
-  \[ \squarebrackets*{\frac{x}{3}} \]
-  \[ \squarebrackets[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-\begin{dispExample}
-  \[ \curlybraces{} \]
-  \[ \curlybraces{x} \]
-  \[ \curlybraces*{\frac{x}{3}} \]
-  \[ \curlybraces[\Bigg]{\frac{x}{3}} \]
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc new = 2021-02-21,%
-    doc parameter = \oarg{size}\marg{quantity},%
-  ]%
-  {%
-    {%
-      doc name = magnitude,%
-      doc description = alias for double bars,%
-    },%
-    {%
-      doc name = magnitude*,%
-      doc description = alias for double bars for fractions,%
-    },%
-    {%
-      doc name = norm,%
-      doc description = alias for double bars,%
-    },%
-    {%
-      doc name = norm*,%
-      doc description = alias for double bars for fractions,%
-    },%
-    {%
-      doc name = absolutevalue,%
-      doc description = alias for single bars,%
-    },%
-    {%
-      doc name = absolutevalue*,%
-      doc description = alias for single bars for fractions,%
-    },%
-  }%
-  Semantic aliases. Use \refCom{magnitude} or \refCom{magnitude*} to
-  typeset the magnitude of a vector.
-\end{docCommands}
-\begin{dispExample}
-  \[ \magnitude{\vec{p}} \]
-  \[ \magnitude{\vec*{p}} \]
-  \[ \magnitude*{\vec{p}_{\symup{final}}} \]
-  \[ \magnitude*{\vec*{p}_{\symup{final}}} \]
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}},%
-  ]%
-  {%
-    {%
-      doc name = colvec,%
-    },%
-    {%
-      doc name = rowvec,%
-    },%
-  }%
-  Typesets column vectors and row vectors as numeric or symbolic components. 
-  There can be more than three components. The delimiter used in the list of 
-  components can be specified; the default is a comma. Units are not 
-  supported, so these are mainly for symbolic work.
-\end{docCommands}
-\begin{dispExample}
-  \[ \colvec{1,2,3} \]
-  \[ \rowvec{1,2,3} \]
-  \[ \colvec{x_0,x_1,x_2,x_3} \]
-  \[ \rowvec{x^0,x^1,x^2,x^3} \]
+  \per                         \\
+  \usk                         \\
+  \unit{3}{\meter\per\second}  \\
+  \emptyunit                   \\
+  \ampere                      \\
+  \atomicmassunit              \\
+  \candela                     \\
+  \coulomb                     \\
+  \degree                      \\
+  \electronvolt                \\
+  \farad                       \\
+  \henry                       \\
+  \hertz                       \\
+  \joule                       \\
+  \kelvin                      \\
+  \kev                         \\
+  \kilogram                    \\
+  \lightspeed                  \\
+  \meter                       \\
+  \metre                       \\
+  \mev                         \\
+  \mole                        \\
+  \newton                      \\
+  \ohm                         \\
+  \pascal                      \\
+  \radian                      \\
+  \second                      \\
+  \siemens                     \\
+  \steradian                   \\
+  \tesla                       \\
+  \volt                        \\
+  \watt                        \\
+  \weber                       \\
+  \emptyunit\tothetwo          \\
+  \emptyunit\tothethree        \\
+  \emptyunit\tothefour         \\
+  \emptyunit\inverse           \\
+  \emptyunit\totheinversetwo   \\
+  \emptyunit\totheinversethree \\
+  \emptyunit\totheinversefour 
 \end{dispExample}
 %\iffalse
 %</example>
@@ -2344,1056 +1870,26 @@ while t < 10:
 %</example>
 %\fi
 %
-% \subsection{Problems and Annotated Problem Solutions}
-%
 %\iffalse
 %<*example>
 %\fi
-\begin{docEnvironments}[%
-    doc new = 2021-02-03,%
-    doc parameter = \marg{title},%
-    doclang/environment content = problem,%
-  ]%
-  {%
-    {%
-      doc name = physicsproblem,%
-      doc description = use this variant for vertical lists,%
-    },%
-    {%
-      doc name = physicsproblem*,%
-      doc description = use this variant for in-line lists,%
-    },%
-    {%
-      doc name = parts,%
-      doc description = provides problem parts,%
-    },%
+\begin{docCommand}{mivector}{%
+    \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}}\oarg{units}
   }%
-  Provides an environment for stating physics problems. Each problem will 
-  begin on a new page. See the examples for how to handle single and 
-  multiple part problems.
-\end{docEnvironments}
-\begin{docCommand}[doc new = 2012-02-03]{problempart}{}
-  Denotes a part of a problem within a \refEnv{parts}
-  environment.
-\end{docCommand}
-\begin{dispExample*}{sidebyside=false}
-  \begin{physicsproblem}{Problem 1}
-    This is a physics problem with no parts.
-  \end{physicsproblem}
-\end{dispExample*}
-\begin{dispExample*}{sidebyside=false}
-  \begin{physicsproblem}{Problem 2}
-    This is a physics problem with multiple parts.
-    The list is vertical.
-    \begin{parts}
-      \problempart This is the first part.
-      \problempart This is the second part.
-      \problempart This is the third part.
-    \end{parts}
-  \end{physicsproblem}
-\end{dispExample*}
-\begin{dispExample*}{sidebyside=false}
-  \begin{physicsproblem*}{Problem 3}
-    This is a physics problem with multiple parts.
-    The list is in-line.
-    \begin{parts}
-      \problempart This is the first part.
-      \problempart This is the second part.
-      \problempart This is the third part.
-    \end{parts}
-  \end{physicsproblem*}
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docEnvironments}[%
-    doc updated = 2021-02-26,%
-    doc parameter = {},%
-    doclang/environment content = solution steps,%
-  ]%
-  {%
-    {%
-      doc name = physicssolution,%
-      doc description = use this variant for numbered steps,%
-    },%
-    {%
-      doc name = physicssolution*,%
-      doc description = use this variant for unnumbered steps,%
-    },%
-  }%
-  This environment is only for mathematical solutions. The starred 
-  variant omits numbering of steps. See the examples.
-\end{docEnvironments}
-\begin{dispExample}
-  \begin{physicssolution}
-    x &= y + z \\
-    z &= x - y \\
-    y &= x - z
-  \end{physicssolution}
-  \begin{physicssolution*}
-    x &= y + z \\
-    z &= x - y \\
-    y &= x - z
-  \end{physicssolution*}
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc updated = 2012-02-26]{reason}{\marg{reason}}
-  Provides an annotation in a step-by-step solution.
-  Keep reasons short and to the point. Wrap mathematical
-  content in math mode. 
-\end{docCommand}
-\begin{dispExample}
-  \begin{physicssolution}
-    x &= y + z \reason{This is a reason.}     \\
-    z &= x - y \reason{This is a reason too.} \\
-    y &= x - z \reason{final answer}
-  \end{physicssolution}
-  \begin{physicssolution*}
-    x &= y + z \reason{This is a reason.}     \\
-    z &= x - y \reason{This is a reason too.} \\
-    y &= x - z \reason{final answer}
-  \end{physicssolution*}
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-% When writing solutions, remember that the \refEnv{physicssolution} 
-% environment is \emph{only} for mathematical content, not textual 
-% content or explanations. 
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{dispListing*}{sidebyside=false,listing only}
-  \begin{physicsproblem}{Combined Problem and Solution}
-    This is an interesting physics problem.
-    \begin{physicssolution}
-      The solution goes here.
-    \end{physicssolution}
-  \end{physicsproblem}
-\end{dispListing*}
-\begin{dispListing*}{sidebyside=false,listing only}
-  \begin{physicsproblem}{Combined Multipart Problem with Solutions}
-    This is a physics problem with multiple parts.
-    \begin{parts}
-      \problempart This is the first part.
-        \begin{physicssolution}
-          The solution goes here.
-        \end{physicssolution}
-      \problempart This is the second part.
-        \begin{physicssolution}
-          The solution goes here.
-        \end{physicssolution}
-      \problempart This is the third part.
-        \begin{physicssolution}
-          The solution goes here.
-        \end{physicssolution}
-    \end{parts}
-  \end{physicsproblem}
-\end{dispListing*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-06]{hilite}{%
-    \oarg{color}\marg{target}\oarg{shape}
-  }%
-  Hilites the desired target, which can be an entire mathematical expression 
-  or a part thereof. The default color is magenta and the default shape is a
-  rectangle.
-\end{docCommand} 
-\begin{dispListing*}{sidebyside=false,listing only}
-  \begin{align*}
-    (\Delta s)^2 &= -(\Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + 
-                     (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rounded rectangle] + 
-                     (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rectangle] + 
-                     (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[ellipse] + 
-                     (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^{\hilite{2}[circle]} &= \hilite[green]{-}[circle]
-                 (\Delta t)^{\hilite[cyan]{2}[circle]}+
-                 (\Delta x)^{\hilite[orange]{2}[circle]} + 
-                 (\Delta y)^{\hilite[blue!50]{2}[circle]} +
-                 (\Delta z)^{\hilite[violet!45]{2}[circle]}
-  \end{align*}
-\end{dispListing*}
-  \begin{align*}
-    (\Delta s)^2 &= -(\Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + 
-                     (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rounded rectangle] + 
-                    (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[rectangle] + 
-                    (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^2 &= \hilite{-(\Delta t)^2 + (\Delta x)^2}[ellipse] + 
-                    (\Delta y)^2 + (\Delta z)^2 \\
-    (\Delta s)^{\hilite{2}[circle]} &= \hilite[green]{-}[circle]
-                    (\Delta t)^{\hilite[cyan]{2}[circle]}+
-      (\Delta x)^{\hilite[orange]{2}[circle]} + 
-                    (\Delta y)^{\hilite[blue!50]{2}[circle]} +
-                    (\Delta z)^{\hilite[violet!45]{2}[circle]}
-  \end{align*}
-\begin{dispListing*}{sidebyside=false,listing only}
-  \begin{align*}
-    \Delta\vec{p} &= \vec{F}_{\sumup{net}}\,\Delta t \\
-    \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}\,\Delta t \\
-    \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}
-                     [rounded rectangle]\,\Delta t \\
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]
-                     {\Delta t}[rectangle] \\
-    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}
-                     [ellipse] \\
-    \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\,\Delta t
-  \end{align*}
-\end{dispListing*}
-  \begin{align*}
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\Delta t \\
-    \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}
-                     \,\Delta t \\
-    \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}
-                     [rounded rectangle]\,\Delta t \\
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]{\Delta t}
-                     [rectangle] \\
-    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}
-                     [ellipse] \\
-    \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\,\Delta t
-  \end{align*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc updated = 2021-02-26]{image}{%
-    \oarg{options}\marg{caption}\marg{label}\marg{image}
-  }%
-  Simplified interface for importing an image. The images are treated 
-  as floats, so they may not appear at the most logically intuitive 
-  place.
-\end{docCommand}
-\begin{dispListing*}{sidebyside=false,listing only,verbatim ignore percent}
-  \image[scale=0.20]{example-image-1x1}
-    {Image shown 20 percent actual size.}{reffig1}
-\end{dispListing*}
-\image[scale=0.20]{example-image-1x1}
-    {Image shown 20 percent actual size.}{reffig1}
-\begin{dispExample*}{sidebyside=false}
-  Figure \ref{reffig1} is nice. 
-  It's captioned \nameref{reffig1} and is on page \pageref{reffig1}.
-\end{dispExample*}
-\begin{dispListing*}{sidebyside=false,listing only,verbatim ignore percent}
-  \image[scale=0.20,angle=45]{example-image-1x1}
-  {Image shown 20 percent actual size and rotated.}{reffig1}
-\end{dispListing*}
-\image[scale=0.20,angle=45]{example-image-1x1}
-{Image shown 20 percent actual size and rotated.}{reffig2}
-\begin{dispExample*}{sidebyside=false}
-  Figure \ref{reffig2} is nice. 
-  It's captioned \nameref{reffig2} and is on page \pageref{reffig2}.
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{Coordinate-Free and Index Notation}
-% Beyond the current level of introductory physics, we need intelligent 
-% commands for typesetting vector and tensor symbols and components 
-% suitable for both coordinate-free and index notations.
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = \marg{symbol},%
-  ]%
-  {%
-    {%
-      doc name = veccomp,%
-      doc description = use this variant for coordinate-free vector notation,%
-    },%
-    {%
-      doc name = veccomp*,%
-      doc description = use this variant for index vector notation,%
-    },%
-    {%
-      doc name = tencomp,%
-      doc description = use this variant for coordinate-free tensor notation,%
-    },%
-    {%
-      doc name = tencomp*,%
-      doc description = use this variant for index tensor notation,%
-    },%
-  }%
-  Conforms to ISO 80000-2 notation.
-\end{docCommands}
-\begin{dispExample}
-  \( \veccomp{r}  \) \\
-  \( \veccomp*{r} \) \\
-  \( \tencomp{r}  \) \\
-  \( \tencomp*{r} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc parameter = \marg{index}\marg{index},%
-  ]%
-  {%
-    {%
-      doc name = valence,%
-    },%
-    {%
-      doc name = valence*,%
-    },%
-  }%
-  Typesets tensor valence. The starred variant typesets it horizontally.
-\end{docCommands}
-\begin{dispExample}
-  A vector is a \( \valence{1}{0}  \) tensor. \\
-  A vector is a \( \valence*{1}{0} \) tensor.
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc parameter = \marg{slot,slot},%
-  ]%
-  {%
-    {%
-      doc name = contraction,%
-    },%
-    {%
-      doc name = contraction*,%
-    },%
-  }%
-  Typesets tensor contraction in coordinate-free notation. There
-  is no standard on this so we assert one here.
-\end{docCommands}
-\begin{dispExample}
-  \( \contraction{1,2}  \) \\
-  \( \contraction*{1,2} \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}%
-  {%
-    {%
-      doc name = slot,%
-      doc parameter = \oarg{vector},%
-    },%
-    {%
-      doc name = slot*,%
-      doc parameter = \oarg{vector},%
-    },%
-  }%
-  An intelligent slot command for coordinate-free vector
-  and tensor notation. The starred variants suppress the 
-  underscore.
-\end{docCommands}
-\begin{dispExample}
-  \( (\slot)  \)          \\
-  \( (\slot[\vec{a}])  \) \\
-  \( (\slot*) \)          \\
-  \( (\slot*[\vec{a}]) \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-% \newpage
-% \section{\GlowScript\ and \VPython\ Program Listings}
-% \href{https://\gsurl}{\GlowScript}\footnote{\href{https://\gsurl}{https://\gsurl}} 
-% and 
-% \href{https://\vpurl}{VPython}\footnote{\href{https://\vpurl}{https://\vpurl}} 
-% are programming environments (both use \href{https://www.python.org}{Python})
-% frequently used in introductory physics to introduce students
-% for modeling physical systems. \mandi\ makes including code listings
-% very simple for students.
-% \subsection{The \texttt{\small glowscriptblock} Environment}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docEnvironment}[%
-      doc updated = 2021-02-26,doclang/environment content=GlowScript code%
-    ]%
-  {glowscriptblock}{\oarg{options}(\meta{link})\marg{caption}}
-  Code placed here is nicely formatted and optionally linked to its source on 
-  \href{https://\gsurl}{\GlowScriptorg}. Clicking anywhere in the code window 
-  will open the link in the default browser. A caption is mandatory, and a 
-  label is internally generated. The listing always begins on a new page. A 
-  URL shortening utility is recommended to keep the URL from getting unruly. 
-  For convenience, |https://| is automatically prepended to the URL and can 
-  thus be omitted. The program must exist in a public, not private, folder.
-\end{docEnvironment}
-\begin{dispListing*}{sidebyside=false}
-\begin{glowscriptblock}(tinyurl.com/y3lnqyn3){A \texttt{GlowScript} Program}
-GlowScript 3.0 vpython
-
-scene.width = 400
-scene.height = 760
-# constants and data
-g = 9.8       # m/s^2
-mball = 0.03  # kg
-Lo = 0.26     # m
-ks = 1.8      # N/m
-deltat = 0.01 # s
-
-# objects (origin is at ceiling)
-ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
-              width=0.2)
-ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
-              color=color.orange)
-spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
-               color=color.cyan,thickness=0.003,coils=40,
-               radius=0.010)
-
-# initial values
-pball = mball * vector(0,0,0)      # kg m/s
-Fgrav = mball * g * vector(0,-1,0) # N
-t = 0
-
-# improve the display
-scene.autoscale = False        # turn off automatic camera zoom
-scene.center = vector(0,-Lo,0) # move camera down
-scene.waitfor('click')         # wait for a mouse click
-
-# initial calculation loop
-# calculation loop
-while t < 10:
-    rate(100)
-    # we need the stretch
-    s = mag(ball.pos) - Lo
-    # we need the spring force
-    Fspring = ks * s * -norm(spring.axis)
-    Fnet = Fgrav + Fspring
-    pball = pball + Fnet * deltat
-    ball.pos = ball.pos + (pball / mball) * deltat
-    spring.axis = ball.pos - ceiling.pos
-    t = t + deltat
-\end{glowscriptblock}
-\end{dispListing*}
-\begin{glowscriptblock}(tinyurl.com/y3lnqyn3){A \texttt{GlowScript} Program}
-GlowScript 3.0 vpython
-
-scene.width = 400
-scene.height = 760
-# constants and data
-g = 9.8       # m/s^2
-mball = 0.03  # kg
-Lo = 0.26     # m
-ks = 1.8      # N/m
-deltat = 0.01 # s
-
-# objects (origin is at ceiling)
-ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
-              width=0.2)
-ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
-              color=color.orange)
-spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
-               color=color.cyan,thickness=0.003,coils=40,
-               radius=0.010)
-
-# initial values
-pball = mball * vector(0,0,0)      # kg m/s
-Fgrav = mball * g * vector(0,-1,0) # N
-t = 0
-
-# improve the display
-scene.autoscale = False        # turn off automatic camera zoom
-scene.center = vector(0,-Lo,0) # move camera down
-scene.waitfor('click')         # wait for a mouse click
-
-# initial calculation loop
-# calculation loop
-while t < 10:
-    rate(100)
-    # we need the stretch
-    s = mag(ball.pos) - Lo
-    # we need the spring force
-    Fspring = ks * s * -norm(spring.axis)
-    Fnet = Fgrav + Fspring
-    pball = pball + Fnet * deltat
-    ball.pos = ball.pos + (pball / mball) * deltat
-    spring.axis = ball.pos - ceiling.pos
-    t = t + deltat
-\end{glowscriptblock}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{dispExample*}{sidebyside=false}
-  \GlowScript\ program \ref{gs:1} is nice. 
-  It's called \nameref{gs:1} and is on page \pageref{gs:1}.
-\end{dispExample*}
-%  
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{The \texttt{\small vpythonfile} Command}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc updated = 2021-02-26]{vpythonfile}
-  {\oarg{options}\marg{file}\marg{caption}}
-  Command to load and typeset a \VPython\ program. The file is read from 
-  \marg{file}. Clicking anywhere in the code window can optionally open 
-  a link, passed as an option, in the default browser. A caption is mandatory, 
-  and a label is internally generated. The listing always begins on a new page. 
-  A URL shortening utility is recommended to keep the URL from getting unruly. 
-  For convenience, |https://| is automatically prepended to the URL and can 
-  thus be omitted.
-\end{docCommand}
-\begin{dispListing*}{sidebyside=false}
-\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
-  {A \VPython\ Program}
-\end{dispListing*}
-\vpythonfile[hyperurl interior = https://vpython.org]{vdemo.py}
-  {A \VPython\ Program}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{dispExample*}{sidebyside=false}
-  \VPython\ program \ref{vp:1} is nice. 
-  It's called \nameref{vp:1} and is on page \pageref{vp:1}.
-\end{dispExample*}
-%  
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{The \texttt{\small glowscriptinline} and 
-%   \texttt{\small vpythoninline} Commands}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc updated = 2021-02-26,%
-  ]%
-  {%
-    {%
-      doc name = glowscriptinline,%
-      doc parameter = \marg{GlowScript code},%
-    },%
-    {%
-      doc name = vpythoninline,%
-      doc parameter = \marg{VPython code},%
-    },%
-  }%
-  Typesets a small, in-line snippet of code. The snippet should be
-  less than one line long.
-\end{docCommands}
-\begin{dispExample*}{sidebyside=false}
-  \GlowScript\ programs begin with \glowscriptinline{GlowScript 3.0 VPython}
-  and \VPython\ programs begin with \vpythoninline{from vpython import *}. 
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-% \newpage
-% \section{Commands Specific to \emph{Matter \& Interactions}}
-% \mandi\ comes with an accessory package \mandiexp\  
-% which includes commands specific to 
-% \emph{Matter \& Interactions}\footnote{See 
-% \href{https://www.wiley.com/en-us/Matter+and+Interactions%2C+4th+Edition-p-9781118875865}
-% {\emph{Matter \& Interactions}} and
-% \href{https://matterandinteractions.org/}{https://matterandinteractions.org/}
-% for details}. The commands are primarily for typesetting 
-% mathematical expressions used in the text. Use of \mandiexp\ is 
-% optional and so must be manually loaded by including the line 
-% |\usepackage{mandiexp}| in your document's preamble. Note that \mandiexp\
-% requires, and loads, \mandi\ but \mandi\ doesn't require, and doesn't load,
-% \mandiexp.
-% \subsection{The Momentum Principle}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = {},%
-  ]%
-  {%
-    {%
-      doc name = lhsmomentumprinciple,%
-      doc description = {LHS of delta form, bold vectors},%
-    },%
-    {%
-      doc name = rhsmomentumprinciple,%
-      doc description = {RHS of delta form, bold vectors},%
-    },%
-    {%
-      doc name = lhsmomentumprincipleupdate,%
-      doc description = {LHS of update form, bold vectors},%
-    },%
-    {%
-      doc name = rhsmomentumprincipleupdate,%
-      doc description = {RHS of update form, bold vectors},%
-    },%
-    {%
-      doc name = momentumprinciple,%
-      doc description = {delta form, bold vectors},%
-    },%
-    {%
-      doc name = momentumprincipleupdate,%
-      doc description = {update form, bold vectors},%
-    },%
-    {%
-      doc name = lhsmomentumprinciple*,%
-      doc description = {LHS of delta form, arrow vectors},%
-    },%
-    {%
-      doc name = rhsmomentumprinciple*,%
-      doc description = {RHS of delta form, arrow vectors},%
-    },%
-    {%
-      doc name = lhsmomentumprincipleupdate*,%
-      doc description = {LHS of update form, arrow vectors},%
-    },%
-    {%
-      doc name = rhsmomentumprincipleupdate*,%
-      doc description = {RHS of update form, arrow vectors},%
-    },%
-    {%
-      doc name = momentumprinciple*,%
-      doc description = {delta form, arrow vectors},%
-    },%
-    {%
-      doc name = momentumprincipleupdate*,%
-      doc description = {update form, arrow vectors},%
-    },%
-  }%
-  Variants of command for typesetting the momentum principle.
-  Use starred variants to get arrow notation for vectors.
-\end{docCommands}
-\begin{dispExample}
-  \( \lhsmomentumprinciple \)        \\
-  \( \rhsmomentumprinciple \)        \\
-  \( \lhsmomentumprincipleupdate \)  \\
-  \( \rhsmomentumprincipleupdate \)  \\
-  \( \momentumprinciple \)           \\
-  \( \momentumprincipleupdate \)     \\
-  \( \lhsmomentumprinciple* \)       \\
-  \( \rhsmomentumprinciple* \)       \\
-  \( \lhsmomentumprincipleupdate* \) \\
-  \( \rhsmomentumprincipleupdate* \) \\
-  \( \momentumprinciple* \)          \\
-  \( \momentumprincipleupdate* \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{The Energy Principle}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = {},%
-  ]%
-  {%
-    {%
-      doc name = lhsenergyprinciple,%
-      doc description = {LHS of delta form},%
-    },%
-    {%
-      doc name = rhsenergyprinciple,%
-      doc parameter = \oarg{\(+\)process...},%
-      doc description = {RHS of delta form},%
-    },%
-    {%
-      doc name = lhsenergyprincipleupdate,%
-      doc description = {LHS of update form},%
-    },%
-    {%
-      doc name = rhsenergyprincipleupdate,%
-      doc parameter = \oarg{\(+\)process...},%
-      doc description = {RHS of update form},%
-    },%
-    {%
-      doc name = energyprinciple,%
-      doc parameter = \oarg{\(+\)process...},%
-      doc description = {delta form},%
-    },%
-    {%
-      doc name = energyprincipleupdate,%
-      doc parameter = \oarg{\(+\)process...},%
-      doc description = {update form},%
-    },%
-  }%
-  Variants of command for typesetting the energy principle.
-\end{docCommands}
-\begin{dispExample}
-  \( \lhsenergyprinciple \)           \\
-  \( \rhsenergyprinciple \)           \\
-  \( \rhsenergyprinciple[+Q] \)       \\
-  \( \energyprinciple \)              \\
-  \( \energyprinciple[+Q] \)          \\
-  \( \lhsenergyprincipleupdate \)     \\
-  \( \rhsenergyprincipleupdate \)     \\
-  \( \rhsenergyprincipleupdate[+Q] \) \\
-  \( \energyprincipleupdate \)        \\
-  \( \energyprincipleupdate[+Q] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{The Angular Momentum Principle}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc parameter = {},%
-  ]%
-  {%
-    {%
-      doc name = lhsangularmomentumprinciple,%
-      doc description = {LHS of delta form, bold vectors},%
-    },%
-    {%
-      doc name = rhsangularmomentumprinciple,%
-      doc description = {RHS of delta form, bold vectors},%
-    },%
-    {%
-      doc name = lhsangularmomentumprincipleupdate,%
-      doc description = {LHS of update form, bold vectors},%
-    },%
-    {%
-      doc name = rhsangularmomentumprincipleupdate,%
-      doc description = {RHS of update form, bold vectors},%
-    },%
-    {%
-      doc name = angularmomentumprinciple,%
-      doc description = {delta form, bold vectors},%
-    },%
-    {%
-      doc name = angularmomentumprincipleupdate,%
-      doc description = {update form, bold vectors},%
-    },%
-    {%
-      doc name = lhsangularmomentumprinciple*,%
-      doc description = {LHS of delta form, arrow vectors},%
-    },%
-    {%
-      doc name = rhsangularmomentumprinciple*,%
-      doc description = {RHS of delta form, arrow vectors},%
-    },%
-    {%
-      doc name = lhsangularmomentumprincipleupdate*,%
-      doc description = {LHS of update form, arrow vectors},%
-    },%
-    {%
-      doc name = rhsangularmomentumprincipleupdate*,%
-      doc description = {RHS of update form, arrow vectors},%
-    },%
-    {%
-      doc name = angularmomentumprinciple*,%
-      doc description = {delta form, arrow vectors},%
-    },%
-    {%
-      doc name = angularmomentumprincipleupdate*,%
-      doc description = {update form, arrow vectors},%
-    },%
-  }%
-  Variants of command for typesetting the angularmomentum principle.
-  Use starred variants to get arrow notation for vectors.
-\end{docCommands}
-\begin{dispExample}
-  \( \lhsangularmomentumprinciple \)        \\
-  \( \rhsangularmomentumprinciple \)        \\
-  \( \lhsangularmomentumprincipleupdate \)  \\
-  \( \rhsangularmomentumprincipleupdate \)  \\
-  \( \angularmomentumprinciple \)           \\
-  \( \angularmomentumprincipleupdate \)     \\
-  \( \lhsangularmomentumprinciple* \)       \\
-  \( \rhsangularmomentumprinciple* \)       \\
-  \( \lhsangularmomentumprincipleupdate* \) \\
-  \( \rhsangularmomentumprincipleupdate* \) \\
-  \( \angularmomentumprinciple* \)          \\
-  \( \angularmomentumprincipleupdate* \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-% \subsection{Other Expressions}
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{energyof}{\marg{label}\oarg{label}}
-    Generic symbol for the energy of some entity.
+  Typesets a vector as either numeric or symbolic components with an 
+  optional unit (for numerical components only). There can be more 
+  than three components. The delimiter used in the list of components 
+  can be specified; the default is a comma. The notation mirrors that of 
+  \emph{Matter \& Interactions}.
 \end{docCommand}
 \begin{dispExample*}{lefthand ratio=0.6}
-  \( \energyof{\symup{electron}} \) \\
-  \( \energyof{\symup{electron}}[\symup{final}] \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{systemenergy}{\oarg{label}}
-    Symbol for system energy.
-\end{docCommand}
-\begin{dispExample}
-  \( \systemenergy \) \\
-  \( \systemenergy[\symup{final}] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{particleenergy}{\oarg{label}}
-    Symbol for particle energy.
-\end{docCommand}
-\begin{dispExample}
-  \( \particleenergy \) \\
-  \( \particleenergy[\symup{final}] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{restenergy}{\oarg{label}}
-    Symbol for rest energy.
-\end{docCommand}
-\begin{dispExample}
-  \( \restenergy \) \\
-  \( \restenergy[\symup{final}] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{internalenergy}{\oarg{label}}
-    Symbol for internal energy.
-\end{docCommand}
-\begin{dispExample}
-  \( \internalenergy \) \\
-  \( \internalenergy[\symup{final}] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{chemicalenergy}{\oarg{label}}
-    Symbol for chemical energy.
-\end{docCommand}
-\begin{dispExample}
-  \( \chemicalenergy \) \\
-  \( \chemicalenergy[\symup{final}] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{thermalenergy}{\oarg{label}}
-    Symbol for thermal energy.
-\end{docCommand}
-\begin{dispExample}
-  \( \thermalenergy \) \\
-  \( \thermalenergy[\symup{final}] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{photonenergy}{\oarg{label}}
-    Symbol for photon energy.
-\end{docCommand}
-\begin{dispExample}
-  \( \photonenergy \) \\
-  \( \photonenergy[\symup{final}] \)
-\end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc new=2021-02-13,%
-  doc parameter = \oarg{label},%
-  ]%
-  {%
-    {%
-      doc name = translationalkineticenergy,%
-    },%
-    {%
-      doc name = translationalkineticenergy*,%
-    },%
-  }%
-  Symbol for translational kinetic energy.
-  The starred variant gives \(E\) notation.
-\end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \( \translationalkineticenergy \) \\
-  \( \translationalkineticenergy[\symup{initial}] \) \\
-  \( \translationalkineticenergy* \) \\
-  \( \translationalkineticenergy*[\symup{initial}] \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc new=2021-02-13,%
-  doc parameter = \oarg{label},%
-  ]%
-  {%
-    {%
-      doc name = rotationalkineticenergy,%
-    },%
-    {%
-      doc name = rotationalkineticenergy*,%
-    },%
-  }%
-  Symbol for rotational kinetic energy.
-  The starred variant gives \(E\) notation.
-\end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \( \rotationalkineticenergy \) \\
-  \( \rotationalkineticenergy[\symup{initial}] \) \\
-  \( \rotationalkineticenergy* \) \\
-  \( \rotationalkineticenergy*[\symup{initial}] \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-  doc new=2021-02-13,%
-  doc parameter = \oarg{label},%
-  ]%
-  {%
-    {%
-      doc name = vibrationalkineticenergy,%
-    },%
-    {%
-      doc name = vibrationalkineticenergy*,%
-    },%
-  }%
-  Symbol for vibrational kinetic energy.
-  The starred variant gives \(E\) notation.
-\end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \( \vibrationalkineticenergy \) \\
-  \( \vibrationalkineticenergy[\symup{initial}] \) \\
-  \( \vibrationalkineticenergy* \) \\
-  \( \vibrationalkineticenergy*[\symup{initial}] \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{gravitationalpotentialenergy}
-  {\oarg{label}}
-    Symbol for gravitational potential energy.
-\end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \( \gravitationalpotentialenergy \) \\
-  \( \gravitationalpotentialenergy[\symup{final}] \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{electricpotentialenergy}{\oarg{label}}
-    Symbol for electric potential energy.
-\end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \( \electricpotentialenergy \) \\
-  \( \electricpotentialenergy[\symup{final}] \)
-\end{dispExample*}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommand}[doc new=2021-02-13]{springpotentialenergy}{\oarg{label}}
-    Symbol for spring potential energy.
-\end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
-  \( \springpotentialenergy \) \\
-  \( \springpotentialenergy[\symup{final}] \)
+  \mivector{p_0,p_1,p_2,p_3}                        \\
+  \mivector{\gamma m v_x,\gamma m v_y,\gamma m v_z} \\
+  \mivector{\frac{Q_1Q_2}{x^2},0,0}                 \\
+  \mivector{-1,0,0}                                 \\
+  \mivector{-1,0,0}[\velocityonlyderivedunits]      \\
+  \mivector{-1,0,0}[\meter\per\second]              \\
+  \velocity{\mivector{-1,0,0}}
 \end{dispExample*}
 %\iffalse
 %</example>
@@ -3402,7 +1898,7 @@ while t < 10:
 % \StopEventually{}
 %
 % \newgeometry{left=0.50in,right=0.50in,top=1.00in,bottom=1.00in}
-% \section{Source Code}
+% \subsection{\mandi\ Source Code}
 %
 % \iffalse
 %<*package>
@@ -3413,15 +1909,15 @@ while t < 10:
 % in the name, that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@Version{3.0.0j}
-\def\mandi@Date{2021-04-04}
+\def\mandi@Version{3.0.0m}
+\def\mandi@Date{2021-05-27}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0j}{2021-04-04}{mandi.sty}
+\DeclareRelease{v3.0.0m}{2021-05-27}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}
-  [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
+  [\mandi@Date\space v\mandi@Version\space Macros for physical quantities]
 %    \end{macrocode}
 %
 % Define a convenient package version command.
@@ -3430,90 +1926,14 @@ while t < 10:
 \newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
 %    \end{macrocode}
 %
-% Set up the fonts to be consistent with ISO 80000-2 notation.
-% The \href{https://www.ctan.org/pkg/unicode-math}{\pkg{unicode-math}} package 
-% loads the \href{https://www.ctan.org/pkg/fontspec}{\pkg{fontspec}} and 
-% \href{https://www.ctan.org/pkg/xparse}{\pkg{xparse}}
-% packages. Note that \pkg{xparse} is now part of the \LaTeX\ kernel.
-% Because \pkg{unicode-math} is required, all documents using \mandi\ must
-% be compiled with an engine that supports Unicode. We recommend \lualatex.
-%
-%    \begin{macrocode}
-\RequirePackage{unicode-math}
-\unimathsetup{math-style=ISO}
-\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
-\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % single-storey g.
-%    \end{macrocode}
-%
-% Use normal math letters from Latin Modern Math for familiarity with 
-% textbooks.
-%
-%    \begin{macrocode}
-\setmathfont[Scale=MatchLowercase,range=it/]{Latin Modern Math}
-%    \end{macrocode}
-%
-% Borrow |mathscr| and |mathbfscr| from XITS Math.\newline
-% See \href{https://tex.stackexchange.com/a/120073/218142}
-%  {https://tex.stackexchange.com/a/120073/218142}.
-%
-%    \begin{macrocode}
-\setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]{XITS Math}
-%    \end{macrocode}
-%
-% Get original and bold |mathcal| fonts.\newline
-% See \href{https://tex.stackexchange.com/a/21742/218142}
-%  {https://tex.stackexchange.com/a/21742/218142}.
-%
-%    \begin{macrocode}
-\setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
-%    \end{macrocode}
-%
-% Borrow Greek letters from Latin Modern Math.
-%
-%    \begin{macrocode}
-\setmathfont[Scale=MatchLowercase,range=    it/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=  bfit/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=    up/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=  bfup/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=bfsfup/{greek,Greek}]{Latin Modern Math}
-%    \end{macrocode}
-%
 % Load third party packages, documenting why each one is needed.
 %
 %    \begin{macrocode}
-\RequirePackage{amsmath}             % AMS goodness (don't load amssymb or amsfonts)
-\RequirePackage[inline]{enumitem}    % needed for physicsproblem environment
-\RequirePackage{eso-pic}             % needed for \hilite
-\RequirePackage[g]{esvect}           % needed for nice vector arrow, style g
-\RequirePackage{pgfopts}             % needed for key-value interface
-\RequirePackage{array}               % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}               % needed for requiring LuaLaTeX
-\RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
-\RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
-\RequirePackage{nicematrix}          % needed for column and row vectors
-\RequirePackage[most]{tcolorbox}     % needed for program listings
-\RequirePackage{tensor}              % needed for index notation
-\RequirePackage{tikz}                % needed for \hilite
-\usetikzlibrary{shapes,fit,tikzmark} % needed for \hilite
-\RequirePackage{hyperref}            % load last
-\RequireLuaTeX                       % require this engine
-%    \end{macrocode}
-%
-% Need to tweak the \href{https://www.ctan.org/pkg/esvect}{\pkg{esvect}} package 
-% fonts to get the correct font size. Code provided by |@egreg|.\newline
-% See \href{https://tex.stackexchange.com/a/566676}
-%  {https://tex.stackexchange.com/a/566676}.
-%
-%    \begin{macrocode}
-\DeclareFontFamily{U}{esvect}{}
-\DeclareFontShape{U}{esvect}{m}{n}{%
-  <-5.5> vect5
-  <5.5-6.5> vect6
-  <6.5-7.5> vect7
-  <7.5-8.5> vect8
-  <8.5-9.5> vect9
-  <9.5-> vect10
-}{}%
+\RequirePackage{pgfopts}      % needed for key-value interface
+\RequirePackage{array}        % needed for \checkquantity and \checkconstant
+\RequirePackage{iftex}        % needed for requiring LuaLaTeX
+\RequirePackage{unicode-math} % needed for Unicode support
+\RequireLuaTeX                % require this engine
 %    \end{macrocode}
 %
 % The core unit engine has been completely rewritten in 
@@ -3613,8 +2033,6 @@ while t < 10:
 \typeout{}%
 \typeout{mandi: You are using mandi \mandiversion.}%
 \typeout{mandi: This package requires LuaLaTeX.}%
-\typeout{mandi: This package changes the default math font.}%
-\typeout{mandi: This package redefines the \protect\vec\space command.}%
 \typeout{mandi: Loadtime options...}
 %    \end{macrocode}
 %
@@ -3652,13 +2070,14 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Define units to be used with the unit engine. All single letter macros 
-% are now gone. We basically absorbed and adapted the now outdated 
+% Define units and related constructs to be used with the unit engine. 
+% All single letter macros are now gone. We basically absorbed and 
+% adapted the now outdated 
 % \href{https://ctan.org/pkg/siunits}{\pkg{SIunits}} package. 
 % We make use of |\symup{...}| from the \pkg{unicode-math} package.
 %
 %    \begin{macrocode}
-\NewDocumentCommand{\per}{}{\ensuremath{\,/\,}}
+\NewDocumentCommand{\per}{}{\ensuremath{/}}
 \NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
 \NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
 \NewDocumentCommand{\ampere}{}{\ensuremath{\symup{A}}}
@@ -3667,15 +2086,20 @@ while t < 10:
 \NewDocumentCommand{\coulomb}{}{\ensuremath{\symup{C}}}
 \NewDocumentCommand{\degree}{}{\ensuremath{^{\circ}}}
 \NewDocumentCommand{\electronvolt}{}{\ensuremath{\symup{eV}}}
+\NewDocumentCommand{\ev}{}{\electronvolt}
 \NewDocumentCommand{\farad}{}{\ensuremath{\symup{F}}}
 \NewDocumentCommand{\henry}{}{\ensuremath{\symup{H}}}
 \NewDocumentCommand{\hertz}{}{\ensuremath{\symup{Hz}}}
 \NewDocumentCommand{\joule}{}{\ensuremath{\symup{J}}}
 \NewDocumentCommand{\kelvin}{}{\ensuremath{\symup{K}}}
+\NewDocumentCommand{\kev}{}{\kiloelectronvolt}
+\NewDocumentCommand{\kiloelectronvolt}{}{\ensuremath{\symup{keV}}}
 \NewDocumentCommand{\kilogram}{}{\ensuremath{\symup{kg}}}
 \NewDocumentCommand{\lightspeed}{}{\ensuremath{\symup{c}}}
+\NewDocumentCommand{\megaelectronvolt}{}{\ensuremath{\symup{MeV}}}
 \NewDocumentCommand{\meter}{}{\ensuremath{\symup{m}}}
 \NewDocumentCommand{\metre}{}{\meter}
+\NewDocumentCommand{\mev}{}{\megaelectronvolt}
 \NewDocumentCommand{\mole}{}{\ensuremath{\symup{mol}}}
 \NewDocumentCommand{\newton}{}{\ensuremath{\symup{N}}}
 \NewDocumentCommand{\ohm}{}{\ensuremath{\symup\Omega}}
@@ -3696,6 +2120,9 @@ while t < 10:
 \NewDocumentCommand{\totheinversethree}{}{\ensuremath{^{-3}}} % postfix -3
 \NewDocumentCommand{\totheinversefour}{}{\ensuremath{^{-4}}}  % postfix -4
 \NewDocumentCommand{\emptyunit}{}{\ensuremath{\mdlgwhtsquare}}
+\NewDocumentCommand{\tento}{ m }{\ensuremath{10^{#1}}}
+\NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
+\NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
 %    \end{macrocode}
 %
 % Defining a new scalar quantity. I am very much aware that this family of commands
@@ -3716,7 +2143,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Redefining a new scalar quantity.
+% Redefining an existing scalar quantity.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }{%
@@ -3741,7 +2168,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Redefining a new vector quantity. Note that a corresponding scalar is also redefined.
+% Redefining an existing vector quantity. Note that a corresponding scalar is also redefined.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }{%
@@ -3775,7 +2202,7 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
-% Redefining a new physical constant.
+% Redefining an existing physical constant.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }{%
@@ -3830,11 +2257,11 @@ while t < 10:
 %    [\newton\usk\meter\usk\second\per\radian]%
 %\else
   \newvectorquantity{angularimpulse}%
-    {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+    {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
     [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
     [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
   \newvectorquantity{angularmomentum}%
-    {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+    {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
     [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
     [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
 %\fi
@@ -3844,16 +2271,16 @@ while t < 10:
   [\radian\per\second]%
 \newscalarquantity{area}%
   {\meter\tothetwo}%
-\newscalarquantity{areamassdensity}%
-  {\meter\totheinversetwo\usk\kilogram}%
-  [\kilogram\per\meter\tothetwo]%
-  [\kilogram\per\meter\tothetwo]%
 \newscalarquantity{areachargedensity}%
-  {\meter\totheinversetwo\usk\second\usk\ampere}%
+  {\ampere\usk\second\usk\meter\totheinversetwo}%
   [\coulomb\per\meter\tothetwo]%
   [\coulomb\per\meter\tothetwo]%
+\newscalarquantity{areamassdensity}%
+  {\kilogram\usk\meter\totheinversetwo}%
+  [\kilogram\per\meter\tothetwo]%
+  [\kilogram\per\meter\tothetwo]%
 \newscalarquantity{capacitance}%
-  {\meter\totheinversetwo\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\farad]%
   [\coulomb\per\volt]% % also \coulomb\tothetwo\per\newton\usk\meter, \second\per\ohm
 \newscalarquantity{charge}%
@@ -3861,17 +2288,17 @@ while t < 10:
   [\coulomb]%
   [\coulomb]% % also \farad\usk\volt
 \newvectorquantity{cmagneticfield}%
-  {\meter\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
-  [\volt\per\meter]%
+  {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%  
+  [\newton\per\coulomb]% % also \volt\per\meter
   [\newton\per\coulomb]%
 \newscalarquantity{conductance}%
-  {\meter\totheinversetwo\usk\kilogram\inverse\usk\second\tothethree\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\siemens]%
   [\ampere\per\volt]%
 \newscalarquantity{conductivity}%
-  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothethree\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\siemens\per\meter]%
-  [(\ampere\per\meter\tothetwo)\per(\volt\per\meter)]%
+  [\ampere\per\volt\usk\meter]%
 \newscalarquantity{conventionalcurrent}%
   {\ampere}%
   [\coulomb\per\second]%
@@ -3879,8 +2306,8 @@ while t < 10:
 \newscalarquantity{current}%
   {\ampere}%
 \newscalarquantity{currentdensity}%
-  {\meter\totheinversetwo\usk\ampere}%
-  [\coulomb\usk\second\per\meter\tothetwo]%
+  {\ampere\usk\meter\totheinversetwo}%
+  [\coulomb\per\second\usk\meter\tothetwo]%
   [\ampere\per\meter\tothetwo]%
 \newscalarquantity{dielectricconstant}%
   {}%
@@ -3889,35 +2316,45 @@ while t < 10:
 \newscalarquantity{duration}%
   {\second}%
 \newvectorquantity{electricdipolemoment}%
-  {\meter\usk\second\usk\ampere}%
+  {\ampere\usk\second\usk\meter}%
   [\coulomb\usk\meter]%
   [\coulomb\usk\meter]%
 \newvectorquantity{electricfield}%
-  {\meter\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\per\meter]%
   [\newton\per\coulomb]%
 \newscalarquantity{electricflux}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\usk\meter]%
   [\newton\usk\meter\tothetwo\per\coulomb]%
 \newscalarquantity{electricpotential}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
+  [\volt]% % also \joule\per\coulomb
   [\volt]%
-  [\joule\per\coulomb]%
+\newscalarquantity{electricpotentialdifference}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
+  [\volt]% % also \joule\per\coulomb
+  [\volt]%
 \newscalarquantity{electroncurrent}%
   {\second\inverse}%
   [\ensuremath{\symup{e}}\per\second]%
   [\ensuremath{\symup{e}}\per\second]%
 \newscalarquantity{emf}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
+  [\volt]% % also \joule\per\coulomb
   [\volt]%
-  [\joule\per\coulomb]%
 \newscalarquantity{energy}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule]% % also \newton\usk\meter
   [\joule]%
+\newscalarquantity{energyinev}%
+  {\electronvolt}%
+\newscalarquantity{energyinkev}%
+  {\kiloelectronvolt}%
+\newscalarquantity{energyinmev}%
+  {\megaelectronvolt}%
 \newscalarquantity{energydensity}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\joule\per\meter\tothethree]%
   [\joule\per\meter\tothethree]%
 \newscalarquantity{energyflux}%
@@ -3925,11 +2362,11 @@ while t < 10:
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
 \newscalarquantity{entropy}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newvectorquantity{force}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\usk\second\totheinversetwo}%
   [\newton]%
   [\newton]% % also \kilogram\usk\meter\per\second\tothetwo
 \newscalarquantity{frequency}%
@@ -3944,56 +2381,60 @@ while t < 10:
   {\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule\per\kilogram]%
   [\joule\per\kilogram]%
+\newscalarquantity{gravitationalpotentialdifference}%
+  {\meter\tothetwo\usk\second\totheinversetwo}%
+  [\joule\per\kilogram]%
+  [\joule\per\kilogram]%
 \newvectorquantity{impulse}%
-  {\meter\usk\kilogram\usk\second\inverse}%
+  {\kilogram\usk\meter\usk\second\inverse}%
   [\newton\usk\second]%
   [\newton\usk\second]%
 \newscalarquantity{indexofrefraction}%
   {}%
 \newscalarquantity{inductance}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry]%
   [\volt\usk\second\per\ampere]% % also \square\meter\usk\kilogram\per\coulomb\tothetwo, \Wb\per\ampere
 \newscalarquantity{linearchargedensity}%
-  {\meter\inverse\usk\second\usk\ampere}%
+  {\ampere\usk\second\usk\meter\inverse}%
   [\coulomb\per\meter]%
   [\coulomb\per\meter]%
 \newscalarquantity{linearmassdensity}%
-  {\meter\inverse\usk\kilogram}%
+  {\kilogram\usk\meter\inverse}%
   [\kilogram\per\meter]%
   [\kilogram\per\meter]%
-\newscalarquantity{luminous}%
+\newscalarquantity{luminousintensity}%
   {\candela}%
 \newscalarquantity{magneticcharge}%
-  {\meter\usk\ampere}%
+  {\ampere\usk\meter}% % There is another convention. Be careful!
 \newvectorquantity{magneticdipolemoment}%
-  {\meter\tothetwo\usk\ampere}%
+  {\ampere\usk\meter\tothetwo}%
   [\ampere\usk\meter\tothetwo]%
   [\joule\per\tesla]%
 \newvectorquantity{magneticfield}%
-  {\kilogram\usk\second\totheinversetwo\usk\ampere\inverse}%
+  {\kilogram\usk\ampere\inverse\usk\second\totheinversetwo}%
+  [\newton\per\ampere\usk\meter]% % also \Wb\per\meter\tothetwo
   [\tesla]%
-  [\newton\per\coulomb\usk(\meter\per\second)]% % also \Wb\per\meter\tothetwo
 \newscalarquantity{magneticflux}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\volt\usk\second]% % also \Wb and \joule\per\ampere
 \newscalarquantity{mass}%
   {\kilogram}%
 \newscalarquantity{mobility}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversefour\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversefour}%
   [\meter\tothetwo\per\volt\usk\second]%
-  [(\meter\per\second)\per(\newton\per\coulomb)]%
+  [\coulomb\usk\meter\per\newton\usk\second]%
 \newscalarquantity{momentofinertia}%
-  {\meter\tothetwo\usk\kilogram}%
+  {\kilogram\usk\meter\tothetwo}%
   [\joule\usk\second\tothetwo]%
   [\kilogram\usk\meter\tothetwo]%
 \newvectorquantity{momentum}%
-  {\meter\usk\kilogram\usk\second\inverse}%
-  [\newton\usk\second]%
+  {\kilogram\usk\meter\usk\second\inverse}%
+  [\kilogram\usk\meter\per\second]%
   [\kilogram\usk\meter\per\second]%
 \newvectorquantity{momentumflux}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\newton\per\meter\tothetwo]%
   [\newton\per\meter\tothetwo]%
 \newscalarquantity{numberdensity}%
@@ -4001,11 +2442,11 @@ while t < 10:
   [\per\meter\tothethree]%
   [\per\meter\tothethree]%
 \newscalarquantity{permeability}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
-  [\tesla\usk\meter\per\ampere]%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
+  [\tesla\usk\meter\per\ampere]%
 \newscalarquantity{permittivity}%
-  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\totheinversefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 \newscalarquantity{planeangle}%
@@ -4013,11 +2454,11 @@ while t < 10:
   [\radian]%
   [\radian]%
 \newscalarquantity{polarizability}%
-  {\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse}%
   [\coulomb\usk\meter\tothetwo\per\volt]%
-  [\coulomb\usk\meter\per(\newton\per\coulomb)]%
+  [\coulomb\tothetwo\usk\meter\per\newton]%
 \newscalarquantity{power}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversethree}%
   [\watt]%
   [\joule\per\second]%
 \newvectorquantity{poynting}%
@@ -4025,7 +2466,7 @@ while t < 10:
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
 \newscalarquantity{pressure}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
 \newscalarquantity{relativepermeability}
@@ -4033,13 +2474,13 @@ while t < 10:
 \newscalarquantity{relativepermittivity}%
   {}%
 \newscalarquantity{resistance}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\totheinversetwo}%
-  [\volt\per\ampere]%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
+  [\ohm]% % also \volt\per\ampere
   [\ohm]%
 \newscalarquantity{resistivity}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversethree\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
   [\ohm\usk\meter]%
-  [(\volt\per\meter)\per(\ampere\per\meter\tothetwo)]%
+  [\volt\usk\meter\per\ampere]%
 \newscalarquantity{solidangle}%
   {\meter\tothetwo\usk\meter\totheinversetwo}%
   [\steradian]%
@@ -4055,7 +2496,7 @@ while t < 10:
 \newscalarquantity{springstretch}% % This is really just a displacement.
   {\meter}%
 \newscalarquantity{stress}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
 \newscalarquantity{strain}%
@@ -4064,12 +2505,12 @@ while t < 10:
   {\kelvin}%
 %\ifmandi@rotradians
 %  \newphysicalquantity{torque}%
-%    {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\radian\inverse}%
+%    {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\radian\inverse}%
 %    [\newton\usk\meter\per\radian]%
 %    [\newton\usk\meter\per\radian]%
 %\else
   \newvectorquantity{torque}%
-    {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
+    {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
     [\newton\usk\meter]%
     [\newton\usk\meter]%
 %\fi
@@ -4079,16 +2520,16 @@ while t < 10:
   [\meter\per\second]%
 \newvectorquantity{velocityc}%
   {\lightspeed}%
-  []%
+  [\lightspeed]%
   [\lightspeed]%
 \newscalarquantity{volume}%
   {\meter\tothethree}%
 \newscalarquantity{volumechargedensity}%
-  {\meter\totheinversethree\usk\second\usk\ampere}%
+  {\ampere\usk\second\per\meter\totheinversethree}%
   [\coulomb\per\meter\tothethree]%
   [\coulomb\per\meter\tothethree]%
 \newscalarquantity{volumemassdensity}%
-  {\meter\totheinversethree\usk\kilogram}%
+  {\kilogram\usk\meter\totheinversethree}%
   [\kilogram\per\meter\tothethree]%
   [\kilogram\per\meter\tothethree]%
 \newscalarquantity{wavelength}% % This is really just a displacement.
@@ -4098,11 +2539,11 @@ while t < 10:
   [\per\meter]%
   [\per\meter]%
 \newscalarquantity{work}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
+  [\joule]% % also \newton\usk\meter but discouraged 
   [\joule]%
-  [\newton\usk\meter]%
 \newscalarquantity{youngsmodulus}% % This is really just a stress.
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
 %    \end{macrocode}
@@ -4113,35 +2554,35 @@ while t < 10:
 %    \begin{macrocode}
 \newphysicalconstant{avogadro}%
   {\symup{N_A}}%
-  {6\timestento{23}}{6.02214076\timestento{23}}%
+  {6\timestento{23}}{6.02214076\timestento{23}}% % exact 2019 value
   {\mole\inverse}%
   [\per\mole]%
   [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
   {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{bohrradius}%
   {\symup{a_o}}%
-  {5.3\timestento{-11}}{5.2917721067\timestento{-11}}%
+  {5.3\timestento{-11}}{5.29177210903\timestento{-11}}%
   {\meter}%
 \newphysicalconstant{boltzmann}%
   {\symup{k_B}}%
-  {1.4\timestento{-23}}{1.380649\timestento{-23}}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
+  {1.4\timestento{-23}}{1.380649\timestento{-23}}% % exact 2019 value
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newphysicalconstant{coulombconstant}% % alias for \oofpez
   {\symup{\frac{1}{4\pi\epsilon_o}}}%
-  {9\timestento{9}}{8.9875517873681764\timestento{9}}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
+  {9\timestento{9}}{8.9875517923\timestento{9}}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{earthmass}%
   {\symup{M_{Earth}}}%
-  {6.0\timestento{24}}{5.97237\timestento{24}}%
+  {6.0\timestento{24}}{5.9722\timestento{24}}%
   {\kilogram}%
 \newphysicalconstant{earthmoondistance}%
   {\symup{d_{EM}}}%
@@ -4149,7 +2590,7 @@ while t < 10:
   {\meter}%
 \newphysicalconstant{earthradius}%
   {\symup{R_{Earth}}}%
-  {6.4\timestento{6}}{6.371\timestento{6}}%
+  {6.4\timestento{6}}{6.3781\timestento{6}}%
   {\meter}%
 \newphysicalconstant{earthsundistance}%
   {\symup{d_{ES}}}%
@@ -4169,17 +2610,17 @@ while t < 10:
   [\coulomb]%
 \newphysicalconstant{electronmass}%
   {\symup{m_e}}%
-  {9.1\timestento{-31}}{9.10938356\timestento{-31}}%
+  {9.1\timestento{-31}}{9.1093837015\timestento{-31}}%
   {\kilogram}%
 \newphysicalconstant{elementarycharge}%
   {\symup{e}}%
-  {1.6\timestento{-19}}{1.602176634\timestento{-19}}%
+  {1.6\timestento{-19}}{1.602176634\timestento{-19}}% % exact 2019 value
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{finestructure}%
   {\symup{\alpha}}%
-  {\frac{1}{137}}{7.2973525664\timestento{-3}}%
+  {\frac{1}{137}}{7.2973525693\timestento{-3}}%
   {}%
 \newphysicalconstant{hydrogenmass}%
   {\symup{m_H}}%
@@ -4200,29 +2641,29 @@ while t < 10:
 \newphysicalconstant{mzofp}%
   {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{neutronmass}%
   {\symup{m_n}}%
-  {1.7\timestento{-27}}{1.674927471\timestento{-27}}%
+  {1.7\timestento{-27}}{1.67492749804\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{oofpez}%
   {\symup{\frac{1}{4\pi\epsilon_o}}}%
-  {9\timestento{9}}{8.987551787\timestento{9}}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
+  {9\timestento{9}}{8.9875517923\timestento{9}}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{oofpezcs}%
   {\symup{\frac{1}{4\pi\epsilon_o c^2}}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\newton\usk\second\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{planck}%
   {\symup{h}}%
-  {6.6\timestento{-34}}{6.62607015\timestento{-34}}%
-  {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+  {6.6\timestento{-34}}{6.62607015\timestento{-34}}% % exact 2019 value
+  {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]%
 %    \end{macrocode}
@@ -4234,13 +2675,13 @@ while t < 10:
 \newphysicalconstant{planckbar}%
   {\symup{\lower0.18ex\hbox{\mathchar"AF}\mkern-7mu h}}%
   {1.1\timestento{-34}}{1.054571817\timestento{-34}}%
-  {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]
 \newphysicalconstant{planckc}%
   {\symup{hc}}%
   {2.0\timestento{-25}}{1.98644586\timestento{-25}}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\tothethree\usk\second\totheinversetwo}%
   [\joule\usk\meter]%
   [\joule\usk\meter]%
 \newphysicalconstant{protoncharge}%
@@ -4261,17 +2702,17 @@ while t < 10:
   {\kilogram}%
 \newphysicalconstant{rydberg}%
   {\symup{R_{\infty}}}%
-  {1.1\timestento{7}}{1.0973731568508\timestento{7}}%
+  {1.1\timestento{7}}{1.0973731568160\timestento{7}}%
   {\meter\inverse}%
 \newphysicalconstant{speedoflight}%
   {\symup{c}}%
-  {3\timestento{8}}{2.99792458\timestento{8}}%
+  {3\timestento{8}}{2.99792458\timestento{8}}% % exact value
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]
 \newphysicalconstant{stefanboltzmann}%
   {\symup{\sigma}}%
-  {5.7\timestento{-8}}{5.670367\timestento{-8}}%
+  {5.7\timestento{-8}}{5.670374\timestento{-8}}%
   {\kilogram\usk\second\totheinversethree\usk\kelvin\totheinversefour}%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]
@@ -4295,20 +2736,20 @@ while t < 10:
   [\newton\per\kilogram]%
 \newphysicalconstant{universalgrav}%
   {\symup{G}}%
-  {6.7\timestento{-11}}{6.67408\timestento{-11}}%
+  {6.7\timestento{-11}}{6.67430\timestento{-11}}%
   {\meter\tothethree\usk\kilogram\inverse\usk\second\totheinversetwo}%
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
 \newphysicalconstant{vacuumpermeability}%
   {\symup{\mu_o}}%
-  {4\pi\timestento{-7}}{4\pi\timestento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {4\pi\timestento{-7}}{4\pi\timestento{-7}}% % as of 2018 no longer 4\pi\timestento{-7}
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{vacuumpermittivity}%
   {\symup{\epsilon_o}}%
   {9\timestento{-12}}{8.854187817\timestento{-12}}%
-  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 %    \end{macrocode}
@@ -4320,104 +2761,41 @@ while t < 10:
 \NewDocumentCommand{\checkquantity}{ m }{%
   % Works for both scalar and vector quantities.
   \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} & 
-      \small{\csname #1onlybaseunits\endcsname} & 
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname}
+    \begin{tabular}{>{\bfseries\small}p{0.5\linewidth} p{0.1\linewidth} p{0.1\linewidth} p{0.1\linewidth}}
+      name & & & \tabularnewline
+      \ttfamily\footnotesize{\expandafter\string\csname #1\endcsname} & & & \tabularnewline
+    \end{tabular}
+    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      base & derived & alternate \tabularnewline
+      \footnotesize{\csname #1onlybaseunits\endcsname} &
+      \footnotesize{\csname #1onlyderivedunits\endcsname} &
+      \footnotesize{\csname #1onlyalternateunits\endcsname}
     \end{tabular}
   \end{center}
 }%
 \NewDocumentCommand{\checkconstant}{ m }{%
   \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} & 
-      \small{\csname #1onlybaseunits\endcsname} & 
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname} \tabularnewline
-      symbol & approximate & precise \tabularnewline
-      \small{\csname #1mathsymbol\endcsname} & 
-      \small{\csname #1approximatevalue\endcsname} &
-      \small{\csname #1precisevalue\endcsname} \tabularnewline
+    \begin{tabular}{>{\bfseries\small}p{0.5\linewidth} p{0.1\linewidth} p{0.1\linewidth} p{0.1\linewidth}}
+      name & & & \tabularnewline
+      \ttfamily\footnotesize{\expandafter\string\csname #1\endcsname} & & & \tabularnewline
+    \end{tabular}
+    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      base & approximate & precise \tabularnewline
+      \footnotesize{\csname #1mathsymbol\endcsname} &
+      \footnotesize{\csname #1approximatevalue\endcsname} &
+      \footnotesize{\csname #1precisevalue\endcsname}
+    \end{tabular}
+    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      base & derived & alternate \tabularnewline
+      \footnotesize{\csname #1onlybaseunits\endcsname} &
+      \footnotesize{\csname #1onlyderivedunits\endcsname} &
+      \footnotesize{\csname #1onlyalternateunits\endcsname}
     \end{tabular}
   \end{center}
 }%
 %    \end{macrocode}
 %
-% A better, intelligent coordinate-free \refCom{vec} command. Note the use of 
-% the |e{_^}| type of optional argument. This accounts for much of the 
-% flexibility and power of this command. Also note the use of the \TeX\ 
-% primitives |\sb{}| and |\sp{}|. Why doesn't it work when I put spaces 
-% around |#3| or |#4|? Because outside of |\ExplSyntaxOn...\ExplSyntaxOff|, 
-% the |_| character has a different catcode and is treated as a mathematical 
-% entity.\newline
-% See \href{https://tex.stackexchange.com/q/554706/218142}
-%  {https://tex.stackexchange.com/q/554706/218142}.\newline
-% See also \href{https://tex.stackexchange.com/a/531037/218142}
-%  {https://tex.stackexchange.com/a/531037/218142}.
-%
-%    \begin{macrocode}
-\RenewDocumentCommand{\vec}{ s m e{_^} }{%
-  \ensuremath{%
-    % Note the \, used to make superscript look better.
-    \IfBooleanTF {#1}
-      {\vv{#2}%      % * gives an arrow
-         % Use \sp{} primitive for superscript.
-         % Adjust superscript for the arrow.
-         \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
-      }%         
-      {\symbfit{#2}  % no * gives us bold
-         % Use \sp{} primitive for superscript.
-         % No superscript adjustment needed.
-         \sp{\IfValueT{#4}{#4}\vphantom{\smash[t]{\big|}}}
-      }% 
-    % Use \sb{} primitive for subscript.
-    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
-  }%
-}%
-%    \end{macrocode}
-%
-% A command for the direction of a vector.
-% We use a slight tweak is needed to get uniform hats that 
-% requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} 
-% package.\newline
-% See \href{https://tex.stackexchange.com/a/391204/218142}
-%  {https://tex.stackexchange.com/a/391204/218142}.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\dirvec}{ s m e{_^} }{%
-  \ensuremath{%
-    \widehat{\makebox*{\(w\)}{\ensuremath{%
-      \IfBooleanTF {#1}
-        {%
-          #2
-        }%
-        {%
-          \symbfit{#2}
-        }%
-       }%
-      }%
-     }%
-    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
-    \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}      
-  }%
-}%
-%    \end{macrocode}
-%
-% The zero vector.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\zerovec}{ s }{%
-  \IfBooleanTF {#1}
-    {\vv{0}}%
-    {\symbfup{0}}%
-}%
-%    \end{macrocode}
-%
-% Notation for column and row vectors. \refCom{mivector} is a workhorse 
-% command.\newline
+% \refCom{mivector} is a workhorse command.
 % Orginal code provided by |@egreg|.\newline
 % See \href{https://tex.stackexchange.com/a/39054/218142}
 %  {https://tex.stackexchange.com/a/39054/218142}.
@@ -4439,411 +2817,7 @@ while t < 10:
     \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \right\rangle }
   }%
 }%
-\NewDocumentCommand{\colvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { \\ } { #1 } { #2 }
-}%
-\NewDocumentCommand{\rowvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { & } { #1 } { #2 }
-}%
-\seq_new:N \l__vector_arg_seq
-\cs_new_protected:Npn \vector_main:nnnn #1 #2 #3 #4 {%
-  \seq_set_split:Nnn \l__vector_arg_seq { #3 } { #4 }
-  \begin{#1NiceMatrix}[r]
-    \seq_use:Nnnn \l__vector_arg_seq { #2 } { #2 } { #2 }
-  \end{#1NiceMatrix}
-}%
 \ExplSyntaxOff
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\changein}{}{\Delta}
-%    \end{macrocode}
-%
-% Intelligent delimiters provided via the 
-% \href{https://www.ctan.org/pkg/mathtools}{\pkg{mathtools}} package.
-% Use the starred variants for fractions. You can supply optional sizes.
-% Note that default placeholders are used when the argument is empty.
-%
-%    \begin{macrocode}
-\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
-%    \end{macrocode}
-%
-% Some semantic aliases. Because of the way \refCom{vec} and
-% \refCom{dirvec} are defined, I reluctantly decided not to
-% implement a |\magvec| command. It would require accounting
-% for too mamy options. So \refCom{magnitude} is the new
-% solution.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\magnitude}{}{\doublebars}
-\NewDocumentCommand{\norm}{}{\doublebars}
-\NewDocumentCommand{\absolutevalue}{}{\singlebars}
-\NewDocumentCommand{\direction}{}{\mivector}
-\NewDocumentCommand{\unitvector}{}{\mivector}
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\directlua{%
- luaotfload.add_colorscheme("colordigits",
-   {["8000FF"] = {"one","two","three","four","five","six","seven","eight","nine","zero"}})
-}%
-\newfontfamily\colordigits{DejaVuSansMono}[RawFeature={color=colordigits}]
-%    \end{macrocode}
-%
-% Set up a color scheme and a new code environment for listings. The new colors 
-% are more restful on the eye. All listing commands now use 
-% \href{https://www.ctan.org/pkg/tcolorbox}{\pkg{tcolorbox}}.\newline
-% See \href{https://tex.stackexchange.com/a/529421/218142}
-%  {https://tex.stackexchange.com/a/529421/218142}.
-%
-%    \begin{macrocode}
-\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
-\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
-\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
-\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
-\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
-\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
-\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
-\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
-\lstdefinestyle{vpython}{%                       % style for listings
-  backgroundcolor=\color{gsbggray},%             % background color
-  basicstyle=\colordigits\footnotesize,%         % default style
-  breakatwhitespace=true%                        % break at whitespace
-  breaklines=true,%                              % break long lines
-  captionpos=b,%                                 % position caption
-  classoffset=1,%                                % STILL DON'T UNDERSTAND THIS
-  commentstyle=\color{gsgray},%                  % font for comments
-  deletekeywords={print},%                       % delete keywords from the given language
-  emph={self,cls,@classmethod,@property},%       % words to emphasize
-  emphstyle=\color{gsorange}\itshape,%           % font for emphasis
-  escapeinside={(*@}{@*)},%                      % add LaTeX within your code
-  frame=tb,%                                     % frame style
-  framerule=2.0pt,%                              % frame thickness
-  framexleftmargin=5pt,%                         % extra frame left margin
-  %identifierstyle=\sffamily,%                    % style for identifiers
-  keywordstyle=\gsfontfamily\color{gsplum},%     % color for keywords
-  language=Python,%                              % select language
-  linewidth=\linewidth,%                         % width of listings
-  morekeywords={%                                % VPython/GlowScript specific keywords
-    __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
-    append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
-    attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
-    bounding_box,box,bumpaxis,bumpmap,bumpmaps,camera,canvas,caption,capture,%
-    ceil,center,clear,clear_trail,click,clone,CoffeeScript,coils,color,combin,%
-    comp,compound,cone,convex,cos,cross,curve,cyan,cylinder,data,degrees,del,%
-    delete,depth,descender,diff_angle,digits,division,dot,draw_complete,%
-    ellipsoid,emissive,end_face_color,equals,explog,extrusion,faces,factorial,%
-    False,floor,follow,font,format,forward,fov,frame,gcurve,gdisplay,gdots,%
-    get_library,get_selected,ghbars,global,GlowScript,graph,graphs,green,gvbars,%
-    hat,headlength,headwidth,height,helix,hsv_to_rgb,index,interval,keydown,%
-    keyup,label,length,lights,line,linecolor,linewidth,logx,logy,lower_left,%
-    lower_right,mag,mag2,magenta,make_trail,marker_color,markers,material,%
-    max,min,mouse,mousedown,mousemove,mouseup,newball,norm,normal,objects,%
-    offset,one,opacity,orange,origin,path,pause,pi,pixel_to_world,pixels,plot,%
-    points,pos,pow,pps,print,print_function,print_options,proj,purple,pyramid,%
-    quad,radians,radius,random,rate,ray,read_local_file,readonly,red,redraw,%
-    retain,rgb_to_hsv,ring,rotate,round,scene,scroll,shaftwidth,shape,shapes,%
-    shininess,show_end_face,show_start_face,sign,sin,size,size_units,sleep,%
-    smooth,space,sphere,sqrt,start,start_face_color,stop,tan,text,textpos,%
-    texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
-    trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
-    userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
-    visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
-    ytitle%
-  },%
-  morekeywords={print,None,TypeError},%      % additional keywords
-  morestring=[b]{"""},%                      % treat triple quotes as strings
-  numbers=left,%                             % where to put line numbers
-  numbersep=10pt,%                           % how far line numbers are from code
-  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
-  showstringspaces=false,%                   % show spaces in strings
-  showtabs=false,%                           % show tabs within strings
-  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
-  upquote=true,%                             % how to typeset quotes
-}%
-%    \end{macrocode}
-%
-% Introduce a new, more intelligent \refEnv{glowscriptblock} environment.
-%
-%    \begin{macrocode}
-\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
-  { O{} D(){glowscript.org} m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivpeach,%
-  enhanced,%
-  hyperurl interior = https://#2,%
-  label = {gs:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{GlowScript} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},
-}%
-%    \end{macrocode}
-%
-% A new command for generating a list of \GlowScript\ programs.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
-  {List of \texttt{GlowScript} Programs}}%
-%    \end{macrocode}
-%
-% Introduce a new, more intelligent \refCom{vpythonfile} command.
-%
-%    \begin{macrocode}
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
-  { O{} m m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivgray,%
-  enhanced,%
-  hyperurl interior = https://,%
-  label = {vp:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing file = {#2},%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{VPython} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},%
-}%
-%    \end{macrocode}
-%
-%  A new command for generating a list of \VPython\ programs.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
-  {List of \texttt{VPython} Programs}}%
-%    \end{macrocode}
-%
-% Introduce a new \refCom{glowscriptinline} command.
-%
-%    \begin{macrocode}
-\DeclareTotalTCBox{\glowscriptinline}{ m }{%
-  bottom = 0pt,%
-  bottomrule = 0.0mm,%
-  boxsep = 1.0mm,%
-  colback = gsbggray,%
-  colframe = gsbggray,%
-  left = 0pt,%
-  leftrule = 0.0mm,%
-  nobeforeafter,%
-  right = 0pt,%
-  rightrule = 0.0mm,%
-  sharp corners,%
-  tcbox raise base,%
-  top = 0pt,%
-  toprule = 0.0mm,%
-}{\lstinline[style = vpython]{#1}}%
-%    \end{macrocode}
-%
-% Define \refCom{vpythoninline}, a semantic alias for \VPython\ 
-% in-line listings.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
-%    \end{macrocode}
-%
-% Intelligent commands for typesetting vector and tensor symbols and 
-% components suitable for use with both coordinate-free and index 
-% notations. Use starred form for index notation, unstarred form for 
-% coordinate-free.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\veccomp}{ s m }{%
-  % Consider renaming this to \vectorsym.
-  \IfBooleanTF{#1}
-  {%
-    \ensuremath{\symnormal{#2}}%
-  }%
-  {%
-    \ensuremath{\symbfit{#2}}%
-  }%
-}%
-\NewDocumentCommand{\tencomp}{ s m }{%
-  % Consider renaming this to \tensororsym.
-  \IfBooleanTF{#1}
-  {%
-    \ensuremath{\symsfit{#2}}%
-  }%
-  {%
-    \ensuremath{\symbfsfit{#2}}%
-  }%
-}%
-%    \end{macrocode}
-%
-% An environment for problem statements. The starred variant gives 
-% in-line lists.
-%
-%    \begin{macrocode}
-\NewDocumentEnvironment{physicsproblem}{ m }{%
-  \newpage%
-  \section*{#1}%
-  \newlist{parts}{enumerate}{2}%
-  \setlist[parts]{label=\bfseries(\alph*)}}%
-  {}%
-\NewDocumentEnvironment{physicsproblem*}{ m }{%
-  \newpage%
-  \section*{#1}%
-  \newlist{parts}{enumerate*}{2}%
-  \setlist[parts]{label=\bfseries(\alph*)}}%
-  {}%
-\NewDocumentCommand{\problempart}{}{\item}%
-%    \end{macrocode}
-%
-% An environment for problem solutions.
-%
-%    \begin{macrocode}
-\NewDocumentEnvironment{physicssolution}{ +b }{%
-  % Make equation numbering consecutive through the document.
-  \begin{align}
-    #1
-  \end{align}
-}{}%
-\NewDocumentEnvironment{physicssolution*}{ +b }{%
-  % Make equation numbering consecutive through the document.
-  \begin{align*}
-    #1
-  \end{align*}
-}{}%
-%    \end{macrocode}
-%
-% A simplified command for importing images.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\image}{ O{scale=1} m m m }{%
-  \begin{figure}[ht!]
-    \begin{center}%
-      \includegraphics[#1]{#2}%
-    \end{center}%
-    \caption{#3}%
-    \label{#4}%
-  \end{figure}%
-}%
-%    \end{macrocode}
-%
-% See \href{https://tex.stackexchange.com/q/570223/218142}
-%  {https://tex.stackexchange.com/q/570223/218142}.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\reason}{ O{4cm} m }
-  {&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
-%    \end{macrocode}
-%
-% Commands for scientific notation.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\tento}{ m }{\ensuremath{10^{#1}}}
-\NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-\NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-%    \end{macrocode}
-%
-% Command for highlighting parts of, or entire, mathematical expressions.\newline
-% Original code by anonymous user |@abcdefg|, modified by me.\newline
-%  See \href{https://texample.net/tikz/examples/beamer-arrows/}
-%   {https://texample.net/tikz/examples/beamer-arrows/}.\newline
-%  See also \href{https://tex.stackexchange.com/a/406084/218142}
-%   {https://tex.stackexchange.com/a/406084/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/570858/218142}
-%   {https://tex.stackexchange.com/a/570858/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/570789/218142}
-%   {https://tex.stackexchange.com/a/570789/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/79659/218142}
-%   {https://tex.stackexchange.com/a/79659/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/q/375032/218142}
-%   {https://tex.stackexchange.com/q/375032/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/571744/218142}%
-%   {https://tex.stackexchange.com/a/571744/218142}.
-%
-%    \begin{macrocode}
-\newcounter{tikzhighlightnode}
-\NewDocumentCommand{\hilite}{ O{magenta!60} m O{rectangle} }{%
-  \stepcounter{tikzhighlightnode}%
-  \tikzmarknode{highlighted-node-\number\value{tikzhighlightnode}}{#2}%
-  \edef\temp{%
-    \noexpand\AddToShipoutPictureBG{%
-      \noexpand\begin{tikzpicture}[overlay,remember picture]%
-      \noexpand\iftikzmarkoncurrentpage{highlighted-node-\number\value{tikzhighlightnode}}%
-       \noexpand\node[inner sep=1.0pt,fill=#1,#3,fit=(highlighted-node-\number\value{tikzhighlightnode})]{};%
-      \noexpand\fi
-      \noexpand\end{tikzpicture}%
-    }%
-  }%
-  \temp%
-}%
-%    \end{macrocode}
-%
-% Intelligent slot command for coordinate-free tensor notation.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\slot}{ s d[] }{%
-  % d[] must be used because of the way consecutive optional
-  %  arguments are handled. See xparse docs for details.
-  \IfBooleanTF{#1}
-  {%
-    \IfValueTF{#2}
-    {% Insert a vector, but don't show the slot.
-      \smash{\makebox[1.5em]{\ensuremath{#2}}}
-    }%
-    {% No vector, no slot.
-      \smash{\makebox[1.5em]{\ensuremath{}}}
-    }%
-  }%
-  {%
-    \IfValueTF{#2}
-    {% Insert a vector and show the slot.
-      \underline{\smash{\makebox[1.5em]{\ensuremath{#2}}}}
-    }%
-    {% No vector; just show the slot.
-      \underline{\smash{\makebox[1.5em]{\ensuremath{}}}}
-    }%
-  }%
-}%
-%    \end{macrocode}
-%
-% Intelligent notation for contraction on pairs of slots.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\contraction}{ s m }{%
-  \IfBooleanTF{#1}
-  {\mathsf{C}}%
-  {\symbb{C}}%
-  _{#2}
-}%
-%    \end{macrocode}
-%
-% Intelligent differential (exterior derivative) operator.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\diff}{ s }{%
-  \mathop{}\!
-  \IfBooleanTF{#1}
-  {\symbfsfup{d}}%
-  {\symsfup{d}}%
-}%
-%    \end{macrocode}
-%
-% Command to typeset tensor valence.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\valence}{ s m m }{%
-  \IfBooleanTF{#1}
-    {(#2,#3)}
-    {\binom{#2}{#3}}
-}%
 %    \end{macrocode}
 % \restoregeometry
 %

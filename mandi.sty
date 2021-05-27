@@ -20,62 +20,33 @@
 %%  The Current Maintainer of this work is Paul J. Heafner.
 %% 
 %%  This work consists of the files mandi.dtx
+%%                                  mandistudent.dtx
+%%                                  mandiexp.dtx
 %%                                  mandi.ins
 %%                                  mandi.pdf
 %%                                  README.md
 %% 
 %%  and includes the derived files  mandi.sty
+%%                                  mandistudent.sty
 %%                                  mandiexp.sty
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@Version{3.0.0j}
-\def\mandi@Date{2021-04-04}
+\def\mandi@Version{3.0.0m}
+\def\mandi@Date{2021-05-27}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0j}{2021-04-04}{mandi.sty}
+\DeclareRelease{v3.0.0m}{2021-05-27}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}
-  [\mandi@Date\space v\mandi@Version\space Macros for introductory physics]
+  [\mandi@Date\space v\mandi@Version\space Macros for physical quantities]
 \newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
-\RequirePackage{unicode-math}
-\unimathsetup{math-style=ISO}
-\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
-\setmathfont[Scale=MatchLowercase]{TeX Gyre DejaVu Math} % single-storey g.
-\setmathfont[Scale=MatchLowercase,range=it/]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]{XITS Math}
-\setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
-\setmathfont[Scale=MatchLowercase,range=    it/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=  bfit/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=    up/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=  bfup/{greek,Greek}]{Latin Modern Math}
-\setmathfont[Scale=MatchLowercase,range=bfsfup/{greek,Greek}]{Latin Modern Math}
-\RequirePackage{amsmath}             % AMS goodness (don't load amssymb or amsfonts)
-\RequirePackage[inline]{enumitem}    % needed for physicsproblem environment
-\RequirePackage{eso-pic}             % needed for \hilite
-\RequirePackage[g]{esvect}           % needed for nice vector arrow, style g
-\RequirePackage{pgfopts}             % needed for key-value interface
-\RequirePackage{array}               % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}               % needed for requiring LuaLaTeX
-\RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
-\RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
-\RequirePackage{nicematrix}          % needed for column and row vectors
-\RequirePackage[most]{tcolorbox}     % needed for program listings
-\RequirePackage{tensor}              % needed for index notation
-\RequirePackage{tikz}                % needed for \hilite
-\usetikzlibrary{shapes,fit,tikzmark} % needed for \hilite
-\RequirePackage{hyperref}            % load last
-\RequireLuaTeX                       % require this engine
-\DeclareFontFamily{U}{esvect}{}
-\DeclareFontShape{U}{esvect}{m}{n}{%
-  <-5.5> vect5
-  <5.5-6.5> vect6
-  <6.5-7.5> vect7
-  <7.5-8.5> vect8
-  <8.5-9.5> vect9
-  <9.5-> vect10
-}{}%
+\RequirePackage{pgfopts}      % needed for key-value interface
+\RequirePackage{array}        % needed for \checkquantity and \checkconstant
+\RequirePackage{iftex}        % needed for requiring LuaLaTeX
+\RequirePackage{unicode-math} % needed for Unicode support
+\RequireLuaTeX                % require this engine
 \newcommand*{\mandi@selectunits}{}
 \newcommand*{\mandi@selectprecision}{}
 \newcommand*{\mandi@selectapproximate}[2]{#1}    % really \@firstoftwo
@@ -121,8 +92,6 @@
 \typeout{}%
 \typeout{mandi: You are using mandi \mandiversion.}%
 \typeout{mandi: This package requires LuaLaTeX.}%
-\typeout{mandi: This package changes the default math font.}%
-\typeout{mandi: This package redefines the \protect\vec\space command.}%
 \typeout{mandi: Loadtime options...}
 \newcommand*{\mandi@do@setup}{%
   \csname alwaysuse\pgfkeysvalueof{/mandi/options/buffered@units}units\endcsname%
@@ -145,7 +114,7 @@
     \mandi@do@setup
   }%
 }%
-\NewDocumentCommand{\per}{}{\ensuremath{\,/\,}}
+\NewDocumentCommand{\per}{}{\ensuremath{/}}
 \NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
 \NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
 \NewDocumentCommand{\ampere}{}{\ensuremath{\symup{A}}}
@@ -154,15 +123,20 @@
 \NewDocumentCommand{\coulomb}{}{\ensuremath{\symup{C}}}
 \NewDocumentCommand{\degree}{}{\ensuremath{^{\circ}}}
 \NewDocumentCommand{\electronvolt}{}{\ensuremath{\symup{eV}}}
+\NewDocumentCommand{\ev}{}{\electronvolt}
 \NewDocumentCommand{\farad}{}{\ensuremath{\symup{F}}}
 \NewDocumentCommand{\henry}{}{\ensuremath{\symup{H}}}
 \NewDocumentCommand{\hertz}{}{\ensuremath{\symup{Hz}}}
 \NewDocumentCommand{\joule}{}{\ensuremath{\symup{J}}}
 \NewDocumentCommand{\kelvin}{}{\ensuremath{\symup{K}}}
+\NewDocumentCommand{\kev}{}{\kiloelectronvolt}
+\NewDocumentCommand{\kiloelectronvolt}{}{\ensuremath{\symup{keV}}}
 \NewDocumentCommand{\kilogram}{}{\ensuremath{\symup{kg}}}
 \NewDocumentCommand{\lightspeed}{}{\ensuremath{\symup{c}}}
+\NewDocumentCommand{\megaelectronvolt}{}{\ensuremath{\symup{MeV}}}
 \NewDocumentCommand{\meter}{}{\ensuremath{\symup{m}}}
 \NewDocumentCommand{\metre}{}{\meter}
+\NewDocumentCommand{\mev}{}{\megaelectronvolt}
 \NewDocumentCommand{\mole}{}{\ensuremath{\symup{mol}}}
 \NewDocumentCommand{\newton}{}{\ensuremath{\symup{N}}}
 \NewDocumentCommand{\ohm}{}{\ensuremath{\symup\Omega}}
@@ -183,6 +157,9 @@
 \NewDocumentCommand{\totheinversethree}{}{\ensuremath{^{-3}}} % postfix -3
 \NewDocumentCommand{\totheinversefour}{}{\ensuremath{^{-4}}}  % postfix -4
 \NewDocumentCommand{\emptyunit}{}{\ensuremath{\mdlgwhtsquare}}
+\NewDocumentCommand{\tento}{ m }{\ensuremath{10^{#1}}}
+\NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
+\NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
 \NewDocumentCommand{\newscalarquantity}{ m m O{#2} O{#2} }{%
   \expandafter\newcommand\csname #1\endcsname[1]{##1\,\mandi@selectunits{#2}{#3}{#4}}%
   \expandafter\newcommand\csname #1value\endcsname[1]{##1}%
@@ -266,11 +243,11 @@
   [\radian\per\second]%
   [\radian\per\second]%
   \newvectorquantity{angularimpulse}%
-    {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+    {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
     [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
     [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
   \newvectorquantity{angularmomentum}%
-    {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+    {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
     [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
     [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
 \newvectorquantity{angularvelocity}%
@@ -279,16 +256,16 @@
   [\radian\per\second]%
 \newscalarquantity{area}%
   {\meter\tothetwo}%
-\newscalarquantity{areamassdensity}%
-  {\meter\totheinversetwo\usk\kilogram}%
-  [\kilogram\per\meter\tothetwo]%
-  [\kilogram\per\meter\tothetwo]%
 \newscalarquantity{areachargedensity}%
-  {\meter\totheinversetwo\usk\second\usk\ampere}%
+  {\ampere\usk\second\usk\meter\totheinversetwo}%
   [\coulomb\per\meter\tothetwo]%
   [\coulomb\per\meter\tothetwo]%
+\newscalarquantity{areamassdensity}%
+  {\kilogram\usk\meter\totheinversetwo}%
+  [\kilogram\per\meter\tothetwo]%
+  [\kilogram\per\meter\tothetwo]%
 \newscalarquantity{capacitance}%
-  {\meter\totheinversetwo\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\farad]%
   [\coulomb\per\volt]% % also \coulomb\tothetwo\per\newton\usk\meter, \second\per\ohm
 \newscalarquantity{charge}%
@@ -296,17 +273,17 @@
   [\coulomb]%
   [\coulomb]% % also \farad\usk\volt
 \newvectorquantity{cmagneticfield}%
-  {\meter\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
-  [\volt\per\meter]%
+  {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%
+  [\newton\per\coulomb]% % also \volt\per\meter
   [\newton\per\coulomb]%
 \newscalarquantity{conductance}%
-  {\meter\totheinversetwo\usk\kilogram\inverse\usk\second\tothethree\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\siemens]%
   [\ampere\per\volt]%
 \newscalarquantity{conductivity}%
-  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothethree\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\siemens\per\meter]%
-  [(\ampere\per\meter\tothetwo)\per(\volt\per\meter)]%
+  [\ampere\per\volt\usk\meter]%
 \newscalarquantity{conventionalcurrent}%
   {\ampere}%
   [\coulomb\per\second]%
@@ -314,8 +291,8 @@
 \newscalarquantity{current}%
   {\ampere}%
 \newscalarquantity{currentdensity}%
-  {\meter\totheinversetwo\usk\ampere}%
-  [\coulomb\usk\second\per\meter\tothetwo]%
+  {\ampere\usk\meter\totheinversetwo}%
+  [\coulomb\per\second\usk\meter\tothetwo]%
   [\ampere\per\meter\tothetwo]%
 \newscalarquantity{dielectricconstant}%
   {}%
@@ -324,35 +301,45 @@
 \newscalarquantity{duration}%
   {\second}%
 \newvectorquantity{electricdipolemoment}%
-  {\meter\usk\second\usk\ampere}%
+  {\ampere\usk\second\usk\meter}%
   [\coulomb\usk\meter]%
   [\coulomb\usk\meter]%
 \newvectorquantity{electricfield}%
-  {\meter\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\per\meter]%
   [\newton\per\coulomb]%
 \newscalarquantity{electricflux}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\usk\meter]%
   [\newton\usk\meter\tothetwo\per\coulomb]%
 \newscalarquantity{electricpotential}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
+  [\volt]% % also \joule\per\coulomb
   [\volt]%
-  [\joule\per\coulomb]%
+\newscalarquantity{electricpotentialdifference}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
+  [\volt]% % also \joule\per\coulomb
+  [\volt]%
 \newscalarquantity{electroncurrent}%
   {\second\inverse}%
   [\ensuremath{\symup{e}}\per\second]%
   [\ensuremath{\symup{e}}\per\second]%
 \newscalarquantity{emf}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
+  [\volt]% % also \joule\per\coulomb
   [\volt]%
-  [\joule\per\coulomb]%
 \newscalarquantity{energy}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule]% % also \newton\usk\meter
   [\joule]%
+\newscalarquantity{energyinev}%
+  {\electronvolt}%
+\newscalarquantity{energyinkev}%
+  {\kiloelectronvolt}%
+\newscalarquantity{energyinmev}%
+  {\megaelectronvolt}%
 \newscalarquantity{energydensity}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\joule\per\meter\tothethree]%
   [\joule\per\meter\tothethree]%
 \newscalarquantity{energyflux}%
@@ -360,11 +347,11 @@
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
 \newscalarquantity{entropy}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newvectorquantity{force}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\usk\second\totheinversetwo}%
   [\newton]%
   [\newton]% % also \kilogram\usk\meter\per\second\tothetwo
 \newscalarquantity{frequency}%
@@ -379,56 +366,60 @@
   {\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule\per\kilogram]%
   [\joule\per\kilogram]%
+\newscalarquantity{gravitationalpotentialdifference}%
+  {\meter\tothetwo\usk\second\totheinversetwo}%
+  [\joule\per\kilogram]%
+  [\joule\per\kilogram]%
 \newvectorquantity{impulse}%
-  {\meter\usk\kilogram\usk\second\inverse}%
+  {\kilogram\usk\meter\usk\second\inverse}%
   [\newton\usk\second]%
   [\newton\usk\second]%
 \newscalarquantity{indexofrefraction}%
   {}%
 \newscalarquantity{inductance}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry]%
   [\volt\usk\second\per\ampere]% % also \square\meter\usk\kilogram\per\coulomb\tothetwo, \Wb\per\ampere
 \newscalarquantity{linearchargedensity}%
-  {\meter\inverse\usk\second\usk\ampere}%
+  {\ampere\usk\second\usk\meter\inverse}%
   [\coulomb\per\meter]%
   [\coulomb\per\meter]%
 \newscalarquantity{linearmassdensity}%
-  {\meter\inverse\usk\kilogram}%
+  {\kilogram\usk\meter\inverse}%
   [\kilogram\per\meter]%
   [\kilogram\per\meter]%
-\newscalarquantity{luminous}%
+\newscalarquantity{luminousintensity}%
   {\candela}%
 \newscalarquantity{magneticcharge}%
-  {\meter\usk\ampere}%
+  {\ampere\usk\meter}% % There is another convention. Be careful!
 \newvectorquantity{magneticdipolemoment}%
-  {\meter\tothetwo\usk\ampere}%
+  {\ampere\usk\meter\tothetwo}%
   [\ampere\usk\meter\tothetwo]%
   [\joule\per\tesla]%
 \newvectorquantity{magneticfield}%
-  {\kilogram\usk\second\totheinversetwo\usk\ampere\inverse}%
+  {\kilogram\usk\ampere\inverse\usk\second\totheinversetwo}%
+  [\newton\per\ampere\usk\meter]% % also \Wb\per\meter\tothetwo
   [\tesla]%
-  [\newton\per\coulomb\usk(\meter\per\second)]% % also \Wb\per\meter\tothetwo
 \newscalarquantity{magneticflux}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\volt\usk\second]% % also \Wb and \joule\per\ampere
 \newscalarquantity{mass}%
   {\kilogram}%
 \newscalarquantity{mobility}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversefour\usk\ampere\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversefour}%
   [\meter\tothetwo\per\volt\usk\second]%
-  [(\meter\per\second)\per(\newton\per\coulomb)]%
+  [\coulomb\usk\meter\per\newton\usk\second]%
 \newscalarquantity{momentofinertia}%
-  {\meter\tothetwo\usk\kilogram}%
+  {\kilogram\usk\meter\tothetwo}%
   [\joule\usk\second\tothetwo]%
   [\kilogram\usk\meter\tothetwo]%
 \newvectorquantity{momentum}%
-  {\meter\usk\kilogram\usk\second\inverse}%
-  [\newton\usk\second]%
+  {\kilogram\usk\meter\usk\second\inverse}%
+  [\kilogram\usk\meter\per\second]%
   [\kilogram\usk\meter\per\second]%
 \newvectorquantity{momentumflux}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\newton\per\meter\tothetwo]%
   [\newton\per\meter\tothetwo]%
 \newscalarquantity{numberdensity}%
@@ -436,11 +427,11 @@
   [\per\meter\tothethree]%
   [\per\meter\tothethree]%
 \newscalarquantity{permeability}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
-  [\tesla\usk\meter\per\ampere]%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
+  [\tesla\usk\meter\per\ampere]%
 \newscalarquantity{permittivity}%
-  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\totheinversefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 \newscalarquantity{planeangle}%
@@ -448,11 +439,11 @@
   [\radian]%
   [\radian]%
 \newscalarquantity{polarizability}%
-  {\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse}%
   [\coulomb\usk\meter\tothetwo\per\volt]%
-  [\coulomb\usk\meter\per(\newton\per\coulomb)]%
+  [\coulomb\tothetwo\usk\meter\per\newton]%
 \newscalarquantity{power}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversethree}%
   [\watt]%
   [\joule\per\second]%
 \newvectorquantity{poynting}%
@@ -460,7 +451,7 @@
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
 \newscalarquantity{pressure}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
 \newscalarquantity{relativepermeability}
@@ -468,13 +459,13 @@
 \newscalarquantity{relativepermittivity}%
   {}%
 \newscalarquantity{resistance}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversethree\usk\ampere\totheinversetwo}%
-  [\volt\per\ampere]%
+  {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
+  [\ohm]% % also \volt\per\ampere
   [\ohm]%
 \newscalarquantity{resistivity}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversethree\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
   [\ohm\usk\meter]%
-  [(\volt\per\meter)\per(\ampere\per\meter\tothetwo)]%
+  [\volt\usk\meter\per\ampere]%
 \newscalarquantity{solidangle}%
   {\meter\tothetwo\usk\meter\totheinversetwo}%
   [\steradian]%
@@ -490,7 +481,7 @@
 \newscalarquantity{springstretch}% % This is really just a displacement.
   {\meter}%
 \newscalarquantity{stress}%
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
 \newscalarquantity{strain}%
@@ -498,7 +489,7 @@
 \newscalarquantity{temperature}%
   {\kelvin}%
   \newvectorquantity{torque}%
-    {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
+    {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
     [\newton\usk\meter]%
     [\newton\usk\meter]%
 \newvectorquantity{velocity}%
@@ -507,16 +498,16 @@
   [\meter\per\second]%
 \newvectorquantity{velocityc}%
   {\lightspeed}%
-  []%
+  [\lightspeed]%
   [\lightspeed]%
 \newscalarquantity{volume}%
   {\meter\tothethree}%
 \newscalarquantity{volumechargedensity}%
-  {\meter\totheinversethree\usk\second\usk\ampere}%
+  {\ampere\usk\second\per\meter\totheinversethree}%
   [\coulomb\per\meter\tothethree]%
   [\coulomb\per\meter\tothethree]%
 \newscalarquantity{volumemassdensity}%
-  {\meter\totheinversethree\usk\kilogram}%
+  {\kilogram\usk\meter\totheinversethree}%
   [\kilogram\per\meter\tothethree]%
   [\kilogram\per\meter\tothethree]%
 \newscalarquantity{wavelength}% % This is really just a displacement.
@@ -526,44 +517,44 @@
   [\per\meter]%
   [\per\meter]%
 \newscalarquantity{work}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
+  [\joule]% % also \newton\usk\meter but discouraged
   [\joule]%
-  [\newton\usk\meter]%
 \newscalarquantity{youngsmodulus}% % This is really just a stress.
-  {\meter\inverse\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
 \newphysicalconstant{avogadro}%
   {\symup{N_A}}%
-  {6\timestento{23}}{6.02214076\timestento{23}}%
+  {6\timestento{23}}{6.02214076\timestento{23}}% % exact 2019 value
   {\mole\inverse}%
   [\per\mole]%
   [\per\mole]%
 \newphysicalconstant{biotsavartconstant}% % alias for \mzofp
   {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{bohrradius}%
   {\symup{a_o}}%
-  {5.3\timestento{-11}}{5.2917721067\timestento{-11}}%
+  {5.3\timestento{-11}}{5.29177210903\timestento{-11}}%
   {\meter}%
 \newphysicalconstant{boltzmann}%
   {\symup{k_B}}%
-  {1.4\timestento{-23}}{1.380649\timestento{-23}}%
-  {\meter\tothetwo\usk\kilogram\usk\second\totheinversetwo\usk\kelvin\inverse}%
+  {1.4\timestento{-23}}{1.380649\timestento{-23}}% % exact 2019 value
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
 \newphysicalconstant{coulombconstant}% % alias for \oofpez
   {\symup{\frac{1}{4\pi\epsilon_o}}}%
-  {9\timestento{9}}{8.9875517873681764\timestento{9}}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
+  {9\timestento{9}}{8.9875517923\timestento{9}}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{earthmass}%
   {\symup{M_{Earth}}}%
-  {6.0\timestento{24}}{5.97237\timestento{24}}%
+  {6.0\timestento{24}}{5.9722\timestento{24}}%
   {\kilogram}%
 \newphysicalconstant{earthmoondistance}%
   {\symup{d_{EM}}}%
@@ -571,7 +562,7 @@
   {\meter}%
 \newphysicalconstant{earthradius}%
   {\symup{R_{Earth}}}%
-  {6.4\timestento{6}}{6.371\timestento{6}}%
+  {6.4\timestento{6}}{6.3781\timestento{6}}%
   {\meter}%
 \newphysicalconstant{earthsundistance}%
   {\symup{d_{ES}}}%
@@ -591,17 +582,17 @@
   [\coulomb]%
 \newphysicalconstant{electronmass}%
   {\symup{m_e}}%
-  {9.1\timestento{-31}}{9.10938356\timestento{-31}}%
+  {9.1\timestento{-31}}{9.1093837015\timestento{-31}}%
   {\kilogram}%
 \newphysicalconstant{elementarycharge}%
   {\symup{e}}%
-  {1.6\timestento{-19}}{1.602176634\timestento{-19}}%
+  {1.6\timestento{-19}}{1.602176634\timestento{-19}}% % exact 2019 value
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
 \newphysicalconstant{finestructure}%
   {\symup{\alpha}}%
-  {\frac{1}{137}}{7.2973525664\timestento{-3}}%
+  {\frac{1}{137}}{7.2973525693\timestento{-3}}%
   {}%
 \newphysicalconstant{hydrogenmass}%
   {\symup{m_H}}%
@@ -622,41 +613,41 @@
 \newphysicalconstant{mzofp}%
   {\symup{\frac{\mu_o}{4\pi}}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{neutronmass}%
   {\symup{m_n}}%
-  {1.7\timestento{-27}}{1.674927471\timestento{-27}}%
+  {1.7\timestento{-27}}{1.67492749804\timestento{-27}}%
   {\kilogram}%
 \newphysicalconstant{oofpez}%
   {\symup{\frac{1}{4\pi\epsilon_o}}}%
-  {9\timestento{9}}{8.987551787\timestento{9}}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversefour\usk\ampere\totheinversetwo}%
+  {9\timestento{9}}{8.9875517923\timestento{9}}%
+  {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{oofpezcs}%
   {\symup{\frac{1}{4\pi\epsilon_o c^2}}}%
   {\tento{-7}}{\tento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\newton\usk\second\tothetwo\per\coulomb\tothetwo]%
 \newphysicalconstant{planck}%
   {\symup{h}}%
-  {6.6\timestento{-34}}{6.62607015\timestento{-34}}%
-  {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+  {6.6\timestento{-34}}{6.62607015\timestento{-34}}% % exact 2019 value
+  {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]%
 \newphysicalconstant{planckbar}%
   {\symup{\lower0.18ex\hbox{\mathchar"AF}\mkern-7mu h}}%
   {1.1\timestento{-34}}{1.054571817\timestento{-34}}%
-  {\meter\tothetwo\usk\kilogram\usk\second\inverse}%
+  {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]
 \newphysicalconstant{planckc}%
   {\symup{hc}}%
   {2.0\timestento{-25}}{1.98644586\timestento{-25}}%
-  {\meter\tothethree\usk\kilogram\usk\second\totheinversetwo}%
+  {\kilogram\usk\meter\tothethree\usk\second\totheinversetwo}%
   [\joule\usk\meter]%
   [\joule\usk\meter]%
 \newphysicalconstant{protoncharge}%
@@ -677,17 +668,17 @@
   {\kilogram}%
 \newphysicalconstant{rydberg}%
   {\symup{R_{\infty}}}%
-  {1.1\timestento{7}}{1.0973731568508\timestento{7}}%
+  {1.1\timestento{7}}{1.0973731568160\timestento{7}}%
   {\meter\inverse}%
 \newphysicalconstant{speedoflight}%
   {\symup{c}}%
-  {3\timestento{8}}{2.99792458\timestento{8}}%
+  {3\timestento{8}}{2.99792458\timestento{8}}% % exact value
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]
 \newphysicalconstant{stefanboltzmann}%
   {\symup{\sigma}}%
-  {5.7\timestento{-8}}{5.670367\timestento{-8}}%
+  {5.7\timestento{-8}}{5.670374\timestento{-8}}%
   {\kilogram\usk\second\totheinversethree\usk\kelvin\totheinversefour}%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]
@@ -711,88 +702,56 @@
   [\newton\per\kilogram]%
 \newphysicalconstant{universalgrav}%
   {\symup{G}}%
-  {6.7\timestento{-11}}{6.67408\timestento{-11}}%
+  {6.7\timestento{-11}}{6.67430\timestento{-11}}%
   {\meter\tothethree\usk\kilogram\inverse\usk\second\totheinversetwo}%
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
 \newphysicalconstant{vacuumpermeability}%
   {\symup{\mu_o}}%
-  {4\pi\timestento{-7}}{4\pi\timestento{-7}}%
-  {\meter\usk\kilogram\usk\second\totheinversetwo\usk\ampere\totheinversetwo}%
+  {4\pi\timestento{-7}}{4\pi\timestento{-7}}% % as of 2018 no longer 4\pi\timestento{-7}
+  {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
 \newphysicalconstant{vacuumpermittivity}%
   {\symup{\epsilon_o}}%
   {9\timestento{-12}}{8.854187817\timestento{-12}}%
-  {\meter\totheinversethree\usk\kilogram\inverse\usk\second\tothefour\usk\ampere\tothetwo}%
+  {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
 \NewDocumentCommand{\checkquantity}{ m }{%
   % Works for both scalar and vector quantities.
   \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} &
-      \small{\csname #1onlybaseunits\endcsname} &
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname}
+    \begin{tabular}{>{\bfseries\small}p{0.5\linewidth} p{0.1\linewidth} p{0.1\linewidth} p{0.1\linewidth}}
+      name & & & \tabularnewline
+      \ttfamily\footnotesize{\expandafter\string\csname #1\endcsname} & & & \tabularnewline
+    \end{tabular}
+    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      base & derived & alternate \tabularnewline
+      \footnotesize{\csname #1onlybaseunits\endcsname} &
+      \footnotesize{\csname #1onlyderivedunits\endcsname} &
+      \footnotesize{\csname #1onlyalternateunits\endcsname}
     \end{tabular}
   \end{center}
 }%
 \NewDocumentCommand{\checkconstant}{ m }{%
   \begin{center}
-    \begin{tabular}{>{\centering}p{4cm} >{\centering}p{3cm} >{\centering}p{4cm} >{\centering}p{3cm}}
-      name & base & derived & alternate \tabularnewline
-      \ttfamily\small{\expandafter\string\csname #1\endcsname} &
-      \small{\csname #1onlybaseunits\endcsname} &
-      \small{\csname #1onlyderivedunits\endcsname} &
-      \small{\csname #1onlyalternateunits\endcsname} \tabularnewline
-      symbol & approximate & precise \tabularnewline
-      \small{\csname #1mathsymbol\endcsname} &
-      \small{\csname #1approximatevalue\endcsname} &
-      \small{\csname #1precisevalue\endcsname} \tabularnewline
+    \begin{tabular}{>{\bfseries\small}p{0.5\linewidth} p{0.1\linewidth} p{0.1\linewidth} p{0.1\linewidth}}
+      name & & & \tabularnewline
+      \ttfamily\footnotesize{\expandafter\string\csname #1\endcsname} & & & \tabularnewline
+    \end{tabular}
+    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      base & approximate & precise \tabularnewline
+      \footnotesize{\csname #1mathsymbol\endcsname} &
+      \footnotesize{\csname #1approximatevalue\endcsname} &
+      \footnotesize{\csname #1precisevalue\endcsname}
+    \end{tabular}
+    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      base & derived & alternate \tabularnewline
+      \footnotesize{\csname #1onlybaseunits\endcsname} &
+      \footnotesize{\csname #1onlyderivedunits\endcsname} &
+      \footnotesize{\csname #1onlyalternateunits\endcsname}
     \end{tabular}
   \end{center}
-}%
-\RenewDocumentCommand{\vec}{ s m e{_^} }{%
-  \ensuremath{%
-    % Note the \, used to make superscript look better.
-    \IfBooleanTF {#1}
-      {\vv{#2}%      % * gives an arrow
-         % Use \sp{} primitive for superscript.
-         % Adjust superscript for the arrow.
-         \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
-      }%
-      {\symbfit{#2}  % no * gives us bold
-         % Use \sp{} primitive for superscript.
-         % No superscript adjustment needed.
-         \sp{\IfValueT{#4}{#4}\vphantom{\smash[t]{\big|}}}
-      }%
-    % Use \sb{} primitive for subscript.
-    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
-  }%
-}%
-\NewDocumentCommand{\dirvec}{ s m e{_^} }{%
-  \ensuremath{%
-    \widehat{\makebox*{\(w\)}{\ensuremath{%
-      \IfBooleanTF {#1}
-        {%
-          #2
-        }%
-        {%
-          \symbfit{#2}
-        }%
-       }%
-      }%
-     }%
-    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
-    \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
-  }%
-}%
-\NewDocumentCommand{\zerovec}{ s }{%
-  \IfBooleanTF {#1}
-    {\vv{0}}%
-    {\symbfup{0}}%
 }%
 \ExplSyntaxOn
 \NewDocumentCommand{\mivector}{ O{,} m o }%
@@ -810,273 +769,7 @@
     \int_compare:nF { \seq_count:N \l__mi_list_seq = 1 } { \right\rangle }
   }%
 }%
-\NewDocumentCommand{\colvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { \\ } { #1 } { #2 }
-}%
-\NewDocumentCommand{\rowvec}{ O{,} m }{%
-  \vector_main:nnnn { p } { & } { #1 } { #2 }
-}%
-\seq_new:N \l__vector_arg_seq
-\cs_new_protected:Npn \vector_main:nnnn #1 #2 #3 #4 {%
-  \seq_set_split:Nnn \l__vector_arg_seq { #3 } { #4 }
-  \begin{#1NiceMatrix}[r]
-    \seq_use:Nnnn \l__vector_arg_seq { #2 } { #2 } { #2 }
-  \end{#1NiceMatrix}
-}%
 \ExplSyntaxOff
-\NewDocumentCommand{\changein}{}{\Delta}
-\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
-\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
-\NewDocumentCommand{\magnitude}{}{\doublebars}
-\NewDocumentCommand{\norm}{}{\doublebars}
-\NewDocumentCommand{\absolutevalue}{}{\singlebars}
-\NewDocumentCommand{\direction}{}{\mivector}
-\NewDocumentCommand{\unitvector}{}{\mivector}
-\directlua{%
- luaotfload.add_colorscheme("colordigits",
-   {["8000FF"] = {"one","two","three","four","five","six","seven","eight","nine","zero"}})
-}%
-\newfontfamily\colordigits{DejaVuSansMono}[RawFeature={color=colordigits}]
-\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
-\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
-\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
-\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
-\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
-\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
-\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
-\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
-\lstdefinestyle{vpython}{%                       % style for listings
-  backgroundcolor=\color{gsbggray},%             % background color
-  basicstyle=\colordigits\footnotesize,%         % default style
-  breakatwhitespace=true%                        % break at whitespace
-  breaklines=true,%                              % break long lines
-  captionpos=b,%                                 % position caption
-  classoffset=1,%                                % STILL DON'T UNDERSTAND THIS
-  commentstyle=\color{gsgray},%                  % font for comments
-  deletekeywords={print},%                       % delete keywords from the given language
-  emph={self,cls,@classmethod,@property},%       % words to emphasize
-  emphstyle=\color{gsorange}\itshape,%           % font for emphasis
-  escapeinside={(*@}{@*)},%                      % add LaTeX within your code
-  frame=tb,%                                     % frame style
-  framerule=2.0pt,%                              % frame thickness
-  framexleftmargin=5pt,%                         % extra frame left margin
-  %identifierstyle=\sffamily,%                    % style for identifiers
-  keywordstyle=\gsfontfamily\color{gsplum},%     % color for keywords
-  language=Python,%                              % select language
-  linewidth=\linewidth,%                         % width of listings
-  morekeywords={%                                % VPython/GlowScript specific keywords
-    __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
-    append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
-    attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
-    bounding_box,box,bumpaxis,bumpmap,bumpmaps,camera,canvas,caption,capture,%
-    ceil,center,clear,clear_trail,click,clone,CoffeeScript,coils,color,combin,%
-    comp,compound,cone,convex,cos,cross,curve,cyan,cylinder,data,degrees,del,%
-    delete,depth,descender,diff_angle,digits,division,dot,draw_complete,%
-    ellipsoid,emissive,end_face_color,equals,explog,extrusion,faces,factorial,%
-    False,floor,follow,font,format,forward,fov,frame,gcurve,gdisplay,gdots,%
-    get_library,get_selected,ghbars,global,GlowScript,graph,graphs,green,gvbars,%
-    hat,headlength,headwidth,height,helix,hsv_to_rgb,index,interval,keydown,%
-    keyup,label,length,lights,line,linecolor,linewidth,logx,logy,lower_left,%
-    lower_right,mag,mag2,magenta,make_trail,marker_color,markers,material,%
-    max,min,mouse,mousedown,mousemove,mouseup,newball,norm,normal,objects,%
-    offset,one,opacity,orange,origin,path,pause,pi,pixel_to_world,pixels,plot,%
-    points,pos,pow,pps,print,print_function,print_options,proj,purple,pyramid,%
-    quad,radians,radius,random,rate,ray,read_local_file,readonly,red,redraw,%
-    retain,rgb_to_hsv,ring,rotate,round,scene,scroll,shaftwidth,shape,shapes,%
-    shininess,show_end_face,show_start_face,sign,sin,size,size_units,sleep,%
-    smooth,space,sphere,sqrt,start,start_face_color,stop,tan,text,textpos,%
-    texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
-    trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
-    userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
-    visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
-    ytitle%
-  },%
-  morekeywords={print,None,TypeError},%      % additional keywords
-  morestring=[b]{"""},%                      % treat triple quotes as strings
-  numbers=left,%                             % where to put line numbers
-  numbersep=10pt,%                           % how far line numbers are from code
-  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
-  showstringspaces=false,%                   % show spaces in strings
-  showtabs=false,%                           % show tabs within strings
-  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
-  upquote=true,%                             % how to typeset quotes
-}%
-\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
-  { O{} D(){glowscript.org} m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivpeach,%
-  enhanced,%
-  hyperurl interior = https://#2,%
-  label = {gs:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{GlowScript} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},
-}%
-\NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
-  {List of \texttt{GlowScript} Programs}}%
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
-  { O{} m m }{%
-  breakable,%
-  center,%
-  code = \newpage,%
-  %derivgray,%
-  enhanced,%
-  hyperurl interior = https://,%
-  label = {vp:\thetcbcounter},%
-  left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing file = {#2},%
-  listing only,%
-  listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{VPython} Program \thetcbcounter: #3,%
-  width = 0.9\textwidth,%
-  {#1},%
-}%
-\NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
-  {List of \texttt{VPython} Programs}}%
-\DeclareTotalTCBox{\glowscriptinline}{ m }{%
-  bottom = 0pt,%
-  bottomrule = 0.0mm,%
-  boxsep = 1.0mm,%
-  colback = gsbggray,%
-  colframe = gsbggray,%
-  left = 0pt,%
-  leftrule = 0.0mm,%
-  nobeforeafter,%
-  right = 0pt,%
-  rightrule = 0.0mm,%
-  sharp corners,%
-  tcbox raise base,%
-  top = 0pt,%
-  toprule = 0.0mm,%
-}{\lstinline[style = vpython]{#1}}%
-\NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
-\NewDocumentCommand{\veccomp}{ s m }{%
-  % Consider renaming this to \vectorsym.
-  \IfBooleanTF{#1}
-  {%
-    \ensuremath{\symnormal{#2}}%
-  }%
-  {%
-    \ensuremath{\symbfit{#2}}%
-  }%
-}%
-\NewDocumentCommand{\tencomp}{ s m }{%
-  % Consider renaming this to \tensororsym.
-  \IfBooleanTF{#1}
-  {%
-    \ensuremath{\symsfit{#2}}%
-  }%
-  {%
-    \ensuremath{\symbfsfit{#2}}%
-  }%
-}%
-\NewDocumentEnvironment{physicsproblem}{ m }{%
-  \newpage%
-  \section*{#1}%
-  \newlist{parts}{enumerate}{2}%
-  \setlist[parts]{label=\bfseries(\alph*)}}%
-  {}%
-\NewDocumentEnvironment{physicsproblem*}{ m }{%
-  \newpage%
-  \section*{#1}%
-  \newlist{parts}{enumerate*}{2}%
-  \setlist[parts]{label=\bfseries(\alph*)}}%
-  {}%
-\NewDocumentCommand{\problempart}{}{\item}%
-\NewDocumentEnvironment{physicssolution}{ +b }{%
-  % Make equation numbering consecutive through the document.
-  \begin{align}
-    #1
-  \end{align}
-}{}%
-\NewDocumentEnvironment{physicssolution*}{ +b }{%
-  % Make equation numbering consecutive through the document.
-  \begin{align*}
-    #1
-  \end{align*}
-}{}%
-\NewDocumentCommand{\image}{ O{scale=1} m m m }{%
-  \begin{figure}[ht!]
-    \begin{center}%
-      \includegraphics[#1]{#2}%
-    \end{center}%
-    \caption{#3}%
-    \label{#4}%
-  \end{figure}%
-}%
-\NewDocumentCommand{\reason}{ O{4cm} m }
-  {&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
-\NewDocumentCommand{\tento}{ m }{\ensuremath{10^{#1}}}
-\NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-\NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-\newcounter{tikzhighlightnode}
-\NewDocumentCommand{\hilite}{ O{magenta!60} m O{rectangle} }{%
-  \stepcounter{tikzhighlightnode}%
-  \tikzmarknode{highlighted-node-\number\value{tikzhighlightnode}}{#2}%
-  \edef\temp{%
-    \noexpand\AddToShipoutPictureBG{%
-      \noexpand\begin{tikzpicture}[overlay,remember picture]%
-      \noexpand\iftikzmarkoncurrentpage{highlighted-node-\number\value{tikzhighlightnode}}%
-       \noexpand\node[inner sep=1.0pt,fill=#1,#3,fit=(highlighted-node-\number\value{tikzhighlightnode})]{};%
-      \noexpand\fi
-      \noexpand\end{tikzpicture}%
-    }%
-  }%
-  \temp%
-}%
-\NewDocumentCommand{\slot}{ s d[] }{%
-  % d[] must be used because of the way consecutive optional
-  %  arguments are handled. See xparse docs for details.
-  \IfBooleanTF{#1}
-  {%
-    \IfValueTF{#2}
-    {% Insert a vector, but don't show the slot.
-      \smash{\makebox[1.5em]{\ensuremath{#2}}}
-    }%
-    {% No vector, no slot.
-      \smash{\makebox[1.5em]{\ensuremath{}}}
-    }%
-  }%
-  {%
-    \IfValueTF{#2}
-    {% Insert a vector and show the slot.
-      \underline{\smash{\makebox[1.5em]{\ensuremath{#2}}}}
-    }%
-    {% No vector; just show the slot.
-      \underline{\smash{\makebox[1.5em]{\ensuremath{}}}}
-    }%
-  }%
-}%
-\NewDocumentCommand{\contraction}{ s m }{%
-  \IfBooleanTF{#1}
-  {\mathsf{C}}%
-  {\symbb{C}}%
-  _{#2}
-}%
-\NewDocumentCommand{\diff}{ s }{%
-  \mathop{}\!
-  \IfBooleanTF{#1}
-  {\symbfsfup{d}}%
-  {\symsfup{d}}%
-}%
-\NewDocumentCommand{\valence}{ s m m }{%
-  \IfBooleanTF{#1}
-    {(#2,#3)}
-    {\binom{#2}{#3}}
-}%
 \endinput
 %%
 %% End of file `mandi.sty'.

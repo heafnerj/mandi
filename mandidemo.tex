@@ -1,0 +1,89 @@
+% !TEX program = lualatexmk
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass{article}
+\usepackage[units=derived]{mandi}
+\usepackage{mandistudent}
+%\setmainfont{Helvetica Neue Light}
+%\setmainfont{GFS Neohellenic}
+%\setmainfont{TeX Gyre Heros}
+%\setmainfont{TeX Gyre Termes}
+%\setmainfont{TeX Gyre Schola}
+%\setmainfont{TeX Gyre Bonum}
+%\setmainfont{TeX Gyre Cursor}
+%\setmainfont{TeX Gyre Chorus}
+%\setmainfont{TeX Gyre Adventor}
+
+\begin{document}
+
+Momentum is defined as \( \vec{p} = \gamma m\vec{v}\).
+
+\begin{physicssolution}
+  \vec{p} &= \gamma m \vec{v} \reason{definition of momentum} \\
+  \vec{v} &= \frac{\vec{p}}{\gamma m} \reason{solve for velocity}
+\end{physicssolution}
+
+The dot product is really a contraction on two slots, and can be notated 
+as \( \contraction*{1,2} \).
+
+\newpage
+%\itshape\bfseries
+The momentum can be expressed in all the following ways:
+
+\begin{gather*}
+ \momentum{4}               \\
+ \momentumbaseunits{4}      \\
+ \momentumderivedunits{4}   \\
+ \momentumalternateunits{4} \\
+ \vectormomentum{3,2,-4}    \\
+ \momentumvector{3,2,-4}
+\end{gather*}
+\begin{gather*}
+  \force{3}         \\
+  \energy{3}        \\
+  \magneticfield{3}
+\end{gather*}
+
+\mandisetup{units=base}
+The capacitance can be expressed in all the following ways:
+
+\begin{gather*}
+ \capacitance{4}               \\
+ \capacitancebaseunits{4}      \\
+ \capacitancederivedunits{4}   \\
+ \capacitancealternateunits{4}
+\end{gather*}
+\begin{gather*}
+  \force{3}         \\
+  \energy{3}        \\
+  \magneticfield{3}
+\end{gather*}
+
+\mandisetup{units=alternate}
+The resistance can be expressed in all the following ways:
+
+\begin{gather*}
+ \resistance{4}               \\
+ \resistancebaseunits{4}      \\
+ \resistancederivedunits{4}   \\
+ \resistancealternateunits{4}
+\end{gather*}
+\begin{gather*}
+  \force{3}         \\
+  \energy{3}        \\
+  \magneticfield{3}
+\end{gather*}
+
+A current of \( \current{2} \) and a resistance of \( \resistance{3} \) gives a potential
+difference of \( \electricpotentialdifference{6} \).
+
+\newpage
+\checkquantity{electricpotentialdifference}
+\checkquantity{energy}
+\checkquantity{angularmomentum}
+\checkquantity{momentum}
+\checkconstant{oofpez}
+\checkconstant{vacuumpermeability}
+\checkconstant{vacuumpermittivity}
+
+\end{document}

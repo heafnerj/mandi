@@ -1,0 +1,266 @@
+% !TEX program = lualatexmk
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\unimathsetup{math-style=ISO}
+\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
+\setmathfont[Scale=MatchLowercase]
+  {Latin Modern Math}    % default math font; better J
+\setmathfont[Scale=MatchLowercase,range={sfit/{latin},bfsfit/{latin}}]
+  {TeX Gyre DejaVu Math} % single-storey lowercase g
+\setmathfont[Scale=MatchLowercase,range={sfup/{latin},bfsfup/{latin}}]
+  {TeX Gyre DejaVu Math} % single-storey lowercase g
+\setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]
+  {XITS Math}            % see section 5.4.3 of unicode-math docs
+\setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]
+  {XITS Math}            % see section 5.4.3 of unicode-math docs
+
+% AFAIK we must use STIX Two Math for non-bold sans-serif Greek.
+\setmathfont[Scale=MatchLowercase,range={"E17C-"E1F6}]{STIX Two Math}
+\newfontfamily{\symsfgreek}{STIX Two Math}
+% I don't understand why \text{...} is necessary.
+\newcommand{\symsfupalpha}      {\text{\symsfgreek{^^^^e196}}}
+\newcommand{\symsfupbeta}       {\text{\symsfgreek{^^^^e197}}}
+\newcommand{\symsfupgamma}      {\text{\symsfgreek{^^^^e198}}}
+\newcommand{\symsfupdelta}      {\text{\symsfgreek{^^^^e199}}}
+\newcommand{\symsfupepsilon}    {\text{\symsfgreek{^^^^e1af}}}
+\newcommand{\symsfupvarepsilon} {\text{\symsfgreek{^^^^e19a}}}
+\newcommand{\symsfupzeta}       {\text{\symsfgreek{^^^^e19b}}}
+\newcommand{\symsfupeta}        {\text{\symsfgreek{^^^^e19c}}}
+\newcommand{\symsfuptheta}      {\text{\symsfgreek{^^^^e19d}}}
+\newcommand{\symsfupvartheta}   {\text{\symsfgreek{^^^^e1b0}}}
+\newcommand{\symsfupiota}       {\text{\symsfgreek{^^^^e19e}}}
+\newcommand{\symsfupkappa}      {\text{\symsfgreek{^^^^e19f}}}
+\newcommand{\symsfuplambda}     {\text{\symsfgreek{^^^^e1a0}}}
+\newcommand{\symsfupmu}         {\text{\symsfgreek{^^^^e1a1}}}
+\newcommand{\symsfupnu}         {\text{\symsfgreek{^^^^e1a2}}}
+\newcommand{\symsfupxi}         {\text{\symsfgreek{^^^^e1a3}}}
+\newcommand{\symsfupomicron}    {\text{\symsfgreek{^^^^e1a4}}}
+\newcommand{\symsfuppi}         {\text{\symsfgreek{^^^^e1a5}}}
+\newcommand{\symsfupvarpi}      {\text{\symsfgreek{^^^^e1b3}}}
+\newcommand{\symsfuprho}        {\text{\symsfgreek{^^^^e1a6}}}
+\newcommand{\symsfupvarrho}     {\text{\symsfgreek{^^^^e1b2}}}
+\newcommand{\symsfupsigma}      {\text{\symsfgreek{^^^^e1a8}}}
+\newcommand{\symsfupvarsigma}   {\text{\symsfgreek{^^^^e1a7}}}
+\newcommand{\symsfuptau}        {\text{\symsfgreek{^^^^e1a9}}}
+\newcommand{\symsfupupsilon}    {\text{\symsfgreek{^^^^e1aa}}}
+\newcommand{\symsfupphi}        {\text{\symsfgreek{^^^^e1b1}}}
+\newcommand{\symsfupvarphi}     {\text{\symsfgreek{^^^^e1ab}}}
+\newcommand{\symsfupchi}        {\text{\symsfgreek{^^^^e1ac}}}
+\newcommand{\symsfuppsi}        {\text{\symsfgreek{^^^^e1ad}}}
+\newcommand{\symsfupomega}      {\text{\symsfgreek{^^^^e1ae}}}
+\newcommand{\symsfupDelta}      {\text{\symsfgreek{^^^^e180}}}
+\newcommand{\symsfupGamma}      {\text{\symsfgreek{^^^^e17f}}}
+\newcommand{\symsfupTheta}      {\text{\symsfgreek{^^^^e18e}}}
+\newcommand{\symsfupLambda}     {\text{\symsfgreek{^^^^e187}}}
+\newcommand{\symsfupXi}         {\text{\symsfgreek{^^^^e18a}}}
+\newcommand{\symsfupPi}         {\text{\symsfgreek{^^^^e18c}}}
+\newcommand{\symsfupSigma}      {\text{\symsfgreek{^^^^e18f}}}
+\newcommand{\symsfupUpsilon}    {\text{\symsfgreek{^^^^e191}}}
+\newcommand{\symsfupPhi}        {\text{\symsfgreek{^^^^e192}}}
+\newcommand{\symsfupPsi}        {\text{\symsfgreek{^^^^e194}}}
+\newcommand{\symsfupOmega}      {\text{\symsfgreek{^^^^e195}}}
+
+\newcommand{\symsfitalpha}      {\text{\symsfgreek{^^^^e1d8}}}
+\newcommand{\symsfitbeta}       {\text{\symsfgreek{^^^^e1d9}}}
+\newcommand{\symsfitgamma}      {\text{\symsfgreek{^^^^e1da}}}
+\newcommand{\symsfitdelta}      {\text{\symsfgreek{^^^^e1db}}}
+\newcommand{\symsfitepsilon}    {\text{\symsfgreek{^^^^e1f1}}}
+\newcommand{\symsfitvarepsilon} {\text{\symsfgreek{^^^^e1dc}}}
+\newcommand{\symsfitzeta}       {\text{\symsfgreek{^^^^e1dd}}}
+\newcommand{\symsfiteta}        {\text{\symsfgreek{^^^^e1de}}}
+\newcommand{\symsfittheta}      {\text{\symsfgreek{^^^^e1df}}}
+\newcommand{\symsfitvartheta}   {\text{\symsfgreek{^^^^e1f2}}}
+\newcommand{\symsfitiota}       {\text{\symsfgreek{^^^^e1e0}}}
+\newcommand{\symsfitkappa}      {\text{\symsfgreek{^^^^e1e1}}}
+\newcommand{\symsfitlambda}     {\text{\symsfgreek{^^^^e1e2}}}
+\newcommand{\symsfitmu}         {\text{\symsfgreek{^^^^e1e3}}}
+\newcommand{\symsfitnu}         {\text{\symsfgreek{^^^^e1e4}}}
+\newcommand{\symsfitxi}         {\text{\symsfgreek{^^^^e1e5}}}
+\newcommand{\symsfitomicron}    {\text{\symsfgreek{^^^^e1e6}}}
+\newcommand{\symsfitpi}         {\text{\symsfgreek{^^^^e1e7}}}
+\newcommand{\symsfitvarpi}      {\text{\symsfgreek{^^^^e1f5}}}
+\newcommand{\symsfitrho}        {\text{\symsfgreek{^^^^e1e8}}}
+\newcommand{\symsfitvarrho}     {\text{\symsfgreek{^^^^e1f4}}}
+\newcommand{\symsfitsigma}      {\text{\symsfgreek{^^^^e1ea}}}
+\newcommand{\symsfitvarsigma}   {\text{\symsfgreek{^^^^e1e9}}}
+\newcommand{\symsfittau}        {\text{\symsfgreek{^^^^e1eb}}}
+\newcommand{\symsfitupsilon}    {\text{\symsfgreek{^^^^e1ec}}}
+\newcommand{\symsfitphi}        {\text{\symsfgreek{^^^^e1f3}}}
+\newcommand{\symsfitvarphi}     {\text{\symsfgreek{^^^^e1ed}}}
+\newcommand{\symsfitchi}        {\text{\symsfgreek{^^^^e1ee}}}
+\newcommand{\symsfitpsi}        {\text{\symsfgreek{^^^^e1ef}}}
+\newcommand{\symsfitomega}      {\text{\symsfgreek{^^^^e1f0}}}
+\newcommand{\symsfitDelta}      {\text{\symsfgreek{^^^^e1c2}}}
+\newcommand{\symsfitGamma}      {\text{\symsfgreek{^^^^e1c1}}}
+\newcommand{\symsfitTheta}      {\text{\symsfgreek{^^^^e1d0}}}
+\newcommand{\symsfitLambda}     {\text{\symsfgreek{^^^^e1c9}}}
+\newcommand{\symsfitXi}         {\text{\symsfgreek{^^^^e1cc}}}
+\newcommand{\symsfitPi}         {\text{\symsfgreek{^^^^e1ce}}}
+\newcommand{\symsfitSigma}      {\text{\symsfgreek{^^^^e1d1}}}
+\newcommand{\symsfitUpsilon}    {\text{\symsfgreek{^^^^e1d3}}}
+\newcommand{\symsfitPhi}        {\text{\symsfgreek{^^^^e1d4}}}
+\newcommand{\symsfitPsi}        {\text{\symsfgreek{^^^^e1d6}}}
+\newcommand{\symsfitOmega}      {\text{\symsfgreek{^^^^e1d7}}}
+
+% Default.
+%\setmathfont[Scale=MatchLowercase,range=      it/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfit/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfit/{greek,Greek}]{TeX Gyre DejaVu Math}
+%\setmathfont[Scale=MatchLowercase,range=      up/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfup/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfup/{greek,Greek}]{TeX Gyre DejaVu Math}
+
+% Same as default, but narrower bold sans Greek letters.
+%\setmathfont[Scale=MatchLowercase,range=      it/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfit/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfit/{greek,Greek}]{STIX Two Math}
+%\setmathfont[Scale=MatchLowercase,range=      up/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfup/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfup/{greek,Greek}]{STIX Two Math}
+
+% This would make a nice default.
+\setmathfont[Scale=MatchLowercase,range=      it/{greek,Greek}]{STIX Two Math}
+\setmathfont[Scale=MatchLowercase,range=    bfit/{greek,Greek}]{STIX Two Math}
+\setmathfont[Scale=MatchLowercase,range=  bfsfit/{greek,Greek}]{STIX Two Math}
+\setmathfont[Scale=MatchLowercase,range=      up/{greek,Greek}]{STIX Two Math}
+\setmathfont[Scale=MatchLowercase,range=    bfup/{greek,Greek}]{STIX Two Math}
+\setmathfont[Scale=MatchLowercase,range=  bfsfup/{greek,Greek}]{STIX Two Math}
+
+% This would make a nice default.
+%\setmathfont[Scale=MatchLowercase,range=      it/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfit/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfit/{greek,Greek}]{TeX Gyre DejaVu Math}
+%\setmathfont[Scale=MatchLowercase,range=      up/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfup/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfup/{greek,Greek}]{TeX Gyre DejaVu Math}
+
+% This would make a nice default.
+%\setmathfont[Scale=MatchLowercase,range=      it/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfit/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfit/{greek,Greek}]{STIX Two Math}
+%\setmathfont[Scale=MatchLowercase,range=      up/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfup/{greek,Greek}]{XITS Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfup/{greek,Greek}]{STIX Two Math}
+
+% This would make a nice default, but many bold sans Greek letters don't look sans!
+%\setmathfont[Scale=MatchLowercase,range=      it/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfit/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfit/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=      up/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfup/{greek,Greek}]{Latin Modern Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfup/{greek,Greek}]{Latin Modern Math}
+
+% I don't like the TeX Gyre DejaVu Math zeta.
+%\setmathfont[Scale=MatchLowercase,range=      it/{greek,Greek}]{TeX Gyre DejaVu Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfit/{greek,Greek}]{TeX Gyre DejaVu Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfit/{greek,Greek}]{TeX Gyre DejaVu Math}
+%\setmathfont[Scale=MatchLowercase,range=      up/{greek,Greek}]{TeX Gyre DejaVu Math}
+%\setmathfont[Scale=MatchLowercase,range=    bfup/{greek,Greek}]{TeX Gyre DejaVu Math}
+%\setmathfont[Scale=MatchLowercase,range=  bfsfup/{greek,Greek}]{TeX Gyre DejaVu Math}
+
+\begin{document}
+
+\newgeometry{left=0.5in,right=0.5in}
+\begin{center}
+  \begin{tabular}{l}
+    \texttt{symnormal}: for vector index notation                                    \\
+    \( abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 \)             \\
+    \( 
+      \alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa
+      \lambda\mu\nu\xi\omicron\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi
+      \chi\psi\omega\Delta\Gamma\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega 
+    \) \\
+    \texttt{symbf}: for coordinate-free vectors and matrices                         \\
+    \( \symbf{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ} \)               \\
+    \( \symbf{ 
+       \alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa
+       \lambda\mu\nu\xi\omicron\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi
+       \chi\psi\omega\Delta\Gamma\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega}
+    \) \\
+    \texttt{symup}: for text labels, particles, and upright Greek                    \\
+    \( \symup{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789} \)     \\
+    \( \symup{ 
+      \alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa
+      \lambda\mu\nu\xi\omicron\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi
+      \chi\psi\omega\Delta\Gamma\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega}
+    \) \\
+    \texttt{symbfup}: for bold text labels                                           \\
+    \( \symbfup{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789} \)   \\
+    \( \symbfup{ 
+       \alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa
+       \lambda\mu\nu\xi\omicron\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi
+       \chi\psi\omega\Delta\Gamma\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega}
+    \) \\
+    \texttt{symsfup}: for physical dimensions                                        \\
+    \( \symsfup{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789} \)   \\
+    \( \symsfupalpha\symsfupbeta\symsfupgamma\symsfupdelta\symsfupepsilon\symsfupvarepsilon
+       \symsfupzeta\symsfupeta\symsfuptheta\symsfupvartheta\symsfupiota\symsfupkappa
+       \symsfuplambda\symsfupmu\symsfupnu\symsfupxi\symsfupomicron\symsfuppi\symsfupvarpi
+       \symsfuprho\symsfupvarrho\symsfupsigma\symsfupvarsigma\symsfuptau\symsfupupsilon
+       \symsfupphi\symsfupvarphi\symsfupchi\symsfuppsi\symsfupomega\symsfupDelta
+       \symsfupGamma\symsfupTheta\symsfupLambda\symsfupXi\symsfupPi\symsfupSigma
+       \symsfupUpsilon\symsfupPhi\symsfupPsi\symsfupOmega 
+    \) \\
+       \texttt{symbfsfup}: available if needed                                       \\
+    \( \symbfsfup{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789} \) \\
+    \( \symbfsfup{ 
+       \alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa
+       \lambda\mu\nu\xi\omicron\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi
+       \chi\psi\omega\Delta\Gamma\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega}
+    \) \\
+    \texttt{symsfit}: for tensor index notation                                      \\
+    \( \symsfit{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ} \)             \\
+    \( \symsfitalpha\symsfitbeta\symsfitgamma\symsfitdelta\symsfitepsilon\symsfitvarepsilon
+       \symsfitzeta\symsfiteta\symsfittheta\symsfitvartheta\symsfitiota\symsfitkappa
+       \symsfitlambda\symsfitmu\symsfitnu\symsfitxi\symsfitomicron\symsfitpi\symsfitvarpi
+       \symsfitrho\symsfitvarrho\symsfitsigma\symsfitvarsigma\symsfittau\symsfitupsilon
+       \symsfitphi\symsfitvarphi\symsfitchi\symsfitpsi\symsfitomega\symsfitDelta
+       \symsfitGamma\symsfitTheta\symsfitLambda\symsfitXi\symsfitPi\symsfitSigma
+       \symsfitUpsilon\symsfitPhi\symsfitPsi\symsfitOmega 
+    \) \\
+    \texttt{symbfsfit}: for coordinate-free tensors                                  \\
+    \( \symbfsfit{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ} \)           \\
+    \( \symbfsfit{ 
+       \alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa
+       \lambda\mu\nu\xi\omicron\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi
+       \chi\psi\omega\Delta\Gamma\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega}
+    \) \\
+    \texttt{symcal} and \texttt{symbfcal}: for naming points and coordinate systems  \\
+    \( \symcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \)                                        \\
+    \( \symbfcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \)                                      \\
+    \texttt{symscr} and \texttt{symbfscr}: for naming spacetime events               \\
+    \( \symscr{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ} \)              \\
+    \( \symbfscr{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ} \)            \\
+    \texttt{symtt}: available if needed                                              \\
+    \( \symtt{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789} \)     \\
+    \texttt{symfrak} and \texttt{symbffrak}: available if needed                     \\
+    \( \symfrak{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ} \)             \\
+    \( \symbffrak{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ} \)           \\
+    \texttt{symbb} and \texttt{symbbit}: available if needed                         \\
+    \( \symbb{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789} \)     \\
+    \( \symbbit{deijD} \)
+  \end{tabular}
+\end{center}
+
+\[
+  \dim Q = \symsfup{L}^\alpha \symsfup{M}^\beta \symsfup{T}^\gamma \symsfup{I}^\delta \symsfupTheta^\varepsilon \symsfup{N}^\zeta \symsfup{J}^\eta
+\]
+\begin{gather*}
+  \symbfsfit{\epsilon}(\_,\_,\_) 
+    = \symbfsfit{LeviCivita}(\_,\_,\_)
+    = \symsfitepsilon_{ijk}\, \symsfit{e}^i \otimes \symsfit{e}^j \otimes \symsfit{e}^k \\
+  \symbfsfit{dot}(\_,\_)
+    = \symbfsfit{metric}(\_,\_)
+    = \symbfsfit{g}(\_,\_) 
+    = \symsfit{g}_{\symsfit{ij}}\, \symsfit{e}^{\symsfit{i}} \otimes \symsfit{e}^{\symsfit{j}} \\
+  \symbfsfit{dot}(\symbfsfit{a},\symbfsfit{b}) 
+    = \symbfsfit{metric}(\symbfsfit{a},\symbfsfit{b}) 
+    = \symbfsfit{g}(\symbfsfit{a},\symbfsfit{b}) 
+    = \symbfsfit{a}\cdot\symbfsfit{b}
+\end{gather*}
+
+\end{document}

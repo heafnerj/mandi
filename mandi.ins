@@ -20,11 +20,14 @@
 %%  The Current Maintainer of this work is Paul J. Heafner.
 %% 
 %%  This work consists of the files mandi.dtx
+%%                                  mandistudent.dtx
+%%                                  mandiexp.dtx
 %%                                  mandi.ins
 %%                                  mandi.pdf
 %%                                  README.md
 %% 
 %%  and includes the derived files  mandi.sty
+%%                                  mandistudent.sty
 %%                                  mandiexp.sty
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
@@ -49,11 +52,14 @@
  The Current Maintainer of this work is Paul J. Heafner.
 
  This work consists of the files mandi.dtx
+                                 mandistudent.dtx
+                                 mandiexp.dtx
                                  mandi.ins
                                  mandi.pdf
                                  README.md
 
  and includes the derived files  mandi.sty
+                                 mandistudent.sty
                                  mandiexp.sty
                                  vdemo.py
  ---------------------------------------------------------------------------
@@ -64,9 +70,10 @@
           \file{README.md}{\from{\jobname.dtx}{readme}}}
 \generate{\file{\jobname.ins}{\from{\jobname.dtx}{install}}}
 \generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
-\generate{\file{mandiexp.sty}{\from{\jobname.dtx}{mandiexp}}}
+\generate{\file{mandistudent.sty}{\from{mandistudent.dtx}{package}}}
+\generate{\file{mandiexp.sty}{\from{mandiexp.dtx}{package}}}
 \generate{\usepreamble\empty\usepostamble\empty
-          \file{vdemo.py}{\from{\jobname.dtx}{vdemo}}}
+          \file{vdemo.py}{\from{mandistudent.dtx}{vdemo}}}
 
 \obeyspaces
 \Msg{*************************************************************}

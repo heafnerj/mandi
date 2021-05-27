@@ -1,0 +1,481 @@
+%%
+%% This is file `mandistudent.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% mandistudent.dtx  (with options: `package')
+%% 
+%%  Copyright (C) 2021 by Paul J. Heafner <heafnerj@gmail.com>
+%%  ---------------------------------------------------------------------------
+%%  This  work may be  distributed and/or modified  under the conditions of the
+%%  LaTeX Project Public  License, either  version 1.3  of this  license or (at
+%%  your option) any later version. The  latest  version  of this license is in
+%%             http://www.latex-project.org/lppl.txt
+%%  and  version 1.3 or  later is  part of  all distributions of  LaTeX version
+%%  2005/12/01 or later.
+%% 
+%%  This work has the LPPL maintenance status `maintained'.
+%% 
+%%  The Current Maintainer of this work is Paul J. Heafner.
+%% 
+%%  This work consists of the files mandi.dtx
+%%                                  mandistudent.dtx
+%%                                  mandiexp.dtx
+%%                                  mandi.ins
+%%                                  mandi.pdf
+%%                                  README.md
+%% 
+%%  and includes the derived files  mandi.sty
+%%                                  mandistudent.sty
+%%                                  mandiexp.sty
+%%                                  vdemo.py
+%%  ---------------------------------------------------------------------------
+%% 
+\def\mandistudent@Version{3.0.0m}
+\def\mandistudent@Date{2021-05-27}
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\providecommand\DeclareRelease[3]{}
+\providecommand\DeclareCurrentRelease[2]{}
+\DeclareRelease{v3.0.0m}{2021-05-27}{mandistudent.sty}
+\DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
+\ProvidesPackage{mandistudent}
+  [\mandistudent@Date\space v\mandistudent@Version\space Macros for introductory physics]
+\newcommand*{\mandistudentversion}{v\mandistudent@Version\space dated \mandistudent@Date}
+\RequirePackage{amsmath}             % AMS goodness (don't load amssymb or amsfonts)
+\RequirePackage[inline]{enumitem}    % needed for physicsproblem environment
+\RequirePackage{eso-pic}             % needed for \hilite
+\RequirePackage[g]{esvect}           % needed for nice vector arrow, style g
+\RequirePackage{pgfopts}             % needed for key-value interface
+\RequirePackage{iftex}               % needed for requiring LuaLaTeX
+\RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
+\RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
+\RequirePackage{nicematrix}          % needed for column and row vectors
+\RequirePackage[most]{tcolorbox}     % needed for program listings
+\RequirePackage{tensor}              % needed for index notation
+\RequirePackage{tikz}                % needed for \hilite
+\usetikzlibrary{shapes,fit,tikzmark} % needed for \hilite
+\RequirePackage{unicode-math}        % needed for Unicode support
+\RequirePackage{hyperref}            % load last
+\RequireLuaTeX                       % require this engine
+\unimathsetup{math-style=ISO}
+\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
+\setmathfont[Scale=MatchLowercase]
+  {Latin Modern Math}    % default math font; better J
+\setmathfont[Scale=MatchLowercase,range={sfit/{latin},bfsfit/{latin}}]
+  {TeX Gyre DejaVu Math} % single-storey lowercase g
+\setmathfont[Scale=MatchLowercase,range={sfup/{latin},bfsfup/{latin}}]
+  {TeX Gyre DejaVu Math} % single-storey lowercase g
+\setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]{XITS Math}
+\setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
+\setmathfont[Scale=MatchLowercase,range={"E17C-"E1F6}]{STIX Two Math}
+\newfontfamily{\symsfgreek}{STIX Two Math}
+\newcommand{\symsfupalpha}      {\text{\symsfgreek{^^^^e196}}}
+\newcommand{\symsfupbeta}       {\text{\symsfgreek{^^^^e197}}}
+\newcommand{\symsfupgamma}      {\text{\symsfgreek{^^^^e198}}}
+\newcommand{\symsfupdelta}      {\text{\symsfgreek{^^^^e199}}}
+\newcommand{\symsfupepsilon}    {\text{\symsfgreek{^^^^e1af}}}
+\newcommand{\symsfupvarepsilon} {\text{\symsfgreek{^^^^e19a}}}
+\newcommand{\symsfupzeta}       {\text{\symsfgreek{^^^^e19b}}}
+\newcommand{\symsfupeta}        {\text{\symsfgreek{^^^^e19c}}}
+\newcommand{\symsfuptheta}      {\text{\symsfgreek{^^^^e19d}}}
+\newcommand{\symsfupvartheta}   {\text{\symsfgreek{^^^^e1b0}}}
+\newcommand{\symsfupiota}       {\text{\symsfgreek{^^^^e19e}}}
+\newcommand{\symsfupkappa}      {\text{\symsfgreek{^^^^e19f}}}
+\newcommand{\symsfuplambda}     {\text{\symsfgreek{^^^^e1a0}}}
+\newcommand{\symsfupmu}         {\text{\symsfgreek{^^^^e1a1}}}
+\newcommand{\symsfupnu}         {\text{\symsfgreek{^^^^e1a2}}}
+\newcommand{\symsfupxi}         {\text{\symsfgreek{^^^^e1a3}}}
+\newcommand{\symsfupomicron}    {\text{\symsfgreek{^^^^e1a4}}}
+\newcommand{\symsfuppi}         {\text{\symsfgreek{^^^^e1a5}}}
+\newcommand{\symsfupvarpi}      {\text{\symsfgreek{^^^^e1b3}}}
+\newcommand{\symsfuprho}        {\text{\symsfgreek{^^^^e1a6}}}
+\newcommand{\symsfupvarrho}     {\text{\symsfgreek{^^^^e1b2}}}
+\newcommand{\symsfupsigma}      {\text{\symsfgreek{^^^^e1a8}}}
+\newcommand{\symsfupvarsigma}   {\text{\symsfgreek{^^^^e1a7}}}
+\newcommand{\symsfuptau}        {\text{\symsfgreek{^^^^e1a9}}}
+\newcommand{\symsfupupsilon}    {\text{\symsfgreek{^^^^e1aa}}}
+\newcommand{\symsfupphi}        {\text{\symsfgreek{^^^^e1b1}}}
+\newcommand{\symsfupvarphi}     {\text{\symsfgreek{^^^^e1ab}}}
+\newcommand{\symsfupchi}        {\text{\symsfgreek{^^^^e1ac}}}
+\newcommand{\symsfuppsi}        {\text{\symsfgreek{^^^^e1ad}}}
+\newcommand{\symsfupomega}      {\text{\symsfgreek{^^^^e1ae}}}
+\newcommand{\symsfupDelta}      {\text{\symsfgreek{^^^^e180}}}
+\newcommand{\symsfupGamma}      {\text{\symsfgreek{^^^^e17f}}}
+\newcommand{\symsfupTheta}      {\text{\symsfgreek{^^^^e18e}}}
+\newcommand{\symsfupLambda}     {\text{\symsfgreek{^^^^e187}}}
+\newcommand{\symsfupXi}         {\text{\symsfgreek{^^^^e18a}}}
+\newcommand{\symsfupPi}         {\text{\symsfgreek{^^^^e18c}}}
+\newcommand{\symsfupSigma}      {\text{\symsfgreek{^^^^e18f}}}
+\newcommand{\symsfupUpsilon}    {\text{\symsfgreek{^^^^e191}}}
+\newcommand{\symsfupPhi}        {\text{\symsfgreek{^^^^e192}}}
+\newcommand{\symsfupPsi}        {\text{\symsfgreek{^^^^e194}}}
+\newcommand{\symsfupOmega}      {\text{\symsfgreek{^^^^e195}}}
+\newcommand{\symsfitalpha}      {\text{\symsfgreek{^^^^e1d8}}}
+\newcommand{\symsfitbeta}       {\text{\symsfgreek{^^^^e1d9}}}
+\newcommand{\symsfitgamma}      {\text{\symsfgreek{^^^^e1da}}}
+\newcommand{\symsfitdelta}      {\text{\symsfgreek{^^^^e1db}}}
+\newcommand{\symsfitepsilon}    {\text{\symsfgreek{^^^^e1f1}}}
+\newcommand{\symsfitvarepsilon} {\text{\symsfgreek{^^^^e1dc}}}
+\newcommand{\symsfitzeta}       {\text{\symsfgreek{^^^^e1dd}}}
+\newcommand{\symsfiteta}        {\text{\symsfgreek{^^^^e1de}}}
+\newcommand{\symsfittheta}      {\text{\symsfgreek{^^^^e1df}}}
+\newcommand{\symsfitvartheta}   {\text{\symsfgreek{^^^^e1f2}}}
+\newcommand{\symsfitiota}       {\text{\symsfgreek{^^^^e1e0}}}
+\newcommand{\symsfitkappa}      {\text{\symsfgreek{^^^^e1e1}}}
+\newcommand{\symsfitlambda}     {\text{\symsfgreek{^^^^e1e2}}}
+\newcommand{\symsfitmu}         {\text{\symsfgreek{^^^^e1e3}}}
+\newcommand{\symsfitnu}         {\text{\symsfgreek{^^^^e1e4}}}
+\newcommand{\symsfitxi}         {\text{\symsfgreek{^^^^e1e5}}}
+\newcommand{\symsfitomicron}    {\text{\symsfgreek{^^^^e1e6}}}
+\newcommand{\symsfitpi}         {\text{\symsfgreek{^^^^e1e7}}}
+\newcommand{\symsfitvarpi}      {\text{\symsfgreek{^^^^e1f5}}}
+\newcommand{\symsfitrho}        {\text{\symsfgreek{^^^^e1e8}}}
+\newcommand{\symsfitvarrho}     {\text{\symsfgreek{^^^^e1f4}}}
+\newcommand{\symsfitsigma}      {\text{\symsfgreek{^^^^e1ea}}}
+\newcommand{\symsfitvarsigma}   {\text{\symsfgreek{^^^^e1e9}}}
+\newcommand{\symsfittau}        {\text{\symsfgreek{^^^^e1eb}}}
+\newcommand{\symsfitupsilon}    {\text{\symsfgreek{^^^^e1ec}}}
+\newcommand{\symsfitphi}        {\text{\symsfgreek{^^^^e1f3}}}
+\newcommand{\symsfitvarphi}     {\text{\symsfgreek{^^^^e1ed}}}
+\newcommand{\symsfitchi}        {\text{\symsfgreek{^^^^e1ee}}}
+\newcommand{\symsfitpsi}        {\text{\symsfgreek{^^^^e1ef}}}
+\newcommand{\symsfitomega}      {\text{\symsfgreek{^^^^e1f0}}}
+\newcommand{\symsfitDelta}      {\text{\symsfgreek{^^^^e1c2}}}
+\newcommand{\symsfitGamma}      {\text{\symsfgreek{^^^^e1c1}}}
+\newcommand{\symsfitTheta}      {\text{\symsfgreek{^^^^e1d0}}}
+\newcommand{\symsfitLambda}     {\text{\symsfgreek{^^^^e1c9}}}
+\newcommand{\symsfitXi}         {\text{\symsfgreek{^^^^e1cc}}}
+\newcommand{\symsfitPi}         {\text{\symsfgreek{^^^^e1ce}}}
+\newcommand{\symsfitSigma}      {\text{\symsfgreek{^^^^e1d1}}}
+\newcommand{\symsfitUpsilon}    {\text{\symsfgreek{^^^^e1d3}}}
+\newcommand{\symsfitPhi}        {\text{\symsfgreek{^^^^e1d4}}}
+\newcommand{\symsfitPsi}        {\text{\symsfgreek{^^^^e1d6}}}
+\newcommand{\symsfitOmega}      {\text{\symsfgreek{^^^^e1d7}}}
+\DeclareFontFamily{U}{esvect}{}
+\DeclareFontShape{U}{esvect}{m}{n}{%
+  <-5.5> vect5
+  <5.5-6.5> vect6
+  <6.5-7.5> vect7
+  <7.5-8.5> vect8
+  <8.5-9.5> vect9
+  <9.5-> vect10
+}{}%
+\typeout{}%
+\typeout{mandistudent: You are using mandistudent \mandistudentversion.}%
+\typeout{mandistudent: This package requires LuaLaTeX.}%
+\typeout{mandistudent: This package changes the default math font(s).}%
+\typeout{mandistudent: This package redefines the \protect\vec\space command.}%
+\typeout{}%
+\RenewDocumentCommand{\vec}{ s m e{_^} }{%
+  \ensuremath{%
+    % Note the \, used to make superscript look better.
+    \IfBooleanTF {#1}
+      {\vv{#2}%      % * gives an arrow
+         % Use \sp{} primitive for superscript.
+         % Adjust superscript for the arrow.
+         \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
+      }%
+      {\symbfit{#2}  % no * gives us bold
+         % Use \sp{} primitive for superscript.
+         % No superscript adjustment needed.
+         \sp{\IfValueT{#4}{#4}\vphantom{\smash[t]{\big|}}}
+      }%
+    % Use \sb{} primitive for subscript.
+    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
+  }%
+}%
+\NewDocumentCommand{\dirvec}{ s m e{_^} }{%
+  \ensuremath{%
+    \widehat{\makebox*{\(w\)}{\ensuremath{%
+      \IfBooleanTF {#1}
+        {%
+          #2
+        }%
+        {%
+          \symbfit{#2}
+        }%
+       }%
+      }%
+     }%
+    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
+    \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
+  }%
+}%
+\NewDocumentCommand{\zerovec}{ s }{%
+  \IfBooleanTF {#1}
+    {\vv{0}}%
+    {\symbfup{0}}%
+}%
+\ExplSyntaxOn
+\NewDocumentCommand{\colvec}{ O{,} m }{%
+  \vector_main:nnnn { p } { \\ } { #1 } { #2 }
+}%
+\NewDocumentCommand{\rowvec}{ O{,} m }{%
+  \vector_main:nnnn { p } { & } { #1 } { #2 }
+}%
+\seq_new:N \l__vector_arg_seq
+\cs_new_protected:Npn \vector_main:nnnn #1 #2 #3 #4 {%
+  \seq_set_split:Nnn \l__vector_arg_seq { #3 } { #4 }
+  \begin{#1NiceMatrix}[r]
+    \seq_use:Nnnn \l__vector_arg_seq { #2 } { #2 } { #2 }
+  \end{#1NiceMatrix}
+}%
+\ExplSyntaxOff
+\NewDocumentCommand{\direction}{}{\mivector}
+\NewDocumentCommand{\unitvector}{}{\mivector}
+\NewDocumentCommand{\changein}{}{\Delta}
+\DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\anglebrackets}[1]{\langle}{\rangle}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\parentheses}[1]{(}{)}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\squarebrackets}[1]{\lbrack}{\rbrack}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
+\NewDocumentCommand{\magnitude}{}{\doublebars}
+\NewDocumentCommand{\norm}{}{\doublebars}
+\NewDocumentCommand{\absolutevalue}{}{\singlebars}
+\NewDocumentCommand{\parallelto}{}
+  {\mkern3mu\vphantom{\perp}\vrule depth 0pt\mkern2mu\vrule depth 0pt\mkern3mu}
+\NewDocumentCommand{\perpendicularto}{}
+  {\perp}
+\NewDocumentEnvironment{physicsproblem}{ m }{%
+  \newpage%
+  \section*{#1}%
+  \newlist{parts}{enumerate}{2}%
+  \setlist[parts]{label=\bfseries(\alph*)}}%
+  {}%
+\NewDocumentEnvironment{physicsproblem*}{ m }{%
+  \newpage%
+  \section*{#1}%
+  \newlist{parts}{enumerate*}{2}%
+  \setlist[parts]{label=\bfseries(\alph*)}}%
+  {}%
+\NewDocumentCommand{\problempart}{}{\item}%
+\NewDocumentEnvironment{physicssolution}{ +b }{%
+  % Make equation numbering consecutive through the document.
+  \begin{align}
+    #1
+  \end{align}
+}{}%
+\NewDocumentEnvironment{physicssolution*}{ +b }{%
+  % Make equation numbering consecutive through the document.
+  \begin{align*}
+    #1
+  \end{align*}
+}{}%
+\NewDocumentCommand{\reason}{ O{4cm} m }
+  {&&\begin{minipage}{#1}\raggedright\small #2\end{minipage}}
+\newcounter{tikzhighlightnode}
+\NewDocumentCommand{\hilite}{ O{magenta!60} m O{rectangle} }{%
+  \stepcounter{tikzhighlightnode}%
+  \tikzmarknode{highlighted-node-\number\value{tikzhighlightnode}}{#2}%
+  \edef\temp{%
+    \noexpand\AddToShipoutPictureBG{%
+      \noexpand\begin{tikzpicture}[overlay,remember picture]%
+      \noexpand\iftikzmarkoncurrentpage{highlighted-node-\number\value{tikzhighlightnode}}%
+       \noexpand\node[inner sep=1.0pt,fill=#1,#3,fit=(highlighted-node-\number\value{tikzhighlightnode})]{};%
+      \noexpand\fi
+      \noexpand\end{tikzpicture}%
+    }%
+  }%
+  \temp%
+}%
+\NewDocumentCommand{\image}{ O{scale=1} m m m }{%
+  \begin{figure}[ht!]
+    \begin{center}%
+      \includegraphics[#1]{#2}%
+    \end{center}%
+    \caption{#3}%
+    \label{#4}%
+  \end{figure}%
+}%
+\NewDocumentCommand{\veccomp}{ s m }{%
+  % Consider renaming this to \vectorsym.
+  \IfBooleanTF{#1}
+  {%
+    \ensuremath{\symnormal{#2}}%
+  }%
+  {%
+    \ensuremath{\symbfit{#2}}%
+  }%
+}%
+\NewDocumentCommand{\tencomp}{ s m }{%
+  % Consider renaming this to \tensororsym.
+  \IfBooleanTF{#1}
+  {%
+    \ensuremath{\symsfit{#2}}%
+  }%
+  {%
+    \ensuremath{\symbfsfit{#2}}%
+  }%
+}%
+\NewDocumentCommand{\valence}{ s m m }{%
+  \IfBooleanTF{#1}
+    {(#2,#3)}
+    {\binom{#2}{#3}}
+}%
+\NewDocumentCommand{\contraction}{ s m }{%
+  \IfBooleanTF{#1}
+  {\mathsf{C}}%
+  {\symbb{C}}%
+  _{#2}
+}%
+\NewDocumentCommand{\slot}{ s d[] }{%
+  % d[] must be used because of the way consecutive optional
+  %  arguments are handled. See xparse docs for details.
+  \IfBooleanTF{#1}
+  {%
+    \IfValueTF{#2}
+    {% Insert a vector, but don't show the slot.
+      \smash{\makebox[1.5em]{\ensuremath{#2}}}
+    }%
+    {% No vector, no slot.
+      \smash{\makebox[1.5em]{\ensuremath{}}}
+    }%
+  }%
+  {%
+    \IfValueTF{#2}
+    {% Insert a vector and show the slot.
+      \underline{\smash{\makebox[1.5em]{\ensuremath{#2}}}}
+    }%
+    {% No vector; just show the slot.
+      \underline{\smash{\makebox[1.5em]{\ensuremath{}}}}
+    }%
+  }%
+}%
+\NewDocumentCommand{\diff}{ s }{%
+  \mathop{}\!
+  \IfBooleanTF{#1}
+  {\symbfsfup{d}}%
+  {\symsfup{d}}%
+}%
+\directlua{%
+ luaotfload.add_colorscheme("colordigits",
+   {["8000FF"] = {"one","two","three","four","five","six","seven","eight","nine","zero"}})
+}%
+\newfontfamily\colordigits{DejaVuSansMono}[RawFeature={color=colordigits}]
+\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
+\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
+\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
+\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
+\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
+\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
+\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
+\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
+\lstdefinestyle{vpython}{%                       % style for listings
+  backgroundcolor=\color{gsbggray},%             % background color
+  basicstyle=\colordigits\footnotesize,%         % default style
+  breakatwhitespace=true%                        % break at whitespace
+  breaklines=true,%                              % break long lines
+  captionpos=b,%                                 % position caption
+  classoffset=1,%                                % STILL DON'T UNDERSTAND THIS
+  commentstyle=\color{gsgray},%                  % font for comments
+  deletekeywords={print},%                       % delete keywords from the given language
+  emph={self,cls,@classmethod,@property},%       % words to emphasize
+  emphstyle=\color{gsorange}\itshape,%           % font for emphasis
+  escapeinside={(*@}{@*)},%                      % add LaTeX within your code
+  frame=tb,%                                     % frame style
+  framerule=2.0pt,%                              % frame thickness
+  framexleftmargin=5pt,%                         % extra frame left margin
+  %identifierstyle=\sffamily,%                    % style for identifiers
+  keywordstyle=\gsfontfamily\color{gsplum},%     % color for keywords
+  language=Python,%                              % select language
+  linewidth=\linewidth,%                         % width of listings
+  morekeywords={%                                % VPython/GlowScript specific keywords
+    __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
+    append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
+    attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
+    bounding_box,box,bumpaxis,bumpmap,bumpmaps,camera,canvas,caption,capture,%
+    ceil,center,clear,clear_trail,click,clone,CoffeeScript,coils,color,combin,%
+    comp,compound,cone,convex,cos,cross,curve,cyan,cylinder,data,degrees,del,%
+    delete,depth,descender,diff_angle,digits,division,dot,draw_complete,%
+    ellipsoid,emissive,end_face_color,equals,explog,extrusion,faces,factorial,%
+    False,floor,follow,font,format,forward,fov,frame,gcurve,gdisplay,gdots,%
+    get_library,get_selected,ghbars,global,GlowScript,graph,graphs,green,gvbars,%
+    hat,headlength,headwidth,height,helix,hsv_to_rgb,index,interval,keydown,%
+    keyup,label,length,lights,line,linecolor,linewidth,logx,logy,lower_left,%
+    lower_right,mag,mag2,magenta,make_trail,marker_color,markers,material,%
+    max,min,mouse,mousedown,mousemove,mouseup,newball,norm,normal,objects,%
+    offset,one,opacity,orange,origin,path,pause,pi,pixel_to_world,pixels,plot,%
+    points,pos,pow,pps,print,print_function,print_options,proj,purple,pyramid,%
+    quad,radians,radius,random,rate,ray,read_local_file,readonly,red,redraw,%
+    retain,rgb_to_hsv,ring,rotate,round,scene,scroll,shaftwidth,shape,shapes,%
+    shininess,show_end_face,show_start_face,sign,sin,size,size_units,sleep,%
+    smooth,space,sphere,sqrt,start,start_face_color,stop,tan,text,textpos,%
+    texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
+    trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
+    userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
+    visual,vpython,VPython,waitfor,white,width,world,xtitle,yellow,yoffset,%
+    ytitle%
+  },%
+  morekeywords={print,None,TypeError},%      % additional keywords
+  morestring=[b]{"""},%                      % treat triple quotes as strings
+  numbers=left,%                             % where to put line numbers
+  numbersep=10pt,%                           % how far line numbers are from code
+  numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
+  showstringspaces=false,%                   % show spaces in strings
+  showtabs=false,%                           % show tabs within strings
+  stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
+  upquote=true,%                             % how to typeset quotes
+}%
+\NewTCBListing[auto counter,list inside=gsprogs]{glowscriptblock}
+  { O{} D(){glowscript.org} m }{%
+  breakable,%
+  center,%
+  code = \newpage,%
+  %derivpeach,%
+  enhanced,%
+  hyperurl interior = https://#2,%
+  label = {gs:\thetcbcounter},%
+  left = 8mm,%
+  list entry = \thetcbcounter~~~~~#3,%
+  listing only,%
+  listing style = vpython,%
+  nameref = {#3},%
+  title = \texttt{GlowScript} Program \thetcbcounter: #3,%
+  width = 0.9\textwidth,%
+  {#1},
+}%
+\NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
+  {List of \texttt{GlowScript} Programs}}%
+\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
+  { O{} m m }{%
+  breakable,%
+  center,%
+  code = \newpage,%
+  %derivgray,%
+  enhanced,%
+  hyperurl interior = https://,%
+  label = {vp:\thetcbcounter},%
+  left = 8mm,%
+  list entry = \thetcbcounter~~~~~#3,%
+  listing file = {#2},%
+  listing only,%
+  listing style = vpython,%
+  nameref = {#3},%
+  title = \texttt{VPython} Program \thetcbcounter: #3,%
+  width = 0.9\textwidth,%
+  {#1},%
+}%
+\NewDocumentCommand{\listofvpythonprograms}{}{\tcblistof[\section*]{vpprogs}
+  {List of \texttt{VPython} Programs}}%
+\DeclareTotalTCBox{\glowscriptinline}{ m }{%
+  bottom = 0pt,%
+  bottomrule = 0.0mm,%
+  boxsep = 1.0mm,%
+  colback = gsbggray,%
+  colframe = gsbggray,%
+  left = 0pt,%
+  leftrule = 0.0mm,%
+  nobeforeafter,%
+  right = 0pt,%
+  rightrule = 0.0mm,%
+  sharp corners,%
+  tcbox raise base,%
+  top = 0pt,%
+  toprule = 0.0mm,%
+}{\lstinline[style = vpython]{#1}}%
+\NewDocumentCommand{\vpythoninline}{}{\glowscriptinline}%
+\endinput
+%%
+%% End of file `mandistudent.sty'.

@@ -1,6 +1,6 @@
-# mandi Version 3.0.0j
+# mandi Version 3.0.0m
 
-This is  the home of the  mandi  LaTeX package  for introductory physics. 
+This is  the home of the  mandi  LaTeX  bundle  for introductory physics. 
 TeX Live includes mandi but not necessarily the latest version, which can 
 always be found here.
 
@@ -10,10 +10,12 @@ instructions.
 
 mandi.zip contains:
  
-  - README.md    (different README with manual install instructions)
-  - mandi.sty    (main package file)
-  - mandiexp.sty (accessory package file)
-  - mandi.pdf    (documentation)
+  - mandi.dtx        (documented source file)
+  - mandistudent.dtx (documented source file)
+  - mandiexp.dtx     (documented source file)
+  - mandi.ins        (install file)
+  - mandi.pdf        (all documentation)
+  - README.md        (different README with manual install instructions)
   
 Students and Overleaf  users should fetch the  overleaf-project.zip  file
 and read the NnnnnnnnCCPxx.tex file for setup instructions.
@@ -21,7 +23,8 @@ and read the NnnnnnnnCCPxx.tex file for setup instructions.
 overleaf-project.zip contains:
  
   - NnnnnnnnCCPxx.tex (document template with setup instructions)
-  - mandi.sty         (main package file)
-  - mandiexp.sty      (accessory package file)
+  - mandi.sty         (mandi package file)
+  - mandistudent.sty  (mandistudent package file)
+  - mandiexp.sty      (mandiexp package file)
   - mandi.pdf         (documentation)
 

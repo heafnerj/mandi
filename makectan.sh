@@ -24,34 +24,39 @@ fi
 # generated from the .dtx file.
 
 echo Editing dtx and ins files...
-sed '35,47d' mandi.dtx > m1.dtx            # rm <readme>   lines 35-47
-sed '276,331d' m1.dtx > m2.dtx             # rm <install>  lines 276-331
-sed '277,284d' m2.dtx > mandinoreadme.dtx  # rm <internal> lines 277-284
-sed '63,65d' mandi.ins > mandinoreadme.ins # rm            lines 63-65
+sed '38,50d' mandi.dtx > m1.dtx            # rm <readme>   lines 35-47
+sed '46,105d' m1.dtx > m2.dtx              # rm <install>  lines 276-331
+sed '47,55d' m2.dtx > mandinoreadme.dtx    # rm <internal> lines 277-284
+sed '69,71d' mandi.ins > mandinoreadme.ins # rm            lines 63-65
 rm m1.dtx                                  # rm temp file
 rm m2.dtx                                  # rm temp file
 
 # Touch all the files so they have the date/time.
 echo Touching files...
-touch README.md
-touch mandi.pdf
 touch mandi.dtx
-touch mandi.ins
+touch mandistudent.dtx
+touch mandiexp.dtx
 touch mandi.sty
+touch mandistudent.sty
 touch mandiexp.sty
+touch mandi.ins
 touch vdemo.py
 touch mandinoreadme.dtx
 touch mandinoreadme.ins
 touch NnnnnnnnCCPxx.tex
+touch mandi.pdf
+touch README.md
 
 # Create CTAN distribution file.
 echo Creating CTAN distribution file...
 mkdir zip                                           # make new subdir
 mkdir zip/mandi                                     # make new subdir
-cp README.md zip/mandi/README.md                    # cp README.md
 mv mandinoreadme.dtx zip/mandi/mandi.dtx            # mv and rename dtx
+cp mandistudent.dtx zip/mandi/mandistudent.dtx      # cp mandistudent.dtx
+cp mandiexp.dtx zip/mandi/mandiexp.dtx              # cp mandiexp.dtx
 mv mandinoreadme.ins zip/mandi/mandi.ins            # mv and rename ins
 cp mandi.pdf zip/mandi/mandi.pdf                    # cp documentation
+cp README.md zip/mandi/README.md                    # cp README.md
 cd zip                                             
 zip -q -r mandi.zip * -x "*.DS_Store" "*.sh" "zip/" # exclude files
 touch mandi.zip                                     # touch
@@ -91,10 +96,12 @@ mv mandi.zip ..                                     # mv to mandi dir
 
 # Clean up
 echo Cleaning up...
-rm mandi/README.md
 rm mandi/mandi.dtx
+rm mandi/mandistudent.dtx
+rm mandi/mandiexp.dtx
 rm mandi/mandi.ins
 rm mandi/mandi.pdf
+rm mandi/README.md
 rmdir mandi
 cd ..
 rmdir zip
@@ -113,7 +120,7 @@ echo   before running this script again!
 
 # Create Overleaf zip file...
 echo Creating Overleaf zip file...
-zip -q overleaf-project.zip "mandi.pdf" "mandi.sty" "mandiexp.sty" "NnnnnnnnCCPxx.tex" -x "*.DS_Store"
+zip -q overleaf-project.zip "mandi.pdf" "mandi.sty" "mandistudent.sty" "mandiexp.sty" "NnnnnnnnCCPxx.tex" -x "*.DS_Store"
 touch overleaf-project.zip
 # Now these files can be given to students to use on Overleaf.
 
