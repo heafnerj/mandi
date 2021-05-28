@@ -2,7 +2,7 @@
 
 # shell script to build zip file for CTAN and to install mandi locally
 
-# Version 2.0 2021-02-27
+# Version 2.0.1 2021-05-28
 #   Rewritten for mandi 3.0.0
 
 # This script should be run from the ~/Library/texmf/mandi folder.
@@ -117,6 +117,11 @@ echo README.md is now ready for GitHub.
 echo You need to reprocess mandi.dtx to get the old REAME.md back
 echo   before running this script again!
 # README.md is now ready for GitHub
+
+# Delete vdemo.py since it's recreated every build.
+rm vdemo.py
+# vdemo.py deleted
+
 
 # Create Overleaf zip file...
 echo Creating Overleaf zip file...
