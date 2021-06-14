@@ -33,11 +33,11 @@
 %%  ---------------------------------------------------------------------------
 %% 
 \def\mandistudent@Version{3.0.0m}
-\def\mandistudent@Date{2021-05-28}
+\def\mandistudent@Date{2021-06-13}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-05-28}{mandistudent.sty}
+\DeclareRelease{v3.0.0m}{2021-06-13}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@Date\space v\mandistudent@Version\space Macros for introductory physics]
@@ -168,7 +168,6 @@
 \typeout{mandistudent: This package redefines the \protect\vec\space command.}%
 \typeout{}%
 \RenewDocumentCommand{\vec}{ s m e{_^} }{%
-  \ensuremath{%
     % Note the \, used to make superscript look better.
     \IfBooleanTF {#1}
       {\vv{#2}%      % * gives an arrow
@@ -183,10 +182,8 @@
       }%
     % Use \sb{} primitive for subscript.
     \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
-  }%
 }%
 \NewDocumentCommand{\dirvec}{ s m e{_^} }{%
-  \ensuremath{%
     \widehat{\makebox*{\(w\)}{\ensuremath{%
       \IfBooleanTF {#1}
         {%
@@ -200,7 +197,6 @@
      }%
     \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
     \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
-  }%
 }%
 \NewDocumentCommand{\zerovec}{ s }{%
   \IfBooleanTF {#1}
@@ -293,20 +289,20 @@
   % Consider renaming this to \vectorsym.
   \IfBooleanTF{#1}
   {%
-    \ensuremath{\symnormal{#2}}%
+    \symnormal{#2}%
   }%
   {%
-    \ensuremath{\symbfit{#2}}%
+    \symbfit{#2}%
   }%
 }%
 \NewDocumentCommand{\tencomp}{ s m }{%
   % Consider renaming this to \tensororsym.
   \IfBooleanTF{#1}
   {%
-    \ensuremath{\symsfit{#2}}%
+    \symsfit{#2}%
   }%
   {%
-    \ensuremath{\symbfsfit{#2}}%
+    \symbfsfit{#2}
   }%
 }%
 \NewDocumentCommand{\valence}{ s m m }{%

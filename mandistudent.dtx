@@ -111,7 +111,7 @@ while t < 10:
 %</driver>
 % \fi
 %
-% \CheckSum{719}
+% \CheckSum{713}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -131,7 +131,7 @@ while t < 10:
 %
 % ^^A DO NOT TRY TO COMPILE THIS DTX FILE BY ITSELF. IT WILL FAIL.
 %
-% \changes{v3.0.0m}{2021-05-28}{Initial release.} 
+% \changes{v3.0.0m}{2021-06-13}{Initial release.} 
 %
 % \section{The \mandistudent\ Package}\setplace{sec:mandistudentpkg}
 %
@@ -257,9 +257,9 @@ while t < 10:
   }%
   Semantic aliases for \refCom{mivector}.
 \end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.80}
-  \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \\
-  \unitvector{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}}
+\begin{dispExample*}{lefthand ratio=0.85}
+  \( \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}}  \) \\
+  \( \unitvector{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \)
 \end{dispExample*}
 %\iffalse
 %</example>
@@ -272,7 +272,7 @@ while t < 10:
   Semantic alias for |\Delta|.
 \end{docCommand}
 \begin{dispExample}
- \( \changein t \) \\
+ \( \changein t       \) \\
  \( \changein \vec{p} \)
 \end{dispExample}
 %\iffalse
@@ -859,9 +859,9 @@ while t < 10:
   underscore.
 \end{docCommands}
 \begin{dispExample}
-  \( (\slot)  \)          \\
+  \( (\slot)           \) \\
   \( (\slot[\vec{a}])  \) \\
-  \( (\slot*) \)          \\
+  \( (\slot*)          \) \\
   \( (\slot*[\vec{a}]) \)
 \end{dispExample}
 %\iffalse
@@ -1107,11 +1107,11 @@ while t < 10:
 %
 %    \begin{macrocode}
 \def\mandistudent@Version{3.0.0m}
-\def\mandistudent@Date{2021-05-28}
+\def\mandistudent@Date{2021-06-13}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-05-28}{mandistudent.sty}
+\DeclareRelease{v3.0.0m}{2021-06-13}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@Date\space v\mandistudent@Version\space Macros for introductory physics]
@@ -1327,7 +1327,6 @@ while t < 10:
 %
 %    \begin{macrocode}
 \RenewDocumentCommand{\vec}{ s m e{_^} }{%
-  \ensuremath{%
     % Note the \, used to make superscript look better.
     \IfBooleanTF {#1}
       {\vv{#2}%      % * gives an arrow
@@ -1342,7 +1341,6 @@ while t < 10:
       }% 
     % Use \sb{} primitive for subscript.
     \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
-  }%
 }%
 %    \end{macrocode}
 %
@@ -1355,7 +1353,6 @@ while t < 10:
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\dirvec}{ s m e{_^} }{%
-  \ensuremath{%
     \widehat{\makebox*{\(w\)}{\ensuremath{%
       \IfBooleanTF {#1}
         {%
@@ -1369,7 +1366,6 @@ while t < 10:
      }%
     \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
     \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}      
-  }%
 }%
 %    \end{macrocode}
 %
@@ -1560,20 +1556,20 @@ while t < 10:
   % Consider renaming this to \vectorsym.
   \IfBooleanTF{#1}
   {%
-    \ensuremath{\symnormal{#2}}%
+    \symnormal{#2}%
   }%
   {%
-    \ensuremath{\symbfit{#2}}%
+    \symbfit{#2}%
   }%
 }%
 \NewDocumentCommand{\tencomp}{ s m }{%
   % Consider renaming this to \tensororsym.
   \IfBooleanTF{#1}
   {%
-    \ensuremath{\symsfit{#2}}%
+    \symsfit{#2}%
   }%
   {%
-    \ensuremath{\symbfsfit{#2}}%
+    \symbfsfit{#2}
   }%
 }%
 %    \end{macrocode}

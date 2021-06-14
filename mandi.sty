@@ -33,11 +33,11 @@
 %%  ---------------------------------------------------------------------------
 %% 
 \def\mandi@Version{3.0.0m}
-\def\mandi@Date{2021-05-28}
+\def\mandi@Date{2021-06-13}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \providecommand\DeclareRelease[3]{}
 \providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-05-28}{mandi.sty}
+\DeclareRelease{v3.0.0m}{2021-06-13}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
 \ProvidesPackage{mandi}
   [\mandi@Date\space v\mandi@Version\space Macros for physical quantities]
@@ -114,120 +114,182 @@
     \mandi@do@setup
   }%
 }%
-\NewDocumentCommand{\per}{}{\ensuremath{/}}
-\NewDocumentCommand{\usk}{}{\ensuremath{\,\cdot\,}}
-\NewDocumentCommand{\unit}{ m m }{\ensuremath{{#1}\;{#2}}}
-\NewDocumentCommand{\ampere}{}{\ensuremath{\symup{A}}}
-\NewDocumentCommand{\atomicmassunit}{}{\ensuremath{\symup{u}}}
-\NewDocumentCommand{\candela}{}{\ensuremath{\symup{cd}}}
-\NewDocumentCommand{\coulomb}{}{\ensuremath{\symup{C}}}
-\NewDocumentCommand{\degree}{}{\ensuremath{^{\circ}}}
-\NewDocumentCommand{\electronvolt}{}{\ensuremath{\symup{eV}}}
+\NewDocumentCommand{\per}{}{/}
+\NewDocumentCommand{\usk}{}{\cdot}
+\NewDocumentCommand{\unit}{ m m }{{#1}{\,#2}}
+\NewDocumentCommand{\ampere}{}{\symup{A}}
+\NewDocumentCommand{\atomicmassunit}{}{\symup{u}}
+\NewDocumentCommand{\candela}{}{\symup{cd}}
+\NewDocumentCommand{\coulomb}{}{\symup{C}}
+\NewDocumentCommand{\degree}{}{^{\circ}}
+\NewDocumentCommand{\electronvolt}{}{\symup{eV}}
 \NewDocumentCommand{\ev}{}{\electronvolt}
-\NewDocumentCommand{\farad}{}{\ensuremath{\symup{F}}}
-\NewDocumentCommand{\henry}{}{\ensuremath{\symup{H}}}
-\NewDocumentCommand{\hertz}{}{\ensuremath{\symup{Hz}}}
-\NewDocumentCommand{\joule}{}{\ensuremath{\symup{J}}}
-\NewDocumentCommand{\kelvin}{}{\ensuremath{\symup{K}}}
+\NewDocumentCommand{\farad}{}{\symup{F}}
+\NewDocumentCommand{\henry}{}{\symup{H}}
+\NewDocumentCommand{\hertz}{}{\symup{Hz}}
+\NewDocumentCommand{\joule}{}{\symup{J}}
+\NewDocumentCommand{\kelvin}{}{\symup{K}}
 \NewDocumentCommand{\kev}{}{\kiloelectronvolt}
-\NewDocumentCommand{\kiloelectronvolt}{}{\ensuremath{\symup{keV}}}
-\NewDocumentCommand{\kilogram}{}{\ensuremath{\symup{kg}}}
-\NewDocumentCommand{\lightspeed}{}{\ensuremath{\symup{c}}}
-\NewDocumentCommand{\megaelectronvolt}{}{\ensuremath{\symup{MeV}}}
-\NewDocumentCommand{\meter}{}{\ensuremath{\symup{m}}}
+\NewDocumentCommand{\kiloelectronvolt}{}{\symup{keV}}
+\NewDocumentCommand{\kilogram}{}{\symup{kg}}
+\NewDocumentCommand{\lightspeed}{}{\symup{c}}
+\NewDocumentCommand{\megaelectronvolt}{}{\symup{MeV}}
+\NewDocumentCommand{\meter}{}{\symup{m}}
 \NewDocumentCommand{\metre}{}{\meter}
 \NewDocumentCommand{\mev}{}{\megaelectronvolt}
-\NewDocumentCommand{\mole}{}{\ensuremath{\symup{mol}}}
-\NewDocumentCommand{\newton}{}{\ensuremath{\symup{N}}}
-\NewDocumentCommand{\ohm}{}{\ensuremath{\symup\Omega}}
-\NewDocumentCommand{\pascal}{}{\ensuremath{\symup{Pa}}}
-\NewDocumentCommand{\radian}{}{\ensuremath{\symup{rad}}}
-\NewDocumentCommand{\second}{}{\ensuremath{\symup{s}}}
-\NewDocumentCommand{\siemens}{}{\ensuremath{\symup{S}}}
-\NewDocumentCommand{\steradian}{}{\ensuremath{\symup{sr}}}
-\NewDocumentCommand{\tesla}{}{\ensuremath{\symup{T}}}
-\NewDocumentCommand{\volt}{}{\ensuremath{\symup{V}}}
-\NewDocumentCommand{\watt}{}{\ensuremath{\symup{W}}}
-\NewDocumentCommand{\weber}{}{\ensuremath{\symup{Wb}}}
-\NewDocumentCommand{\tothetwo}{}{\ensuremath{^2}}             % postfix  2
-\NewDocumentCommand{\tothethree}{}{\ensuremath{^3}}           % postfix  3
-\NewDocumentCommand{\tothefour}{}{\ensuremath{^4}}            % postfix  4
-\NewDocumentCommand{\inverse}{}{\ensuremath{^{-1}}}           % postfix -1
-\NewDocumentCommand{\totheinversetwo}{}{\ensuremath{^{-2}}}   % postfix -2
-\NewDocumentCommand{\totheinversethree}{}{\ensuremath{^{-3}}} % postfix -3
-\NewDocumentCommand{\totheinversefour}{}{\ensuremath{^{-4}}}  % postfix -4
-\NewDocumentCommand{\emptyunit}{}{\ensuremath{\mdlgwhtsquare}}
-\NewDocumentCommand{\tento}{ m }{\ensuremath{10^{#1}}}
-\NewDocumentCommand{\timestento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-\NewDocumentCommand{\xtento}{ m }{\ensuremath{\;\times\;\tento{#1}}}
-\NewDocumentCommand{\newscalarquantity}{ m m O{#2} O{#2} }{%
-  \expandafter\newcommand\csname #1\endcsname[1]{##1\,\mandi@selectunits{#2}{#3}{#4}}%
-  \expandafter\newcommand\csname #1value\endcsname[1]{##1}%
-  \expandafter\newcommand\csname #1baseunits\endcsname[1]{##1\,\mandi@selectbaseunits{#2}{#3}{#4}}%
-  \expandafter\newcommand\csname #1derivedunits\endcsname[1]{##1\,\mandi@selectderivedunits{#2}{#3}{#4}}%
-  \expandafter\newcommand\csname #1alternateunits\endcsname[1]{##1\,\mandi@selectalternateunits{#2}{#3}{#4}}%
-  \expandafter\newcommand\csname #1onlybaseunits\endcsname{\mandi@selectbaseunits{#2}{#3}{#4}}%
-  \expandafter\newcommand\csname #1onlyderivedunits\endcsname{\mandi@selectderivedunits{#2}{#3}{#4}}%
-  \expandafter\newcommand\csname #1onlyalternateunits\endcsname{\mandi@selectalternateunits{#2}{#3}{#4}}%
+\NewDocumentCommand{\mole}{}{\symup{mol}}
+\NewDocumentCommand{\newton}{}{\symup{N}}
+\NewDocumentCommand{\ohm}{}{\symup\Omega}
+\NewDocumentCommand{\pascal}{}{\symup{Pa}}
+\NewDocumentCommand{\radian}{}{\symup{rad}}
+\NewDocumentCommand{\second}{}{\symup{s}}
+\NewDocumentCommand{\siemens}{}{\symup{S}}
+\NewDocumentCommand{\steradian}{}{\symup{sr}}
+\NewDocumentCommand{\tesla}{}{\symup{T}}
+\NewDocumentCommand{\volt}{}{\symup{V}}
+\NewDocumentCommand{\watt}{}{\symup{W}}
+\NewDocumentCommand{\weber}{}{\symup{Wb}}
+\NewDocumentCommand{\tothetwo}{}{^2}             % postfix  2
+\NewDocumentCommand{\tothethree}{}{^3}           % postfix  3
+\NewDocumentCommand{\tothefour}{}{^4}            % postfix  4
+\NewDocumentCommand{\inverse}{}{^{-1}}           % postfix -1
+\NewDocumentCommand{\totheinversetwo}{}{^{-2}}   % postfix -2
+\NewDocumentCommand{\totheinversethree}{}{^{-3}} % postfix -3
+\NewDocumentCommand{\totheinversefour}{}{^{-4}}  % postfix -4
+\NewDocumentCommand{\emptyunit}{}{\mdlgwhtsquare}
+\NewDocumentCommand{\tento}{ m }{10^{#1}}
+\NewDocumentCommand{\timestento}{ m }{\times\tento{#1}}
+\NewDocumentCommand{\xtento}{ m }{\times\tento{#1}}
+\ExplSyntaxOn
+\cs_new:Npn \mandi_newscalarquantity #1#2#3#4
+{%
+  \cs_new:cpn {#1} ##1 {\unit{##1}{\mandi@selectunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1value} ##1 {##1}%
+  \cs_new:cpn {#1baseunits} ##1 {\unit{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1derivedunits} ##1 {\unit{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1alternateunits} ##1 {\unit{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \cs_new:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \cs_new:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}%
 }%
-\NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }{%
-  \expandafter\renewcommand\csname #1\endcsname[1]{##1\,\mandi@selectunits{#2}{#3}{#4}}%
-  \expandafter\renewcommand\csname #1value\endcsname[1]{##1}%
-  \expandafter\renewcommand\csname #1baseunits\endcsname[1]{##1\,\mandi@selectbaseunits{#2}{#3}{#4}}%
-  \expandafter\renewcommand\csname #1derivedunits\endcsname[1]{##1\,\mandi@selectderivedunits{#2}{#3}{#4}}%
-  \expandafter\renewcommand\csname #1alternateunits\endcsname[1]{##1\,\mandi@selectalternateunits{#2}{#3}{#4}}%
-  \expandafter\renewcommand\csname #1onlybaseunits\endcsname{\mandi@selectbaseunits{#2}{#3}{#4}}%
-  \expandafter\renewcommand\csname #1onlyderivedunits\endcsname{\mandi@selectderivedunits{#2}{#3}{#4}}%
-  \expandafter\renewcommand\csname #1onlyalternateunits\endcsname{\mandi@selectalternateunits{#2}{#3}{#4}}%
+\NewDocumentCommand{\newscalarquantity}{ m m O{#2} O{#2} }%
+{%
+  \mandi_newscalarquantity { #1 }{ #2 }{ #3 }{ #4 }%
 }%
-\NewDocumentCommand{\newvectorquantity}{ m m O{#2} O{#2} }{%
-  \newscalarquantity{#1}{#2}[#3][#4]
-  \expandafter\newcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
-  \expandafter\newcommand\csname #1vector\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
+\ExplSyntaxOff
+\ExplSyntaxOn
+\cs_new:Npn \mandi_renewscalarquantity #1#2#3#4
+{%
+  \cs_set:cpn {#1} ##1 {\unit{##1}{\mandi@selectunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1value} ##1 {##1}%
+  \cs_set:cpn {#1baseunits} ##1 {\unit{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1derivedunits} ##1 {\unit{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1alternateunits} ##1 {\unit{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \cs_set:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \cs_set:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}%
 }%
-\NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }{%
-  \renewscalarquantity{#1}{#2}[#3][#4]
-  \expandafter\renewcommand\csname vector#1\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
-  \expandafter\renewcommand\csname #1vector\endcsname[1]{\expandafter\csname #1\endcsname{\mivector{##1}}}%
+\NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }%
+{%
+  \mandi_renewscalarquantity { #1 }{ #2 }{ #3 }{ #4 }%
 }%
-\NewDocumentCommand{\newphysicalconstant}{ m m m m m O{#5} O{#5} }{%
-  \expandafter\newcommand\csname #1\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectunits{#5}{#6}{#7}}%
-  \expandafter\newcommand\csname #1mathsymbol\endcsname{\ensuremath{#2}}%
-  \expandafter\newcommand\csname #1approximatevalue\endcsname{\ensuremath{#3}}%
-  \expandafter\newcommand\csname #1precisevalue\endcsname{\ensuremath{#4}}%
-  \expandafter\newcommand\csname #1baseunits\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectbaseunits{#5}{#6}{#7}}%
-  \expandafter\newcommand\csname #1derivedunits\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectderivedunits{#5}{#6}{#7}}%
-  \expandafter\newcommand\csname #1alternateunits\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectalternateunits{#5}{#6}{#7}}%
-  \expandafter\newcommand\csname #1onlybaseunits\endcsname
-    {\mandi@selectbaseunits{#5}{#6}{#7}}%
-  \expandafter\newcommand\csname #1onlyderivedunits\endcsname
-    {\mandi@selectderivedunits{#5}{#6}{#7}}%
-  \expandafter\newcommand\csname #1onlyalternateunits\endcsname
-    {\mandi@selectalternateunits{#5}{#6}{#7}}%
+\ExplSyntaxOff
+\ExplSyntaxOn
+\cs_new:Npn \mandi_newvectorquantity #1#2#3#4
+{%
+  \mandi_newscalarquantity { #1 }{ #2 }{ #3 }{ #4 }%
+  \cs_new:cpn {vector#1} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1vector} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {vector#1value} ##1 {\mivector{##1}}%
+  \cs_new:cpn {#1vectorvalue} ##1 {\mivector{##1}}%
+  \cs_new:cpn {vector#1baseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1vectorbaseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {vector#1derivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1vectorderivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {vector#1alternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {#1vectoralternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}%
+  \cs_new:cpn {vector#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \cs_new:cpn {#1vectoronlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \cs_new:cpn {vector#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \cs_new:cpn {#1vectoronlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \cs_new:cpn {vector#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}%
+  \cs_new:cpn {#1vectoronlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}%
 }%
-\NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }{%
-  \expandafter\renewcommand\csname #1\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectunits{#5}{#6}{#7}}%
-  \expandafter\renewcommand\csname #1mathsymbol\endcsname{\ensuremath{#2}}%
-  \expandafter\renewcommand\csname #1approximatevalue\endcsname{\ensuremath{#3}}%
-  \expandafter\renewcommand\csname #1precisevalue\endcsname{\ensuremath{#4}}%
-  \expandafter\renewcommand\csname #1baseunits\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectbaseunits{#5}{#6}{#7}}%
-  \expandafter\renewcommand\csname #1derivedunits\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectderivedunits{#5}{#6}{#7}}%
-  \expandafter\renewcommand\csname #1alternateunits\endcsname
-    {\mandi@selectprecision{#3}{#4}\,\mandi@selectalternateunits{#5}{#6}{#7}}%
-  \expandafter\renewcommand\csname #1onlybaseunits\endcsname
-    {\mandi@selectbaseunits{#5}{#6}{#7}}%
-  \expandafter\renewcommand\csname #1onlyderivedunits\endcsname
-    {\mandi@selectderivedunits{#5}{#6}{#7}}%
-  \expandafter\renewcommand\csname #1onlyalternateunits\endcsname
-    {\mandi@selectalternateunits{#5}{#6}{#7}}%
+\NewDocumentCommand{\newvectorquantity}{ m m O{#2} O{#2} }%
+{%
+  \mandi_newvectorquantity { #1 }{ #2 }{ #3 }{ #4 }%
 }%
+\ExplSyntaxOff
+\ExplSyntaxOn
+\cs_new:Npn \mandi_renewvectorquantity #1#2#3#4
+{%
+  \mandi_renewscalarquantity { #1 }{ #2 }{ #3 }{ #4 }%
+  \cs_set:cpn {vector#1} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1vector} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {vector#1value} ##1 {\mivector{##1}}%
+  \cs_set:cpn {#1vectorvalue} ##1 {\mivector{##1}}%
+  \cs_set:cpn {vector#1baseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1vectorbaseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {vector#1derivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1vectorderivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {vector#1alternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {#1vectoralternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}%
+  \cs_set:cpn {vector#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \cs_set:cpn {#1vectoronlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}%
+  \cs_set:cpn {vector#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \cs_set:cpn {#1vectoronlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}%
+  \cs_set:cpn {vector#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}%
+  \cs_set:cpn {#1vectoronlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}%
+}%
+\NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }%
+{%
+  \mandi_renewvectorquantity { #1 }{ #2 }{ #3 }{ #4 }%
+}%
+\ExplSyntaxOff
+\ExplSyntaxOn
+\cs_new:Npn \mandi_newphysicalconstant #1#2#3#4#5#6#7
+{%
+  \cs_new:cpn {#1} {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}%
+  \cs_new:cpn {#1mathsymbol} {#2}%
+  \cs_new:cpn {#1approximatevalue} {#3}%
+  \cs_new:cpn {#1precisevalue} {#4}%
+  \cs_new:cpn {#1baseunits}
+    {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}%
+  \cs_new:cpn {#1derivedunits}
+    {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}%
+  \cs_new:cpn {#1alternateunits}
+    {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}%
+  \cs_new:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#5}{#6}{#7}}%
+  \cs_new:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#5}{#6}{#7}}%
+  \cs_new:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#5}{#6}{#7}}%
+}%
+\NewDocumentCommand{\newphysicalconstant}{ m m m m m O{#5} O{#5} }%
+{%
+  \mandi_newphysicalconstant { #1 }{ #2 }{ #3 }{ #4 }{ #5 }{ #6 }{ #7 }%
+}%
+\ExplSyntaxOff
+\ExplSyntaxOn
+\cs_new:Npn \mandi_renewphysicalconstant #1#2#3#4#5#6#7
+{%
+  \cs_set:cpn {#1} {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}%
+  \cs_set:cpn {#1mathsymbol} {#2}%
+  \cs_set:cpn {#1approximatevalue} {#3}%
+  \cs_set:cpn {#1precisevalue} {#4}%
+  \cs_set:cpn {#1baseunits}
+    {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}%
+  \cs_set:cpn {#1derivedunits}
+    {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}%
+  \cs_set:cpn {#1alternateunits}
+    {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}%
+  \cs_set:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#5}{#6}{#7}}%
+  \cs_set:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#5}{#6}{#7}}%
+  \cs_set:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#5}{#6}{#7}}%
+}%
+\NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }%
+{%
+  \mandi_renewphysicalconstant { #1 }{ #2 }{ #3 }{ #4 }{ #5 }{ #6 }{ #7 }%
+}%
+\ExplSyntaxOff
 \newvectorquantity{acceleration}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
@@ -488,10 +550,10 @@
   {}%
 \newscalarquantity{temperature}%
   {\kelvin}%
-  \newvectorquantity{torque}%
-    {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
-    [\newton\usk\meter]%
-    [\newton\usk\meter]%
+\newvectorquantity{torque}%
+  {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
+  [\newton\usk\meter]%
+  [\newton\usk\meter]%
 \newvectorquantity{velocity}%
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
@@ -718,46 +780,74 @@
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
-\NewDocumentCommand{\checkquantity}{ m }{%
-  % Works for both scalar and vector quantities.
+\ExplSyntaxOn
+\NewDocumentCommand{\checkquantity}{ m }%
+{%
+  % Works for both scalar and vector quantities (without vector in the name!).
   \begin{center}
-    \begin{tabular}{>{\bfseries\small}p{0.5\linewidth} p{0.1\linewidth} p{0.1\linewidth} p{0.1\linewidth}}
+    \begin{tabular}{%
+        >{\bfseries\small}
+        p{0.5\linewidth}
+        p{0.1\linewidth}
+        p{0.1\linewidth}
+        p{0.1\linewidth}
+      }%
       name & & & \tabularnewline
-      \ttfamily\footnotesize{\expandafter\string\csname #1\endcsname} & & & \tabularnewline
-    \end{tabular}
-    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      \ttfamily\footnotesize{\token_to_str:c {#1}} & & & \tabularnewline
+    \end{tabular}~ % This nonbreaking space is important!
+    \begin{tabular}{%
+        >{\bfseries\small}p{0.25\linewidth}
+        >{\bfseries\small}p{0.25\linewidth}
+        >{\bfseries\small}p{0.25\linewidth}
+      }%
       base & derived & alternate \tabularnewline
-      \footnotesize{\csname #1onlybaseunits\endcsname} &
-      \footnotesize{\csname #1onlyderivedunits\endcsname} &
-      \footnotesize{\csname #1onlyalternateunits\endcsname}
+      \footnotesize{\( \use:c {#1onlybaseunits}      \)} &
+      \footnotesize{\( \use:c {#1onlyderivedunits}   \)} &
+      \footnotesize{\( \use:c {#1onlyalternateunits} \)}
     \end{tabular}
   \end{center}
 }%
-\NewDocumentCommand{\checkconstant}{ m }{%
+\NewDocumentCommand{\checkconstant}{ m }%
+{%
   \begin{center}
-    \begin{tabular}{>{\bfseries\small}p{0.5\linewidth} p{0.1\linewidth} p{0.1\linewidth} p{0.1\linewidth}}
+    \begin{tabular}{%
+        >{\bfseries\small}
+        p{0.5\linewidth}
+        p{0.1\linewidth}
+        p{0.1\linewidth}
+        p{0.1\linewidth}
+      }%
       name & & & \tabularnewline
-      \ttfamily\footnotesize{\expandafter\string\csname #1\endcsname} & & & \tabularnewline
-    \end{tabular}
-    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
-      base & approximate & precise \tabularnewline
-      \footnotesize{\csname #1mathsymbol\endcsname} &
-      \footnotesize{\csname #1approximatevalue\endcsname} &
-      \footnotesize{\csname #1precisevalue\endcsname}
-    \end{tabular}
-    \begin{tabular}{>{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth} >{\small}p{0.25\linewidth}}
+      \ttfamily\footnotesize{\token_to_str:c {#1}} & & & \tabularnewline
+    \end{tabular}~ % This nonbreaking space is important!
+    \begin{tabular}{%
+        >{\bfseries\small}p{0.25\linewidth}
+        >{\bfseries\small}p{0.25\linewidth}
+        >{\bfseries\small}p{0.25\linewidth}
+      }%
+      symbol & approximate & precise \tabularnewline
+      \footnotesize{\( \use:c {#1mathsymbol}       \)} &
+      \footnotesize{\( \use:c {#1approximatevalue} \)} &
+      \footnotesize{\( \use:c {#1precisevalue}     \)}
+    \end{tabular}~ % This nonbreaking space is important!
+    \begin{tabular}{%
+        >{\bfseries\small}p{0.25\linewidth}
+        >{\bfseries\small}p{0.25\linewidth}
+        >{\bfseries\small}p{0.25\linewidth}
+      }%
       base & derived & alternate \tabularnewline
-      \footnotesize{\csname #1onlybaseunits\endcsname} &
-      \footnotesize{\csname #1onlyderivedunits\endcsname} &
-      \footnotesize{\csname #1onlyalternateunits\endcsname}
+      \footnotesize{\( \use:c {#1onlybaseunits}      \)} &
+      \footnotesize{\( \use:c {#1onlyderivedunits}   \)} &
+      \footnotesize{\( \use:c {#1onlyalternateunits} \)}
     \end{tabular}
   \end{center}
 }%
+\ExplSyntaxOff
 \ExplSyntaxOn
 \NewDocumentCommand{\mivector}{ O{,} m o }%
  {%
-   \mi_vector:nn { #1 } { #2 }
-   \IfValueT{#3}{\;{#3}}
+   \mi_vector:nn { #1 } { #2 }%
+   \IfValueT{#3}{\,{#3}}%
  }%
 \seq_new:N \l__mi_list_seq
 \cs_new_protected:Npn \mi_vector:nn #1 #2
