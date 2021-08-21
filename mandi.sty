@@ -32,16 +32,14 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@Version{3.0.0m}
-\def\mandi@Date{2021-06-13}
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\providecommand\DeclareRelease[3]{}
-\providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-06-13}{mandi.sty}
-\DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
+\def\mandi@version{3.0.0}
+\def\mandi@date{2021-08-21}
+\NeedsTeXFormat{LaTeX2e}[2020-02-02]
+\DeclareRelease{v3.0.0}{2021-08-21}{mandi.sty}
+\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
-  [\mandi@Date\space v\mandi@Version\space Macros for physical quantities]
-\newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
+  [\mandi@date\space v\mandi@version\space Macros for physical quantities]
+\newcommand*{\mandiversion}{v\mandi@version\space dated \mandi@date}
 \RequirePackage{pgfopts}      % needed for key-value interface
 \RequirePackage{array}        % needed for \checkquantity and \checkconstant
 \RequirePackage{iftex}        % needed for requiring LuaLaTeX
@@ -357,6 +355,8 @@
   [\coulomb\per\second\usk\meter\tothetwo]%
   [\ampere\per\meter\tothetwo]%
 \newscalarquantity{dielectricconstant}%
+  {}%
+\newvectorquantity{direction}%
   {}%
 \newvectorquantity{displacement}%
   {\meter}

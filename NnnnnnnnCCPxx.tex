@@ -4,8 +4,8 @@
 % INSTRUCTIONS FOR OVERLEAF USERS:
 %
 % 1. Create a new, empty Overleaf. Name it mandi3 or something similar.
-% 2. Upload the files mandi.sty, mandiexp.sty, mandi.pdf, and 
-%    NnnnnnnnCCPxx.tex to this new empty project's folder on Overleaf.
+% 2. Upload the files mandi.sty, mandistudent.sty, mandiexp.sty, mandi.pdf,
+%    and NnnnnnnnCCPxx.tex to this new empty project's folder on Overleaf.
 % 3. From inside the project folder, click the Menu button in the upper left 
 %    corner and set Compiler to LuaLaTeX, TeX Live Version to the latest
 %    available, and Main document to NnnnnnnnCCPxx.tex. Other options may
@@ -32,6 +32,7 @@
 \usepackage{mandiexp}     % load mandiexp
 \usepackage{geometry}     % for changing page layout
 \usepackage{datetime}     % for defining new date format
+\usepackage{doi}          % for DOIs in references
 \usepackage{mwe}          % for demo images
 \hypersetup{colorlinks}   % color hyperlinks
 
@@ -39,6 +40,7 @@
 %  See https://tex.stackexchange.com/q/156383/218142
 \newcommand*{\pkg}[1]{\textsf{#1}}                    % typeset package names
 \newcommand*{\mandi}{\textsf{mandi}}                  % typeset mandi
+\newcommand*{\mandistudent}{\textsf{mandistudent}}    % typeset mandistudent
 \newcommand*{\mandiexp}{\textsf{mandiexp}}            % typeset mandi
 \newcommand*{\GlowScript}{\texttt{GlowScript}}        % typeset GlowScript
 \newcommand*{\GlowScriptorg}{\texttt{GlowScript.org}} % typeset GlowScript.org
@@ -68,7 +70,10 @@
 \title{\assignment}
 \author{\authorname}
 \maketitle
-\centerline{Using \texttt{mandi} version \mandiversion}
+\thispagestyle{empty}
+\centerline{Using \mandi\ version \mandiversion}
+\centerline{Using \mandistudent\ version \mandistudentversion}
+\centerline{Using \mandiexp\ version \mandiexpversion}
 \listofglowscriptprograms
 \listoffigures
 \newpage
@@ -77,7 +82,8 @@
 \begin{physicsproblem}{PROBLEM TITLE HERE}
 Every document must have only ONE problem. You can have as many problem parts as you need. 
 Each part will need a \normalfont{\ttfamily{\small{physicssolution}}} environment only if
-extended mathematical content is necessary.
+extended mathematical content is necessary. You can cite a reference \cite{Kap86} if 
+appropriate.
 
 \begin{parts}
   \problempart
@@ -85,7 +91,8 @@ extended mathematical content is necessary.
 
   A solution not requiring multiple steps can go here.
   Delete the \normalfont{\ttfamily{\small{physicssolution}}} 
-  block if you don't need it.
+  block if you don't need it. You can cite a reference \cite{Cha19}
+  if appropriate.
 
   \begin{physicssolution}
     PUT YOUR SOLUTION STEPS HERE
@@ -96,7 +103,9 @@ extended mathematical content is necessary.
 
   A solution not requiring multiple steps can go here.
   Delete the \normalfont{\ttfamily{\small{physicssolution}}} 
-  block if you don't need it.
+  block if you don't need it. Remember that great minds \cite{Cha15}\cite{Jac99}
+  think alike. Blogs \cite{Hea19} are cool too. Other journals \cite{Cro15} can
+  be cited.
 
   \begin{physicssolution}
     PUT YOUR SOLUTION STEPS HERE
@@ -116,6 +125,37 @@ sphere()
 \end{glowscriptblock}
 
 \GlowScript\ program \ref{gs:1} is nice. It's called \nameref{gs:1} and is on page \pageref{gs:1}.
+
+\newpage
+\begin{thebibliography}{100} % 100 is a random guess of the total number of references
+% Am. J. Phys. one author
+\bibitem{Kap86} H. Kaplan, ``The Runge-Lenz vector as an `extra' constant of the motion,'' 
+  Am. J. Phys. \textbf{54}, 157-161 (1986); \doi{10.1119/1.14713}
+% Am. J. Phys. multiple authors
+\bibitem{Cha19} Ruth Chabay, Bruce Sherwood, and Aaron Titus, ``A unified, contemporary
+  approach to teaching energy in introductory physics,'' Am. J. Phys. \textbf{87}, 504-509 (2019);
+  \doi{10.1119/1.5109519}
+% textbook multiple authors
+\bibitem{Cha15} R. Chabay and B. Sherwood, \emph{Matter \& Interactions}, 4th ed.
+  (John Wiley \& Sons, Hoboken, NJ, 2015).
+% textbook one author
+\bibitem{Jac99} John D. Jackson, \emph{Classical Electrodynamics}, 3rd ed. 
+  (Wiley, Hoboken, NJ, 1999), pp. 464-468.
+% blog post
+\bibitem{Hea19} J. Heafner, ``Vector Formalism in Introductory Physics VI: A Unified Solution
+  for Simple Dot Product and Cross Product Equations.'' (2019) 
+  <\url{https://tensortime.sticksandshadows.net/archives/4924}>.
+% Phys. Teach. one author
+\bibitem{Cro15} R. Cross, ``Precession of a spinning ball rolling down an inclined plane,''
+  Phys. Teach. \textbf{53}, 217-219 (2015); \doi{10.1119/1.4914559}
+% software portal
+\bibitem{Glo} GlowScript, <\url{https://www.glowscript.org}>.
+% Stack Exchange site
+\bibitem{Mse18} ``Mathematica stack exchange,'' <\url{https://mathematica.stackexchange.com/q/105298}>, 
+  accessed on August 18, 2018.
+% Wikipedia
+\bibitem{Wik01} <\url{https://wikipedia.org/wiki/List_of_refractive_indices}>.
+\end{thebibliography}
 %---------- END YOUR WORK
 
 \end{document}\

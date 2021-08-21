@@ -65,7 +65,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{217}
+% \CheckSum{215}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -85,8 +85,6 @@
 %
 % ^^A DO NOT TRY TO COMPILE THIS DTX FILE BY ITSELF. IT WILL FAIL.
 %
-% \changes{v3.0.0m}{2021-06-13}{Initial release.} 
-%
 % \section{The \mandiexp\ Package}\setplace{sec:mandiexppkg}
 %
 % \mandi\ comes with an accessory package \mandiexp\  
@@ -94,13 +92,37 @@
 % \emph{Matter \& Interactions}.\footnote{See 
 % \href{https://www.wiley.com/en-us/Matter+and+Interactions%2C+4th+Edition-p-9781118875865}
 % {\emph{Matter \& Interactions}} and
-% \href{https://matterandinteractions.org/}{https://matterandinteractions.org/}
-% for details.} The commands are primarily for typesetting 
-% mathematical expressions used in the text. Use of \mandiexp\ is 
-% optional and so must be manually loaded by including the line 
-% |\usepackage{mandiexp}| in your document's preamble. Note that \mandiexp\
-% requires, and loads, \mandi\ but \mandi\ doesn't require, and doesn't load,
-% \mandiexp.
+% \url{https://matterandinteractions.org/} for details.} 
+% The commands are primarily for typesetting 
+% mathematical expressions used in that text. Note that \mandiexp\
+% requires, and loads, \mandi\ but \mandi\ doesn't require, 
+% and doesn't load, \mandiexp.
+%
+% Load \mandiexp\ as you would any package in your preamble. 
+% There are no package options.
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispListing*}{sidebyside=false,listing only}
+  \usepackage{mandiexp}
+\end{dispListing*}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommand}{mandiexpversion}{}
+  Typesets the current version and build date.
+\end{docCommand}
+\begin{dispExample*}{sidebyside=false}
+  The version is \mandiexpversion\ and is a stable build.
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
 %
 % \subsection{The Fundamenal Principles}
 %
@@ -567,21 +589,19 @@
 % in the name, that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandiexp@Version{3.0.0m}
-\def\mandiexp@Date{2021-06-13}
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\providecommand\DeclareRelease[3]{}
-\providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-06-13}{mandiexp.sty}
-\DeclareCurrentRelease{v\mandiexp@Version}{\mandiexp@Date}
+\def\mandiexp@version{\mandi@version}
+\def\mandiexp@date{\mandi@date}
+\NeedsTeXFormat{LaTeX2e}[2020-02-02]
+\DeclareRelease{v3.0.0}{2021-08-21}{mandiexp.sty}
+\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandiexp}
-  [\mandiexp@Date\space v\mandiexp@Version\space Macros for Matter & Interactions]
+  [\mandiexp@date\space v\mandiexp@version\space Macros for Matter & Interactions]
 %    \end{macrocode}
 %
 % Define a convenient package version command.
 %
 %    \begin{macrocode}
-\newcommand*{\mandiexpversion}{v\mandiexp@Version\space dated \mandiexp@Date}
+\newcommand*{\mandiexpversion}{v\mandiexp@version\space dated \mandiexp@date}
 %    \end{macrocode}
 %
 %    \begin{macrocode}

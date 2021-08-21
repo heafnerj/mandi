@@ -32,16 +32,14 @@
 %%                                  vdemo.py
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandistudent@Version{3.0.0m}
-\def\mandistudent@Date{2021-06-13}
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\providecommand\DeclareRelease[3]{}
-\providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-06-13}{mandistudent.sty}
-\DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
+\def\mandistudent@version{\mandi@version}
+\def\mandistudent@date{\mandi@date}
+\NeedsTeXFormat{LaTeX2e}[2020-02-02]
+\DeclareRelease{v3.0.0}{2021-08-21}{mandistudent.sty}
+\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandistudent}
-  [\mandistudent@Date\space v\mandistudent@Version\space Macros for introductory physics]
-\newcommand*{\mandistudentversion}{v\mandistudent@Version\space dated \mandistudent@Date}
+  [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
+\newcommand*{\mandistudentversion}{v\mandistudent@version\space dated \mandistudent@date}
 \RequirePackage{amsmath}             % AMS goodness (don't load amssymb or amsfonts)
 \RequirePackage[inline]{enumitem}    % needed for physicsproblem environment
 \RequirePackage{eso-pic}             % needed for \hilite
@@ -49,6 +47,7 @@
 \RequirePackage{pgfopts}             % needed for key-value interface
 \RequirePackage{iftex}               % needed for requiring LuaLaTeX
 \RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
+\RequirePackage{mandi}
 \RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
 \RequirePackage{nicematrix}          % needed for column and row vectors
 \RequirePackage[most]{tcolorbox}     % needed for program listings
@@ -218,8 +217,6 @@
   \end{#1NiceMatrix}
 }%
 \ExplSyntaxOff
-\NewDocumentCommand{\direction}{}{\mivector}
-\NewDocumentCommand{\unitvector}{}{\mivector}
 \NewDocumentCommand{\changein}{}{\Delta}
 \DeclarePairedDelimiterX{\doublebars}[1]{\lVert}{\rVert}{\ifblank{#1}{\:\cdot\:}{#1}}
 \DeclarePairedDelimiterX{\singlebars}[1]{\lvert}{\rvert}{\ifblank{#1}{\:\cdot\:}{#1}}
@@ -232,8 +229,7 @@
 \NewDocumentCommand{\absolutevalue}{}{\singlebars}
 \NewDocumentCommand{\parallelto}{}
   {\mkern3mu\vphantom{\perp}\vrule depth 0pt\mkern2mu\vrule depth 0pt\mkern3mu}
-\NewDocumentCommand{\perpendicularto}{}
-  {\perp}
+\NewDocumentCommand{\perpendicularto}{}{\perp}
 \NewDocumentEnvironment{physicsproblem}{ m }{%
   \newpage%
   \section*{#1}%

@@ -111,7 +111,7 @@ while t < 10:
 %</driver>
 % \fi
 %
-% \CheckSum{713}
+% \CheckSum{706}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -131,17 +131,41 @@ while t < 10:
 %
 % ^^A DO NOT TRY TO COMPILE THIS DTX FILE BY ITSELF. IT WILL FAIL.
 %
-% \changes{v3.0.0m}{2021-06-13}{Initial release.} 
-%
 % \section{The \mandistudent\ Package}\setplace{sec:mandistudentpkg}
 %
 % \mandi\ comes with an accessory package \mandistudent,
 % which provides a collection of commands physics students can 
-% use for writing problem solutions. These are not part of 
-% \mandi's core functionality, but are included as a convenience 
-% to the bundle's target audience (introductory physics students). 
-% This new version focuses on the most frequently needed tools. 
-% These commands should always be used in math mode.
+% use for writing problem solutions. This package focuses on 
+% the most frequently needed tools. These commands should always 
+% be used in math mode. Note that \mandistudent\ requires, and 
+% loads, \mandi\ but \mandi\ doesn't require, and doesn't load, 
+% \mandistudent.
+%
+% Load \mandistudent\ as you would any package in your preamble. 
+% There are no package options.
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispListing*}{sidebyside=false,listing only}
+  \usepackage{mandistudent}
+\end{dispListing*}
+%\iffalse
+%</example>
+%\fi
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{docCommand}{mandistudentversion}{}
+  Typesets the current version and build date.
+\end{docCommand}
+\begin{dispExample*}{sidebyside=false}
+  The version is \mandistudentversion\ and is a stable build.
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
 %
 % \subsection{Traditional Vector Notation}
 %
@@ -233,34 +257,9 @@ while t < 10:
   arrow notation. Without the star you get boldface notation.
 \end{docCommands}
 \begin{dispExample}
-  \( \zerovec  \) \\
+  \( \zerovec \)  \\
   \( \zerovec* \)
 \end{dispExample}
-%\iffalse
-%</example>
-%\fi
-%
-%\iffalse
-%<*example>
-%\fi
-\begin{docCommands}[%
-    doc new = 2021-02-21,%
-    doc parameter = \oarg{delimiter}\marg{\ensuremath{c_1,\dots,c_n}},%
-  ]%
-  {%
-    {%
-      doc name = direction,%
-    },%
-    {%
-      doc name = unitvector
-    },%
-  }%
-  Semantic aliases for \refCom{mivector}.
-\end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.85}
-  \( \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}}  \) \\
-  \( \unitvector{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \)
-\end{dispExample*}
 %\iffalse
 %</example>
 %\fi
@@ -272,7 +271,7 @@ while t < 10:
   Semantic alias for |\Delta|.
 \end{docCommand}
 \begin{dispExample}
- \( \changein t       \) \\
+ \( \changein t \)       \\
  \( \changein \vec{p} \)
 \end{dispExample}
 %\iffalse
@@ -653,34 +652,34 @@ while t < 10:
                     (\Delta y)^2 + (\Delta z)^2 \\
     (\Delta s)^{\hilite{2}[circle]} &= \hilite[green]{-}[circle]
                     (\Delta t)^{\hilite[cyan]{2}[circle]}+
-      (\Delta x)^{\hilite[orange]{2}[circle]} + 
+                    (\Delta x)^{\hilite[orange]{2}[circle]} + 
                     (\Delta y)^{\hilite[blue!50]{2}[circle]} +
                     (\Delta z)^{\hilite[violet!45]{2}[circle]}
   \end{align*}
 \begin{dispListing*}{sidebyside=false,listing only}
   \begin{align*}
-    \Delta\vec{p} &= \vec{F}_{\sumup{net}}\,\Delta t \\
-    \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}\,\Delta t \\
+    \Delta\vec{p} &= \vec{F}_{\sumup{net}}\Delta t \\
+    \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}\Delta t \\
     \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}
-                     [rounded rectangle]\,\Delta t \\
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]
+                     [rounded rectangle]\Delta t \\
+    \Delta\vec{p} &= \vec{F}_{\symup{net}}\hilite[olive!50]
                      {\Delta t}[rectangle] \\
-    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}
+    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\Delta t}
                      [ellipse] \\
-    \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\,\Delta t
+    \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\Delta t
   \end{align*}
 \end{dispListing*}
   \begin{align*}
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\Delta t \\
+    \Delta\vec{p} &= \vec{F}_{\symup{net}}\Delta t \\
     \hilite[orange]{\Delta\vec{p}}[circle] &= \vec{F}_{\symup{net}}
-                     \,\Delta t \\
+                     \Delta t \\
     \Delta\vec{p} &= \hilite[yellow!50]{\vec{F}_{\symup{net}}}
-                     [rounded rectangle]\,\Delta t \\
-    \Delta\vec{p} &= \vec{F}_{\symup{net}}\,\hilite[olive!50]{\Delta t}
+                     [rounded rectangle]\Delta t \\
+    \Delta\vec{p} &= \vec{F}_{\symup{net}}\hilite[olive!50]{\Delta t}
                      [rectangle] \\
-    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\,\Delta t}
+    \Delta\vec{p} &= \hilite[cyan!50]{\vec{F}_{\symup{net}}\Delta t}
                      [ellipse] \\
-    \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\,\Delta t
+    \hilite{\Delta\vec{p}}[rectangle] &= \vec{F}_{\symup{net}}\Delta t
   \end{align*}
 %\iffalse
 %</example>
@@ -748,8 +747,8 @@ while t < 10:
 \begin{dispExample}
   \[ \colvec{1,2,3} \]
   \[ \rowvec{1,2,3} \]
-  \[ \colvec{x_0,x_1,x_2,x_3} \]
-  \[ \rowvec{x^0,x^1,x^2,x^3} \]
+  \[ \colvec{x^0,x^1,x^2,x^3} \]
+  \[ \rowvec{x_0,x_1,x_2,x_3} \]
 \end{dispExample}
 %\iffalse
 %</example>
@@ -782,9 +781,9 @@ while t < 10:
   Conforms to ISO 80000-2 notation.
 \end{docCommands}
 \begin{dispExample}
-  \( \veccomp{r}  \) \\
+  \( \veccomp{r} \)  \\
   \( \veccomp*{r} \) \\
-  \( \tencomp{r}  \) \\
+  \( \tencomp{r} \)  \\
   \( \tencomp*{r} \)
 \end{dispExample}
 %\iffalse
@@ -808,7 +807,7 @@ while t < 10:
   Typesets tensor valence. The starred variant typesets it horizontally.
 \end{docCommands}
 \begin{dispExample}
-  A vector is a \( \valence{1}{0}  \) tensor. \\
+  A vector is a \( \valence{1}{0} \) tensor.  \\
   A vector is a \( \valence*{1}{0} \) tensor.
 \end{dispExample}
 %\iffalse
@@ -833,7 +832,7 @@ while t < 10:
   is no standard on this so we assert one here.
 \end{docCommands}
 \begin{dispExample}
-  \( \contraction{1,2}  \) \\
+  \( \contraction{1,2} \)  \\
   \( \contraction*{1,2} \)
 \end{dispExample}
 %\iffalse
@@ -859,9 +858,9 @@ while t < 10:
   underscore.
 \end{docCommands}
 \begin{dispExample}
-  \( (\slot)           \) \\
-  \( (\slot[\vec{a}])  \) \\
-  \( (\slot*)          \) \\
+  \( (\slot) \)          \\
+  \( (\slot[\vec{a}]) \) \\
+  \( (\slot*) \)         \\
   \( (\slot*[\vec{a}]) \)
 \end{dispExample}
 %\iffalse
@@ -1106,21 +1105,19 @@ while t < 10:
 % in the name, that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandistudent@Version{3.0.0m}
-\def\mandistudent@Date{2021-06-13}
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\providecommand\DeclareRelease[3]{}
-\providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-06-13}{mandistudent.sty}
-\DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
+\def\mandistudent@version{\mandi@version}
+\def\mandistudent@date{\mandi@date}
+\NeedsTeXFormat{LaTeX2e}[2020-02-02]
+\DeclareRelease{v3.0.0}{2021-08-21}{mandistudent.sty}
+\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandistudent}
-  [\mandistudent@Date\space v\mandistudent@Version\space Macros for introductory physics]
+  [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
 %    \end{macrocode}
 %
 % Define a convenient package version command.
 %
 %    \begin{macrocode}
-\newcommand*{\mandistudentversion}{v\mandistudent@Version\space dated \mandistudent@Date}
+\newcommand*{\mandistudentversion}{v\mandistudent@version\space dated \mandistudent@date}
 %    \end{macrocode}
 %
 % Load third party packages, documenting why each one is needed.
@@ -1133,6 +1130,7 @@ while t < 10:
 \RequirePackage{pgfopts}             % needed for key-value interface
 \RequirePackage{iftex}               % needed for requiring LuaLaTeX
 \RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
+\RequirePackage{mandi}
 \RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
 \RequirePackage{nicematrix}          % needed for column and row vectors
 \RequirePackage[most]{tcolorbox}     % needed for program listings
@@ -1178,16 +1176,14 @@ while t < 10:
   {TeX Gyre DejaVu Math} % single-storey lowercase g
 %    \end{macrocode}
 % Borrow |mathscr| and |mathbfscr| from XITS Math.\newline
-% See \href{https://tex.stackexchange.com/a/120073/218142}
-%  {https://tex.stackexchange.com/a/120073/218142}.
+% See \url{https://tex.stackexchange.com/a/120073/218142}.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range={\mathscr,\mathbfscr}]{XITS Math}
 %    \end{macrocode}
 %
 % Get original and bold |mathcal| fonts.\newline
-% See \href{https://tex.stackexchange.com/a/21742/218142}
-%  {https://tex.stackexchange.com/a/21742/218142}.
+% See \url{https://tex.stackexchange.com/a/21742/218142}.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
@@ -1287,8 +1283,7 @@ while t < 10:
 %
 % Tweak the \href{https://www.ctan.org/pkg/esvect}{\pkg{esvect}} package 
 % fonts to get the correct font size. Code provided by |@egreg|.\newline
-% See \href{https://tex.stackexchange.com/a/566676}
-%  {https://tex.stackexchange.com/a/566676}.
+% See \url{https://tex.stackexchange.com/a/566676}.
 %
 %    \begin{macrocode}
 \DeclareFontFamily{U}{esvect}{}
@@ -1320,10 +1315,8 @@ while t < 10:
 % around |#3| or |#4|? Because outside of |\ExplSyntaxOn...\ExplSyntaxOff|, 
 % the |_| character has a different catcode and is treated as a mathematical 
 % entity.\newline
-% See \href{https://tex.stackexchange.com/q/554706/218142}
-%  {https://tex.stackexchange.com/q/554706/218142}.\newline
-% See also \href{https://tex.stackexchange.com/a/531037/218142}
-%  {https://tex.stackexchange.com/a/531037/218142}.
+% See \url{https://tex.stackexchange.com/q/554706/218142}.\newline
+% See also \url{https://tex.stackexchange.com/a/531037/218142}.
 %
 %    \begin{macrocode}
 \RenewDocumentCommand{\vec}{ s m e{_^} }{%
@@ -1348,8 +1341,7 @@ while t < 10:
 % We use a slight tweak to get uniform hats that 
 % requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} 
 % package.\newline
-% See \href{https://tex.stackexchange.com/a/391204/218142}
-%  {https://tex.stackexchange.com/a/391204/218142}.
+% See \url{https://tex.stackexchange.com/a/391204/218142}.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\dirvec}{ s m e{_^} }{%
@@ -1381,8 +1373,7 @@ while t < 10:
 %
 % Notation for column and row vectors.
 % Orginal code provided by |@egreg|.\newline
-% See \href{https://tex.stackexchange.com/a/39054/218142}
-%  {https://tex.stackexchange.com/a/39054/218142}.
+% See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -1400,13 +1391,6 @@ while t < 10:
   \end{#1NiceMatrix}
 }%
 \ExplSyntaxOff
-%    \end{macrocode}
-%
-%  Semantic aliases for \refCom{mivector}.
-%
-%    \begin{macrocode}
-\NewDocumentCommand{\direction}{}{\mivector}
-\NewDocumentCommand{\unitvector}{}{\mivector}
 %    \end{macrocode}
 %
 % Students always need this symbol.
@@ -1429,8 +1413,6 @@ while t < 10:
 \DeclarePairedDelimiterX{\curlybraces}[1]{\lbrace}{\rbrace}{\ifblank{#1}{\:\cdot\:}{#1}}
 %    \end{macrocode}
 %
-% Important semantic aliases.
-%
 % Some semantic aliases. Because of the way \refCom{vec} and
 % \refCom{dirvec} are defined, I reluctantly decided not to
 % implement a |\magvec| command. It would require accounting
@@ -1449,8 +1431,7 @@ while t < 10:
 %    \begin{macrocode}
 \NewDocumentCommand{\parallelto}{}
   {\mkern3mu\vphantom{\perp}\vrule depth 0pt\mkern2mu\vrule depth 0pt\mkern3mu}
-\NewDocumentCommand{\perpendicularto}{}
-  {\perp}
+\NewDocumentCommand{\perpendicularto}{}{\perp}
 %    \end{macrocode}
 %
 % An environment for problem statements. The starred variant gives 
@@ -1489,8 +1470,7 @@ while t < 10:
 }{}%
 %    \end{macrocode}
 %
-% See \href{https://tex.stackexchange.com/q/570223/218142}
-%  {https://tex.stackexchange.com/q/570223/218142}.
+% See \url{https://tex.stackexchange.com/q/570223/218142}.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\reason}{ O{4cm} m }
@@ -1499,20 +1479,13 @@ while t < 10:
 %
 % Command for highlighting parts of, or entire, mathematical expressions.\newline
 % Original code by anonymous user |@abcdefg|, modified by me.\newline
-%  See \href{https://texample.net/tikz/examples/beamer-arrows/}
-%   {https://texample.net/tikz/examples/beamer-arrows/}.\newline
-%  See also \href{https://tex.stackexchange.com/a/406084/218142}
-%   {https://tex.stackexchange.com/a/406084/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/570858/218142}
-%   {https://tex.stackexchange.com/a/570858/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/570789/218142}
-%   {https://tex.stackexchange.com/a/570789/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/79659/218142}
-%   {https://tex.stackexchange.com/a/79659/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/q/375032/218142}
-%   {https://tex.stackexchange.com/q/375032/218142}.\newline
-%  See also \href{https://tex.stackexchange.com/a/571744/218142}%
-%   {https://tex.stackexchange.com/a/571744/218142}.
+%  See \url{https://texample.net/tikz/examples/beamer-arrows/}.\newline
+%  See also \url{https://tex.stackexchange.com/a/406084/218142}.\newline
+%  See also \url{https://tex.stackexchange.com/a/570858/218142}.\newline
+%  See also \url{https://tex.stackexchange.com/a/570789/218142}.\newline
+%  See also \url{https://tex.stackexchange.com/a/79659/218142}.\newline
+%  See also \url{https://tex.stackexchange.com/q/375032/218142}.\newline
+%  See also \url{https://tex.stackexchange.com/a/571744/218142}%
 %
 %    \begin{macrocode}
 \newcounter{tikzhighlightnode}
@@ -1634,6 +1607,10 @@ while t < 10:
 }%
 %    \end{macrocode}
 %
+% Here is a clever way to color digits in program listsings thanks to
+% Ulrike Fischer.\newline
+% See \url{https://tex.stackexchange.com/a/570717/218142}.
+%
 %    \begin{macrocode}
 \directlua{%
  luaotfload.add_colorscheme("colordigits",
@@ -1645,8 +1622,7 @@ while t < 10:
 % Set up a color scheme and a new code environment for listings. The new colors 
 % are more restful on the eye. All listing commands now use 
 % \href{https://www.ctan.org/pkg/tcolorbox}{\pkg{tcolorbox}}.\newline
-% See \href{https://tex.stackexchange.com/a/529421/218142}
-%  {https://tex.stackexchange.com/a/529421/218142}.
+% See \url{https://tex.stackexchange.com/a/529421/218142}.
 %
 %    \begin{macrocode}
 \newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings

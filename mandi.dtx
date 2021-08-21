@@ -182,6 +182,7 @@ The vdemo.py file is not needed.
 \newcommand*{\lualatex}{Lua\LaTeX}                    % typeset LuaLaTeX
 
 % A customized internal hyperref tool to mimic that in tcolorbox.
+% In fact, I borrowed it from tcolorbox.
 \NewDocumentCommand{\setplace}{ s m }{%
   \IfBooleanTF {#1}%
     {\phantomsection}%
@@ -192,7 +193,10 @@ The vdemo.py file is not needed.
   \hyperref[#1]{\texttt{#2}%
     \ifnum\getpagerefnumber{#1}=\thepage\relax%
     \else%
-      \textsuperscript{\ding{213}\,{P.}\,\pageref*{#1}}%
+      %\textsuperscript{\ding{213}\,{P.}\,\pageref*{#1}}%
+      % Changed with tcolorbox 4.51
+      \textsuperscript{{\fontfamily{pzd}\fontencoding{U}\fontseries{m}\fontshape{n}\selectfont\char213}
+        \,{P.}\,\pageref*{#1}}%
     \fi%
   }%
 }%
@@ -208,9 +212,9 @@ The vdemo.py file is not needed.
 \RecordChanges                    % record changes
 \begin{document}                  % main document
   \DocInput{\jobname.dtx}         %
-  %\setcounter{CodelineNo}{0}      % reset line numbers if desired 
+  \setcounter{CodelineNo}{0}      % reset line numbers if desired 
   \DocInput{\jobname student.dtx} %
-  %\setcounter{CodelineNo}{0}      % reset line numbers if desired 
+  \setcounter{CodelineNo}{0}      % reset line numbers if desired 
   \DocInput{\jobname exp.dtx}     %
   \PrintIndex                     %
 \end{document}                    % end main document
@@ -220,7 +224,7 @@ The vdemo.py file is not needed.
 % \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %   corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2174}
+% \CheckSum{2171}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -250,8 +254,10 @@ The vdemo.py file is not needed.
 % \newgeometry{left=1.0in,right=1.0in,top=4.0in}
 %   \maketitle
 %   \thispagestyle{empty}
-%   \centerline{Version \mandiversion}
-%   \centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS VERSION.}}
+%   \centerline{\mandi\ version \mandiversion}
+%   \centerline{\mandistudent\ version \mandistudentversion}
+%   \centerline{\mandiexp\ version \mandiexpversion}
+%   ^^A\centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS BUILD.}}
 % \restoregeometry
 %
 % \newgeometry{left=1.0in,right=1.0in,top=0.5in,bottom=1.0in}
@@ -291,7 +297,9 @@ The vdemo.py file is not needed.
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0m}{2021-06-13}{Initial release.} 
+% \changes{v3.0.0}{2021-08-21}{\mandi\ initial release}
+% \changes{v3.0.0}{2021-08-21}{\mandistudent\ initial release}
+% \changes{v3.0.0}{2021-08-21}{\mandiexp\ initial release}
 %
 % \section{Introduction}
 %
@@ -308,8 +316,24 @@ The vdemo.py file is not needed.
 % expressions from \emph{Matter \& Interactions}\footnote{See 
 % \href{https://www.wiley.com/en-us/Matter+and+Interactions%2C+4th+Edition-p-9781118875865}
 % {\emph{Matter \& Interactions}} and
-% \href{https://matterandinteractions.org/}{https://matterandinteractions.org/}
-% for details.}
+% \url{https://matterandinteractions.org/} for details.}
+%
+% \mandi\ has been completely rewritten from the ground up. It had gotten too
+% large and clumsy to use and maintain. It (unknowingly) used deprecated
+% packages. It had too many arcane ``features'' that were never used. It 
+% did not support Unicode. It was not compatible with modern engines, like
+% \lualatex. It did not have a key-value interface. Options could not be
+% changed on the fly within a document. In short, it was a mess. I hope 
+% this rewrite addresses all of the bad things and forms a better code base 
+% for maintenance, useability, and future improvements.
+%
+% So many changes have been made that I think the best approach for former,
+% as well as new, users is to treat this as a brand new experience. I think
+% the most important thing to keep in mind is that I assume users, 
+% expecially new users, will have a relatively recent TeX distribution 
+% (like TeX Live) that includes a recently updated \LaTeX\ kernel. If users
+% report that this is a major problem, I can provide some degree of
+% backwards compatibility.
 % 
 % \newpage
 % \section{Student/Instructor Quick Guide}
@@ -372,15 +396,14 @@ The vdemo.py file is not needed.
 %\fi
 %
 % Use \refCom{mivector} to typeset symbolic vectors with components.
-% Use the aliases \refCom{direction} or \refCom{unitvector} to 
-% typeset a direction or unit vector.
+% Use the aliases \refCom{direction} to typeset a direction or unit 
+% vector.
 %\iffalse
 %<*example>
 %\fi
 \begin{dispExample*}{sidebyside=false}
   \( \mivector{\slot,\slot,\slot} \) or \( \mivector{p_x,p_y,p_z} \) \\
   \( \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \) or
-  \( \unitvector{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \) 
 \end{dispExample*}
 %\iffalse
 %</example>
@@ -472,6 +495,12 @@ The vdemo.py file is not needed.
 %\iffalse
 %</example>
 %\fi
+%
+% \subsection{\lualatex\ is Required}
+%
+% In order to make use of better fonts and Unicode features, \mandi\ now
+% requires the \lualatex\ engine for processing documents. It will not
+% work with other engines. 
 %
 % \newpage
 % \subsection{Physical Quantities}
@@ -733,6 +762,24 @@ The vdemo.py file is not needed.
 \begin{docCommand}{dielectricconstant}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{dielectricconstant}
+\begin{docCommands}
+  {%
+    {%
+      doc new = 2021-02-24,%
+      doc name = direction,%
+      doc parameter = \marg{magnitude},%
+    },%
+    {%
+      doc name = directionvector,%
+      doc parameter = \marg{\ensuremath{c_1,\dots,c_n}},%
+    },%
+    {%
+      doc name = vectordirection,%
+      doc parameter = \marg{\ensuremath{c_1,\dots,c_n}},%
+    },%
+  }%
+\end{docCommands}
+\checkquantity{direction}
 \begin{docCommands}
   {%
     {%
@@ -1872,9 +1919,9 @@ The vdemo.py file is not needed.
   Commands for powers of ten and scientific notation.
 \end{docCommands}
 \begin{dispExample}
- \( \tento{-4}      \) \\
+ \( \tento{-4} \)      \\
  \( 3\timestento{8} \) \\
- \( 3\xtento{8}     \)
+ \( 3\xtento{8} \)
 \end{dispExample}
 %\iffalse
 %</example>
@@ -1915,25 +1962,23 @@ The vdemo.py file is not needed.
 % \fi
 % Definine the package version and date for global use, exploiting the fact
 % that in a \pkg{.sty} file there is now no need for |\makeatletter| and
-% |\makeatother|. This simplifies defining internal commands, with |@| 
-% in the name, that are not for the user to know about.
+% |\makeatother|. This simplifies defining internal commands (with |@| 
+% in the name) that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@Version{3.0.0m}
-\def\mandi@Date{2021-06-13}
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\providecommand\DeclareRelease[3]{}
-\providecommand\DeclareCurrentRelease[2]{}
-\DeclareRelease{v3.0.0m}{2021-06-13}{mandi.sty}
-\DeclareCurrentRelease{v\mandi@Version}{\mandi@Date}
+\def\mandi@version{3.0.0}
+\def\mandi@date{2021-08-21}
+\NeedsTeXFormat{LaTeX2e}[2020-02-02]
+\DeclareRelease{v3.0.0}{2021-08-21}{mandi.sty}
+\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
-  [\mandi@Date\space v\mandi@Version\space Macros for physical quantities]
+  [\mandi@date\space v\mandi@version\space Macros for physical quantities]
 %    \end{macrocode}
 %
 % Define a convenient package version command.
 %
 %    \begin{macrocode}
-\newcommand*{\mandiversion}{v\mandi@Version\space dated \mandi@Date}
+\newcommand*{\mandiversion}{v\mandi@version\space dated \mandi@date}
 %    \end{macrocode}
 %
 % Load third party packages, documenting why each one is needed.
@@ -1946,8 +1991,12 @@ The vdemo.py file is not needed.
 \RequireLuaTeX                % require this engine
 %    \end{macrocode}
 %
-% The core unit engine has been completely rewritten in 
-% \href{https://www.ctan.org/pkg/expl3}{\pkg{expl3}} for both clarity and power.
+% Parts of the unit engine have been rewritten with 
+% \href{https://www.ctan.org/pkg/xparse}{\pkg{xparse}} for both clarity 
+% and power. Note that \pkg{xparse} is now part of the \LaTeX\ kernel. 
+% Other parts have been rewriten in 
+% \href{https://www.ctan.org/pkg/expl}{\pkg{expl}} with a look to the 
+% future.
 %
 % Generic internal selectors.
 %
@@ -2134,11 +2183,6 @@ The vdemo.py file is not needed.
 \NewDocumentCommand{\timestento}{ m }{\times\tento{#1}}
 \NewDocumentCommand{\xtento}{ m }{\times\tento{#1}}
 %    \end{macrocode}
-%
-% Defining a new scalar quantity. I am very much aware that this family of commands
-% doesn't yet correctly abide by the \LaTeX3 concept of separating document commands
-% from the programming layer. The problem is that current documentation is not
-% completely understandable to me and getting help is difficult for non-experts.
 %
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -2382,6 +2426,8 @@ The vdemo.py file is not needed.
   [\coulomb\per\second\usk\meter\tothetwo]%
   [\ampere\per\meter\tothetwo]%
 \newscalarquantity{dielectricconstant}%
+  {}%
+\newvectorquantity{direction}%
   {}%
 \newvectorquantity{displacement}%
   {\meter}
@@ -2740,8 +2786,8 @@ The vdemo.py file is not needed.
   [\joule\usk\second]%
 %    \end{macrocode}
 %
-% See \href{https://tex.stackexchange.com/a/448565/218142}
-%  {https://tex.stackexchange.com/a/448565/218142}.
+% See \url{https://tex.stackexchange.com/a/448565/218142}.
+% 
 %
 %    \begin{macrocode}
 \newphysicalconstant{planckbar}%
@@ -2897,8 +2943,8 @@ The vdemo.py file is not needed.
 %
 % \refCom{mivector} is a workhorse command.
 % Orginal code provided by |@egreg|.\newline
-% See \href{https://tex.stackexchange.com/a/39054/218142}
-%  {https://tex.stackexchange.com/a/39054/218142}.
+% See \url{https://tex.stackexchange.com/a/39054/218142}.
+% 
 %
 %    \begin{macrocode}
 \ExplSyntaxOn
