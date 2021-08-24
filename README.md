@@ -15,7 +15,7 @@ instructions.
 - `mandiexp.dtx`     (documented source file)
 - `mandi.ins`        (install file)
 - `mandi.pdf`        (all documentation)
-- `README.md`        (different README with manual install instructions)
+- `README.md`        (different `README` with manual install instructions)
   
 Students and Overleaf  users should fetch the `overleaf-project.zip` file
 and read the `NnnnnnnnCCPxx.tex` file for setup instructions.
