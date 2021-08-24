@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# shell script to build zip file for CTAN and to install mandi locally
+# shell script to build zip file for CTAN
 
+# Version 2.0.2 2021-08-24
+#   Minor tweaks
+#   Removed local installation part; it causes texdoc conflicts.
 # Version 2.0.1 2021-05-28
 #   Rewritten for mandi 3.0.0
 
@@ -63,38 +66,7 @@ touch mandi.zip                                     # touch
 mv mandi.zip ..                                     # mv to mandi dir
 # Now mandi.zip can be uploaded to CTAN.
 
-# Install in local texmf tree identical to what 
-#  CTAN users will see installed.
-# Remember that we're still in the zip folder.
-# echo Installing in local texmf tree...
-# if [ ! -d ../../doc/latex/mandi/ ]
-# then
-#   echo Making folder...
-#   mkdir ../../doc/latex/mandi
-# fi
-# echo Copying files...
-# cp mandi/README.md ../../doc/latex/mandi/README.md
-# cp mandi/mandi.pdf ../../doc/latex/mandi/
-# 
-# if [ ! -d ../../source/latex/mandi/ ]
-# then
-#   echo Making folder...
-#   mkdir ../../source/latex/mandi
-# fi
-# echo Copying files...
-# cp mandi/mandi.dtx ../../source/latex/mandi/
-# cp mandi/mandi.ins ../../source/latex/mandi/
-# 
-# if [ ! -d ../../tex/latex/mandi/ ]
-# then
-#   echo Making folder...
-#   mkdir ../../tex/latex/mandi
-# fi
-# echo Copying file...
-# cp ../mandi.sty ../../tex/latex/mandi/
-# User's local texmf tree should now mirror what CTAN users will see.
-
-# Clean up
+# Clean up.
 echo Cleaning up...
 rm mandi/mandi.dtx
 rm mandi/mandistudent.dtx
@@ -105,30 +77,29 @@ rm mandi/README.md
 rmdir mandi
 cd ..
 rmdir zip
-# Cleaned up
+# Cleaned up.
 
 # Delete README.md since it's in the zip file, and
-# create new README.md for GitHub
+#   create new README.md for GitHub.
 echo Making README for GitHub...
 rm README.md
-# Rename README.txt to README.md for GitHub
-cp README.txt README.md
+# Rename READMEtxt.md to README.md for GitHub
+cp READMEtxt.md README.md
 echo README.md is now ready for GitHub.
 echo You need to reprocess mandi.dtx to get the old REAME.md back
 echo   before running this script again!
-# README.md is now ready for GitHub
+# README.md is now ready for GitHub.
 
 # Delete vdemo.py since it's recreated every build.
 rm vdemo.py
 # vdemo.py deleted
 
-
-# Create Overleaf zip file...
+# Create Overleaf zip file.
 echo Creating Overleaf zip file...
 zip -q overleaf-project.zip "mandi.pdf" "mandi.sty" "mandistudent.sty" "mandiexp.sty" "NnnnnnnnCCPxx.tex" -x "*.DS_Store"
 touch overleaf-project.zip
 # Now these files can be given to students to use on Overleaf.
 
-# We're done
+# We're done.
 echo "Don't forget to push this build to GitHub before making more changes."
 echo DONE!

@@ -36,16 +36,16 @@
 %</internal>
 %
 %<*readme>
-mandi provides commands for introductory physics. To install, open a command
+`mandi` provides commands for introductory physics. To install, open a command
 line  and  type  the  following,  repeating 2-4 until there are no warnings:
 
-1. lualatex mandi.ins  (can also use latex)
-2. lualatex mandi.dtx  (lualatex is required)
-3. makeindex -s gind.ist -o mandi.ind mandi.idx
-4. makeindex -s gglo.ist -o mandi.gls mandi.glo
+1. `lualatex mandi.ins`  (can also use latex)
+2. `lualatex mandi.dtx`  (lualatex is required)
+3. `makeindex -s gind.ist -o mandi.ind mandi.idx`
+4. `makeindex -s gglo.ist -o mandi.gls mandi.glo`
 
-Move the *.sty files into a directory searched by TeX.
-The vdemo.py file is not needed.
+Move the `*.sty` files into a directory searched by TeX.
+The `vdemo.py` file is not needed and can be deleted.
 %</readme>
 %
 %<*internal>
@@ -86,7 +86,7 @@ The vdemo.py file is not needed.
  and includes the derived files  mandi.sty
                                  mandistudent.sty
                                  mandiexp.sty
-                                 vdemo.py
+                                 vdemo.py (not needed)
  ---------------------------------------------------------------------------
 
 \endpreamble
@@ -300,6 +300,9 @@ The vdemo.py file is not needed.
 % \changes{v3.0.0}{2021-08-22}{\mandi\ initial release}
 % \changes{v3.0.0}{2021-08-22}{\mandistudent\ initial release}
 % \changes{v3.0.0}{2021-08-22}{\mandiexp\ initial release}
+% \changes{v3.0.1}{2021-08-24}{\mandi\ Minor documentation changes}
+% \changes{v3.0.1}{2021-08-24}{\mandistudent\ Minor documentation changes}
+% \changes{v3.0.1}{2021-08-24}{\mandiexp\ Minor documentation changes}
 %
 % \section{Introduction}
 %
@@ -1966,10 +1969,10 @@ The vdemo.py file is not needed.
 % in the name) that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@version{3.0.0}
-\def\mandi@date{2021-08-22}
+\def\mandi@version{3.0.1}
+\def\mandi@date{2021-08-24}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.0}{2021-08-22}{mandi.sty}
+\DeclareRelease{v3.0.1}{2021-08-24}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
