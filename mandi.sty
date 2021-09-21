@@ -32,19 +32,22 @@
 %%                                  vdemo.py (not needed)
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@version{3.0.1}
-\def\mandi@date{2021-08-24}
+\def\mandi@version{3.0.2}
+\def\mandi@date{2021-09-20}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.1}{2021-08-24}{mandi.sty}
+\DeclareRelease{v3.0.2}{2021-09-20}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
 \newcommand*{\mandiversion}{v\mandi@version\space dated \mandi@date}
-\RequirePackage{pgfopts}      % needed for key-value interface
-\RequirePackage{array}        % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}        % needed for requiring LuaLaTeX
-\RequirePackage{unicode-math} % needed for Unicode support
-\RequireLuaTeX                % require this engine
+\RequirePackage{pgfopts}        % needed for key-value interface
+\RequirePackage{array}          % needed for \checkquantity and \checkconstant
+\RequirePackage{iftex}          % needed for requiring LuaLaTeX
+\RequirePackage{unicode-math}   % needed for Unicode support
+\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+  {}%
+  {\RequirePackage{xparse}}%
+\RequireLuaTeX                  % require this engine
 \newcommand*{\mandi@selectunits}{}
 \newcommand*{\mandi@selectprecision}{}
 \newcommand*{\mandi@selectapproximate}[2]{#1}    % really \@firstoftwo
@@ -85,6 +88,10 @@
   units/alternate/.style={/mandi/options/buffered@units=alternate},%
   units/base/.style={/mandi/options/buffered@units=base},%
   units/derived/.style={/mandi/options/buffered@units=derived},%
+  .unknown/.code={%
+    \typeout{}%
+    \typeout{mandi: You used unknown option '\pgfkeyscurrentname'.}%
+  },%
 }%
 \ProcessPgfPackageOptions{/mandi/options}
 \typeout{}%

@@ -32,15 +32,18 @@
 %%                                  vdemo.py (not needed)
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandiexp@version{\mandi@version}
-\def\mandiexp@date{\mandi@date}
+\def\mandiexp@version{3.0.2}
+\def\mandiexp@date{2021-09-20}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.1}{2021-08-24}{mandiexp.sty}
-\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
+\DeclareRelease{v3.0.2}{2021-09-20}{mandiexp.sty}
+\DeclareCurrentRelease{v\mandiexp@version}{\mandiexp@date}
 \ProvidesPackage{mandiexp}
   [\mandiexp@date\space v\mandiexp@version\space Macros for Matter & Interactions]
 \newcommand*{\mandiexpversion}{v\mandiexp@version\space dated \mandiexp@date}
 \RequirePackage{mandi}
+\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+  {}%
+  {\RequirePackage{xparse}}%
 \typeout{}%
 \typeout{mandiexp: You are using mandiexp \mandiexpversion.}
 \typeout{mandiexp: This package requires LuaLaTeX.}%

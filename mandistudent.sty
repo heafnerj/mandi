@@ -32,11 +32,11 @@
 %%                                  vdemo.py (not needed)
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandistudent@version{\mandi@version}
-\def\mandistudent@date{\mandi@date}
+\def\mandistudent@version{3.0.2}
+\def\mandistudent@date{2021-09-20}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.1}{2021-08-24}{mandistudent.sty}
-\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
+\DeclareRelease{v3.0.2}{2021-09-20}{mandistudent.sty}
+\DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
 \newcommand*{\mandistudentversion}{v\mandistudent@version\space dated \mandistudent@date}
@@ -55,6 +55,9 @@
 \RequirePackage{tikz}                % needed for \hilite
 \usetikzlibrary{shapes,fit,tikzmark} % needed for \hilite
 \RequirePackage{unicode-math}        % needed for Unicode support
+\IfFormatAtLeastTF {2020-10-01}      % load xparse if necessary
+  {}%
+  {\RequirePackage{xparse}}%
 \RequirePackage{hyperref}            % load last
 \RequireLuaTeX                       % require this engine
 \unimathsetup{math-style=ISO}
@@ -172,30 +175,32 @@
       {\vv{#2}%      % * gives an arrow
          % Use \sp{} primitive for superscript.
          % Adjust superscript for the arrow.
-         \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
+         \IfValueT{#4}{\sp{\,#4\vphantom{\smash[t]{\big|}}}}
       }%
       {\symbfit{#2}  % no * gives us bold
          % Use \sp{} primitive for superscript.
          % No superscript adjustment needed.
-         \sp{\IfValueT{#4}{#4}\vphantom{\smash[t]{\big|}}}
+         \IfValueT{#4}{\sp{#4\vphantom{\smash[t]{\big|}}}}
       }%
     % Use \sb{} primitive for subscript.
-    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
+    \IfValueT{#3}{\sb{#3\vphantom{\smash[b]{|}}}}
 }%
 \NewDocumentCommand{\dirvec}{ s m e{_^} }{%
-    \widehat{\makebox*{\(w\)}{\ensuremath{%
-      \IfBooleanTF {#1}
-        {%
-          #2
+    \widehat{%
+      \makebox*{\(w\)}{%
+        \ensuremath{%
+          \IfBooleanTF {#1}%
+            {%
+              #2
+            }%
+            {%
+              \symbfit{#2}%
+            }%
         }%
-        {%
-          \symbfit{#2}
-        }%
-       }%
       }%
-     }%
-    \sb{\IfValueT{#3}{#3}\vphantom{\smash[b]{|}}}
-    \sp{\IfValueT{#4}{\,#4}\vphantom{\smash[t]{\big|}}}
+    }%
+    \IfValueT{#3}{\sb{#3\vphantom{\smash[b]{|}}}}%
+    \IfValueT{#4}{\sp{\,#4\vphantom{\smash[t]{\big|}}}}%
 }%
 \NewDocumentCommand{\zerovec}{ s }{%
   \IfBooleanTF {#1}
@@ -273,13 +278,14 @@
   \temp%
 }%
 \NewDocumentCommand{\image}{ O{scale=1} m m m }{%
+  \par
   \begin{figure}[ht!]
-    \begin{center}%
-      \includegraphics[#1]{#2}%
-    \end{center}%
+    \centering%
+    \includegraphics[#1]{#2}%
     \caption{#3}%
     \label{#4}%
   \end{figure}%
+  \par
 }%
 \NewDocumentCommand{\veccomp}{ s m }{%
   % Consider renaming this to \vectorsym.
@@ -428,24 +434,25 @@
   width = 0.9\textwidth,%
   {#1},
 }%
+\AtBeginEnvironment{glowscriptblock}{\catcode`\#=12}
 \NewDocumentCommand{\listofglowscriptprograms}{}{\tcblistof[\section*]{gsprogs}
   {List of \texttt{GlowScript} Programs}}%
 \NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile}
-  { O{} m m }{%
+  { O{} D(){vpython.org} m m }{%
   breakable,%
   center,%
   code = \newpage,%
   %derivgray,%
   enhanced,%
-  hyperurl interior = https://,%
+  hyperurl interior = https://#2,%
   label = {vp:\thetcbcounter},%
   left = 8mm,%
-  list entry = \thetcbcounter~~~~~#3,%
-  listing file = {#2},%
+  list entry = \thetcbcounter~~~~~#4,%
+  listing file = {#3},%
   listing only,%
   listing style = vpython,%
-  nameref = {#3},%
-  title = \texttt{VPython} Program \thetcbcounter: #3,%
+  nameref = {#4},%
+  title = \texttt{VPython} Program \thetcbcounter: #4,%
   width = 0.9\textwidth,%
   {#1},%
 }%

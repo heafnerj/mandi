@@ -161,12 +161,6 @@ The `vdemo.py` file is not needed and can be deleted.
       colback = gray!10!white,sidebyside,lefthand ratio = 0.5,center},%
   listing style = vpython,%
 }%
-% Redefine tcolorbox's \tcbdocnew and \tcbdocupdated defaults.
-\renewcommand*{\tcbdocnew}[1]
-  {\textcolor{green!50!black}{\sffamily\bfseries N} #1}
-\renewcommand*{\tcbdocupdated}[1]
-  {\textcolor{blue!75!black}{\sffamily\bfseries U} #1}
-\hypersetup{colorlinks=true}                      % colored links; no borders
 
 %  See https://tex.stackexchange.com/q/156383/218142
 \newcommand*{\pkg}[1]{\textsf{#1}}                    % typeset package names
@@ -180,6 +174,14 @@ The `vdemo.py` file is not needed and can be deleted.
 \newcommand*{\gsurl}{glowscript.org}                  % GlowScript URL
 \newcommand*{\vpurl}{vpython.org}                     % VPython URL
 \newcommand*{\lualatex}{Lua\LaTeX}                    % typeset LuaLaTeX
+
+%%%%% Some local hacks to make things better.
+% Redefine tcolorbox's \tcbdocnew and \tcbdocupdated defaults.
+\renewcommand*{\tcbdocnew}[1]
+  {\textcolor{green!50!black}{\sffamily\bfseries N} #1}
+\renewcommand*{\tcbdocupdated}[1]
+  {\textcolor{blue!75!black}{\sffamily\bfseries U} #1}
+\hypersetup{colorlinks=true}                      % colored links; no borders
 
 % A customized internal hyperref tool to mimic that in tcolorbox.
 % In fact, I borrowed it from tcolorbox.
@@ -200,6 +202,30 @@ The `vdemo.py` file is not needed and can be deleted.
     \fi%
   }%
 }%
+
+% Clean up the Change History entries to get rid of General:
+% and add dates.
+%  See https://tex.stackexchange.com/a/283894/218142
+\renewcommand{\generalname}{} % gets rid of General
+\makeatletter
+\renewcommand*{\changes@}[3]{%
+ \protected@edef\@tempa{%
+  \noexpand\glossary{#1 (#2)\levelchar
+   \ifx\saved@macroname\@empty
+    \space\actualchar\generalname
+   \else
+    \expandafter\@gobble\saved@macroname
+    \actualchar
+    \string\verb\quotechar*\verbatimchar\saved@macroname\verbatimchar
+   \fi
+   %:\levelchar #3}}%
+   #3}}% gets rid of colon and adjusts spacing
+ \@tempa
+ \endgroup
+ \@esphack
+}
+\makeatother
+%%%%% End local hacks.
 
 % We need a new command for in-line listings to prevent overfull boxes.
 % Anything in |...| will be in small plain text.
@@ -224,7 +250,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % \IndexPrologue{\section{Index}Page numbers refer to page where the 
 %   corresponding entry is documented and/or referenced.}
 % 
-% \CheckSum{2171}
+% \CheckSum{2176}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -257,7 +283,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %   \centerline{\mandi\ version \mandiversion}
 %   \centerline{\mandistudent\ version \mandistudentversion}
 %   \centerline{\mandiexp\ version \mandiexpversion}
-%   ^^A\centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS BUILD.}}
+%   \centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS BUILD.}}
 % \restoregeometry
 %
 % \newgeometry{left=1.0in,right=1.0in,top=0.5in,bottom=1.0in}
@@ -297,12 +323,12 @@ The `vdemo.py` file is not needed and can be deleted.
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0}{2021-08-22}{\mandi\ initial release}
-% \changes{v3.0.0}{2021-08-22}{\mandistudent\ initial release}
-% \changes{v3.0.0}{2021-08-22}{\mandiexp\ initial release}
-% \changes{v3.0.1}{2021-08-24}{\mandi\ Minor documentation changes}
-% \changes{v3.0.1}{2021-08-24}{\mandistudent\ Minor documentation changes}
-% \changes{v3.0.1}{2021-08-24}{\mandiexp\ Minor documentation changes}
+% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandipkg}{mandi} Initial release}
+% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandistudentpkg}{mandistudent} Initial release}
+% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandiexppkg}{mandiexp} Initial release}
+% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandipkg}{mandi} Minor doc changes}
+% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandistudentpkg}{mandistudent} Minor doc changes}
+% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandiexppkg}{mandiexp} Minor doc changes}
 %
 % \section{Introduction}
 %
@@ -351,7 +377,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{dispExample*}{lefthand ratio=0.80}
+\begin{dispExample*}{lefthand ratio = 0.80}
   \( \vec{p} \) or \( \vec*{p} \)                                         \\
   \( \vec{p}_{\symup{final}} \) or \( \vec*{p}_{\symup{final}} \)         \\
   \( \magnitude{\vec{p}} \) or \( \magnitude*{\vec{p}_{\symup{final}}} \) \\
@@ -391,7 +417,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{dispExample*}{lefthand ratio=0.70}
+\begin{dispExample*}{lefthand ratio = 0.70}
   \( \vacuumpermittivitymathsymbol = \vacuumpermittivity \)
 \end{dispExample*}
 %\iffalse
@@ -404,7 +430,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{dispExample*}{sidebyside=false}
+\begin{dispExample*}{sidebyside = false}
   \( \mivector{\slot,\slot,\slot} \) or \( \mivector{p_x,p_y,p_z} \) \\
   \( \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \) or
 \end{dispExample*}
@@ -426,7 +452,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{dispListing*}{sidebyside=false,listing only}
+\begin{dispListing*}{sidebyside = false,listing only}
   \usepackage[options]{mandi}
 \end{dispListing*}
 %\iffalse
@@ -439,7 +465,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \begin{docCommand}{mandiversion}{}
   Typesets the current version and build date.
 \end{docCommand}
-\begin{dispExample*}{sidebyside=false}
+\begin{dispExample*}{sidebyside = false}
   The version is \mandiversion\ and is a stable build.
 \end{dispExample*}
 %\iffalse
@@ -486,14 +512,14 @@ The `vdemo.py` file is not needed and can be deleted.
   can be done in the preamble or inside the 
   |\begin{document}...\end{document}| environment.
 \end{docCommand}
-\begin{dispListing*}{sidebyside=false,listing only}
+\begin{dispListing*}{sidebyside = false,listing only}
   \mandisetup{units=base}
 \end{dispListing*}
-\begin{dispListing*}{sidebyside=false,listing only}
+\begin{dispListing*}{sidebyside = false,listing only}
   \mandisetup{preciseconstants}
 \end{dispListing*}
-\begin{dispListing*}{sidebyside=false,listing only}
-  \mandisetup{preciseconstants=false}
+\begin{dispListing*}{sidebyside = false,listing only}
+  \mandisetup{preciseconstants = false}
 \end{dispListing*}
 %\iffalse
 %</example>
@@ -540,7 +566,7 @@ The `vdemo.py` file is not needed and can be deleted.
   take more than three components. Note the other variants for the quantity's 
   value and units.
 \end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.60}
+\begin{dispExample*}{lefthand ratio = 0.60}
   \( \momentum{5} \)                         \\
   \( \momentumvalue{5} \)                    \\
   \( \momentumbaseunits{5} \)                \\
@@ -1233,7 +1259,7 @@ The `vdemo.py` file is not needed and can be deleted.
       doc name = newscalarquantity,%
     },%
     {%
-      doc new=2021-02-21,%
+      doc new = 2021-02-21,%
       doc name = renewscalarquantity,%
     },%
   }%
@@ -1260,7 +1286,7 @@ The `vdemo.py` file is not needed and can be deleted.
       doc name = newvectorquantity,%
     },%
     {%
-      doc new=2021-02-21,%
+      doc new = 2021-02-21,%
       doc name = renewvectorquantity,%
     },%
   }%
@@ -1589,7 +1615,7 @@ The `vdemo.py` file is not needed and can be deleted.
       doc name = newphysicalconstant,%
     },%
     {%
-      doc new=2021-02-21,%
+      doc new = 2021-02-21,%
       doc name = renewphysicalconstant,%
     },%
   }%
@@ -1942,7 +1968,7 @@ The `vdemo.py` file is not needed and can be deleted.
   can be specified; the default is a comma. The notation mirrors that of 
   \emph{Matter \& Interactions}.
 \end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.65}
+\begin{dispExample*}{lefthand ratio = 0.65}
   \( \mivector{p_0,p_1,p_2,p_3} \)                        \\
   \( \mivector{\gamma m v_x,\gamma m v_y,\gamma m v_z} \) \\
   \( \mivector{\frac{Q_1Q_2}{x^2},0,0} \)                 \\
@@ -1969,10 +1995,10 @@ The `vdemo.py` file is not needed and can be deleted.
 % in the name) that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@version{3.0.1}
-\def\mandi@date{2021-08-24}
+\def\mandi@version{3.0.2}
+\def\mandi@date{2021-09-20}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.1}{2021-08-24}{mandi.sty}
+\DeclareRelease{v3.0.2}{2021-09-20}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
@@ -1987,11 +2013,19 @@ The `vdemo.py` file is not needed and can be deleted.
 % Load third party packages, documenting why each one is needed.
 %
 %    \begin{macrocode}
-\RequirePackage{pgfopts}      % needed for key-value interface
-\RequirePackage{array}        % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}        % needed for requiring LuaLaTeX
-\RequirePackage{unicode-math} % needed for Unicode support
-\RequireLuaTeX                % require this engine
+\RequirePackage{pgfopts}        % needed for key-value interface
+\RequirePackage{array}          % needed for \checkquantity and \checkconstant
+\RequirePackage{iftex}          % needed for requiring LuaLaTeX
+\RequirePackage{unicode-math}   % needed for Unicode support
+%    \end{macrocode}
+%
+% \changes{v3.0.2}{2021-09-19}
+%   {\linktoplace{sec:mandipkg}{mandi} \pkg{xparse} is loaded for older formats}
+%    \begin{macrocode}
+\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+  {}%
+  {\RequirePackage{xparse}}%
+\RequireLuaTeX                  % require this engine
 %    \end{macrocode}
 %
 % Parts of the unit engine have been rewritten with 
@@ -2066,6 +2100,8 @@ The `vdemo.py` file is not needed and can be deleted.
 % First, define the keys. The key handlers require certain commands defined 
 % by the unit engine.
 %
+% \changes{v3.0.2}{2021-09-19}
+%   {\linktoplace{sec:mandipkg}{mandi} Unknown package options handled safely}
 %    \begin{macrocode}
 \newif\ifusingpreciseconstants
 \pgfkeys{%
@@ -2080,6 +2116,10 @@ The `vdemo.py` file is not needed and can be deleted.
   units/alternate/.style={/mandi/options/buffered@units=alternate},%
   units/base/.style={/mandi/options/buffered@units=base},%
   units/derived/.style={/mandi/options/buffered@units=derived},%
+  .unknown/.code={%
+    \typeout{}%
+    \typeout{mandi: You used unknown option '\pgfkeyscurrentname'.}%
+  },%
 }%
 %    \end{macrocode}
 %
