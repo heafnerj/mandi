@@ -17,8 +17,9 @@ instructions.
 - `mandi.pdf`        (all documentation)
 - `README.md`        (different `README` with manual install instructions)
   
-Students and Overleaf  users should fetch the `overleaf-project.zip` file
-and read the `NnnnnnnnCCPxx.tex` file for setup instructions.
+Students and [Overleaf](https://www.overleaf.com) users should fetch the 
+`overleaf-project.zip` file and read the `NnnnnnnnCCPxx.tex` file for setup 
+instructions.
 
 `overleaf-project.zip` contains:
  
