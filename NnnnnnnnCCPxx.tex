@@ -31,7 +31,6 @@
 \usepackage{mandistudent} % load mandistudent    
 \usepackage{mandiexp}     % load mandiexp
 \usepackage{geometry}     % for changing page layout
-\usepackage{datetime}     % for defining new date format
 \usepackage{doi}          % for DOIs in references
 \usepackage{mwe}          % for demo images
 \hypersetup{colorlinks}   % color hyperlinks
@@ -41,12 +40,12 @@
 \newcommand*{\pkg}[1]{\textsf{#1}}                    % typeset package names
 \newcommand*{\mandi}{\textsf{mandi}}                  % typeset mandi
 \newcommand*{\mandistudent}{\textsf{mandistudent}}    % typeset mandistudent
-\newcommand*{\mandiexp}{\textsf{mandiexp}}            % typeset mandi
-\newcommand*{\GlowScript}{\texttt{GlowScript}}        % typeset GlowScript
-\newcommand*{\GlowScriptorg}{\texttt{GlowScript.org}} % typeset GlowScript.org
+\newcommand*{\mandiexp}{\textsf{mandiexp}}            % typeset mandiexp
+\newcommand*{\WebVPython}{\texttt{Web VPython}}       % typeset WebVPython
+\newcommand*{\WebVPythonorg}{\texttt{WebVPython.org}} % typeset WebVPython.org
 \newcommand*{\VPython}{\texttt{VPython}}              % typeset VPython
 \newcommand*{\VPythonorg}{\texttt{VPython.org}}       % typeset VPython.org
-\newcommand*{\gsurl}{glowscript.org}                  % GlowScript URL
+\newcommand*{\gsurl}{webvpython.org}                  % WebVPython URL
 \newcommand*{\vpurl}{vpython.org}                     % VPython URL
 \newcommand*{\lualatex}{Lua\LaTeX}                    % typeset LuaLaTeX
 %---------- END
@@ -56,11 +55,6 @@
 %---------- END DOCUMENT MARGINS
 
 %---------- STUDENT INFORMATION (EDIT TO SUIT)
-%----- The \documentaa variable is extremely important  because  it contains the 
-%----- expected name of every file associated with this project.  You  will need 
-%----- to manually rename each file (usually a .tex file, one or more .py files,
-%----- and one or more .pdf files) to make compiling this document seamless.
-\newcommand{\documentaa}{NnnnnnnnCCPxx}    % Use the naming conventions above.
 \newcommand{\assignment}{ASSIGNMENT TITLE} % Edit this appropriately.
 \newcommand{\authorname}{Your Name}        % Edit this to use your name.
 %---------- END STUDENT INFORMATION
@@ -74,7 +68,7 @@
 \centerline{Using \mandi\ version \mandiversion}
 \centerline{Using \mandistudent\ version \mandistudentversion}
 \centerline{Using \mandiexp\ version \mandiexpversion}
-\listofglowscriptprograms
+\listofwebvpythonprograms
 \listoffigures
 \newpage
 
@@ -116,15 +110,15 @@ appropriate.
 Figure \ref{fig:ref1} is nice. It's captioned \nameref{fig:ref1} and is on page \pageref{fig:ref1}.
 \end{physicsproblem}
 
-\begin{glowscriptblock}(tinyurl.com/y44cuzp7){A Placeholder Program}
+\begin{webvpythonblock}(tinyurl.com/y44cuzp7){A Placeholder Program}
 GlowScript 3.0 VPython
 # This is just a placeholder.
 # It is part of the mandi documentation.
 
 sphere()
-\end{glowscriptblock}
+\end{webvpythonblock}
 
-\GlowScript\ program \ref{gs:1} is nice. It's called \nameref{gs:1} and is on page \pageref{gs:1}.
+\WebVPython\ program \ref{gs:1} is nice. It's called \nameref{gs:1} and is on page \pageref{gs:1}.
 
 \newpage
 \begin{thebibliography}{100} % 100 is a random guess of the total number of references
@@ -149,7 +143,7 @@ sphere()
 \bibitem{Cro15} R. Cross, ``Precession of a spinning ball rolling down an inclined plane,''
   Phys. Teach. \textbf{53}, 217-219 (2015); \doi{10.1119/1.4914559}
 % software portal
-\bibitem{Glo} GlowScript, <\url{https://www.glowscript.org}>.
+\bibitem{Wvp} \WebVPython, <\url{https://www.webvpython.org}>.
 % Stack Exchange site
 \bibitem{Mse18} ``Mathematica stack exchange,'' <\url{https://mathematica.stackexchange.com/q/105298}>, 
   accessed on August 18, 2018.
