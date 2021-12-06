@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2021 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -901,7 +901,7 @@ while t < 10:
 %</example>
 %\fi
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} All instances of 
 %    \texttt{GlowScript} have been changed to \texttt{Web VPython}}
 % \subsection{\WebVPython\ and \VPython\ Program Listings}
@@ -1122,15 +1122,15 @@ while t < 10:
 % |\makeatother|. This simplifies defining internal commands, with |@| 
 % in the name, that are not for the user to know about.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} Version number works}
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} Code formatted for better readability}
 %    \begin{macrocode}
 \def\mandistudent@version{3.0.2}
-\def\mandistudent@date{2021-11-24}
+\def\mandistudent@date{2021-12-05}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.2}{2021-11-24}{mandistudent.sty}
+\DeclareRelease{v3.0.2}{2021-12-05}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
@@ -1163,7 +1163,7 @@ while t < 10:
 %    \end{macrocode}
 %
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \pkg{xparse} is loaded for older formats}
 %    \begin{macrocode}
 \IfFormatAtLeastTF {2020-10-01}      % load xparse if necessary
@@ -1351,7 +1351,7 @@ while t < 10:
 % See \url{https://tex.stackexchange.com/q/554706/218142}.\newline
 % See also \url{https://tex.stackexchange.com/a/531037/218142}.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refCom{vec}%
 %    no longer adds \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
@@ -1385,7 +1385,7 @@ while t < 10:
 % package.\newline
 % See \url{https://tex.stackexchange.com/a/391204/218142}.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refCom{dirvec}%
 %    no longer adds \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
@@ -1427,7 +1427,7 @@ while t < 10:
 % Notation for column and row vectors.\newline
 % See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \LaTeX3 code now conforms to formatting standards}
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -1577,7 +1577,7 @@ while t < 10:
 % A simplified command for importing images.\newline
 % See \url{https://tex.stackexchange.com/a/614478/218142}.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} Slightly modified \refCom{image}}
 %    \begin{macrocode}
 \NewDocumentCommand{\image}{ O{scale=1} m m m }%
@@ -1787,7 +1787,7 @@ while t < 10:
 % Introduce a new, more intelligent \refEnv{webvpythonblock} environment.\newline
 % See \url{https://tex.stackexchange.com/a/232208/218142}.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} URLs fixed in \refEnv{webvpythonblock}}
 %    \begin{macrocode}
 \AtBeginEnvironment{webvpythonblock}{\catcode`\#=12}
@@ -1824,7 +1824,7 @@ while t < 10:
 % Introduce a new, more intelligent \refCom{vpythonfile} command.\newline
 % See \url{https://tex.stackexchange.com/q/616205/218142}.
 % 
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} URLs fixed in \refCom{vpythonfile}}
 %    \begin{macrocode}
 \newcommand*{\vpythonfile}{\catcode`\#=12 \vpythonfile@auxA}

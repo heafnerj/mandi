@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2021 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -63,7 +63,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \usedir{tex/latex/mandi}
 \preamble
 
- Copyright (C) 2021 by Paul J. Heafner <heafnerj@gmail.com>
+ Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
  ---------------------------------------------------------------------------
  This  work may be  distributed and/or modified  under the conditions of the 
  LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -363,8 +363,19 @@ The `vdemo.py` file is not needed and can be deleted.
 % expecially new users, will have a relatively recent TeX distribution 
 % (like TeX Live) that includes a recently updated \LaTeXe\ kernel. If users
 % report that this is a major problem, I can provide some degree of
-% backwards compatibility.
+% backwards compatibility. However, I use a fully updated TeX Live distribution.
 % 
+% \changes{v3.0.2}{2021-12-05}
+%   {\linktoplace{sec:mandipkg}{mandi} Added GitHub links to code}
+% \section{Code Availability}
+% The \mandi\ source repository's \texttt{main} branch is at 
+% \url{https://github.com/heafnerj/mandi}. This code will usually coincide
+% with that found on \href{https://ctan.org/pkg/mandi}{CTAN}. The very latest
+% build can be found on the \texttt{dev} branch found at
+% \url{https://github.com/heafnerj/mandi/tree/dev}. Students and other academic
+% academic users should probably get the \texttt{dev} branch code since it is
+% stable and may contain improvements over the \texttt{main} branch code.
+%
 % \newpage
 % \section{Student/Instructor Quick Guide}
 %
@@ -608,7 +619,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-11-24]{checkquantity}{\marg{name}}
+\begin{docCommand}[doc updated = 2021-12-05]{checkquantity}{\marg{name}}
   Command to check and typeset the command, base units, 
   derived units, and alternate units of a defined physical 
   quantity.
@@ -992,7 +1003,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \begin{docCommand}{linearmassdensity}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{linearmassdensity}
-\begin{docCommand}[doc new = 2021-11-24]{lorentzfactor}{\marg{magnitude}}
+\begin{docCommand}[doc new = 2021-12-05]{lorentzfactor}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{lorentzfactor}
 \begin{docCommand}[doc updated = 2021-05-02]{luminousintensity}{\marg{magnitude}}
@@ -1468,7 +1479,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-11-24]{checkconstant}{\marg{name}}
+\begin{docCommand}[doc updated = 2021-12-05]{checkconstant}{\marg{name}}
   Command to check and typeset the constant's name, mathematical symbol, 
   approximate value, precise value, base units, derived units, and 
   alternate units.
@@ -1939,7 +1950,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new = 2021-11-24,]{hbar}{}%
+\begin{docCommand}[doc new = 2021-12-05,]{hbar}{}%
   A better glyph for Planck's constant over \( 2\pi \).
 \end{docCommand}
 \begin{dispExample}
@@ -1980,7 +1991,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-11-24]{mivector}{%
+\begin{docCommand}[doc updated = 2021-12-05]{mivector}{%
     \oarg{delimiter}\marg{\( c_1,\dots,c_n \)}\oarg{units}
   }%
   Typesets a vector as either numeric or symbolic components with an 
@@ -2016,13 +2027,13 @@ The `vdemo.py` file is not needed and can be deleted.
 % |\makeatother|. This simplifies defining internal commands (with |@| 
 % in the name) that are not for the user to know about.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Code formatted for better readability}
 %    \begin{macrocode}
 \def\mandi@version{3.0.2}
-\def\mandi@date{2021-11-24}
+\def\mandi@date{2021-12-05}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.2}{2021-11-24}{mandi.sty}
+\DeclareRelease{v3.0.2}{2021-12-05}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
@@ -2043,7 +2054,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \RequirePackage{unicode-math}   % needed for Unicode support
 %    \end{macrocode}
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} \pkg{xparse} is loaded for older formats}
 %    \begin{macrocode}
 \IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
@@ -2124,7 +2135,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % First, define the keys. The key handlers require certain commands defined 
 % by the unit engine.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Unknown package options handled safely}
 %    \begin{macrocode}
 \newif\ifusingpreciseconstants
@@ -2204,7 +2215,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % \href{https://ctan.org/pkg/siunits}{\pkg{SIunits}} package. 
 % We make use of |\symup{...}| from the \pkg{unicode-math} package.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Added a negative space to \refCom{lightspeed}}
 %    \begin{macrocode}
 \NewDocumentCommand{\per}{}{/}
@@ -2255,7 +2266,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \NewDocumentCommand{\xtento}{ m }{\times\tento{#1}}
 %    \end{macrocode}
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} \LaTeX3 code now conforms to formatting standards}
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -2596,7 +2607,7 @@ The `vdemo.py` file is not needed and can be deleted.
   [\kilogram\per\meter]%
 %    \end{macrocode}
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Added \refCom{lorentzfactor}}
 %    \begin{macrocode}
 \newscalarquantity{lorentzfactor}%
@@ -2748,7 +2759,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %
 % We need a better glyph for Planck's constant over \( 2\pi \).
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Added \refCom{hbar}}
 %    \begin{macrocode}
 \AtBeginDocument{%
@@ -2764,7 +2775,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % Define physical constants for introductory physics, again alphabetically
 % for convenience.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Constants' values now use only \cs{times}}
 %    \begin{macrocode}
 \newphysicalconstant{avogadro}%
@@ -2971,9 +2982,9 @@ The `vdemo.py` file is not needed and can be deleted.
 % Diagnostic commands to provide sanity checks on commands that 
 % represent physical quantities and constants.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Improved \refCom{checkquantity}}
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} Improved \refCom{checkconstant}}
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -3014,7 +3025,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % \refCom{mivector} is a workhorse command.\newline
 % See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
-% \changes{v3.0.2}{2021-11-24}
+% \changes{v3.0.2}{2021-12-05}
 %   {\linktoplace{sec:mandipkg}{mandi} \refCom{mivector} now
 %     requires more than one component}
 %    \begin{macrocode}

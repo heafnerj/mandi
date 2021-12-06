@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to 
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 3.0.2 dev build as of 2021-11-24
+## 3.0.2 dev build as of 2021-12-05
 - Currently unreleased
 ### Fixed
 - `mandiexp`
@@ -20,6 +20,7 @@ and this project adheres to
 ### Added
 - `mandiexp`
 - `mandi`
+    - Added GitHub links to code
     - Added `\hbar`
     - Added `\lorentzfactor`
     - Added a negative space to `\lightspeed`
