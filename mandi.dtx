@@ -110,7 +110,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \Msg{*   3. makeindex -s gind.ist -o mandi.ind mandi.idx         *}
 \Msg{*   4. makeindex -s gglo.ist -o mandi.gls mandi.glo         *}
 \Msg{* Move the *.sty files into a directory searched by TeX.    *}
-\Msg{* The vdemo.py file is not needed and can be deleted.       *}
+\Msg{* The vdemo.py file can be deleted.                         *}
 \Msg{*                                                           *}
 \Msg{*************************************************************}
 %</install>
@@ -135,7 +135,14 @@ The `vdemo.py` file is not needed and can be deleted.
 %
 %<*driver>
 \ProvidesFile{mandi.dtx}
-\documentclass[10pt]{ltxdoc}
+% As of 2021-12-02 ltxdoc.cls picks up ltxdoc.cfg and sets
+% the default paper size to a4paper rather than letter. 
+% This can be changed in a local ltxdoc.cfg file but it is 
+% easier to just use the article class and the doc package 
+% instead and force letterpaper size.
+% \documentclass[10pt]{ltxdoc}
+\documentclass[10pt,letterpaper]{article}
+\usepackage{doc}
 \PassOptionsToPackage{listings,documentation}{tcolorbox} % prevent option clash
 \usepackage{\jobname}                                    % load mandi.sty
 \usepackage{mandistudent}                                % load mandistudent.sty
@@ -284,7 +291,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %   \centerline{\mandi\ version \mandiversion}
 %   \centerline{\mandistudent\ version \mandistudentversion}
 %   \centerline{\mandiexp\ version \mandiexpversion}
-%   \centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS BUILD.}}
+%   ^^A\centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS BUILD.}}
 % \restoregeometry
 %
 % \newgeometry{left=1.0in,right=1.0in,top=0.5in,bottom=1.0in}
@@ -365,7 +372,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % report that this is a major problem, I can provide some degree of
 % backwards compatibility. However, I use a fully updated TeX Live distribution.
 % 
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Added GitHub links to code}
 % \section{Code Availability}
 % The \mandi\ source repository's \texttt{main} branch is at 
@@ -437,7 +444,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\fi
 %
 % Use \refCom{mivector} to typeset symbolic vectors with components.
-% Use the aliases \refCom{direction} to typeset a direction or unit 
+% Use the alias \refCom{direction} to typeset a direction or unit 
 % vector.
 %\iffalse
 %<*example>
@@ -619,7 +626,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-12-05]{checkquantity}{\marg{name}}
+\begin{docCommand}[doc updated = 2022-01-27]{checkquantity}{\marg{name}}
   Command to check and typeset the command, base units, 
   derived units, and alternate units of a defined physical 
   quantity.
@@ -1003,7 +1010,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \begin{docCommand}{linearmassdensity}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{linearmassdensity}
-\begin{docCommand}[doc new = 2021-12-05]{lorentzfactor}{\marg{magnitude}}
+\begin{docCommand}[doc new = 2022-01-27]{lorentzfactor}{\marg{magnitude}}
 \end{docCommand}
 \checkquantity{lorentzfactor}
 \begin{docCommand}[doc updated = 2021-05-02]{luminousintensity}{\marg{magnitude}}
@@ -1479,7 +1486,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-12-05]{checkconstant}{\marg{name}}
+\begin{docCommand}[doc updated = 2022-01-27]{checkconstant}{\marg{name}}
   Command to check and typeset the constant's name, mathematical symbol, 
   approximate value, precise value, base units, derived units, and 
   alternate units.
@@ -1950,7 +1957,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new = 2021-12-05,]{hbar}{}%
+\begin{docCommand}[doc new = 2022-01-27,]{hbar}{}%
   A better glyph for Planck's constant over \( 2\pi \).
 \end{docCommand}
 \begin{dispExample}
@@ -1991,7 +1998,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-12-05]{mivector}{%
+\begin{docCommand}[doc updated = 2022-01-27]{mivector}{%
     \oarg{delimiter}\marg{\( c_1,\dots,c_n \)}\oarg{units}
   }%
   Typesets a vector as either numeric or symbolic components with an 
@@ -2027,13 +2034,13 @@ The `vdemo.py` file is not needed and can be deleted.
 % |\makeatother|. This simplifies defining internal commands (with |@| 
 % in the name) that are not for the user to know about.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Code formatted for better readability}
 %    \begin{macrocode}
-\def\mandi@version{3.0.2}
-\def\mandi@date{2021-12-05}
+\def\mandi@version{3.1.0}
+\def\mandi@date{2022-01-27}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.2}{2021-12-05}{mandi.sty}
+\DeclareRelease{v3.1.0}{2022-01-27}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
@@ -2054,7 +2061,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \RequirePackage{unicode-math}   % needed for Unicode support
 %    \end{macrocode}
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} \pkg{xparse} is loaded for older formats}
 %    \begin{macrocode}
 \IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
@@ -2135,7 +2142,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % First, define the keys. The key handlers require certain commands defined 
 % by the unit engine.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Unknown package options handled safely}
 %    \begin{macrocode}
 \newif\ifusingpreciseconstants
@@ -2215,7 +2222,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % \href{https://ctan.org/pkg/siunits}{\pkg{SIunits}} package. 
 % We make use of |\symup{...}| from the \pkg{unicode-math} package.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Added a negative space to \refCom{lightspeed}}
 %    \begin{macrocode}
 \NewDocumentCommand{\per}{}{/}
@@ -2266,7 +2273,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \NewDocumentCommand{\xtento}{ m }{\times\tento{#1}}
 %    \end{macrocode}
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} \LaTeX3 code now conforms to formatting standards}
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -2607,7 +2614,7 @@ The `vdemo.py` file is not needed and can be deleted.
   [\kilogram\per\meter]%
 %    \end{macrocode}
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Added \refCom{lorentzfactor}}
 %    \begin{macrocode}
 \newscalarquantity{lorentzfactor}%
@@ -2759,7 +2766,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %
 % We need a better glyph for Planck's constant over \( 2\pi \).
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Added \refCom{hbar}}
 %    \begin{macrocode}
 \AtBeginDocument{%
@@ -2775,7 +2782,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % Define physical constants for introductory physics, again alphabetically
 % for convenience.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Constants' values now use only \cs{times}}
 %    \begin{macrocode}
 \newphysicalconstant{avogadro}%
@@ -2982,9 +2989,9 @@ The `vdemo.py` file is not needed and can be deleted.
 % Diagnostic commands to provide sanity checks on commands that 
 % represent physical quantities and constants.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Improved \refCom{checkquantity}}
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} Improved \refCom{checkconstant}}
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -3025,7 +3032,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % \refCom{mivector} is a workhorse command.\newline
 % See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandipkg}{mandi} \refCom{mivector} now
 %     requires more than one component}
 %    \begin{macrocode}

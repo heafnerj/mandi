@@ -111,7 +111,7 @@ while t < 10:
 %</driver>
 % \fi
 %
-% \CheckSum{722}
+% \CheckSum{745}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -492,7 +492,7 @@ while t < 10:
   begin on a new page. See the examples for how to handle single and 
   multiple part problems.
 \end{docEnvironments}
-\begin{docCommand}[doc new = 2012-02-03]{problempart}{}
+\begin{docCommand}[doc new = 2021-02-03]{problempart}{}
   Denotes a part of a problem within a \refEnv{parts}
   environment.
 \end{docCommand}
@@ -567,7 +567,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2012-02-26]{reason}{\marg{reason}}
+\begin{docCommand}[doc updated = 2021-02-26]{reason}{\marg{reason}}
   Provides an annotation in a step-by-step solution.
   Keep reasons short and to the point. Wrap mathematical
   content in math mode. 
@@ -879,11 +879,14 @@ while t < 10:
 %</example>
 %\fi
 %
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \cs{diff} renamed to 
+%    \refCom{df} for compatibility with the \pkg{numerica} package}
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new = 2021-04-06]{diff}{}%
-  Intelligent differential (exterior derivative)
+\begin{docCommand}[doc updated = 2022-01-27]{df}{}%
+  Intelligent differential and exterior derivative
   operator.
 \end{docCommand}
 \begin{dispExample}
@@ -891,17 +894,17 @@ while t < 10:
    \int x\,dx 
  \]
  \[
-   \int x\,\diff{x}
+   \int x\,\df{x}
  \]
  \[
-   \int x\,\diff*{x} 
+   \int x\,\df*{x} 
  \]
 \end{dispExample}
 %\iffalse
 %</example>
 %\fi
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} All instances of 
 %    \texttt{GlowScript} have been changed to \texttt{Web VPython}}
 % \subsection{\WebVPython\ and \VPython\ Program Listings}
@@ -922,11 +925,22 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docEnvironment}[%
-      doc updated = 2021-09-18,%
-      doclang/environment content=WebVPython code%
-    ]%
-  {webvpythonblock}{\oarg{options}(\meta{link})\marg{caption}}
+\begin{docEnvironments}[%
+    doc parameter = {\oarg{options}(\meta{link})\marg{caption}},% 
+    doclang/environment content=WebVPython code,%
+  ]%
+  {%
+    {%
+      doc updated = 2022-01-27,%
+      doc name = webvpythonblock,%    
+      doc description = now includes a QR code,%
+    },%
+    {%
+      doc new = 2022-01-27,%
+      doc name = webvpythonblock*,%
+      doc description = use this variant to omit QR code,%
+    },%
+  }%
   Code placed here is nicely formatted and optionally linked to its source on 
   \href{https://\gsurl}{\WebVPythonorg}, which must be in a public (not private)
   folder. Clicking anywhere in the code window will open the link in the default 
@@ -934,10 +948,11 @@ while t < 10:
   listing always begins on a new page. A URL shortening utility is recommended 
   to keep the URL from getting unruly. For convenience, |https://| is 
   automatically prepended to the URL and can thus be omitted. The |#| character 
-  in a URL should not cause problems. 
-\end{docEnvironment}
+  in a URL should not cause problems. The default URL is that of the \WebVPython\ 
+  home page.
+\end{docEnvironments}
 \begin{dispListing*}{sidebyside = false}
-\begin{webvpythonblock}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program}
+\begin{webvpythonblock}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program With QR Code}
 GlowScript 3.0 vpython
 
 scene.width = 400
@@ -983,7 +998,7 @@ while t < 10:
     t = t + deltat
 \end{webvpythonblock}
 \end{dispListing*}
-\begin{webvpythonblock}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program}
+\begin{webvpythonblock}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program With QR Code}
 GlowScript 3.0 vpython
 
 scene.width = 400
@@ -1028,9 +1043,14 @@ while t < 10:
     spring.axis = ball.pos - ceiling.pos
     t = t + deltat
 \end{webvpythonblock}
+%  
 %\iffalse
 %</example>
 %\fi
+%
+% \newpage
+% Here is how one would reference this program elsewhere. Notice the 
+% references are numbered sequentially within the document.
 %
 %\iffalse
 %<*example>
@@ -1038,6 +1058,111 @@ while t < 10:
 \begin{dispExample*}{sidebyside = false}
   \WebVPython\ program \ref{gs:1} is nice. 
   It's called \nameref{gs:1} and is on page \pageref{gs:1}.
+\end{dispExample*}
+%\iffalse
+%</example>
+%\fi
+%
+% \newpage
+%
+%\iffalse
+%<*example>
+%\fi
+\begin{dispListing*}{sidebyside = false}
+\begin{webvpythonblock*}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program Without QR Code}
+GlowScript 3.0 vpython
+
+scene.width = 400
+scene.height = 760
+# constants and data
+g = 9.8       # m/s^2
+mball = 0.03  # kg
+Lo = 0.26     # m
+ks = 1.8      # N/m
+deltat = 0.01 # s
+
+# objects (origin is at ceiling)
+ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
+              width=0.2)
+ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
+              color=color.orange)
+spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
+               color=color.cyan,thickness=0.003,coils=40,
+               radius=0.010)
+
+# initial values
+pball = mball * vector(0,0,0)      # kg m/s
+Fgrav = mball * g * vector(0,-1,0) # N
+t = 0
+
+# improve the display
+scene.autoscale = False        # turn off automatic camera zoom
+scene.center = vector(0,-Lo,0) # move camera down
+scene.waitfor('click')         # wait for a mouse click
+
+# initial calculation loop
+# calculation loop
+while t < 10:
+    rate(100)
+    # we need the stretch
+    s = mag(ball.pos) - Lo
+    # we need the spring force
+    Fspring = ks * s * -norm(spring.axis)
+    Fnet = Fgrav + Fspring
+    pball = pball + Fnet * deltat
+    ball.pos = ball.pos + (pball / mball) * deltat
+    spring.axis = ball.pos - ceiling.pos
+    t = t + deltat
+\end{webvpythonblock*}
+\end{dispListing*}
+\begin{webvpythonblock*}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program Without QR Code}
+GlowScript 3.0 vpython
+
+scene.width = 400
+scene.height = 760
+# constants and data
+g = 9.8       # m/s^2
+mball = 0.03  # kg
+Lo = 0.26     # m
+ks = 1.8      # N/m
+deltat = 0.01 # s
+
+# objects (origin is at ceiling)
+ceiling = box(pos=vector(0,0,0), length=0.2, height=0.01, 
+              width=0.2)
+ball = sphere(pos=vector(0,-0.3,0),radius=0.025,
+              color=color.orange)
+spring = helix(pos=ceiling.pos, axis=ball.pos-ceiling.pos,
+               color=color.cyan,thickness=0.003,coils=40,
+               radius=0.010)
+
+# initial values
+pball = mball * vector(0,0,0)      # kg m/s
+Fgrav = mball * g * vector(0,-1,0) # N
+t = 0
+
+# improve the display
+scene.autoscale = False        # turn off automatic camera zoom
+scene.center = vector(0,-Lo,0) # move camera down
+scene.waitfor('click')         # wait for a mouse click
+
+# initial calculation loop
+# calculation loop
+while t < 10:
+    rate(100)
+    # we need the stretch
+    s = mag(ball.pos) - Lo
+    # we need the spring force
+    Fspring = ks * s * -norm(spring.axis)
+    Fnet = Fgrav + Fspring
+    pball = pball + Fnet * deltat
+    ball.pos = ball.pos + (pball / mball) * deltat
+    spring.axis = ball.pos - ceiling.pos
+    t = t + deltat
+\end{webvpythonblock*}
+\begin{dispExample*}{sidebyside = false}
+  \WebVPython\ program \ref{gs:2} is nice. 
+  It's called \nameref{gs:2} and is on page \pageref{gs:2}.
 \end{dispExample*}
 %  
 %\iffalse
@@ -1049,7 +1174,7 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2021-09-17]{vpythonfile}
+\begin{docCommand}[doc updated = 2022-01-27]{vpythonfile}
   {\oarg{options}(\meta{link})\marg{file}\marg{caption}}
   Command to load and typeset a \VPython\ program, read from local file
   \marg{file}. Clicking anywhere in the code window can optionally open 
@@ -1057,7 +1182,7 @@ while t < 10:
   and a label is internally generated. The listing always begins on a new page. 
   A URL shortening utility is recommended to keep the URL from getting unruly. 
   For convenience, |https://| is automatically prepended to the URL and can 
-  thus be omitted.
+  thus be omitted. The default URL is that of the \VPython\ home page.
 \end{docCommand}
 \begin{dispListing*}{sidebyside = false}
 \vpythonfile{vdemo.py}{A \VPython\ Program}
@@ -1122,15 +1247,15 @@ while t < 10:
 % |\makeatother|. This simplifies defining internal commands, with |@| 
 % in the name, that are not for the user to know about.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} Version number works}
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} Code formatted for better readability}
 %    \begin{macrocode}
-\def\mandistudent@version{3.0.2}
-\def\mandistudent@date{2021-12-05}
+\def\mandistudent@version{3.1.0}
+\def\mandistudent@date{2022-01-27}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.2}{2021-12-05}{mandistudent.sty}
+\DeclareRelease{v3.1.0}{2022-01-27}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
@@ -1155,6 +1280,8 @@ while t < 10:
 \RequirePackage{mandi}
 \RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
 \RequirePackage{nicematrix}          % needed for column and row vectors
+\RequirePackage{qrcode}              % needed for QR codes in webvpythonblock
+\qrset{height=1.5cm}                 % set default size of QR code
 \RequirePackage[most]{tcolorbox}     % needed for program listings
 \RequirePackage{tensor}              % needed for index notation
 \RequirePackage{tikz}                % needed for \hilite
@@ -1163,7 +1290,7 @@ while t < 10:
 %    \end{macrocode}
 %
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \pkg{xparse} is loaded for older formats}
 %    \begin{macrocode}
 \IfFormatAtLeastTF {2020-10-01}      % load xparse if necessary
@@ -1351,7 +1478,7 @@ while t < 10:
 % See \url{https://tex.stackexchange.com/q/554706/218142}.\newline
 % See also \url{https://tex.stackexchange.com/a/531037/218142}.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refCom{vec}%
 %    no longer adds \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
@@ -1385,7 +1512,7 @@ while t < 10:
 % package.\newline
 % See \url{https://tex.stackexchange.com/a/391204/218142}.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refCom{dirvec}%
 %    no longer adds \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
@@ -1427,7 +1554,7 @@ while t < 10:
 % Notation for column and row vectors.\newline
 % See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} \LaTeX3 code now conforms to formatting standards}
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -1577,7 +1704,7 @@ while t < 10:
 % A simplified command for importing images.\newline
 % See \url{https://tex.stackexchange.com/a/614478/218142}.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} Slightly modified \refCom{image}}
 %    \begin{macrocode}
 \NewDocumentCommand{\image}{ O{scale=1} m m m }%
@@ -1686,7 +1813,7 @@ while t < 10:
 % Intelligent differential (exterior derivative) operator.
 %
 %    \begin{macrocode}
-\NewDocumentCommand{\diff}{ s }%
+\NewDocumentCommand{\df}{ s }%
   {%
     \mathop{}\!%
     \IfBooleanTF{#1}%
@@ -1787,8 +1914,11 @@ while t < 10:
 % Introduce a new, more intelligent \refEnv{webvpythonblock} environment.\newline
 % See \url{https://tex.stackexchange.com/a/232208/218142}.
 %
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} URLs fixed in \refEnv{webvpythonblock}}
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refEnv{webvpythonblock} now automatically
+%    generates QR codes for program listings}
 %    \begin{macrocode}
 \AtBeginEnvironment{webvpythonblock}{\catcode`\#=12}
 \AtEndEnvironment{webvpythonblock}{\catcode`\#=6}
@@ -1806,10 +1936,44 @@ while t < 10:
     listing only,%
     listing style = vpython,%
     nameref = {#3},%
-    title = \texttt{Web VPython} Program \thetcbcounter: #3,%
+    title = \begin{minipage}{1.5cm}%
+              \protect\qrcode*{https://#2}%
+            \end{minipage}\hspace{5mm}%
+            \begin{minipage}{0.7\textwidth}%
+              \texttt{Web VPython} Program \thetcbcounter: #3%
+            \end{minipage},%
     width = 0.9\textwidth,%
     {#1},
   }%
+%    \end{macrocode}
+%
+% Here is a variant that omits the QR code.
+%
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refEnv{webvpythonblock*} is a variant
+%    of \refEnv{webvpythonblock} that omits the QR code}
+%    \begin{macrocode}
+\AtBeginEnvironment{webvpythonblock*}{\catcode`\#=12}
+\AtEndEnvironment{webvpythonblock*}{\catcode`\#=6}
+\NewTCBListing[use counter from=webvpythonblock,list inside=gsprogs]
+  {webvpythonblock*}{ O{} D(){webvpython.org} m }%
+    {%
+      breakable,%
+      center,%
+      code = \newpage,%
+      %derivpeach,%
+      enhanced,%
+      hyperurl interior = https://#2,%
+      label = {gs:\thetcbcounter},%
+      left = 8mm,%
+      list entry = \thetcbcounter~~~~~#3,%
+      listing only,%
+      listing style = vpython,%
+      nameref = {#3},%
+      title =   \texttt{Web VPython} Program \thetcbcounter: #3,%
+      width = 0.9\textwidth,%
+      {#1},
+    }%
 %    \end{macrocode}
 %
 % A new command for generating a list of \WebVPython\ programs.
@@ -1824,34 +1988,38 @@ while t < 10:
 % Introduce a new, more intelligent \refCom{vpythonfile} command.\newline
 % See \url{https://tex.stackexchange.com/q/616205/218142}.
 % 
-% \changes{v3.0.2}{2021-12-05}
+% \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandistudentpkg}{mandistudent} URLs fixed in \refCom{vpythonfile}}
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandistudentpkg}{mandistudent} Default URL for \refCom{vpythonfile}
+%    is now \vpurl}
 %    \begin{macrocode}
 \newcommand*{\vpythonfile}{\catcode`\#=12 \vpythonfile@auxA}
-\NewDocumentCommand{\vpythonfile@auxA}{ O{} D(){webvpython.org} m m }%
+\NewDocumentCommand{\vpythonfile@auxA}{ O{} D(){vpython.org} m m }%
   {%
     \vpythonfile@auxB[#1](#2){#3}{#4}%
     \catcode`\#=6
   }%
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile@auxB}{ O{} D(){vpython.org} m m }%
-  {%
-    breakable,%
-    center,%
-    code = \newpage,%
-    %derivgray,%
-    enhanced,%
-    hyperurl interior = https://#2,%
-    label = {vp:\thetcbcounter},%
-    left = 8mm,%
-    list entry = \thetcbcounter~~~~~#4,%
-    listing file = {#3},%
-    listing only,%
-    listing style = vpython,%
-    nameref = {#4},%
-    title = \texttt{VPython} Program \thetcbcounter: #4,%
-    width = 0.9\textwidth,%
-    {#1},%
-  }%
+\NewTCBInputListing[auto counter,list inside=vpprogs]
+  {\vpythonfile@auxB}{ O{} D(){vpython.org} m m }%
+    {%
+      breakable,%
+      center,%
+      code = \newpage,%
+      %derivgray,%
+      enhanced,%
+      hyperurl interior = https://#2,%
+      label = {vp:\thetcbcounter},%
+      left = 8mm,%
+      list entry = \thetcbcounter~~~~~#4,%
+      listing file = {#3},%
+      listing only,%
+      listing style = vpython,%
+      nameref = {#4},%
+      title = \texttt{VPython} Program \thetcbcounter: #4,%
+      width = 0.9\textwidth,%
+      {#1},%
+    }%
 %    \end{macrocode}
 %
 %  A new command for generating a list of \VPython\ programs.

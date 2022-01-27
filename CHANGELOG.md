@@ -5,17 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to 
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 3.0.2 dev build as of 2021-12-05
-- Currently unreleased
+## 3.1.0 released 2022-01-27
+- Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
 ### Fixed
 - `mandiexp`
     - Version number works
 - `mandi`
     - `\mivector` now requires more than one component
 - `mandistudent`
-    - Version number works
     - URLs fixed in `\vpythonfile`
     - URLs fixed in `webvpythonblock`
+    - Version number works
+    - `\dirvec` no longer adds `\scriptspace` when no sub/superscript is given
+    - `\vec` no longer adds `\scriptspace` when no sub/superscript is given
 
 ### Added
 - `mandiexp`
@@ -25,32 +27,36 @@ and this project adheres to
     - Added `\lorentzfactor`
     - Added a negative space to `\lightspeed`
 - `mandistudent`
-
+    - Default URL for `\vpythonfile` is now [vpython.org](https://vpython.org)
+    - `webvpythonblock` now automatically generates QR codes for program
+       listings
+    - `webvpythonblock*` is a variant of `\webvpythonblock` that omits the
+      QR code
+		
 ### Changed
 - `mandiexp`
     - Code formatted for better readability
     - `xparse` is loaded for older formats
 - `mandi`
     - Code formatted for better readability
-    - `xparse` is loaded for older formats
-    - `LaTeX3` code now conforms to formatting standards
     - Constants' values now only use `\times`
     - Improved `\checkconstant`
     - Improved `\checkquantity`
     - Unknown package options handled safely
-- `mandistudent`
-    - Code formatted for better readability
-    - `xparse` is loaded for older formats
-    - All instances of `GlowScript` have been changed to `Web VPython`
     - `LaTeX3` code now conforms to formatting standards
+    - `xparse` is loaded for older formats
+- `mandistudent`
+    - All instances of `GlowScript` have been changed to `Web VPython`
+    - Code formatted for better readability
     - Slightly modified `\image`
-    - `\dirvec` no longer adds `\scriptspace` when no sub/superscript is given
-    - `\vec` no longer adds `\scriptspace` when no sub/superscript is given
+    - `LaTeX3` code now conforms to formatting standards
+    - `\diff` renamed to `\df` for compatibility with the `numerica` package
+    - `xparse` is loaded for older formats
 
 ## 3.0.1 released 2021-08-24
-### Changed
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi) but no longer shows up
   there for some reason despite doing so initially
+### Changed
 - `mandiexp` 
     - Minor doc changes
 - `mandi` 
@@ -59,8 +65,8 @@ and this project adheres to
     - Minor doc changes
 
 ## 3.0.0 released 2021-08-22
-### New
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
+### New
 - `mandiexp` 
     - Initial release
 - `mandi` 

@@ -32,10 +32,10 @@
 %%                                  vdemo.py (not needed)
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandistudent@version{3.0.2}
-\def\mandistudent@date{2021-12-05}
+\def\mandistudent@version{3.1.0}
+\def\mandistudent@date{2022-01-27}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.2}{2021-12-05}{mandistudent.sty}
+\DeclareRelease{v3.1.0}{2022-01-27}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
@@ -50,6 +50,8 @@
 \RequirePackage{mandi}
 \RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
 \RequirePackage{nicematrix}          % needed for column and row vectors
+\RequirePackage{qrcode}              % needed for QR codes in webvpythonblock
+\qrset{height=1.5cm}                 % set default size of QR code
 \RequirePackage[most]{tcolorbox}     % needed for program listings
 \RequirePackage{tensor}              % needed for index notation
 \RequirePackage{tikz}                % needed for \hilite
@@ -383,7 +385,7 @@
         }%
     }%
   }%
-\NewDocumentCommand{\diff}{ s }%
+\NewDocumentCommand{\df}{ s }%
   {%
     \mathop{}\!%
     \IfBooleanTF{#1}%
@@ -480,39 +482,66 @@
     listing only,%
     listing style = vpython,%
     nameref = {#3},%
-    title = \texttt{Web VPython} Program \thetcbcounter: #3,%
+    title = \begin{minipage}{1.5cm}%
+              \protect\qrcode*{https://#2}%
+            \end{minipage}\hspace{5mm}%
+            \begin{minipage}{0.7\textwidth}%
+              \texttt{Web VPython} Program \thetcbcounter: #3%
+            \end{minipage},%
     width = 0.9\textwidth,%
     {#1},
   }%
+\AtBeginEnvironment{webvpythonblock*}{\catcode`\#=12}
+\AtEndEnvironment{webvpythonblock*}{\catcode`\#=6}
+\NewTCBListing[use counter from=webvpythonblock,list inside=gsprogs]
+  {webvpythonblock*}{ O{} D(){webvpython.org} m }%
+    {%
+      breakable,%
+      center,%
+      code = \newpage,%
+      %derivpeach,%
+      enhanced,%
+      hyperurl interior = https://#2,%
+      label = {gs:\thetcbcounter},%
+      left = 8mm,%
+      list entry = \thetcbcounter~~~~~#3,%
+      listing only,%
+      listing style = vpython,%
+      nameref = {#3},%
+      title =   \texttt{Web VPython} Program \thetcbcounter: #3,%
+      width = 0.9\textwidth,%
+      {#1},
+    }%
 \NewDocumentCommand{\listofwebvpythonprograms}{}%
   {%
     \tcblistof[\section*]{gsprogs}{List of \texttt{Web VPython} Programs}%
   }%
 \newcommand*{\vpythonfile}{\catcode`\#=12 \vpythonfile@auxA}
-\NewDocumentCommand{\vpythonfile@auxA}{ O{} D(){webvpython.org} m m }%
+\NewDocumentCommand{\vpythonfile@auxA}{ O{} D(){vpython.org} m m }%
   {%
     \vpythonfile@auxB[#1](#2){#3}{#4}%
     \catcode`\#=6
   }%
-\NewTCBInputListing[auto counter,list inside=vpprogs]{\vpythonfile@auxB}{ O{} D(){vpython.org} m m }%
-  {%
-    breakable,%
-    center,%
-    code = \newpage,%
-    %derivgray,%
-    enhanced,%
-    hyperurl interior = https://#2,%
-    label = {vp:\thetcbcounter},%
-    left = 8mm,%
-    list entry = \thetcbcounter~~~~~#4,%
-    listing file = {#3},%
-    listing only,%
-    listing style = vpython,%
-    nameref = {#4},%
-    title = \texttt{VPython} Program \thetcbcounter: #4,%
-    width = 0.9\textwidth,%
-    {#1},%
-  }%
+\NewTCBInputListing[auto counter,list inside=vpprogs]
+  {\vpythonfile@auxB}{ O{} D(){vpython.org} m m }%
+    {%
+      breakable,%
+      center,%
+      code = \newpage,%
+      %derivgray,%
+      enhanced,%
+      hyperurl interior = https://#2,%
+      label = {vp:\thetcbcounter},%
+      left = 8mm,%
+      list entry = \thetcbcounter~~~~~#4,%
+      listing file = {#3},%
+      listing only,%
+      listing style = vpython,%
+      nameref = {#4},%
+      title = \texttt{VPython} Program \thetcbcounter: #4,%
+      width = 0.9\textwidth,%
+      {#1},%
+    }%
 \NewDocumentCommand{\listofvpythonprograms}{}%
   {%
     \tcblistof[\section*]{vpprogs}{List of \texttt{VPython} Programs}%
