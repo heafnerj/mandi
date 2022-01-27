@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2021 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -65,7 +65,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{215}
+% \CheckSum{225}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -104,7 +104,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{dispListing*}{sidebyside=false,listing only}
+\begin{dispListing*}{sidebyside = false,listing only}
   \usepackage{mandiexp}
 \end{dispListing*}
 %\iffalse
@@ -117,7 +117,7 @@
 \begin{docCommand}{mandiexpversion}{}
   Typesets the current version and build date.
 \end{docCommand}
-\begin{dispExample*}{sidebyside=false}
+\begin{dispExample*}{sidebyside = false}
   The version is \mandiexpversion\ and is a stable build.
 \end{dispExample*}
 %\iffalse
@@ -313,7 +313,7 @@
       doc description = {update form, arrow vectors},%
     },%
   }%
-  Variants of command for typesetting the angularmomentum principle.
+  Variants of command for typesetting the angular momentum principle.
   Use starred variants to get arrow notation for vectors.
 \end{docCommands}
 \begin{dispExample}
@@ -339,10 +339,10 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{energyof}{\marg{label}\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{energyof}{\marg{label}\oarg{label}}
     Generic symbol for the energy of some entity.
 \end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
+\begin{dispExample*}{lefthand ratio = 0.6}
   \( \energyof{\symup{electron}} \) \\
   \( \energyof{\symup{electron}}[\symup{final}] \)
 \end{dispExample*}
@@ -353,7 +353,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{systemenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{systemenergy}{\oarg{label}}
     Symbol for system energy.
 \end{docCommand}
 \begin{dispExample}
@@ -367,7 +367,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{particleenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{particleenergy}{\oarg{label}}
     Symbol for particle energy.
 \end{docCommand}
 \begin{dispExample}
@@ -381,7 +381,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{restenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{restenergy}{\oarg{label}}
     Symbol for rest energy.
 \end{docCommand}
 \begin{dispExample}
@@ -395,7 +395,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{internalenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{internalenergy}{\oarg{label}}
     Symbol for internal energy.
 \end{docCommand}
 \begin{dispExample}
@@ -409,7 +409,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{chemicalenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{chemicalenergy}{\oarg{label}}
     Symbol for chemical energy.
 \end{docCommand}
 \begin{dispExample}
@@ -423,7 +423,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{thermalenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{thermalenergy}{\oarg{label}}
     Symbol for thermal energy.
 \end{docCommand}
 \begin{dispExample}
@@ -437,7 +437,7 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{photonenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{photonenergy}{\oarg{label}}
     Symbol for photon energy.
 \end{docCommand}
 \begin{dispExample}
@@ -452,7 +452,7 @@
 %<*example>
 %\fi
 \begin{docCommands}[%
-  doc new=2021-02-13,%
+  doc new = 2021-02-13,%
   doc parameter = \oarg{label},%
   ]%
   {%
@@ -466,7 +466,7 @@
   Symbol for translational kinetic energy.
   The starred variant gives \(E\) notation.
 \end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.6}
+\begin{dispExample*}{lefthand ratio = 0.6}
   \( \translationalkineticenergy \)                  \\
   \( \translationalkineticenergy[\symup{initial}] \) \\
   \( \translationalkineticenergy* \)                 \\
@@ -480,7 +480,7 @@
 %<*example>
 %\fi
 \begin{docCommands}[%
-  doc new=2021-02-13,%
+  doc new = 2021-02-13,%
   doc parameter = \oarg{label},%
   ]%
   {%
@@ -494,7 +494,7 @@
   Symbol for rotational kinetic energy.
   The starred variant gives \(E\) notation.
 \end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.6}
+\begin{dispExample*}{lefthand ratio = 0.6}
   \( \rotationalkineticenergy \)                  \\
   \( \rotationalkineticenergy[\symup{initial}] \) \\
   \( \rotationalkineticenergy* \)                 \\
@@ -508,7 +508,7 @@
 %<*example>
 %\fi
 \begin{docCommands}[%
-  doc new=2021-02-13,%
+  doc new = 2021-02-13,%
   doc parameter = \oarg{label},%
   ]%
   {%
@@ -522,7 +522,7 @@
   Symbol for vibrational kinetic energy.
   The starred variant gives \(E\) notation.
 \end{docCommands}
-\begin{dispExample*}{lefthand ratio=0.6}
+\begin{dispExample*}{lefthand ratio = 0.6}
   \( \vibrationalkineticenergy \)                  \\
   \( \vibrationalkineticenergy[\symup{initial}] \) \\
   \( \vibrationalkineticenergy* \)                 \\
@@ -535,11 +535,11 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{gravitationalpotentialenergy}
+\begin{docCommand}[doc new = 2021-02-13]{gravitationalpotentialenergy}
   {\oarg{label}}
     Symbol for gravitational potential energy.
 \end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
+\begin{dispExample*}{lefthand ratio = 0.6}
   \( \gravitationalpotentialenergy \) \\
   \( \gravitationalpotentialenergy[\symup{final}] \)
 \end{dispExample*}
@@ -550,10 +550,10 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{electricpotentialenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{electricpotentialenergy}{\oarg{label}}
     Symbol for electric potential energy.
 \end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
+\begin{dispExample*}{lefthand ratio = 0.6}
   \( \electricpotentialenergy \) \\
   \( \electricpotentialenergy[\symup{final}] \)
 \end{dispExample*}
@@ -564,10 +564,10 @@
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new=2021-02-13]{springpotentialenergy}{\oarg{label}}
+\begin{docCommand}[doc new = 2021-02-13]{springpotentialenergy}{\oarg{label}}
     Symbol for spring potential energy.
 \end{docCommand}
-\begin{dispExample*}{lefthand ratio=0.6}
+\begin{dispExample*}{lefthand ratio = 0.6}
   \( \springpotentialenergy \) \\
   \( \springpotentialenergy[\symup{final}] \)
 \end{dispExample*}
@@ -588,12 +588,16 @@
 % |\makeatother|. This simplifies defining internal commands, with |@| 
 % in the name, that are not for the user to know about.
 %
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandiexppkg}{mandiexp} Version number works}
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandiexppkg}{mandiexp} Code formatted for better readability}
 %    \begin{macrocode}
-\def\mandiexp@version{\mandi@version}
-\def\mandiexp@date{\mandi@date}
+\def\mandiexp@version{3.1.0}
+\def\mandiexp@date{2022-01-27}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.0.1}{2021-08-24}{mandiexp.sty}
-\DeclareCurrentRelease{v\mandi@version}{\mandi@date}
+\DeclareRelease{v3.1.0}{2022-01-27}{mandiexp.sty}
+\DeclareCurrentRelease{v\mandiexp@version}{\mandiexp@date}
 \ProvidesPackage{mandiexp}
   [\mandiexp@date\space v\mandiexp@version\space Macros for Matter & Interactions]
 %    \end{macrocode}
@@ -606,7 +610,17 @@
 %
 %    \begin{macrocode}
 \RequirePackage{mandi}
+%    \end{macrocode}
 %
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandiexppkg}{mandiexp} \pkg{xparse} is loaded for older formats}
+%    \begin{macrocode}
+\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+  {}%
+  {\RequirePackage{xparse}}%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \typeout{}%
 \typeout{mandiexp: You are using mandiexp \mandiexpversion.}
 \typeout{mandiexp: This package requires LuaLaTeX.}%
@@ -614,168 +628,301 @@
 %
 % Commands specific to Matter & Interactions
 % The momentum principle
-\NewDocumentCommand{\lhsmomentumprinciple}{ s }{%
-  \Delta
-  \IfBooleanTF{#1}%
-    {\vec*{p}}%
-    {\vec{p}}%
-  _{\symup{sys}}%
-}%
-\NewDocumentCommand{\rhsmomentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{F}}%
-    {\vec{F}}%
-  _{\symup{sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\lhsmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{p}}%
-    {\vec{p}}%
-  _{\symup{sys,final}}%
-}%
-\NewDocumentCommand{\rhsmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{p}}%
-    {\vec{p}}%
-  _{\symup{sys,initial}}+%
-  \IfBooleanTF{#1}%
-    {\vec*{F}}%
-    {\vec{F}}%
-  _{\symup{sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\momentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsmomentumprinciple* = \rhsmomentumprinciple*}%
-    {\lhsmomentumprinciple = \rhsmomentumprinciple}%
-}%
-\NewDocumentCommand{\momentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsmomentumprincipleupdate* = \rhsmomentumprincipleupdate*}%
-    {\lhsmomentumprincipleupdate = \rhsmomentumprincipleupdate}%
-}%
+\NewDocumentCommand{\lhsmomentumprinciple}{ s }%
+  {%
+    \Delta
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{p}
+      }%
+      {%
+        \vec{p}%
+      }%
+    \sb{\symup{sys}}%
+  }%
+\NewDocumentCommand{\rhsmomentumprinciple}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{F}%
+      }%
+      {%
+        \vec{F}%
+      }%
+    \sb{\symup{sys,net}}\,\Delta t%
+  }%
+\NewDocumentCommand{\lhsmomentumprincipleupdate}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{p}%
+      }%
+      {%
+        \vec{p}%
+      }%
+    \sb{\symup{sys,final}}%
+  }%
+\NewDocumentCommand{\rhsmomentumprincipleupdate}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{p}%
+      }%
+      {%
+        \vec{p}%
+      }%
+    \sb{\symup{sys,initial}}+%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{F}%
+      }%
+      {%
+        \vec{F}%
+      }%
+    \sb{\symup{sys,net}}\,\Delta t%
+  }%
+\NewDocumentCommand{\momentumprinciple}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \lhsmomentumprinciple* = \rhsmomentumprinciple*%
+      }%
+      {%
+        \lhsmomentumprinciple = \rhsmomentumprinciple%
+      }%
+  }%
+\NewDocumentCommand{\momentumprincipleupdate}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \lhsmomentumprincipleupdate* = \rhsmomentumprincipleupdate*%
+      }%
+      {%
+        \lhsmomentumprincipleupdate = \rhsmomentumprincipleupdate%
+      }%
+  }%
 % The momentum principle
-\NewDocumentCommand{\lhsenergyprinciple}{}{%
-  \Delta E_{\symup{sys}}%
-}%
-\NewDocumentCommand{\rhsenergyprinciple}{ O{} }{%
-  W_{\symup{ext}}#1%
-}%
-\NewDocumentCommand{\lhsenergyprincipleupdate}{}{%
-  E_{\symup{sys,final}}%
-}%
-\NewDocumentCommand{\rhsenergyprincipleupdate}{ O{} }{%
-  E_{\symup{sys,initial}}+%
-  W_{\symup{ext}}#1%
-}%
-\NewDocumentCommand{\energyprinciple}{ O{} }{%
-  \lhsenergyprinciple = \rhsenergyprinciple[#1]%
-}%
-\NewDocumentCommand{\energyprincipleupdate}{ O{} }{%
-  \lhsenergyprincipleupdate = \rhsenergyprincipleupdate[#1]%
-}%
+\NewDocumentCommand{\lhsenergyprinciple}{}%
+  {%
+    \Delta E_{\symup{sys}}%
+  }%
+\NewDocumentCommand{\rhsenergyprinciple}{ O{} }%
+  {%
+    W_{\symup{ext}}#1%
+  }%
+\NewDocumentCommand{\lhsenergyprincipleupdate}{}%
+  {%
+    E_{\symup{sys,final}}%
+  }%
+\NewDocumentCommand{\rhsenergyprincipleupdate}{ O{} }%
+  {%
+    E_{\symup{sys,initial}}+%
+    W_{\symup{ext}}#1%
+  }%
+\NewDocumentCommand{\energyprinciple}{ O{} }%
+  {%
+    \lhsenergyprinciple = \rhsenergyprinciple[#1]%
+  }%
+\NewDocumentCommand{\energyprincipleupdate}{ O{} }%
+  {%
+    \lhsenergyprincipleupdate = \rhsenergyprincipleupdate[#1]%
+  }%
 % The angular momentum principle
-\NewDocumentCommand{\lhsangularmomentumprinciple}{ s }{%
-  \Delta
-  \IfBooleanTF{#1}%
-    {\vec*{L}}%
-    {\vec{L}}%
-  _{A\symup{,sys,net}}%
-}%
-\NewDocumentCommand{\rhsangularmomentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{\tau}}%
-    {\vec{\tau}}%
-  _{A\symup{,sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\lhsangularmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{L}}%
-    {\vec{L}}%
-  _{A,\symup{sys,final}}%
-}%
-\NewDocumentCommand{\rhsangularmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\vec*{L}}%
-    {\vec{L}}%
-  _{A\symup{,sys,initial}}+%
-  \IfBooleanTF{#1}%
-    {\vec*{\tau}}%
-    {\vec{\tau}}%
-  _{A\symup{,sys,net}}\,\Delta t%
-}%
-\NewDocumentCommand{\angularmomentumprinciple}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsangularmomentumprinciple* = \rhsangularmomentumprinciple*}%
-    {\lhsangularmomentumprinciple = \rhsangularmomentumprinciple}%
-}%
-\NewDocumentCommand{\angularmomentumprincipleupdate}{ s }{%
-  \IfBooleanTF{#1}%
-    {\lhsangularmomentumprincipleupdate* = \rhsangularmomentumprincipleupdate*}%
-    {\lhsangularmomentumprincipleupdate = \rhsangularmomentumprincipleupdate}%
-}%
-\NewDocumentCommand{\energyof}{ m o }{%
-  E_{#1\IfValueT{#2}{,#2}}%
-}%
-\NewDocumentCommand{\systemenergy}{ o }{%
-  E_{\symup{sys}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\particleenergy}{ o }{%
-  E_{\symup{particle}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\restenergy}{ o }{%
-  E_{\symup{rest}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\internalenergy}{ o }{%
-  E_{\symup{internal}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\chemicalenergy}{ o }{%
-  E_{\symup{chem}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\thermalenergy}{ o }{%
-  E_{\symup{therm}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\photonenergy}{ o }{%
-  E_{\symup{photon}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\translationalkineticenergy}{ s d[] }{%
-% d[] must be used because of the way consecutive optional
-%  arguments are handled. See xparse docs for details.
-%  See https://tex.stackexchange.com/a/569011/218142
-  \IfBooleanTF{#1}%
-  {E_\bgroup \symup{K}}%
-  {K_\bgroup\symup{trans}}%
-       \IfValueT{#2}{,#2}%
-     \egroup%
-}%
-\NewDocumentCommand{\rotationalkineticenergy}{ s d[] }{%
-% d[] must be used because of the way consecutive optional
-%  arguments are handled. See xparse docs for details.
-%  See https://tex.stackexchange.com/a/569011/218142
-  \IfBooleanTF{#1}%
-  {E_\bgroup}%
-  {K_\bgroup}%
-       \symup{rot}\IfValueT{#2}{,#2}%
-     \egroup%
-}%
-\NewDocumentCommand{\vibrationalkineticenergy}{ s d[] }{%
-% d[] must be used because of the way consecutive optional
-%  arguments are handled. See xparse docs for details.
-%  See https://tex.stackexchange.com/a/569011/218142
-  \IfBooleanTF{#1}%
-  {E_\bgroup}%
-  {K_\bgroup}%
-       \symup{vib}\IfValueT{#2}{,#2}%
-     \egroup%
-}%
-\NewDocumentCommand{\gravitationalpotentialenergy}{ o }{%
-  U_{\symup{g}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\electricpotentialenergy}{ o }{%
-  U_{\symup{e}\IfValueT{#1}{,#1}}%
-}%
-\NewDocumentCommand{\springpotentialenergy}{ o }{%
-  U_{\symup{s}\IfValueT{#1}{,#1}}%
-}%
+\NewDocumentCommand{\lhsangularmomentumprinciple}{ s }%
+  {%
+    \Delta%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{L}%
+      }%
+      {%
+        \vec{L}%
+      }%
+    \sb{A\symup{,sys,net}}%
+  }%
+\NewDocumentCommand{\rhsangularmomentumprinciple}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{\tau}%
+      }%
+      {%
+        \vec{\tau}%
+      }%
+    \sb{A\symup{,sys,net}}\,\Delta t%
+  }%
+\NewDocumentCommand{\lhsangularmomentumprincipleupdate}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{L}%
+      }%
+      {%
+        \vec{L}%
+      }%
+    \sb{A,\symup{sys,final}}%
+  }%
+\NewDocumentCommand{\rhsangularmomentumprincipleupdate}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{L}%
+      }%
+      {%
+        \vec{L}%
+      }%
+    \sb{A\symup{,sys,initial}}+%
+    \IfBooleanTF{#1}%
+      {%
+        \vec*{\tau}%
+      }%
+      {%
+        \vec{\tau}%
+      }%
+    \sb{A\symup{,sys,net}}\,\Delta t%
+  }%
+\NewDocumentCommand{\angularmomentumprinciple}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \lhsangularmomentumprinciple* = \rhsangularmomentumprinciple*%
+      }%
+      {%
+        \lhsangularmomentumprinciple = \rhsangularmomentumprinciple%
+      }%
+  }%
+\NewDocumentCommand{\angularmomentumprincipleupdate}{ s }%
+  {%
+    \IfBooleanTF{#1}%
+      {%
+        \lhsangularmomentumprincipleupdate* = \rhsangularmomentumprincipleupdate*%
+      }%
+      {%
+        \lhsangularmomentumprincipleupdate = \rhsangularmomentumprincipleupdate%
+      }%
+  }%
+\NewDocumentCommand{\energyof}{ m o }%
+  {%
+    E_{#1%
+        \IfValueT{#2}%
+          {,#2}%
+      }%
+  }%
+\NewDocumentCommand{\systemenergy}{ o }%
+  {%
+    E_{\symup{sys}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\particleenergy}{ o }%
+  {%
+    E_{\symup{particle}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\restenergy}{ o }%
+  {%
+    E_{\symup{rest}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\internalenergy}{ o }%
+  {%
+    E_{\symup{internal}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\chemicalenergy}{ o }%
+  {%
+    E_{\symup{chem}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\thermalenergy}{ o }%
+  {%
+    E_{\symup{therm}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\photonenergy}{ o }%
+  {%
+    E_{\symup{photon}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\translationalkineticenergy}{ s d[] }%
+  {%
+    % d[] must be used because of the way consecutive optional
+    %  arguments are handled. See xparse docs for details.
+    %  See https://tex.stackexchange.com/a/569011/218142
+    \IfBooleanTF{#1}%
+      {%
+        E_\bgroup \symup{K}%
+      }%
+      {%
+        K_\bgroup\symup{trans}%
+      }%
+            \IfValueT{#2}{,#2}%
+          \egroup%
+  }%
+\NewDocumentCommand{\rotationalkineticenergy}{ s d[] }%
+  {%
+    % d[] must be used because of the way consecutive optional
+    %  arguments are handled. See xparse docs for details.
+    %  See https://tex.stackexchange.com/a/569011/218142
+    \IfBooleanTF{#1}%
+      {%
+        E_\bgroup%
+      }%
+      {%
+        K_\bgroup%
+      }%
+            \symup{rot}\IfValueT{#2}{,#2}%
+          \egroup%
+  }%
+\NewDocumentCommand{\vibrationalkineticenergy}{ s d[] }%
+  {%
+    % d[] must be used because of the way consecutive optional
+    %  arguments are handled. See xparse docs for details.
+    %  See https://tex.stackexchange.com/a/569011/218142
+    \IfBooleanTF{#1}%
+      {%
+        E_\bgroup%
+      }%
+      {%
+        K_\bgroup%
+      }%
+            \symup{vib}\IfValueT{#2}{,#2}%
+          \egroup%
+  }%
+\NewDocumentCommand{\gravitationalpotentialenergy}{ o }%
+  {%
+    U_{\symup{g}%
+        \IfValueT{#1}%
+          {,#1}%
+    }%
+  }%
+\NewDocumentCommand{\electricpotentialenergy}{ o }%
+  {%
+    U_{\symup{e}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
+\NewDocumentCommand{\springpotentialenergy}{ o }%
+  {%
+    U_{\symup{s}%
+        \IfValueT{#1}%
+          {,#1}%
+      }%
+  }%
 %    \end{macrocode}
 %
 % \restoregeometry
