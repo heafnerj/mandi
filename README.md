@@ -1,4 +1,4 @@
-# mandi Version 3.1.0
+# mandi Version 3.2.0
 
 This is  the home of the  `mandi`  LaTeX bundle for introductory physics. 
 TeX Live includes `mandi` but  not  necessarily the latest version, which 
@@ -8,7 +8,7 @@ TeX Live/MacTeX/MikTeX users or LaTeX package developers should fetch the
 `mandi.zip` file and read the `README.md` file for manual build and install
 instructions.
 
-`mandi.zip` contains:
+`mandi.zip` for [CTAN](https://www.ctan.org) contains:
  
 - `mandi.dtx`        (documented source file)
 - `mandistudent.dtx` (documented source file)

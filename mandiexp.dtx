@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -24,7 +24,7 @@
 % and includes the derived files  mandi.sty
 %                                 mandistudent.sty
 %                                 mandiexp.sty
-%                                 vdemo.py
+%                                 vdemo.py (not needed)
 % ---------------------------------------------------------------------------
 %
 % \fi
@@ -65,40 +65,24 @@
 %</driver>
 % \fi
 %
-% \CheckSum{225}
-%
-% \CharacterTable
-%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%   Digits        \0\1\2\3\4\5\6\7\8\9
-%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%   Dollar        \$     Percent       \%     Ampersand     \&
-%   Acute accent  \'     Left paren    \(     Right paren   \)
-%   Asterisk      \*     Plus          \+     Comma         \,
-%   Minus         \-     Point         \.     Solidus       \/
-%   Colon         \:     Semicolon     \;     Less than     \<
-%   Equals        \=     Greater than  \>     Question mark \?
-%   Commercial at \@     Left bracket  \[     Backslash     \\
-%   Right bracket \]     Circumflex    \^     Underscore    \_
-%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%   Right brace   \}     Tilde         \~}
-%
 % ^^A DO NOT TRY TO COMPILE THIS DTX FILE BY ITSELF. IT WILL FAIL.
 %
-% \section{The \mandiexp\ Package}\setplace{sec:mandiexppkg}
+% \section{The \mandiexp{} Package}\setplace{sec:mandic}
 %
-% \mandi\ comes with an accessory package \mandiexp\  
-% which includes commands specific to 
+% \mandi{} comes with an accessory package \mandiexp{}  
+% which extends \mandi{} with commands specific to 
 % \emph{Matter \& Interactions}.\footnote{See 
 % \href{https://www.wiley.com/en-us/Matter+and+Interactions%2C+4th+Edition-p-9781118875865}
 % {\emph{Matter \& Interactions}} and
 % \url{https://matterandinteractions.org/} for details.} 
 % The commands are primarily for typesetting 
-% mathematical expressions used in that text. Note that \mandiexp\
-% requires, and loads, \mandi\ but \mandi\ doesn't require, 
-% and doesn't load, \mandiexp.
+% mathematical expressions used in that text. \mandiexp{}
+% requires, and loads, \mandi{} but \mandi{} doesn't require, 
+% and doesn't load, \mandiexp. \mandiexp{} requires the \cs{vec*}
+% command and so loads \mandistudent{} if it has not already been
+% loaded.
 %
-% Load \mandiexp\ as you would any package in your preamble. 
+% Load \mandiexp{} as you would any package in your preamble. 
 % There are no package options.
 %
 %\iffalse
@@ -118,7 +102,7 @@
   Typesets the current version and build date.
 \end{docCommand}
 \begin{dispExample*}{sidebyside = false}
-  The version is \mandiexpversion\ and is a stable build.
+  The version is \mandiexpversion{} and is a stable build.
 \end{dispExample*}
 %\iffalse
 %</example>
@@ -334,7 +318,7 @@
 %</example>
 %\fi
 %
-% \subsection{Other Expressions}
+% \subsection{Other Symbols}
 %
 %\iffalse
 %<*example>
@@ -575,10 +559,10 @@
 %</example>
 %\fi
 %
-% \StopEventually{}
+% \MaybeStop{}
 %
 % \newgeometry{left=0.50in,right=0.50in,top=1.00in,bottom=1.00in}
-% \subsection{\mandiexp\ Source Code}
+% \subsection{\mandiexp{} Source Code}
 %
 % \iffalse
 %<*package>
@@ -589,14 +573,14 @@
 % in the name, that are not for the user to know about.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandiexppkg}{mandiexp} Version number works}
+%   {\linktoplace{sec:mandic}{mandiexp} Version number works}
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandiexppkg}{mandiexp} Code formatted for better readability}
+%   {\linktoplace{sec:mandic}{mandiexp} Code formatted for better readability}
 %    \begin{macrocode}
-\def\mandiexp@version{3.1.0}
-\def\mandiexp@date{2022-01-27}
+\def\mandiexp@version{3.2.0}
+\def\mandiexp@date{2023-08-01}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.1.0}{2022-01-27}{mandiexp.sty}
+\DeclareRelease{v3.2.0}{2023-08-01}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@version}{\mandiexp@date}
 \ProvidesPackage{mandiexp}
   [\mandiexp@date\space v\mandiexp@version\space Macros for Matter & Interactions]
@@ -608,16 +592,43 @@
 \newcommand*{\mandiexpversion}{v\mandiexp@version\space dated \mandiexp@date}
 %    \end{macrocode}
 %
+% We need \mandi{} to load \pkg{mathtools} and \pkg{unicode-math}.
+%
 %    \begin{macrocode}
-\RequirePackage{mandi}
+\IfPackageLoadedTF{mandi}%
+  {}%
+  {%
+    \RequirePackage{mandi}%
+  }%
 %    \end{macrocode}
 %
-% \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandiexppkg}{mandiexp} \pkg{xparse} is loaded for older formats}
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandic}{mandiexp} \pkg{mandistudent} is loaded for \cs{vec*}}
+%
+% We need \mandistudent{} for the new \cs{vec*} command.
+%
 %    \begin{macrocode}
-\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+\IfPackageLoadedTF{mandistudent}%
+  {}%
+  {%
+    \RequirePackage{mandistudent}%
+  }%
+%    \end{macrocode}
+%
+% Load \pkg{xparse} if necessary.
+%
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandic}{mandiexp} \pkg{xparse} is loaded for older formats}
+%    \begin{macrocode}
+\IfFormatAtLeastTF{2020-10-01}%
   {}%
   {\RequirePackage{xparse}}%
+%    \end{macrocode}
+%
+% We require the \lualatex{} engine.
+%
+%    \begin{macrocode}
+\RequireLuaTeX
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -625,9 +636,11 @@
 \typeout{mandiexp: You are using mandiexp \mandiexpversion.}
 \typeout{mandiexp: This package requires LuaLaTeX.}%
 \typeout{}%
+%    \end{macrocode}
 %
-% Commands specific to Matter & Interactions
-% The momentum principle
+% The momentum principle's lefthand and righthand sides.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\lhsmomentumprinciple}{ s }%
   {%
     \Delta
@@ -651,6 +664,12 @@
       }%
     \sb{\symup{sys,net}}\,\Delta t%
   }%
+%    \end{macrocode}
+%
+% The momentum principle in update form, lefthand and 
+% righthand sides.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\lhsmomentumprincipleupdate}{ s }%
   {%
     \IfBooleanTF{#1}%
@@ -681,6 +700,11 @@
       }%
     \sb{\symup{sys,net}}\,\Delta t%
   }%
+%    \end{macrocode}
+%
+% The full momentum principle as an expression.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\momentumprinciple}{ s }%
   {%
     \IfBooleanTF{#1}%
@@ -691,6 +715,11 @@
         \lhsmomentumprinciple = \rhsmomentumprinciple%
       }%
   }%
+%    \end{macrocode}
+%
+% The full momentum principle in update form as an expression.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\momentumprincipleupdate}{ s }%
   {%
     \IfBooleanTF{#1}%
@@ -701,7 +730,11 @@
         \lhsmomentumprincipleupdate = \rhsmomentumprincipleupdate%
       }%
   }%
-% The momentum principle
+%    \end{macrocode}
+%
+% The energy principle's lefthand and righthand sides.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\lhsenergyprinciple}{}%
   {%
     \Delta E_{\symup{sys}}%
@@ -710,6 +743,12 @@
   {%
     W_{\symup{ext}}#1%
   }%
+%    \end{macrocode}
+%
+% The energy principle in update form, lefthand and 
+% righthand sides.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\lhsenergyprincipleupdate}{}%
   {%
     E_{\symup{sys,final}}%
@@ -719,15 +758,29 @@
     E_{\symup{sys,initial}}+%
     W_{\symup{ext}}#1%
   }%
+%    \end{macrocode}
+%
+% The full energy principle as an expression.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\energyprinciple}{ O{} }%
   {%
     \lhsenergyprinciple = \rhsenergyprinciple[#1]%
   }%
+%    \end{macrocode}
+%
+% The full energy principle in update form as an expression.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\energyprincipleupdate}{ O{} }%
   {%
     \lhsenergyprincipleupdate = \rhsenergyprincipleupdate[#1]%
   }%
-% The angular momentum principle
+%    \end{macrocode}
+%
+% The angular momentum principle's lefthand and righthand sides.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\lhsangularmomentumprinciple}{ s }%
   {%
     \Delta%
@@ -751,6 +804,12 @@
       }%
     \sb{A\symup{,sys,net}}\,\Delta t%
   }%
+%    \end{macrocode}
+%
+% The energy principle in update form, lefthand and 
+% righthand sides.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\lhsangularmomentumprincipleupdate}{ s }%
   {%
     \IfBooleanTF{#1}%
@@ -781,6 +840,11 @@
       }%
     \sb{A\symup{,sys,net}}\,\Delta t%
   }%
+%    \end{macrocode}
+%
+% The full angular momentum principle as an expression.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\angularmomentumprinciple}{ s }%
   {%
     \IfBooleanTF{#1}%
@@ -791,6 +855,11 @@
         \lhsangularmomentumprinciple = \rhsangularmomentumprinciple%
       }%
   }%
+%    \end{macrocode}
+%
+% The full angular momentum principle in update form as an expression.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\angularmomentumprincipleupdate}{ s }%
   {%
     \IfBooleanTF{#1}%
@@ -801,6 +870,11 @@
         \lhsangularmomentumprincipleupdate = \rhsangularmomentumprincipleupdate%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for an arbitrary entity.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\energyof}{ m o }%
   {%
     E_{#1%
@@ -808,6 +882,11 @@
           {,#2}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a system's energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\systemenergy}{ o }%
   {%
     E_{\symup{sys}%
@@ -815,6 +894,11 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+%
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\particleenergy}{ o }%
   {%
     E_{\symup{particle}%
@@ -822,6 +906,11 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a particle's rest energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\restenergy}{ o }%
   {%
     E_{\symup{rest}%
@@ -829,6 +918,11 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a system's internal energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\internalenergy}{ o }%
   {%
     E_{\symup{internal}%
@@ -836,6 +930,11 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a system's chemical energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\chemicalenergy}{ o }%
   {%
     E_{\symup{chem}%
@@ -843,6 +942,11 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a system's thermal energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\thermalenergy}{ o }%
   {%
     E_{\symup{therm}%
@@ -850,6 +954,11 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a photon's energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\photonenergy}{ o }%
   {%
     E_{\symup{photon}%
@@ -857,11 +966,16 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for translational kinetic energy.
+% |d[]| must be used because of the way consecutive optional
+% arguments are handled. See \pkg{xparse} docs for details.\newline
+% See \url{https://tex.stackexchange.com/a/569011/218142}.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\translationalkineticenergy}{ s d[] }%
   {%
-    % d[] must be used because of the way consecutive optional
-    %  arguments are handled. See xparse docs for details.
-    %  See https://tex.stackexchange.com/a/569011/218142
     \IfBooleanTF{#1}%
       {%
         E_\bgroup \symup{K}%
@@ -872,11 +986,13 @@
             \IfValueT{#2}{,#2}%
           \egroup%
   }%
+%    \end{macrocode}
+%
+% The symbol for rotational kinetic energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\rotationalkineticenergy}{ s d[] }%
   {%
-    % d[] must be used because of the way consecutive optional
-    %  arguments are handled. See xparse docs for details.
-    %  See https://tex.stackexchange.com/a/569011/218142
     \IfBooleanTF{#1}%
       {%
         E_\bgroup%
@@ -887,11 +1003,13 @@
             \symup{rot}\IfValueT{#2}{,#2}%
           \egroup%
   }%
+%    \end{macrocode}
+%
+% The symbol for vibrational kinetic energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\vibrationalkineticenergy}{ s d[] }%
   {%
-    % d[] must be used because of the way consecutive optional
-    %  arguments are handled. See xparse docs for details.
-    %  See https://tex.stackexchange.com/a/569011/218142
     \IfBooleanTF{#1}%
       {%
         E_\bgroup%
@@ -902,6 +1020,11 @@
             \symup{vib}\IfValueT{#2}{,#2}%
           \egroup%
   }%
+%    \end{macrocode}
+%
+% The symbol for a system's gravitational potential energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\gravitationalpotentialenergy}{ o }%
   {%
     U_{\symup{g}%
@@ -909,6 +1032,11 @@
           {,#1}%
     }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a system's electric potential energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\electricpotentialenergy}{ o }%
   {%
     U_{\symup{e}%
@@ -916,6 +1044,11 @@
           {,#1}%
       }%
   }%
+%    \end{macrocode}
+%
+% The symbol for a system's spring potential energy.
+%
+%    \begin{macrocode}
 \NewDocumentCommand{\springpotentialenergy}{ o }%
   {%
     U_{\symup{s}%

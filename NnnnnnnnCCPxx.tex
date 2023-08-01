@@ -3,7 +3,7 @@
 %
 % INSTRUCTIONS FOR OVERLEAF USERS:
 %  
-% 1. Create a new, empty Overleaf project. Name it mandi300 or something
+% 1. Create a new, empty Overleaf project. Name it mandi320 or something
 %    similar.
 % 2. Upload the files mandi.sty, mandistudent.sty, mandiexp.sty, mandi.pdf,
 %    and NnnnnnnnCCPxx.tex to this new empty project's folder on Overleaf.
@@ -17,8 +17,8 @@
 %    anywhere on its exterior.
 % 4. Click the NnnnnnnnCCPxx.tex file so that it is highlighted. Now click 
 %    Recompile and a newly created PDF document should appear.
-% 5. Make a new copy of your newly created mandi3 (or whatever you named it) 
-%    project.Name it NnnnnnnnCCPxx where Nnnnnnnn is the first eight characters 
+% 5. Make a new copy of your newly created mandi320 (or whatever you named it) 
+%    project. Name it NnnnnnnnCCPxx where Nnnnnnnn is the first eight characters 
 %    of your last name, CC is a two digit chapter number, P stays unchanged, 
 %    and xx is a two digit problem number.
 % 6. From inside this newly created project, rename the NnnnnnnnCCPxx.tex file 
@@ -30,13 +30,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[10pt]{article}
-\usepackage{mandi}        % load mandi
-\usepackage{mandistudent} % load mandistudent    
-\usepackage{mandiexp}     % load mandiexp
-\usepackage{geometry}     % for changing page layout
-\usepackage{doi}          % for DOIs in references
-\usepackage{mwe}          % for demo images
-\hypersetup{colorlinks}   % color hyperlinks
+\usepackage{mandi}          % load mandi
+\usepackage{mandistudent}   % load mandistudent    
+\usepackage{mandiexp}       % load mandiexp
+\usepackage{numerica}       % for computation
+\usepackage{float}          % for floats
+\usepackage{geometry}       % for changing page layout
+\usepackage{doi}            % for DOIs in references
+\usepackage{mwe}            % for demo images
+\usepackage{pgfplots}       % for plots
+\pgfplotsset{compat=newest} % for plots
+\hypersetup{colorlinks}     % color hyperlinks
 
 %---------- DO NOT EDIT THESE LINES!
 %  See https://tex.stackexchange.com/q/156383/218142
@@ -68,9 +72,9 @@
 \author{\authorname}
 \maketitle
 \thispagestyle{empty}
-\centerline{Using \mandi\ version \mandiversion}
-\centerline{Using \mandistudent\ version \mandistudentversion}
-\centerline{Using \mandiexp\ version \mandiexpversion}
+\centerline{Using \mandi{} version \mandiversion}
+\centerline{Using \mandistudent{} version \mandistudentversion}
+\centerline{Using \mandiexp{} version \mandiexpversion}
 \listofwebvpythonprograms
 \listoffigures
 \newpage
@@ -78,52 +82,157 @@
 %---------- YOUR WORK (EDIT TO SUIT)
 \begin{physicsproblem}{PROBLEM TITLE HERE}
 Every document must have only ONE problem. You can have as many problem parts as you need. 
-Each part will need a \normalfont{\ttfamily{\small{physicssolution}}} environment only if
-extended mathematical content is necessary. You can cite a reference \cite{Kap86} if 
-appropriate.
+Each part will need a \normalfont{\ttfamily{\small{physicssolution}}} environment \emph{only} 
+if extended mathematical content is necessary. You can cite a reference\cite{Kap86} if 
+appropriate. This sample problem is about the Lorentz factor \( \gamma \).
 
 \begin{parts}
   \problempart
-  blah blah blah
-
-  A solution not requiring multiple steps can go here.
-  Delete the \normalfont{\ttfamily{\small{physicssolution}}} 
-  block if you don't need it. You can cite a reference \cite{Cha19}
-  if appropriate.
-
-  \begin{physicssolution}
-    PUT YOUR SOLUTION STEPS HERE
-  \end{physicssolution}
+  This is an example of how you would typeset a response that does not require a multistep
+  mathematical solution. You can include inline mathematics such as 
+  \( \vec{p}=m\gamma\vec{v} \) and you can cite a reference\cite{Cha19}
+  if appropriate. If you were asked to state whether the Lorentz factor \( \gamma \)
+  is a scalar or a vector, you would simply state that it is a scalar.
   
   \problempart
-  blah blah blah
+  Here is a sample mathematical solution requiring multiple steps. Let's calculate the
+  Lorentz factor for a speed of \( \velocityc{0.986} \).
 
-  A solution not requiring multiple steps can go here.
-  Delete the \normalfont{\ttfamily{\small{physicssolution}}} 
-  block if you don't need it. Remember that great minds \cite{Cha15}\cite{Jac99}
-  think alike. Blogs \cite{Hea19} are cool too. Other journals \cite{Cro15} can
-  be cited.
-
+  % Set up constants for numerica to use
+  \nmcConstants{v=0.986}
+  
   \begin{physicssolution}
-    PUT YOUR SOLUTION STEPS HERE
+    \gamma &= \frac{1}{\sqrt{1-\frac{\vec{v}\cdot\vec{v}}{\lightspeed^{2}}}}
+      \reason{definition of \(\gamma\)} \\
+    \vec{v}\cdot\vec{v} &= \magnitude{\vec{v}}^{2}
+      \reason{dot product and magnitude squared} \label{step:2} \\
+    \vec{v}\cdot\vec{v} &= (\velocityc{0.986})^{2}
+      \reason{need to use given value} \\
+    \gamma &= \frac{1}{\sqrt{1-\frac{(\velocityc{0.986})^{2}}{\lightspeed^{2}}}}\label{step:4}
+      \reason{substitute numerical values} \\
+    \gamma &= \frac{1}{\sqrt{1-(0.986)^{2}}}
+      \reason{factors of \( \lightspeed \) divide out} \\
+    \therefore \gamma &\approx \fpeval{round(1/sqrt(1-0.986^2),3)}\label{step:6}
+      \reason{final answer using \LaTeX's \texttt{fpeval}} \\
+    \therefore \gamma &\approx \eval{1/\sqrt{1-v^{2}}}[3]\label{step:7}
+      \reason{final answer using \pkg{numerica}'s \texttt{eval}}
   \end{physicssolution}
-\end{parts}
 
-\image[scale=1]{example-image-1x1}{This problem's diagram.}{fig:ref1}
-Figure \ref{fig:ref1} is nice. It's captioned \nameref{fig:ref1} and is on page \pageref{fig:ref1}.
+  We gave some steps labels so we can refer back to them. Step \ref{step:2} should be 
+  familiar to you. Step \ref{step:4} illustrates why setting \( \lightspeed = 1 \) is 
+  handy. Steps \ref{step:6} and \ref{step:7} show how to get \LaTeX{} to do computation 
+  for you two different ways. Of course both give the same results. Remember that great
+  minds\cite{Cha15}\cite{Jac99} think alike. Blogs\cite{Hea19} are cool too. Other 
+  journals\cite{Cro15} can be cited.
+  
+  \problempart
+  Now, in this part, you are asked to make a plot showing \( \gamma \) as a function
+  of speed and to highlight the value of \( \gamma \) for a speed of
+  \( \velocityc{0.866} \).
+
+  Here is the requested plot. Let \LaTeX{} take care of its placement for you!
+  \begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[%
+        declare function = {%
+          gamma(\x) = 1/sqrt(1-\x^2);%
+          myx = 0.866;% pick a particular value
+        },%
+        width=0.7\textwidth,%
+        title style={font=\sffamily},%
+          title=Lorentz Factor vs. Speed,%
+        label style={font=\sffamily},%
+          xlabel=speed \(\frac{v}{c}\),%
+          ylabel={Lorentz factor \( \gamma \)},%
+        tick label style={%
+          font=\scriptsize,%
+          /pgf/number format/precision=1,%
+          /pgf/number format/fixed,%
+          /pgf/number format/fixed zerofill,%
+        },%
+        xtick={0,0.2,...,1},%
+        ytick={1,2,...,10},%
+          extra x ticks={myx},%
+          extra tick style={%
+            tick label style={%
+              font=\tiny,%
+              /pgf/number format/precision=3,%
+              /pgf/number format/fixed,%
+              /pgf/number format/fixed zerofill,%
+              color=red,%
+            },%
+            xticklabel shift={8pt},%
+            yticklabel shift={12pt},%
+          },%
+          extra y ticks={gamma(myx)},%
+          extra y tick style={%
+          tick label style={rotate=90},%
+          },%
+        xmin=0,%
+        xmax=1.05,%
+        ymin=0,%
+        ymax=10,%
+      ]%
+      %-- main plot
+      \addplot[blue, very thin, smooth, domain=0:0.999, samples=200] {gamma(x)};
+      \addplot[blue, mark=*, mark size=0.5pt] ({myx},{gamma(myx)});
+      %-- vertical asymptote
+      \draw[red, very thin, densely dashed] (1,0) -- (1,\pgfkeysvalueof{/pgfplots/ymax});
+      %-- horizontal asymptote
+      \draw[red, very thin, densely dashed] (0,1) -- (\pgfkeysvalueof{/pgfplots/xmax},1);
+      %-- particular value
+      \draw[red, very thin] (0,{gamma(myx)}) -- (myx,{gamma(myx)});
+      \draw[red, very thin] (myx,0) -- (myx,{gamma(myx)});
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Plot of Lorentz factor as a function of speed.}
+  \label{plot:1}
+  \end{figure}
+ 
+  Figure \ref{plot:1} is a great graph. It's captioned \nameref{plot:1} and is on page 
+  \pageref{plot:1}. Notice the asymptotic behavior as speed approaches \(1\) 
+  (light's speed). 
+  
+  Traditional figures can be included with one line of \LaTeX{} code. Again,
+  let \LaTeX{} handle the placement for you. The placement may not seem logical
+  to you, but that's okay. You can always refer directly to the figure.
+  
+  \image[scale=1]{example-image-1x1}{A traditional diagram.}{fig:1}
+
+  Figure \ref{fig:1} is nice. It's captioned \nameref{fig:1} and is on 
+  page \pageref{fig:1}.
+
+  \problempart
+  Finally, suppose you are asked to write and include a \WebVPython{} program. 
+  It is simple! Once again, let \LaTeX{} handle the placement for you. The 
+  placement may not seem logical to you, but that's okay. Unlike a traditional 
+  figure, the program's caption will always be at the top of the program. 
+  \textbf{Do not include the \texttt{https://} in the URL because that is 
+  added for you!}
+  
+  \begin{webvpythonblock}(glowscript.org/#/user/heafnerj/folder/mandidemo/program/placeholder)
+    {A Placeholder Program}
+    Web VPython 3.2
+    # This is just a placeholder.
+    # It is part of the mandi documentation.
+    
+    sphere()
+  \end{webvpythonblock}
+
+  \WebVPython{} program \ref{gs:1} is nice. It's called \nameref{gs:1} and is on 
+  page \pageref{gs:1}. Scanning the QR code, clicking the URL, or clicking anywhere
+  in the gray box (between the two thick horizontal black lines) will take you to
+  the program's source code.
+\end{parts}
 \end{physicsproblem}
 
-\begin{webvpythonblock}(tinyurl.com/y44cuzp7){A Placeholder Program}
-GlowScript 3.0 VPython
-# This is just a placeholder.
-# It is part of the mandi documentation.
+That's the end of the physics problem itself. If you need to include a bibliography, 
+and you really should if you consulted extra resources, that is relatively simple too. 
+Study the code to see how to handle various sources. These examples are taken from
+physics literature, specifically the 
+\href{https://pubs.aip.org/aapt/ajp}{American Journal of Physics}.
 
-sphere()
-\end{webvpythonblock}
-
-\WebVPython\ program \ref{gs:1} is nice. It's called \nameref{gs:1} and is on page \pageref{gs:1}.
-
-\newpage
 \begin{thebibliography}{100} % 100 is a random guess of the total number of references
 % Am. J. Phys. one author
 \bibitem{Kap86} H. Kaplan, ``The Runge-Lenz vector as an `extra' constant of the motion,'' 

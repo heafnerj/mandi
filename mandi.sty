@@ -6,7 +6,7 @@
 %%
 %% mandi.dtx  (with options: `package')
 %% 
-%%  Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
+%%  Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
 %%  ---------------------------------------------------------------------------
 %%  This  work may be  distributed and/or modified  under the conditions of the
 %%  LaTeX Project Public  License, either  version 1.3  of this  license or (at
@@ -32,29 +32,31 @@
 %%                                  vdemo.py (not needed)
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandi@version{3.1.0}
-\def\mandi@date{2022-01-27}
+\def\mandi@version{3.2.0}
+\def\mandi@date{2023-08-01}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.1.0}{2022-01-27}{mandi.sty}
+\DeclareRelease{v3.2.0}{2023-08-01}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
 \newcommand*{\mandiversion}{v\mandi@version\space dated \mandi@date}
-\RequirePackage{pgfopts}        % needed for key-value interface
-\RequirePackage{array}          % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}          % needed for requiring LuaLaTeX
-\RequirePackage{unicode-math}   % needed for Unicode support
-\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+\RequirePackage{pgfopts}
+\RequirePackage{array}
+\RequirePackage{iftex}
+\RequirePackage{mathtools}
+\RequirePackage{unicode-math}
+\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
+\IfFormatAtLeastTF{2020-10-01}
   {}%
   {\RequirePackage{xparse}}%
-\RequireLuaTeX                  % require this engine
+\RequireLuaTeX
 \newcommand*{\mandi@selectunits}{}
 \newcommand*{\mandi@selectprecision}{}
-\newcommand*{\mandi@selectapproximate}[2]{#1}    % really \@firstoftwo
-\newcommand*{\mandi@selectprecise}[2]{#2}        % really \@secondoftwo
-\newcommand*{\mandi@selectbaseunits}[3]{#1}      % really \@firstofthree
-\newcommand*{\mandi@selectderivedunits}[3]{#2}   % really \@secondofthree
-\newcommand*{\mandi@selectalternateunits}[3]{#3} % really \@thirdofthree
+\newcommand*{\mandi@selectapproximate}[2]{#1}
+\newcommand*{\mandi@selectprecise}[2]{#2}
+\newcommand*{\mandi@selectbaseunits}[3]{#1}
+\newcommand*{\mandi@selectderivedunits}[3]{#2}
+\newcommand*{\mandi@selectalternateunits}[3]{#3}
 \NewDocumentCommand{\alwaysusebaseunits}{}
   {\renewcommand*{\mandi@selectunits}{\mandi@selectbaseunits}}%
 \NewDocumentCommand{\alwaysusederivedunits}{}
@@ -123,7 +125,16 @@
   }%
 \NewDocumentCommand{\per}{}{/}
 \NewDocumentCommand{\usk}{}{\cdot}
-\NewDocumentCommand{\unit}{ m m }{{#1}{\,#2}}
+\NewDocumentCommand{\units}{ m m }%
+{%
+  \IfValueTF{#2}
+  {%
+    {#1}{\,#2}
+  }%
+  {%
+    {#1}{}
+  }%
+}%
 \NewDocumentCommand{\ampere}{}{\symup{A}}
 \NewDocumentCommand{\atomicmassunit}{}{\symup{u}}
 \NewDocumentCommand{\candela}{}{\symup{cd}}
@@ -156,13 +167,13 @@
 \NewDocumentCommand{\volt}{}{\symup{V}}
 \NewDocumentCommand{\watt}{}{\symup{W}}
 \NewDocumentCommand{\weber}{}{\symup{Wb}}
-\NewDocumentCommand{\tothetwo}{}{^2}             % postfix  2
-\NewDocumentCommand{\tothethree}{}{^3}           % postfix  3
-\NewDocumentCommand{\tothefour}{}{^4}            % postfix  4
-\NewDocumentCommand{\inverse}{}{^{-1}}           % postfix -1
-\NewDocumentCommand{\totheinversetwo}{}{^{-2}}   % postfix -2
-\NewDocumentCommand{\totheinversethree}{}{^{-3}} % postfix -3
-\NewDocumentCommand{\totheinversefour}{}{^{-4}}  % postfix -4
+\NewDocumentCommand{\tothetwo}{}{^{2}}
+\NewDocumentCommand{\tothethree}{}{^{3}}
+\NewDocumentCommand{\tothefour}{}{^{4}}
+\NewDocumentCommand{\inverse}{}{^{-1}}
+\NewDocumentCommand{\totheinversetwo}{}{^{-2}}
+\NewDocumentCommand{\totheinversethree}{}{^{-3}}
+\NewDocumentCommand{\totheinversefour}{}{^{-4}}
 \NewDocumentCommand{\emptyunit}{}{\mdlgwhtsquare}
 \NewDocumentCommand{\tento}{ m }{10^{#1}}
 \NewDocumentCommand{\timestento}{ m }{\times\tento{#1}}
@@ -170,16 +181,16 @@
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_newscalarquantity:nnnn #1#2#3#4
   {
-    \cs_new:cpn {#1} ##1 {\unit{##1}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1} ##1 {\units{##1}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_new:cpn {#1value} ##1 {##1}
-    \cs_new:cpn {#1baseunits} ##1 {\unit{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1derivedunits} ##1 {\unit{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1alternateunits} ##1 {\unit{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1baseunits} ##1 {\units{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1derivedunits} ##1 {\units{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1alternateunits} ##1 {\units{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_new:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_new:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
     \cs_new:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\newscalarquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\NewScalarQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_newscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -187,16 +198,16 @@
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_renewscalarquantity:nnnn #1#2#3#4
   {
-    \cs_set:cpn {#1} ##1 {\unit{##1}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1} ##1 {\units{##1}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_set:cpn {#1value} ##1 {##1}
-    \cs_set:cpn {#1baseunits} ##1 {\unit{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1derivedunits} ##1 {\unit{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1alternateunits} ##1 {\unit{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1baseunits} ##1 {\units{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1derivedunits} ##1 {\units{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1alternateunits} ##1 {\units{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_set:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_set:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
     \cs_set:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\RenewScalarQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_renewscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -205,16 +216,16 @@
 \cs_new:Npn \__mandi_newvectorquantity:nnnn #1#2#3#4
   {
     \__mandi_newscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
-    \cs_new:cpn {vector#1} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vector} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vector} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_new:cpn {vector#1value} ##1 {\mivector{##1}}
     \cs_new:cpn {#1vectorvalue} ##1 {\mivector{##1}}
-    \cs_new:cpn {vector#1baseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vectorbaseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_new:cpn {vector#1derivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vectorderivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_new:cpn {vector#1alternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vectoralternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1baseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vectorbaseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1derivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vectorderivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1alternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vectoralternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_new:cpn {vector#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_new:cpn {#1vectoronlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_new:cpn {vector#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
@@ -222,7 +233,7 @@
     \cs_new:cpn {vector#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
     \cs_new:cpn {#1vectoronlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\newvectorquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\NewVectorQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_newvectorquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -231,16 +242,16 @@
 \cs_new:Npn \__mandi_renewvectorquantity:nnnn #1#2#3#4
   {
     \__mandi_renewscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
-    \cs_set:cpn {vector#1} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vector} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vector} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_set:cpn {vector#1value} ##1 {\mivector{##1}}
     \cs_set:cpn {#1vectorvalue} ##1 {\mivector{##1}}
-    \cs_set:cpn {vector#1baseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vectorbaseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_set:cpn {vector#1derivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vectorderivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_set:cpn {vector#1alternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vectoralternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1baseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vectorbaseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1derivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vectorderivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1alternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vectoralternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_set:cpn {vector#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_set:cpn {#1vectoronlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_set:cpn {vector#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
@@ -248,7 +259,7 @@
     \cs_set:cpn {vector#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
     \cs_set:cpn {#1vectoronlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\RenewVectorQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_renewvectorquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -256,21 +267,21 @@
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_newphysicalconstant:nnnnnnn #1#2#3#4#5#6#7
   {
-    \cs_new:cpn {#1} {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
+    \cs_new:cpn {#1} {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1mathsymbol} {#2}
     \cs_new:cpn {#1approximatevalue} {#3}
     \cs_new:cpn {#1precisevalue} {#4}
     \cs_new:cpn {#1baseunits}
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1derivedunits}
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1alternateunits}
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#5}{#6}{#7}}
     \cs_new:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#5}{#6}{#7}}
     \cs_new:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#5}{#6}{#7}}
   }
-\NewDocumentCommand{\newphysicalconstant}{ m m m m m O{#5} O{#5} }
+\NewDocumentCommand{\NewPhysicalConstant}{ m m m m m O{#5} O{#5} }
   {
     \__mandi_newphysicalconstant:nnnnnnn { #1 }{ #2 }{ #3 }{ #4 }{ #5 }{ #6 }{ #7 }
   }
@@ -278,322 +289,322 @@
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_renewphysicalconstant:nnnnnnn #1#2#3#4#5#6#7
   {
-    \cs_set:cpn {#1} {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
+    \cs_set:cpn {#1} {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1mathsymbol} {#2}
     \cs_set:cpn {#1approximatevalue} {#3}
     \cs_set:cpn {#1precisevalue} {#4}
     \cs_set:cpn {#1baseunits}
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1derivedunits}
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1alternateunits}
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#5}{#6}{#7}}
     \cs_set:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#5}{#6}{#7}}
     \cs_set:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#5}{#6}{#7}}
   }
-\NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }
+\NewDocumentCommand{\RenewPhysicalConstant}{ m m m m m O{#5} O{#5} }
   {
     \__mandi_renewphysicalconstant:nnnnnnn { #1 }{ #2 }{ #3 }{ #4 }{ #5 }{ #6 }{ #7 }
   }
 \ExplSyntaxOff
-\newvectorquantity{acceleration}%
+\NewVectorQuantity{acceleration}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\meter\per\second\tothetwo]%
-\newscalarquantity{amount}%
+\NewScalarQuantity{amount}%
   {\mole}%
-\newvectorquantity{angularacceleration}%
+\NewVectorQuantity{angularacceleration}%
   {\radian\usk\second\totheinversetwo}%
   [\radian\per\second\tothetwo]%
   [\radian\per\second\tothetwo]%
-\newscalarquantity{angularfrequency}%
+\NewScalarQuantity{angularfrequency}%
   {\radian\usk\second\inverse}%
   [\radian\per\second]%
   [\radian\per\second]%
-\newvectorquantity{angularimpulse}%
+\NewVectorQuantity{angularimpulse}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
-\newvectorquantity{angularmomentum}%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+\NewVectorQuantity{angularmomentum}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
-\newvectorquantity{angularvelocity}%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+\NewVectorQuantity{angularvelocity}%
   {\radian\usk\second\inverse}%
   [\radian\per\second]%
   [\radian\per\second]%
-\newscalarquantity{area}%
+\NewScalarQuantity{area}%
   {\meter\tothetwo}%
-\newscalarquantity{areachargedensity}%
+\NewScalarQuantity{areachargedensity}%
   {\ampere\usk\second\usk\meter\totheinversetwo}%
   [\coulomb\per\meter\tothetwo]%
   [\coulomb\per\meter\tothetwo]%
-\newscalarquantity{areamassdensity}%
+\NewScalarQuantity{areamassdensity}%
   {\kilogram\usk\meter\totheinversetwo}%
   [\kilogram\per\meter\tothetwo]%
   [\kilogram\per\meter\tothetwo]%
-\newscalarquantity{capacitance}%
+\NewScalarQuantity{capacitance}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\farad]%
-  [\coulomb\per\volt]% % also \coulomb\tothetwo\per\newton\usk\meter, \second\per\ohm
-\newscalarquantity{charge}%
+  [\coulomb\per\volt]%
+\NewScalarQuantity{charge}%
   {\ampere\usk\second}%
   [\coulomb]%
-  [\coulomb]% % also \farad\usk\volt
-\newvectorquantity{cmagneticfield}%
+  [\coulomb]%
+\NewVectorQuantity{cmagneticfield}%
   {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%
-  [\newton\per\coulomb]% % also \volt\per\meter
   [\newton\per\coulomb]%
-\newscalarquantity{conductance}%
+  [\newton\per\coulomb]%
+\NewScalarQuantity{conductance}%
   {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\siemens]%
   [\ampere\per\volt]%
-\newscalarquantity{conductivity}%
+\NewScalarQuantity{conductivity}%
   {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\siemens\per\meter]%
   [\ampere\per\volt\usk\meter]%
-\newscalarquantity{conventionalcurrent}%
+\NewScalarQuantity{conventionalcurrent}%
   {\ampere}%
   [\coulomb\per\second]%
   [\ampere]%
-\newscalarquantity{current}%
+\NewScalarQuantity{current}%
   {\ampere}%
-\newscalarquantity{currentdensity}%
+\NewScalarQuantity{currentdensity}%
   {\ampere\usk\meter\totheinversetwo}%
   [\coulomb\per\second\usk\meter\tothetwo]%
   [\ampere\per\meter\tothetwo]%
-\newscalarquantity{dielectricconstant}%
+\NewScalarQuantity{dielectricconstant}%
   {}%
-\newvectorquantity{direction}%
+\NewVectorQuantity{direction}%
   {}%
-\newvectorquantity{displacement}%
+\NewVectorQuantity{displacement}%
   {\meter}
-\newscalarquantity{duration}%
+\NewScalarQuantity{duration}%
   {\second}%
-\newvectorquantity{electricdipolemoment}%
+\NewVectorQuantity{electricdipolemoment}%
   {\ampere\usk\second\usk\meter}%
   [\coulomb\usk\meter]%
   [\coulomb\usk\meter]%
-\newvectorquantity{electricfield}%
+\NewVectorQuantity{electricfield}%
   {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\per\meter]%
   [\newton\per\coulomb]%
-\newscalarquantity{electricflux}%
+\NewScalarQuantity{electricflux}%
   {\kilogram\usk\meter\tothethree\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\usk\meter]%
   [\newton\usk\meter\tothetwo\per\coulomb]%
-\newscalarquantity{electricpotential}%
+\NewScalarQuantity{electricpotential}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
-  [\volt]% % also \joule\per\coulomb
   [\volt]%
-\newscalarquantity{electricpotentialdifference}%
+  [\volt]%
+\NewScalarQuantity{electricpotentialdifference}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
-  [\volt]% % also \joule\per\coulomb
   [\volt]%
-\newscalarquantity{electroncurrent}%
+  [\volt]%
+\NewScalarQuantity{electroncurrent}%
   {\second\inverse}%
   [\ensuremath{\symup{e}}\per\second]%
   [\ensuremath{\symup{e}}\per\second]%
-\newscalarquantity{emf}%
+\NewScalarQuantity{emf}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
-  [\volt]% % also \joule\per\coulomb
   [\volt]%
-\newscalarquantity{energy}%
+  [\volt]%
+\NewScalarQuantity{energy}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
-  [\joule]% % also \newton\usk\meter
   [\joule]%
-\newscalarquantity{energyinev}%
+  [\joule]%
+\NewScalarQuantity{energyinev}%
   {\electronvolt}%
-\newscalarquantity{energyinkev}%
+\NewScalarQuantity{energyinkev}%
   {\kiloelectronvolt}%
-\newscalarquantity{energyinmev}%
+\NewScalarQuantity{energyinmev}%
   {\megaelectronvolt}%
-\newscalarquantity{energydensity}%
+\NewScalarQuantity{energydensity}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\joule\per\meter\tothethree]%
   [\joule\per\meter\tothethree]%
-\newscalarquantity{energyflux}%
+\NewScalarQuantity{energyflux}%
   {\kilogram\usk\second\totheinversethree}%
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
-\newscalarquantity{entropy}%
+\NewScalarQuantity{entropy}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
-\newvectorquantity{force}%
+\NewVectorQuantity{force}%
   {\kilogram\usk\meter\usk\second\totheinversetwo}%
   [\newton]%
-  [\newton]% % also \kilogram\usk\meter\per\second\tothetwo
-\newscalarquantity{frequency}%
+  [\newton]%
+\NewScalarQuantity{frequency}%
   {\second\inverse}%
   [\hertz]%
   [\hertz]%
-\newvectorquantity{gravitationalfield}%
+\NewVectorQuantity{gravitationalfield}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
-\newscalarquantity{gravitationalpotential}%
+\NewScalarQuantity{gravitationalpotential}%
   {\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule\per\kilogram]%
   [\joule\per\kilogram]%
-\newscalarquantity{gravitationalpotentialdifference}%
+\NewScalarQuantity{gravitationalpotentialdifference}%
   {\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule\per\kilogram]%
   [\joule\per\kilogram]%
-\newvectorquantity{impulse}%
+\NewVectorQuantity{impulse}%
   {\kilogram\usk\meter\usk\second\inverse}%
   [\newton\usk\second]%
   [\newton\usk\second]%
-\newscalarquantity{indexofrefraction}%
+\NewScalarQuantity{indexofrefraction}%
   {}%
-\newscalarquantity{inductance}%
+\NewScalarQuantity{inductance}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry]%
-  [\volt\usk\second\per\ampere]% % also \square\meter\usk\kilogram\per\coulomb\tothetwo, \Wb\per\ampere
-\newscalarquantity{linearchargedensity}%
+  [\volt\usk\second\per\ampere]%
+\NewScalarQuantity{linearchargedensity}%
   {\ampere\usk\second\usk\meter\inverse}%
   [\coulomb\per\meter]%
   [\coulomb\per\meter]%
-\newscalarquantity{linearmassdensity}%
+\NewScalarQuantity{linearmassdensity}%
   {\kilogram\usk\meter\inverse}%
   [\kilogram\per\meter]%
   [\kilogram\per\meter]%
-\newscalarquantity{lorentzfactor}%
+\NewScalarQuantity{lorentzfactor}%
   {}%
-\newscalarquantity{luminousintensity}%
+\NewScalarQuantity{luminousintensity}%
   {\candela}%
-\newscalarquantity{magneticcharge}%
-  {\ampere\usk\meter}% % There is another convention. Be careful!
-\newvectorquantity{magneticdipolemoment}%
+\NewScalarQuantity{magneticcharge}%
+  {\ampere\usk\meter}%
+\NewVectorQuantity{magneticdipolemoment}%
   {\ampere\usk\meter\tothetwo}%
   [\ampere\usk\meter\tothetwo]%
   [\joule\per\tesla]%
-\newvectorquantity{magneticfield}%
+\NewVectorQuantity{magneticfield}%
   {\kilogram\usk\ampere\inverse\usk\second\totheinversetwo}%
-  [\newton\per\ampere\usk\meter]% % also \Wb\per\meter\tothetwo
+  [\newton\per\ampere\usk\meter]%
   [\tesla]%
-\newscalarquantity{magneticflux}%
+\NewScalarQuantity{magneticflux}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
-  [\volt\usk\second]% % also \Wb and \joule\per\ampere
-\newscalarquantity{mass}%
+  [\volt\usk\second]%
+\NewScalarQuantity{mass}%
   {\kilogram}%
-\newscalarquantity{mobility}%
+\NewScalarQuantity{mobility}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversefour}%
   [\meter\tothetwo\per\volt\usk\second]%
   [\coulomb\usk\meter\per\newton\usk\second]%
-\newscalarquantity{momentofinertia}%
+\NewScalarQuantity{momentofinertia}%
   {\kilogram\usk\meter\tothetwo}%
   [\joule\usk\second\tothetwo]%
   [\kilogram\usk\meter\tothetwo]%
-\newvectorquantity{momentum}%
+\NewVectorQuantity{momentum}%
   {\kilogram\usk\meter\usk\second\inverse}%
   [\kilogram\usk\meter\per\second]%
   [\kilogram\usk\meter\per\second]%
-\newvectorquantity{momentumflux}%
+\NewVectorQuantity{momentumflux}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\newton\per\meter\tothetwo]%
   [\newton\per\meter\tothetwo]%
-\newscalarquantity{numberdensity}%
+\NewScalarQuantity{numberdensity}%
   {\meter\totheinversethree}%
   [\per\meter\tothethree]%
   [\per\meter\tothethree]%
-\newscalarquantity{permeability}%
+\NewScalarQuantity{permeability}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newscalarquantity{permittivity}%
+\NewScalarQuantity{permittivity}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
-\newscalarquantity{planeangle}%
+\NewScalarQuantity{planeangle}%
   {\meter\usk\meter\inverse}%
   [\radian]%
   [\radian]%
-\newscalarquantity{polarizability}%
+\NewScalarQuantity{polarizability}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse}%
   [\coulomb\usk\meter\tothetwo\per\volt]%
   [\coulomb\tothetwo\usk\meter\per\newton]%
-\newscalarquantity{power}%
+\NewScalarQuantity{power}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversethree}%
   [\watt]%
   [\joule\per\second]%
-\newvectorquantity{poynting}%
+\NewVectorQuantity{poynting}%
   {\kilogram\usk\second\totheinversethree}%
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
-\newscalarquantity{pressure}%
+\NewScalarQuantity{pressure}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
-\newscalarquantity{relativepermeability}
+\NewScalarQuantity{relativepermeability}
   {}%
-\newscalarquantity{relativepermittivity}%
+\NewScalarQuantity{relativepermittivity}%
   {}%
-\newscalarquantity{resistance}%
+\NewScalarQuantity{resistance}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
-  [\ohm]% % also \volt\per\ampere
   [\ohm]%
-\newscalarquantity{resistivity}%
+  [\ohm]%
+\NewScalarQuantity{resistivity}%
   {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
   [\ohm\usk\meter]%
   [\volt\usk\meter\per\ampere]%
-\newscalarquantity{solidangle}%
+\NewScalarQuantity{solidangle}%
   {\meter\tothetwo\usk\meter\totheinversetwo}%
   [\steradian]%
   [\steradian]%
-\newscalarquantity{specificheatcapacity}%
+\NewScalarQuantity{specificheatcapacity}%
   {\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin\usk\kilogram]%
   [\joule\per\kelvin\usk\kilogram]
-\newscalarquantity{springstiffness}%
+\NewScalarQuantity{springstiffness}%
   {\kilogram\usk\second\totheinversetwo}%
   [\newton\per\meter]%
   [\newton\per\meter]%
-\newscalarquantity{springstretch}% % This is really just a displacement.
+\NewScalarQuantity{springstretch}%
   {\meter}%
-\newscalarquantity{stress}%
+\NewScalarQuantity{stress}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
-\newscalarquantity{strain}%
+\NewScalarQuantity{strain}%
   {}%
-\newscalarquantity{temperature}%
+\NewScalarQuantity{temperature}%
   {\kelvin}%
-\newvectorquantity{torque}%
+\NewVectorQuantity{torque}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
   [\newton\usk\meter]%
   [\newton\usk\meter]%
-\newvectorquantity{velocity}%
+\NewVectorQuantity{velocity}%
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]%
-\newvectorquantity{velocityc}%
+\NewVectorQuantity{velocityc}%
   {\lightspeed}%
   [\lightspeed]%
   [\lightspeed]%
-\newscalarquantity{volume}%
+\NewScalarQuantity{volume}%
   {\meter\tothethree}%
-\newscalarquantity{volumechargedensity}%
+\NewScalarQuantity{volumechargedensity}%
   {\ampere\usk\second\per\meter\totheinversethree}%
   [\coulomb\per\meter\tothethree]%
   [\coulomb\per\meter\tothethree]%
-\newscalarquantity{volumemassdensity}%
+\NewScalarQuantity{volumemassdensity}%
   {\kilogram\usk\meter\totheinversethree}%
   [\kilogram\per\meter\tothethree]%
   [\kilogram\per\meter\tothethree]%
-\newscalarquantity{wavelength}% % This is really just a displacement.
+\NewScalarQuantity{wavelength}%
   {\meter}%
-\newvectorquantity{wavenumber}%
+\NewVectorQuantity{wavenumber}%
   {\meter\inverse}%
   [\per\meter]%
   [\per\meter]%
-\newscalarquantity{work}%
+\NewScalarQuantity{work}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
-  [\joule]% % also \newton\usk\meter but discouraged
   [\joule]%
-\newscalarquantity{youngsmodulus}% % This is really just a stress.
+  [\joule]%
+\NewScalarQuantity{youngsmodulus}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
@@ -602,198 +613,197 @@
 }%
 \newcommand*{\hbar@}[2]{%
   \makebox[0pt][l]{\raisebox{-0.07\height}{\(\m@th#1\mkern-2mu\mathchar"AF\)}}%
-  % optional line to make the bar thicker; must use -0.11
   \makebox[0pt][l]{\raisebox{-0.11\height}{\(\m@th#1\mkern-2mu\mathchar"AF\)}}%
 }%
-\newphysicalconstant{avogadro}%
-  {\symup{N_A}}%
-  {6\times10^{23}}{6.02214076\times10^{23}}% % exact 2019 value
+\NewPhysicalConstant{avogadro}%
+  {\symup{N_{A}}}%
+  {6\times10^{23}}{6.02214076\times10^{23}}%
   {\mole\inverse}%
   [\per\mole]%
   [\per\mole]%
-\newphysicalconstant{biotsavartconstant}% % alias for \mzofp
-  {\symup{\frac{\mu_o}{4\pi}}}%
+\NewPhysicalConstant{biotsavartconstant}%
+  {\symup{\frac{\mu_{o}}{4\pi}}}%
   {10^{-7}}{10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newphysicalconstant{bohrradius}%
-  {\symup{a_o}}%
+\NewPhysicalConstant{bohrradius}%
+  {\symup{a_{o}}}%
   {5.3\times10^{-11}}{5.29177210903\times10^{-11}}%
   {\meter}%
-\newphysicalconstant{boltzmann}%
-  {\symup{k_B}}%
-  {1.4\times10^{-23}}{1.380649\times10^{-23}}% % exact 2019 value
+\NewPhysicalConstant{boltzmann}%
+  {\symup{k_{B}}}%
+  {1.4\times10^{-23}}{1.380649\times10^{-23}}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
-\newphysicalconstant{coulombconstant}% % alias for \oofpez
-  {\symup{\frac{1}{4\pi\epsilon_o}}}%
+\NewPhysicalConstant{coulombconstant}%
+  {\symup{\frac{1}{4\pi\epsilon_{o}}}}%
   {9\times10^{9}}{8.9875517923\times10^{9}}%
   {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
-\newphysicalconstant{earthmass}%
+\NewPhysicalConstant{earthmass}%
   {\symup{M_{Earth}}}%
   {6.0\times10^{24}}{5.9722\times10^{24}}%
   {\kilogram}%
-\newphysicalconstant{earthmoondistance}%
+\NewPhysicalConstant{earthmoondistance}%
   {\symup{d_{EM}}}%
   {3.8\times10^{8}}{3.81550\times10^{8}}%
   {\meter}%
-\newphysicalconstant{earthradius}%
+\NewPhysicalConstant{earthradius}%
   {\symup{R_{Earth}}}%
   {6.4\times10^{6}}{6.3781\times10^{6}}%
   {\meter}%
-\newphysicalconstant{earthsundistance}%
+\NewPhysicalConstant{earthsundistance}%
   {\symup{d_{ES}}}%
   {1.5\times10^{11}}{1.496\times10^{11}}%
   {\meter}%
-\newphysicalconstant{electroncharge}%
-  {\symup{q_e}}%
+\NewPhysicalConstant{electroncharge}%
+  {\symup{q_{e}}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{electronCharge}%
-  {\symup{Q_e}}%
+\NewPhysicalConstant{electronCharge}%
+  {\symup{Q_{e}}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{electronmass}%
-  {\symup{m_e}}%
+\NewPhysicalConstant{electronmass}%
+  {\symup{m_{e}}}%
   {9.1\times10^{-31}}{9.1093837015\times10^{-31}}%
   {\kilogram}%
-\newphysicalconstant{elementarycharge}%
+\NewPhysicalConstant{elementarycharge}%
   {\symup{e}}%
-  {1.6\times10^{-19}}{1.602176634\times10^{-19}}% % exact 2019 value
+  {1.6\times10^{-19}}{1.602176634\times10^{-19}}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{finestructure}%
+\NewPhysicalConstant{finestructure}%
   {\symup{\alpha}}%
   {\frac{1}{137}}{7.2973525693\times10^{-3}}%
   {}%
-\newphysicalconstant{hydrogenmass}%
-  {\symup{m_H}}%
+\NewPhysicalConstant{hydrogenmass}%
+  {\symup{m_{H}}}%
   {1.7\times10^{-27}}{1.6737236\times10^{-27}}%
   {\kilogram}%
-\newphysicalconstant{moonearthdistance}%
+\NewPhysicalConstant{moonearthdistance}%
   {\symup{d_{ME}}}%
   {3.8\times10^{8}}{3.81550\times10^{8}}%
   {\meter}%
-\newphysicalconstant{moonmass}%
+\NewPhysicalConstant{moonmass}%
   {\symup{M_{Moon}}}%
   {7.3\times10^{22}}{7.342\times10^{22}}%
   {\kilogram}%
-\newphysicalconstant{moonradius}%
+\NewPhysicalConstant{moonradius}%
   {\symup{R_{Moon}}}%
   {1.7\times10^{6}}{1.7371\times10^{6}}%
   {\meter}%
-\newphysicalconstant{mzofp}%
-  {\symup{\frac{\mu_o}{4\pi}}}%
+\NewPhysicalConstant{mzofp}%
+  {\symup{\frac{\mu_{o}}{4\pi}}}%
   {10^{-7}}{10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newphysicalconstant{neutronmass}%
-  {\symup{m_n}}%
+\NewPhysicalConstant{neutronmass}%
+  {\symup{m_{n}}}%
   {1.7\times10^{-27}}{1.67492749804\times10^{-27}}%
   {\kilogram}%
-\newphysicalconstant{oofpez}%
-  {\symup{\frac{1}{4\pi\epsilon_o}}}%
+\NewPhysicalConstant{oofpez}%
+  {\symup{\frac{1}{4\pi\epsilon_{o}}}}%
   {9\times10^{9}}{8.9875517923\times10^{9}}%
   {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
-\newphysicalconstant{oofpezcs}%
-  {\symup{\frac{1}{4\pi\epsilon_o c^2}}}%
+\NewPhysicalConstant{oofpezcs}%
+  {\symup{\frac{1}{4\pi\epsilon_{o} c^2}}}%
   {10^{-7}}{10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\newton\usk\second\tothetwo\per\coulomb\tothetwo]%
-\newphysicalconstant{planck}%
+\NewPhysicalConstant{planck}%
   {\symup{h}}%
-  {6.6\times10^{-34}}{6.62607015\times10^{-34}}% % exact 2019 value
+  {6.6\times10^{-34}}{6.62607015\times10^{-34}}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]%
-\newphysicalconstant{planckbar}%
+\NewPhysicalConstant{planckbar}%
   {\hbar}%
   {1.1\times10^{-34}}{1.054571817\times10^{-34}}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]
-\newphysicalconstant{planckc}%
+\NewPhysicalConstant{planckc}%
   {\symup{hc}}%
   {2.0\times10^{-25}}{1.98644586\times10^{-25}}%
   {\kilogram\usk\meter\tothethree\usk\second\totheinversetwo}%
   [\joule\usk\meter]%
   [\joule\usk\meter]%
-\newphysicalconstant{protoncharge}%
+\NewPhysicalConstant{protoncharge}%
   {\symup{q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{protonCharge}%
+\NewPhysicalConstant{protonCharge}%
   {\symup{Q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{protonmass}%
+\NewPhysicalConstant{protonmass}%
   {\symup{m_p}}%
   {1.7\times10^{-27}}{1.672621898\times10^{-27}}%
   {\kilogram}%
-\newphysicalconstant{rydberg}%
+\NewPhysicalConstant{rydberg}%
   {\symup{R_{\infty}}}%
   {1.1\times10^{7}}{1.0973731568160\times10^{7}}%
   {\meter\inverse}%
-\newphysicalconstant{speedoflight}%
+\NewPhysicalConstant{speedoflight}%
   {\symup{c}}%
-  {3\times10^{8}}{2.99792458\times10^{8}}% % exact value
+  {3\times10^{8}}{2.99792458\times10^{8}}%
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]
-\newphysicalconstant{stefanboltzmann}%
+\NewPhysicalConstant{stefanboltzmann}%
   {\symup{\sigma}}%
   {5.7\times10^{-8}}{5.670374\times10^{-8}}%
   {\kilogram\usk\second\totheinversethree\usk\kelvin\totheinversefour}%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]
-\newphysicalconstant{sunearthdistance}%
+\NewPhysicalConstant{sunearthdistance}%
   {\symup{d_{SE}}}%
   {1.5\times10^{11}}{1.496\times10^{11}}%
   {\meter}%
-\newphysicalconstant{sunmass}%
+\NewPhysicalConstant{sunmass}%
   {\symup{M_{Sun}}}%
   {2.0\times10^{30}}{1.98855\times10^{30}}%
   {\kilogram}%
-\newphysicalconstant{sunradius}%
+\NewPhysicalConstant{sunradius}%
   {\symup{R_{Sun}}}%
   {7.0\times10^{8}}{6.957\times10^{8}}%
   {\meter}%
-\newphysicalconstant{surfacegravfield}%
+\NewPhysicalConstant{surfacegravfield}%
   {\symup{g}}%
   {9.8}{9.807}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
-\newphysicalconstant{universalgrav}%
+\NewPhysicalConstant{universalgrav}%
   {\symup{G}}%
   {6.7\times10^{-11}}{6.67430\times10^{-11}}%
   {\meter\tothethree\usk\kilogram\inverse\usk\second\totheinversetwo}%
-  [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
-\newphysicalconstant{vacuumpermeability}%
+  [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
+\NewPhysicalConstant{vacuumpermeability}%
   {\symup{\mu_o}}%
-  {4\pi\times10^{-7}}{4\pi\times10^{-7}}% % as of 2018 no longer 4\pi\times10^{-7}
+  {4\pi\times10^{-7}}{4\pi\times10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newphysicalconstant{vacuumpermittivity}%
+\NewPhysicalConstant{vacuumpermittivity}%
   {\symup{\epsilon_o}}%
   {9\times10^{-12}}{8.854187817\times10^{-12}}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
@@ -810,7 +820,7 @@
   }
 \ExplSyntaxOff
 \newcolumntype{M}{>{\(}p{0.25\linewidth}<{\)}}
-\NewDocumentCommand{\checkquantity}{ m }
+\NewDocumentCommand{\CheckQuantity}{ m }
   {%
     \begin{center}
       \begin{tabular}{MMM}
@@ -820,7 +830,7 @@
       \end{tabular}
     \end{center}
   }%
-\NewDocumentCommand{\checkconstant}{ m }
+\NewDocumentCommand{\CheckConstant}{ m }
   {%
     \begin{center}
       \begin{tabular}{MMM}

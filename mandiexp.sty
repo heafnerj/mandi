@@ -6,7 +6,7 @@
 %%
 %% mandiexp.dtx  (with options: `package')
 %% 
-%%  Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
+%%  Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
 %%  ---------------------------------------------------------------------------
 %%  This  work may be  distributed and/or modified  under the conditions of the
 %%  LaTeX Project Public  License, either  version 1.3  of this  license or (at
@@ -32,18 +32,28 @@
 %%                                  vdemo.py (not needed)
 %%  ---------------------------------------------------------------------------
 %% 
-\def\mandiexp@version{3.1.0}
-\def\mandiexp@date{2022-01-27}
+\def\mandiexp@version{3.2.0}
+\def\mandiexp@date{2023-08-01}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.1.0}{2022-01-27}{mandiexp.sty}
+\DeclareRelease{v3.2.0}{2023-08-01}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@version}{\mandiexp@date}
 \ProvidesPackage{mandiexp}
   [\mandiexp@date\space v\mandiexp@version\space Macros for Matter & Interactions]
 \newcommand*{\mandiexpversion}{v\mandiexp@version\space dated \mandiexp@date}
-\RequirePackage{mandi}
-\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+\IfPackageLoadedTF{mandi}%
+  {}%
+  {%
+    \RequirePackage{mandi}%
+  }%
+\IfPackageLoadedTF{mandistudent}%
+  {}%
+  {%
+    \RequirePackage{mandistudent}%
+  }%
+\IfFormatAtLeastTF{2020-10-01}%
   {}%
   {\RequirePackage{xparse}}%
+\RequireLuaTeX
 \typeout{}%
 \typeout{mandiexp: You are using mandiexp \mandiexpversion.}
 \typeout{mandiexp: This package requires LuaLaTeX.}%
@@ -277,9 +287,6 @@
   }%
 \NewDocumentCommand{\translationalkineticenergy}{ s d[] }%
   {%
-    % d[] must be used because of the way consecutive optional
-    %  arguments are handled. See xparse docs for details.
-    %  See https://tex.stackexchange.com/a/569011/218142
     \IfBooleanTF{#1}%
       {%
         E_\bgroup \symup{K}%
@@ -292,9 +299,6 @@
   }%
 \NewDocumentCommand{\rotationalkineticenergy}{ s d[] }%
   {%
-    % d[] must be used because of the way consecutive optional
-    %  arguments are handled. See xparse docs for details.
-    %  See https://tex.stackexchange.com/a/569011/218142
     \IfBooleanTF{#1}%
       {%
         E_\bgroup%
@@ -307,9 +311,6 @@
   }%
 \NewDocumentCommand{\vibrationalkineticenergy}{ s d[] }%
   {%
-    % d[] must be used because of the way consecutive optional
-    %  arguments are handled. See xparse docs for details.
-    %  See https://tex.stackexchange.com/a/569011/218142
     \IfBooleanTF{#1}%
       {%
         E_\bgroup%

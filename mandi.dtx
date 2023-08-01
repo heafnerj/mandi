@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -24,7 +24,7 @@
 % and includes the derived files  mandi.sty
 %                                 mandistudent.sty
 %                                 mandiexp.sty
-%                                 vdemo.py
+%                                 vdemo.py (not needed)
 % ---------------------------------------------------------------------------
 %
 % \fi
@@ -39,13 +39,12 @@
 `mandi` provides commands for introductory physics. To install, open a command
 line  and  type  the  following,  repeating 2-4 until there are no warnings:
 
-1. `lualatex mandi.ins`  (can also use latex)
-2. `lualatex mandi.dtx`  (lualatex is required)
-3. `makeindex -s gind.ist -o mandi.ind mandi.idx`
-4. `makeindex -s gglo.ist -o mandi.gls mandi.glo`
+  1. `lualatex mandi.ins`  (can also use latex)
+  2. `lualatex mandi.dtx`  (lualatex is required)
+  3. `makeindex -s gind.ist -o mandi.ind mandi.idx`
+  4. `makeindex -s gglo.ist -o mandi.gls mandi.glo`
 
-Move the `*.sty` files into a directory searched by TeX.
-The `vdemo.py` file is not needed and can be deleted.
+Move the `*.sty` files into a directory searched by TeX. Delete `vdemo.py`.
 %</readme>
 %
 %<*internal>
@@ -63,7 +62,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \usedir{tex/latex/mandi}
 \preamble
 
- Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
+ Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
  ---------------------------------------------------------------------------
  This  work may be  distributed and/or modified  under the conditions of the 
  LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -101,18 +100,18 @@ The `vdemo.py` file is not needed and can be deleted.
           \file{vdemo.py}{\from{mandistudent.dtx}{vdemo}}}
 
 \obeyspaces
-\Msg{*************************************************************}
-\Msg{*                                                           *}
-\Msg{* To finish the  installation, open a command line and      *}
-\Msg{* type the following, repeating 2-4 until there are no      *}
-\Msg{* warnings:                                                 *}
-\Msg{*   2. lualatex mandi.dtx  (lualatex is required)           *}
-\Msg{*   3. makeindex -s gind.ist -o mandi.ind mandi.idx         *}
-\Msg{*   4. makeindex -s gglo.ist -o mandi.gls mandi.glo         *}
-\Msg{* Move the *.sty files into a directory searched by TeX.    *}
-\Msg{* The vdemo.py file can be deleted.                         *}
-\Msg{*                                                           *}
-\Msg{*************************************************************}
+\Msg{**************************************************************}
+\Msg{*                                                            *}
+\Msg{*   To finish the  installation, open a command line and     *}
+\Msg{*   type the following, repeating 2-4 until there are no     *}
+\Msg{*   warnings:                                                *}
+\Msg{*     2. lualatex mandi.dtx  (lualatex is required)          *}
+\Msg{*     3. makeindex -s gind.ist -o mandi.ind mandi.idx        *}
+\Msg{*     4. makeindex -s gglo.ist -o mandi.gls mandi.glo        *}
+\Msg{*   Move the *.sty files into a directory searched by TeX.   *}
+\Msg{*   Delete vdemo.py.                                         *}
+\Msg{*                                                            *}
+\Msg{**************************************************************}
 %</install>
 %<install>\endbatchfile
 %
@@ -140,9 +139,10 @@ The `vdemo.py` file is not needed and can be deleted.
 % This can be changed in a local ltxdoc.cfg file but it is 
 % easier to just use the article class and the doc package 
 % instead and force letterpaper size.
-% \documentclass[10pt]{ltxdoc}
-\documentclass[10pt,letterpaper]{article}
-\usepackage{doc}
+\documentclass[10pt,letterpaper]{ltxdoc}
+\SetupDoc{reportchangedates}
+%\documentclass[10pt,letterpaper]{article}
+%\usepackage[nohyperref,reportchangedates]{doc}          % doc v3 zzzz
 \PassOptionsToPackage{listings,documentation}{tcolorbox} % prevent option clash
 \usepackage{\jobname}                                    % load mandi.sty
 \usepackage{mandistudent}                                % load mandistudent.sty
@@ -154,6 +154,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \usepackage[listings,documentation]{tcolorbox}           % workhorse package
 \tcbset{%                                                % tcolorbox options
   index german settings,%
+  index gather commands = false,%
   index colorize = false,%
   lefthand ratio = 0.50,%
   color hyperlink = blue,%
@@ -212,29 +213,6 @@ The `vdemo.py` file is not needed and can be deleted.
     }%
   }%
 
-% Clean up the Change History entries to get rid of General:
-% and add dates.
-%  See https://tex.stackexchange.com/a/283894/218142
-\renewcommand{\generalname}{} % gets rid of General
-\makeatletter
-\renewcommand*{\changes@}[3]{%
- \protected@edef\@tempa{%
-  \noexpand\glossary{#1 (#2)\levelchar
-   \ifx\saved@macroname\@empty
-    \space\actualchar\generalname
-   \else
-    \expandafter\@gobble\saved@macroname
-    \actualchar
-    \string\verb\quotechar*\verbatimchar\saved@macroname\verbatimchar
-   \fi
-   #3}}% gets rid of colon and adjusts spacing
- \@tempa
- \endgroup
- \@esphack
-}%
-\makeatother
-%%%%% End local hacks.
-
 % We need a new command for in-line listings to prevent overfull boxes.
 % Anything in |...| will be in small plain text.
 % Previously used !...! but that conflicts with colors.
@@ -250,31 +228,39 @@ The `vdemo.py` file is not needed and can be deleted.
   \DocInput{\jobname student.dtx} %
   \setcounter{CodelineNo}{0}      % reset line numbers if desired 
   \DocInput{\jobname exp.dtx}     %
-  \PrintIndex                     %
+  \phantomsection\addcontentsline{toc}{section}{Index}\PrintIndex%
 \end{document}                    % end main document
 %</driver>
 % \fi
 %
-% \IndexPrologue{\section{Index}Page numbers refer to page where the 
-%   corresponding entry is documented and/or referenced.}
+% ^^A Put unnumbered Index entry in TOC
+% \IndexPrologue{\section*{Index}Page numbers refer to page where the 
+%   corresponding entry is documented and/or referenced.\vspace{\baselineskip}}
 % 
-% \CheckSum{2156}
-%
-% \CharacterTable
-%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%   Digits        \0\1\2\3\4\5\6\7\8\9
-%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%   Dollar        \$     Percent       \%     Ampersand     \&
-%   Acute accent  \'     Left paren    \(     Right paren   \)
-%   Asterisk      \*     Plus          \+     Comma         \,
-%   Minus         \-     Point         \.     Solidus       \/
-%   Colon         \:     Semicolon     \;     Less than     \<
-%   Equals        \=     Greater than  \>     Question mark \?
-%   Commercial at \@     Left bracket  \[     Backslash     \\
-%   Right bracket \]     Circumflex    \^     Underscore    \_
-%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%   Right brace   \}     Tilde         \~}
+% ^^A Local hack to Change History to remove `General:`
+% ^^A See https://tex.stackexchange.com/a/283894/218142
+% \makeatletter
+% \renewcommand{\generalname}{}
+% \renewcommand{\changes@}[3]{%
+%   \protected@edef\@tempa{\noexpand\glossary{#1%
+%     \ifdoc@reportchangedates%
+%       \space -- #2\fi%
+%     \levelchar%
+%     \ifx\saved@macroname\@empty%
+%       \quotechar!%
+%       \actualchar%
+%       \generalname%
+%     \else%
+%       \saved@indexname%
+%       \actualchar%
+%       \string\verb% % to fool emacs highlighting
+%       \quotechar*%
+%       \verbatimchar\saved@macroname%
+%       \verbatimchar%
+%     \fi%
+%     #3}}%
+%  \@tempa\endgroup\@esphack}%
+% \makeatother
 %
 % \title{The \href{https://ctan.org/pkg/mandi}{\mandi} Bundle}
 % \author{^^A
@@ -283,14 +269,14 @@ The `vdemo.py` file is not needed and can be deleted.
 %      {heafnerj@gmail.com}^^A
 %    }^^A
 % }^^A
-% \date{\today}
+% \date{Printed \today}
 %
 % \newgeometry{left=1.0in,right=1.0in,top=4.0in}
 %   \maketitle
 %   \thispagestyle{empty}
-%   \centerline{\mandi\ version \mandiversion}
-%   \centerline{\mandistudent\ version \mandistudentversion}
-%   \centerline{\mandiexp\ version \mandiexpversion}
+%   \centerline{\mandi{} version \mandiversion}
+%   \centerline{\mandistudent{} version \mandistudentversion}
+%   \centerline{\mandiexp{} version \mandiexpversion}
 %   ^^A\centerline{\textbf{PLEASE DO NOT DISTRIBUTE THIS BUILD.}}
 % \restoregeometry
 %
@@ -300,17 +286,17 @@ The `vdemo.py` file is not needed and can be deleted.
 %   \phantomsection
 %   \addcontentsline{toc}{section}{Acknowledgements}
 %   \section*{Acknowledgements}
-%   To all of the students who have learned \LaTeXe\ in my introductory
+%   To all of the students who have learned \LaTeXe{} in my introductory
 %   physics courses over the years, I say a heartfelt thank you. You
 %   have contributed directly to the state of this software and to its
 %   use in introductory physics courses and to innovating how physics
 %   is taught.
 %
-%   I also acknowledge the \LaTeXe\ developers who inhabit the
-%   \href{https://tex.stackexchange.com/}{\TeX\ StackExchange} site. 
+%   I also acknowledge the \LaTeXe{} developers who inhabit the
+%   \href{https://tex.stackexchange.com/}{\TeX{} StackExchange} site. 
 %   Entering a new culture is daunting for anyone, especially for
-%   newcomers; the \LaTeXe\ development culture is no exception. We all
-%   share a passion for creating beautiful documents and I have learned
+%   newcomers; the \LaTeXe{} development culture is no exception. We all
+%   share a passion for creating beautiful documents and I learned
 %   much over the summers of 2020 and 2021 that improved my ability to 
 %   do just that. There are too many of you to list individually, and I 
 %   would surely accidentally omit some were I to try. Collectively, I 
@@ -331,51 +317,53 @@ The `vdemo.py` file is not needed and can be deleted.
 %   \listoffigures
 % \restoregeometry
 %
-% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandipkg}{mandi} Initial release}
-% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandistudentpkg}{mandistudent} Initial release}
-% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandiexppkg}{mandiexp} Initial release}
-% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandipkg}{mandi} Minor doc changes}
-% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandistudentpkg}{mandistudent} Minor doc changes}
-% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandiexppkg}{mandiexp} Minor doc changes}
+% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandia}{mandi} Initial release}
+% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandib}{mandistudent} Initial release}
+% \changes{v3.0.0}{2021-08-22}{\linktoplace{sec:mandic}{mandiexp} Initial release}
+% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandia}{mandi} Minor doc changes}
+% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandib}{mandistudent} Minor doc changes}
+% \changes{v3.0.1}{2021-08-24}{\linktoplace{sec:mandic}{mandiexp} Minor doc changes}
+% \changes{v3.2.0}{2023-08-01}{\linktoplace{sec:mandia}{mandi} Source updated}
+% \changes{v3.2.0}{2023-08-01}{\linktoplace{sec:mandib}{mandistudent} Source updated}
+% \changes{v3.2.0}{2023-08-01}{\linktoplace{sec:mandic}{mandiexp} Source updated}
 %
 % \section{Introduction}
-%
 % The \mandi \footnote{The bundle name can be pronounced either with two 
 % syllables, to rhyme with \emph{candy}, or with three syllables, as 
 % \emph{M and I}.} bundle consists of three packages: \mandi, \mandistudent,
-% and \mandiexp. Package \linktoplace{sec:mandipkg}{mandi} provides the
+% and \mandiexp. Package \linktoplace{sec:mandia}{mandi} provides the
 % core functionality, namely correctly typesetting physical quantities
 % and constants with their correct SI units as either scalars or vectors,
 % depending on which is appropriate. Package 
-% \linktoplace{sec:mandistudentpkg}{mandistudent} provides other typesetting
+% \linktoplace{sec:mandib}{mandistudent} provides other typesetting
 % capability appropriate for written problem solutions. Finally, package
-% \linktoplace{sec:mandiexppkg}{mandiexp} provides commands for typesetting
+% \linktoplace{sec:mandic}{mandiexp} provides commands for typesetting
 % expressions from \emph{Matter \& Interactions}\footnote{See 
 % \href{https://www.wiley.com/en-us/Matter+and+Interactions%2C+4th+Edition-p-9781118875865}
 % {\emph{Matter \& Interactions}} and
 % \url{https://matterandinteractions.org/} for details.}
 %
-% \mandi\ has been completely rewritten from the ground up. It had gotten too
-% large and clumsy to use and maintain. It (unknowingly) used deprecated
-% packages. It had too many arcane ``features'' that were never used. It 
-% did not support Unicode. It was not compatible with modern engines, like
-% \lualatex. It did not have a key-value interface. Options could not be
-% changed on the fly within a document. In short, it was a mess. I hope 
-% this rewrite addresses all of the bad things and forms a better code base 
-% for maintenance, useability, and future improvements.
-%
 % So many changes have been made that I think the best approach for former,
 % as well as new, users is to treat this as a brand new experience. I think
 % the most important thing to keep in mind is that I assume users, 
-% expecially new users, will have a relatively recent TeX distribution 
-% (like TeX Live) that includes a recently updated \LaTeXe\ kernel. If users
+% especially new users, will have a relatively recent TeX distribution 
+% (like TeX Live) that includes a recently updated \LaTeXe{} kernel. If users
 % report that this is a major problem, I can provide some degree of
 % backwards compatibility. However, I use a fully updated TeX Live distribution.
+%
+% \section{Getting Help}
+% If you have a question about \mandi, first please read this documentation to make
+% sure your question is not addressed here. Then if you wish, email me. As a user,
+% you deserve courteous and timely help if you need it. You will never get a
+% response from me saying that because this software is free you are not entitled
+% to help using it. It is sad that some developers take that attitude. Using free 
+% software does not absolve the developer of helping users unless the license 
+% specifically says so. 
 % 
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Added GitHub links to code}
+%   {\linktoplace{sec:mandia}{mandi} Added GitHub links to code}
 % \section{Code Availability}
-% The \mandi\ source repository's \texttt{main} branch is at 
+% The \mandi{} source repository's \texttt{main} branch is at 
 % \url{https://github.com/heafnerj/mandi}. This code will usually coincide
 % with that found on \href{https://ctan.org/pkg/mandi}{CTAN}. The very latest
 % build can be found on the \texttt{dev} branch found at
@@ -383,9 +371,18 @@ The `vdemo.py` file is not needed and can be deleted.
 % academic users should probably get the \texttt{dev} branch code since it is
 % stable and may contain improvements over the \texttt{main} branch code.
 %
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandib}{mandistudent} Added statement about \textsc{beamer}
+%    compatibility}
+% \section{Compatibility with Other Packages and Classes}
+% When using \textsc{beamer}, certain commands in the \mandistudent{} package
+% are not defined. Because \textsc{beamer} uses the \pkg{enumitem} package, 
+% the \refEnv{physicsproblem} and \refEnv{physicsproblem*} environments are not 
+% defined. The \refCom{hilite}  command is also not defined because it does not 
+% work and I do not currently know why.
+%
 % \newpage
 % \section{Student/Instructor Quick Guide}
-%
 % Use \refCom{vec} to typeset the symbol for a vector. Use \refCom{magnitude}
 % to typeset the symbol for a vector's magnitude. Use \refCom{dirvec} to
 % typeset the symbol for a vector's direction. Use \refCom{changein} to
@@ -464,9 +461,9 @@ The `vdemo.py` file is not needed and can be deleted.
 % typeset \href{https://\vpurl}{VPython} program files. 
 %
 % \newpage
-% \section{The \mandi\ Package}\setplace{sec:mandipkg}
+% \section{The \mandi{} Package}\setplace{sec:mandia}
 %
-% Load \mandi\ as you would any package in your preamble. 
+% Load \mandi{} as you would any package in your preamble. 
 %
 %\iffalse
 %<*example>
@@ -485,7 +482,7 @@ The `vdemo.py` file is not needed and can be deleted.
   Typesets the current version and build date.
 \end{docCommand}
 \begin{dispExample*}{sidebyside = false}
-  The version is \mandiversion\ and is a stable build.
+  The version is \mandiversion{} and is a stable build.
 \end{dispExample*}
 %\iffalse
 %</example>
@@ -512,7 +509,7 @@ The `vdemo.py` file is not needed and can be deleted.
       doc description = {initially unspecified, set to \docValue{false}},%
     },%
   }%
-  Now \mandi\ uses a key-value interface for options.
+  Now \mandi{} uses a key-value interface for options.
   The \refKey{units} key can be set to \docValue{base}, \docValue{derived}, 
   or \docValue{alternate}. The \refKey{preciseconstants} key is always 
   either \docValue{true} or \docValue{false}.
@@ -544,10 +541,10 @@ The `vdemo.py` file is not needed and can be deleted.
 %</example>
 %\fi
 %
-% \subsection{\lualatex\ is Required}
+% \subsection{\lualatex{} is Required}
 %
-% In order to make use of better fonts and Unicode features, \mandi\ now
-% requires the \lualatex\ engine for processing documents. It will not
+% In order to make use of better fonts and Unicode features, \mandi{} now
+% requires the \lualatex{} engine for processing documents. It will not
 % work with other engines. 
 %
 % \newpage
@@ -580,7 +577,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
   Command for momentum and its vector variants. The default units will depend 
-  on the options passed to \mandi\ at load time. Alternate units are the 
+  on the options passed to \mandi{} at load time. Alternate units are the 
   default. Other units can be forced as demonstrated. The vector variants can 
   take more than three components. Note the other variants for the quantity's 
   value and units.
@@ -626,7 +623,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2022-01-27]{checkquantity}{\marg{name}}
+\begin{docCommand}[doc updated = 2022-01-27]{CheckQuantity}{\marg{name}}
   Command to check and typeset the command, base units, 
   derived units, and alternate units of a defined physical 
   quantity.
@@ -640,7 +637,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % Every other defined physical quantity can be treated similarly. Just replace 
 % |momentum| with the quantity's name. Obviously, the variants that begin with 
 % |\vector| will not be defined for scalar quantities. Here are all the 
-% physical quantities, with all their units, defined in \mandi. Rememeber that 
+% physical quantities, with all their units, defined in \mandi. Remember that 
 % units are not present with symbolic (algebraic) quantities, so do not use 
 % the |\vector| variants of these commands for symbolic components. 
 % Use \refCom{mivector} instead.
@@ -665,10 +662,10 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{acceleration}
+\CheckQuantity{acceleration}
 \begin{docCommand}{amount}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{amount}
+\CheckQuantity{amount}
 \begin{docCommands}
   {%
     {%
@@ -686,10 +683,10 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{angularacceleration}
+\CheckQuantity{angularacceleration}
 \begin{docCommand}{angularfrequency}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{angularfrequency}
+\CheckQuantity{angularfrequency}
 \begin{docCommands}
   {%
     {%
@@ -707,7 +704,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{angularimpulse}
+\CheckQuantity{angularimpulse}
 \begin{docCommands}
   {%
     {%
@@ -725,7 +722,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{angularmomentum}
+\CheckQuantity{angularmomentum}
 \begin{docCommands}
   {%
     {%
@@ -743,22 +740,22 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{angularvelocity}
+\CheckQuantity{angularvelocity}
 \begin{docCommand}{area}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{area}
+\CheckQuantity{area}
 \begin{docCommand}{areachargedensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{areachargedensity}
+\CheckQuantity{areachargedensity}
 \begin{docCommand}{areamassdensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{areamassdensity}
+\CheckQuantity{areamassdensity}
 \begin{docCommand}{capacitance}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{capacitance}
+\CheckQuantity{capacitance}
 \begin{docCommand}{charge}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{charge}
+\CheckQuantity{charge}
 \begin{docCommands}
   {%
     {%
@@ -776,19 +773,19 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{cmagneticfield}
+\CheckQuantity{cmagneticfield}
 \begin{docCommand}{conductance}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{conductance}
+\CheckQuantity{conductance}
 \begin{docCommand}{conductivity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{conductivity}
+\CheckQuantity{conductivity}
 \begin{docCommand}{conventionalcurrent}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{conventionalcurrent}
+\CheckQuantity{conventionalcurrent}
 \begin{docCommand}{current}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{current}
+\CheckQuantity{current}
 \begin{docCommands}
   {%
     {%
@@ -806,10 +803,10 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{currentdensity}
+\CheckQuantity{currentdensity}
 \begin{docCommand}{dielectricconstant}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{dielectricconstant}
+\CheckQuantity{dielectricconstant}
 \begin{docCommands}
   {%
     {%
@@ -827,7 +824,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{direction}
+\CheckQuantity{direction}
 \begin{docCommands}
   {%
     {%
@@ -845,10 +842,10 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{displacement}
+\CheckQuantity{displacement}
 \begin{docCommand}{duration}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{duration}
+\CheckQuantity{duration}
 \begin{docCommands}
   {%
     {%
@@ -865,7 +862,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{electricdipolemoment}
+\CheckQuantity{electricdipolemoment}
 \begin{docCommands}
   {%
     {%
@@ -883,37 +880,37 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{electricfield}
+\CheckQuantity{electricfield}
 \begin{docCommand}{electricflux}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{electricflux}
+\CheckQuantity{electricflux}
 \begin{docCommand}{electricpotential}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{electricpotential}
+\CheckQuantity{electricpotential}
 \begin{docCommand}[doc new = 2021-05-01]{electricpotentialdifference}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{electricpotentialdifference}
+\CheckQuantity{electricpotentialdifference}
 \begin{docCommand}{electroncurrent}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{electroncurrent}
+\CheckQuantity{electroncurrent}
 \begin{docCommand}{emf}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{emf}
+\CheckQuantity{emf}
 \begin{docCommand}{energy}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{energy}
+\CheckQuantity{energy}
 \begin{docCommand}[doc new = 2021-04-15]{energyinev}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{energyinev}
+\CheckQuantity{energyinev}
 \begin{docCommand}[doc new = 2021-04-15]{energyinkev}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{energyinkev}
+\CheckQuantity{energyinkev}
 \begin{docCommand}[doc new = 2021-04-15]{energyinmev}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{energyinmev}
+\CheckQuantity{energyinmev}
 \begin{docCommand}{energydensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{energydensity}
+\CheckQuantity{energydensity}
 \begin{docCommands}
   {%
     {%
@@ -931,10 +928,10 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{energyflux}
+\CheckQuantity{energyflux}
 \begin{docCommand}{entropy}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{entropy}
+\CheckQuantity{entropy}
 \begin{docCommands}
   {%
     {%
@@ -952,10 +949,10 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{force}
+\CheckQuantity{force}
 \begin{docCommand}{frequency}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{frequency}
+\CheckQuantity{frequency}
 \begin{docCommands}
   {%
     {%
@@ -973,13 +970,13 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{gravitationalfield}
+\CheckQuantity{gravitationalfield}
 \begin{docCommand}{gravitationalpotential}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{gravitationalpotential}
+\CheckQuantity{gravitationalpotential}
 \begin{docCommand}[doc new = 2021-05-01]{gravitationalpotentialdifference}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{gravitationalpotentialdifference}
+\CheckQuantity{gravitationalpotentialdifference}
 \begin{docCommands}
   {%
     {%
@@ -997,28 +994,28 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{impulse}
+\CheckQuantity{impulse}
 \begin{docCommand}{indexofrefraction}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{indexofrefraction}
+\CheckQuantity{indexofrefraction}
 \begin{docCommand}{inductance}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{inductance}
+\CheckQuantity{inductance}
 \begin{docCommand}{linearchargedensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{linearchargedensity}
+\CheckQuantity{linearchargedensity}
 \begin{docCommand}{linearmassdensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{linearmassdensity}
+\CheckQuantity{linearmassdensity}
 \begin{docCommand}[doc new = 2022-01-27]{lorentzfactor}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{lorentzfactor}
+\CheckQuantity{lorentzfactor}
 \begin{docCommand}[doc updated = 2021-05-02]{luminousintensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{luminousintensity}
+\CheckQuantity{luminousintensity}
 \begin{docCommand}{magneticcharge}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{magneticcharge}
+\CheckQuantity{magneticcharge}
 \begin{docCommands}
   {%
     {%
@@ -1036,7 +1033,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{magneticdipolemoment}
+\CheckQuantity{magneticdipolemoment}
 \begin{docCommands}
   {%
     {%
@@ -1054,19 +1051,19 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{magneticfield}
+\CheckQuantity{magneticfield}
 \begin{docCommand}{magneticflux}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{magneticflux}
+\CheckQuantity{magneticflux}
 \begin{docCommand}{mass}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{mass}
+\CheckQuantity{mass}
 \begin{docCommand}{mobility}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{mobility}
+\CheckQuantity{mobility}
 \begin{docCommand}{momentofinertia}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{momentofinertia}
+\CheckQuantity{momentofinertia}
 \begin{docCommands}
   {%
     {%
@@ -1086,7 +1083,7 @@ The `vdemo.py` file is not needed and can be deleted.
       doc parameter = \marg{\( c_1,\dots,c_n \)} },%
   }%
 \end{docCommands}
-\checkquantity{momentum}
+\CheckQuantity{momentum}
 \begin{docCommands}
   {%
     {%
@@ -1104,25 +1101,25 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{momentumflux}
+\CheckQuantity{momentumflux}
 \begin{docCommand}{numberdensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{numberdensity}
+\CheckQuantity{numberdensity}
 \begin{docCommand}{permeability}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{permeability}
+\CheckQuantity{permeability}
 \begin{docCommand}{permittivity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{permittivity}
+\CheckQuantity{permittivity}
 \begin{docCommand}{planeangle}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{planeangle}
+\CheckQuantity{planeangle}
 \begin{docCommand}{polarizability}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{polarizability}
+\CheckQuantity{polarizability}
 \begin{docCommand}{power}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{power}
+\CheckQuantity{power}
 \begin{docCommands}
   {%
     {%
@@ -1140,43 +1137,43 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{poynting}
+\CheckQuantity{poynting}
 \begin{docCommand}{pressure}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{pressure}
+\CheckQuantity{pressure}
 \begin{docCommand}{relativepermeability}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{relativepermeability}
+\CheckQuantity{relativepermeability}
 \begin{docCommand}{relativepermittivity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{relativepermittivity}
+\CheckQuantity{relativepermittivity}
 \begin{docCommand}{resistance}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{resistance}
+\CheckQuantity{resistance}
 \begin{docCommand}{resistivity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{resistivity}
+\CheckQuantity{resistivity}
 \begin{docCommand}{solidangle}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{solidangle}
+\CheckQuantity{solidangle}
 \begin{docCommand}{specificheatcapacity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{specificheatcapacity}
+\CheckQuantity{specificheatcapacity}
 \begin{docCommand}{springstiffness}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{springstiffness}
+\CheckQuantity{springstiffness}
 \begin{docCommand}{springstretch}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{springstretch}
+\CheckQuantity{springstretch}
 \begin{docCommand}{stress}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{stress}
+\CheckQuantity{stress}
 \begin{docCommand}{strain}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{strain}
+\CheckQuantity{strain}
 \begin{docCommand}{temperature}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{temperature}
+\CheckQuantity{temperature}
 \begin{docCommands}
   {%
     {%
@@ -1194,7 +1191,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{torque}
+\CheckQuantity{torque}
 \begin{docCommands}
   {%
     {%
@@ -1212,7 +1209,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{velocity}
+\CheckQuantity{velocity}
 \begin{docCommands}
   {%
     {%
@@ -1230,19 +1227,19 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{velocityc}
+\CheckQuantity{velocityc}
 \begin{docCommand}{volume}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{volume}
+\CheckQuantity{volume}
 \begin{docCommand}{volumechargedensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{volumechargedensity}
+\CheckQuantity{volumechargedensity}
 \begin{docCommand}{volumemassdensity}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{volumemassdensity}
+\CheckQuantity{volumemassdensity}
 \begin{docCommand}{wavelength}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{wavelength}
+\CheckQuantity{wavelength}
 \begin{docCommands}
   {%
     {%
@@ -1260,13 +1257,13 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
 \end{docCommands}
-\checkquantity{wavenumber}
+\CheckQuantity{wavenumber}
 \begin{docCommand}{work}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{work}
+\CheckQuantity{work}
 \begin{docCommand}{youngsmodulus}{\marg{magnitude}}
 \end{docCommand}
-\checkquantity{youngsmodulus}
+\CheckQuantity{youngsmodulus}
 %\iffalse
 %</example>
 %\fi
@@ -1282,18 +1279,18 @@ The `vdemo.py` file is not needed and can be deleted.
   {%
     {%
       doc new = 2021-02-16,%
-      doc name = newscalarquantity,%
+      doc name = NewScalarQuantity,%
     },%
     {%
       doc new = 2021-02-21,%
-      doc name = renewscalarquantity,%
+      doc name = RenewScalarQuantity,%
     },%
   }%
   Command to (re)define a new/existing scalar quantity. 
   If the derived or alternate units are omitted, they are 
   defined to be the same as the base units. Do not use both 
   this command and 
-  \refCom{newvectorquantity} or \refCom{renewvectorquantity} 
+  \refCom{NewVectorQuantity} or \refCom{RenewVectorQuantity} 
   to (re)define a quantity.
 \end{docCommands}
 %\iffalse
@@ -1309,18 +1306,18 @@ The `vdemo.py` file is not needed and can be deleted.
   {%
     {%
       doc new = 2021-02-16,%
-      doc name = newvectorquantity,%
+      doc name = NewVectorQuantity,%
     },%
     {%
       doc new = 2021-02-21,%
-      doc name = renewvectorquantity,%
+      doc name = RenewVectorQuantity,%
     },%
   }%
   Command to (re)define a new/existing vector quantity. 
   If the derived or alternate units are omitted, they are 
   defined to be the same as the base units. Do not use both 
   this command and 
-  \refCom{newscalarquantity} or \refCom{renewscalarquantity} 
+  \refCom{NewScalarQuantity} or \refCom{RenewScalarQuantity} 
   to (re)define a quantity.
 \end{docCommands}
 %\iffalse
@@ -1329,7 +1326,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %
 % \subsubsection{Changing Units}\setplace{ssec:chgunits}
 %
-% Units are set when \mandi\ is loaded, but the default setting
+% Units are set when \mandi{} is loaded, but the default setting
 % can be easily overridden in four ways: command variants that
 % are defined when a \linktoplace{ssec:physquants}{physical quantity}
 % or \linktoplace{ssec:physconsts}{physical constant} is
@@ -1358,7 +1355,7 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
   }%
   Modal commands (switches) for setting the default unit form for the entire 
-  document. When \mandi\ is loaded, one of these three commands is executed 
+  document. When \mandi{} is loaded, one of these three commands is executed 
   depending on whether the optional |units| key is provided. See the section 
   on loading the package for details. Alternate units are the default because 
   they are the most likely ones to be seen in introductory physics textbooks.
@@ -1382,7 +1379,7 @@ The `vdemo.py` file is not needed and can be deleted.
       doc name = hereusederivedunits,%
     },%
     {%
-      doc name = hereusedalternateunits,%
+      doc name = hereusealternateunits,%
     },%
   }%
   Commands for setting the unit form on the fly for a single instance. The 
@@ -1461,7 +1458,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\fi
 \begin{docCommand}[doc label = oofpezdemo]{oofpez}{}
   Command for the Coulomb constant. The constant's numerical precision and 
-  default units will depend on the options passed to \mandi\ at load time. 
+  default units will depend on the options passed to \mandi{} at load time. 
   Alternate units and approximate numerical values are the defaults. Other 
   units can be forced as demonstrated.
 \end{docCommand}
@@ -1486,7 +1483,7 @@ The `vdemo.py` file is not needed and can be deleted.
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2022-01-27]{checkconstant}{\marg{name}}
+\begin{docCommand}[doc updated = 2022-01-27]{CheckConstant}{\marg{name}}
   Command to check and typeset the constant's name, mathematical symbol, 
   approximate value, precise value, base units, derived units, and 
   alternate units.
@@ -1511,115 +1508,115 @@ The `vdemo.py` file is not needed and can be deleted.
 %\fi
 \begin{docCommand}[doc description = exact]{avogadro}{}
 \end{docCommand}
-\checkconstant{avogadro}
+\CheckConstant{avogadro}
 \begin{docCommand}[doc new = 2021-02-02]{biotsavartconstant}{}
 \end{docCommand}
-\checkconstant{biotsavartconstant}
+\CheckConstant{biotsavartconstant}
 \begin{docCommand}{bohrradius}{}
 \end{docCommand}
-\checkconstant{bohrradius}
+\CheckConstant{bohrradius}
 \begin{docCommand}[doc description = exact]{boltzmann}{}
 \end{docCommand}
-\checkconstant{boltzmann}
+\CheckConstant{boltzmann}
 \begin{docCommand}[doc new = 2021-02-02]{coulombconstant}{}
 \end{docCommand}
-\checkconstant{coulombconstant}
+\CheckConstant{coulombconstant}
 \begin{docCommand}{earthmass}{}
 \end{docCommand}
-\checkconstant{earthmass}
+\CheckConstant{earthmass}
 \begin{docCommand}{earthmoondistance}{}
 \end{docCommand}
-\checkconstant{earthmoondistance}
+\CheckConstant{earthmoondistance}
 \begin{docCommand}{earthradius}{}
 \end{docCommand}
-\checkconstant{earthradius}
+\CheckConstant{earthradius}
 \begin{docCommand}{earthsundistance}{}
 \end{docCommand}
-\checkconstant{earthsundistance}
+\CheckConstant{earthsundistance}
 \begin{docCommand}{electroncharge}{}
 \end{docCommand}
-\checkconstant{electroncharge}
+\CheckConstant{electroncharge}
 \begin{docCommand}{electronCharge}{}
 \end{docCommand}
-\checkconstant{electronCharge}
+\CheckConstant{electronCharge}
 \begin{docCommand}{electronmass}{}
 \end{docCommand}
-\checkconstant{electronmass}
+\CheckConstant{electronmass}
 \begin{docCommand}[doc description = exact]{elementarycharge}{}
 \end{docCommand}
-\checkconstant{elementarycharge}
+\CheckConstant{elementarycharge}
 \begin{docCommand}{finestructure}{}
 \end{docCommand}
-\checkconstant{finestructure}
+\CheckConstant{finestructure}
 \begin{docCommand}{hydrogenmass}{}
 \end{docCommand}
-\checkconstant{hydrogenmass}
+\CheckConstant{hydrogenmass}
 \begin{docCommand}{moonearthdistance}{}
 \end{docCommand}
-\checkconstant{moonearthdistance}
+\CheckConstant{moonearthdistance}
 \begin{docCommand}{moonmass}{}
 \end{docCommand}
-\checkconstant{moonmass}
+\CheckConstant{moonmass}
 \begin{docCommand}{moonradius}{}
 \end{docCommand}
-\checkconstant{moonradius}
+\CheckConstant{moonradius}
 \begin{docCommand}{mzofp}{}
 \end{docCommand}
-\checkconstant{mzofp}
+\CheckConstant{mzofp}
 \begin{docCommand}{neutronmass}{}
 \end{docCommand}
-\checkconstant{neutronmass}
+\CheckConstant{neutronmass}
 \begin{docCommand}{oofpez}{}
 \end{docCommand}
-\checkconstant{oofpez}
+\CheckConstant{oofpez}
 \begin{docCommand}{oofpezcs}{}
 \end{docCommand}
-\checkconstant{oofpezcs}
+\CheckConstant{oofpezcs}
 \begin{docCommand}[doc description = exact]{planck}{}
 \end{docCommand}
-\checkconstant{planck}
+\CheckConstant{planck}
 \begin{docCommand}{planckbar}{}
 \end{docCommand}
-\checkconstant{planckbar}
+\CheckConstant{planckbar}
 \begin{docCommand}{planckc}{}
 \end{docCommand}
-\checkconstant{planckc}
+\CheckConstant{planckc}
 \begin{docCommand}{protoncharge}{}
 \end{docCommand}
-\checkconstant{protoncharge}
+\CheckConstant{protoncharge}
 \begin{docCommand}{protonCharge}{}
 \end{docCommand}
-\checkconstant{protonCharge}
+\CheckConstant{protonCharge}
 \begin{docCommand}{protonmass}{}
 \end{docCommand}
-\checkconstant{protonmass}
+\CheckConstant{protonmass}
 \begin{docCommand}{rydberg}{}
 \end{docCommand}
-\checkconstant{rydberg}
+\CheckConstant{rydberg}
 \begin{docCommand}[doc description = exact]{speedoflight}{}
 \end{docCommand}
-\checkconstant{speedoflight}
+\CheckConstant{speedoflight}
 \begin{docCommand}{stefanboltzmann}{}
 \end{docCommand}
-\checkconstant{stefanboltzmann}
+\CheckConstant{stefanboltzmann}
 \begin{docCommand}{sunearthdistance}{}
 \end{docCommand}
-\checkconstant{sunearthdistance}
+\CheckConstant{sunearthdistance}
 \begin{docCommand}{sunradius}{}
 \end{docCommand}
-\checkconstant{sunradius}
+\CheckConstant{sunradius}
 \begin{docCommand}{surfacegravfield}{}
 \end{docCommand}
-\checkconstant{surfacegravfield}
+\CheckConstant{surfacegravfield}
 \begin{docCommand}{universalgrav}{}
 \end{docCommand}
-\checkconstant{universalgrav}
+\CheckConstant{universalgrav}
 \begin{docCommand}{vacuumpermeability}{}
 \end{docCommand}
-\checkconstant{vacuumpermeability}
+\CheckConstant{vacuumpermeability}
 \begin{docCommand}{vacuumpermittivity}{}
 \end{docCommand}
-\checkconstant{vacuumpermittivity}
+\CheckConstant{vacuumpermittivity}
 %\iffalse
 %</example>
 %\fi
@@ -1638,11 +1635,11 @@ The `vdemo.py` file is not needed and can be deleted.
   {%
     {%
       doc new = 2021-02-16,%
-      doc name = newphysicalconstant,%
+      doc name = NewPhysicalConstant,%
     },%
     {%
       doc new = 2021-02-21,%
-      doc name = renewphysicalconstant,%
+      doc name = RenewPhysicalConstant,%
     },%
   }%
   Command to define/redefine a new/existing physical constant. 
@@ -1764,7 +1761,8 @@ The `vdemo.py` file is not needed and can be deleted.
     },%
     {%
       doc parameter = \marg{magnitude}\marg{unit},%
-      doc name = unit,%
+      doc updated = 2023-08-01,%
+      doc name = units,%
     },%
     {%
       doc name = emptyunit,%
@@ -1911,7 +1909,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \begin{dispExample}
   \( \per \)                         \\
   \( \usk \)                         \\
-  \( \unit{3}{\meter\per\second} \)  \\
+  \( \units{3}{\meter\per\second} \)  \\
   \( \emptyunit \)                   \\
   \( \ampere \)                      \\
   \( \atomicmassunit \)              \\
@@ -2021,26 +2019,26 @@ The `vdemo.py` file is not needed and can be deleted.
 %</example>
 %\fi
 %
-% \StopEventually{}
+% \MaybeStop{}
 %
 % \newgeometry{left=0.50in,right=0.50in,top=1.00in,bottom=1.00in}
-% \subsection{\mandi\ Source Code}
+% \subsection{\mandi{} Source Code}
 %
 % \iffalse
 %<*package>
 % \fi
-% Definine the package version and date for global use, exploiting the fact
+% Define the package version and date for global use, exploiting the fact
 % that in a \pkg{.sty} file there is now no need for |\makeatletter| and
 % |\makeatother|. This simplifies defining internal commands (with |@| 
 % in the name) that are not for the user to know about.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Code formatted for better readability}
+%   {\linktoplace{sec:mandia}{mandi} Code formatted for better readability}
 %    \begin{macrocode}
-\def\mandi@version{3.1.0}
-\def\mandi@date{2022-01-27}
+\def\mandi@version{3.2.0}
+\def\mandi@date{2023-08-01}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.1.0}{2022-01-27}{mandi.sty}
+\DeclareRelease{v3.2.0}{2023-08-01}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
@@ -2054,44 +2052,83 @@ The `vdemo.py` file is not needed and can be deleted.
 %
 % Load third party packages, documenting why each one is needed.
 %
+% We need \pkg{pgfopts} for a key-value interface.
+%
 %    \begin{macrocode}
-\RequirePackage{pgfopts}        % needed for key-value interface
-\RequirePackage{array}          % needed for \checkquantity and \checkconstant
-\RequirePackage{iftex}          % needed for requiring LuaLaTeX
-\RequirePackage{unicode-math}   % needed for Unicode support
+\RequirePackage{pgfopts}
 %    \end{macrocode}
 %
-% \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} \pkg{xparse} is loaded for older formats}
+% We need \pkg{array} for |\chkquantity| and |\chkconstant|.
+%
 %    \begin{macrocode}
-\IfFormatAtLeastTF {2020-10-01} % load xparse if necessary
+\RequirePackage{array}
+%    \end{macrocode}
+%
+% We need \pkg{iftex} so we can require \lualatex.
+%
+%    \begin{macrocode}
+\RequirePackage{iftex}
+%    \end{macrocode}
+%
+% We need \pkg{mathtools} for intelligent delimiters.
+%
+%    \begin{macrocode}
+\RequirePackage{mathtools}
+%    \end{macrocode}
+%
+% We need \pkg{unicode-math} for Unicode support and changing fonts.
+%
+%    \begin{macrocode}
+\RequirePackage{unicode-math}
+%    \end{macrocode}
+%
+% Suppress some annoying warnings.
+%
+%    \begin{macrocode}
+\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
+%    \end{macrocode}
+%
+% Load \pkg{xparse} if necessary.
+%
+% \changes{v3.1.0}{2022-01-27}
+%   {\linktoplace{sec:mandia}{mandi} \pkg{xparse} is loaded for older formats}
+%    \begin{macrocode}
+\IfFormatAtLeastTF{2020-10-01}
   {}%
   {\RequirePackage{xparse}}%
-\RequireLuaTeX                  % require this engine
+%    \end{macrocode}
+%
+% We require the \lualatex{} engine.
+%
+%    \begin{macrocode}
+\RequireLuaTeX
 %    \end{macrocode}
 %
 % Parts of the unit engine have been rewritten with 
 % \href{https://www.ctan.org/pkg/xparse}{\pkg{xparse}} for both clarity 
-% and power. Note that \pkg{xparse} is now part of the \LaTeXe\ kernel. 
-% Other parts have been rewriten in 
+% and power. Note that \pkg{xparse} is now part of the \LaTeXe{} kernel. 
+% Other parts have been rewritten in 
 % \href{https://www.ctan.org/pkg/expl}{\pkg{expl}} with a look to the 
 % future.
 %
-% Generic internal selectors.
+% Define some generic internal selectors.
 %
 %    \begin{macrocode}
 \newcommand*{\mandi@selectunits}{}
 \newcommand*{\mandi@selectprecision}{}
 %    \end{macrocode}
 %
-% Specific internal selectors.
+% Define some specific internal selectors. The first two are really just 
+% workalikes for |\@firstoftwo| and |\@secondoftwo|. The third, fourth, 
+% and fifth are |\@firstofthree|, |\@secondofthree|, and |\@thirdofthree| 
+% and apparently do not yet exist.
 %
 %    \begin{macrocode}
-\newcommand*{\mandi@selectapproximate}[2]{#1}    % really \@firstoftwo
-\newcommand*{\mandi@selectprecise}[2]{#2}        % really \@secondoftwo
-\newcommand*{\mandi@selectbaseunits}[3]{#1}      % really \@firstofthree
-\newcommand*{\mandi@selectderivedunits}[3]{#2}   % really \@secondofthree
-\newcommand*{\mandi@selectalternateunits}[3]{#3} % really \@thirdofthree
+\newcommand*{\mandi@selectapproximate}[2]{#1}
+\newcommand*{\mandi@selectprecise}[2]{#2}
+\newcommand*{\mandi@selectbaseunits}[3]{#1}
+\newcommand*{\mandi@selectderivedunits}[3]{#2}
+\newcommand*{\mandi@selectalternateunits}[3]{#3}
 %    \end{macrocode}
 %
 % Document level global switches.
@@ -2129,7 +2166,7 @@ The `vdemo.py` file is not needed and can be deleted.
 \NewDocumentEnvironment{usepreciseconstants}{}{\alwaysusepreciseconstants}{}%
 %    \end{macrocode}
 %
-% \mandi\ now has a key-value interface, implemented with 
+% \mandi{} now has a key-value interface, implemented with 
 % \href{https://www.ctan.org/pkg/pgfopts}{\pkg{pgfopts}} and 
 % \href{https://www.ctan.org/pkg/pgfkeys}{\pkg{pgfkeys}}.
 % There are two options:\newline
@@ -2143,7 +2180,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % by the unit engine.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Unknown package options handled safely}
+%   {\linktoplace{sec:mandia}{mandi} Unknown package options handled safely}
 %    \begin{macrocode}
 \newif\ifusingpreciseconstants
 \pgfkeys{%
@@ -2201,7 +2238,8 @@ The `vdemo.py` file is not needed and can be deleted.
 %    \end{macrocode}
 %
 % Define a setup command that overrides the loadtime options
-% when called with new options. A new banner is written to the console.
+% when called with new options. A new banner is written to 
+% the console.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\mandisetup}{ m }%
@@ -2223,11 +2261,22 @@ The `vdemo.py` file is not needed and can be deleted.
 % We make use of |\symup{...}| from the \pkg{unicode-math} package.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Added a negative space to \refCom{lightspeed}}
+%   {\linktoplace{sec:mandia}{mandi} Added a negative space to \refCom{lightspeed}}
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandia}{mandi} Changed \cs{unit} to \cs{units}}
 %    \begin{macrocode}
 \NewDocumentCommand{\per}{}{/}
 \NewDocumentCommand{\usk}{}{\cdot}
-\NewDocumentCommand{\unit}{ m m }{{#1}{\,#2}}
+\NewDocumentCommand{\units}{ m m }%
+{%
+  \IfValueTF{#2}
+  {%
+    {#1}{\,#2}
+  }%
+  {%
+    {#1}{}
+  }%
+}%
 \NewDocumentCommand{\ampere}{}{\symup{A}}
 \NewDocumentCommand{\atomicmassunit}{}{\symup{u}}
 \NewDocumentCommand{\candela}{}{\symup{cd}}
@@ -2260,13 +2309,13 @@ The `vdemo.py` file is not needed and can be deleted.
 \NewDocumentCommand{\volt}{}{\symup{V}}
 \NewDocumentCommand{\watt}{}{\symup{W}}
 \NewDocumentCommand{\weber}{}{\symup{Wb}}
-\NewDocumentCommand{\tothetwo}{}{^2}             % postfix  2
-\NewDocumentCommand{\tothethree}{}{^3}           % postfix  3
-\NewDocumentCommand{\tothefour}{}{^4}            % postfix  4
-\NewDocumentCommand{\inverse}{}{^{-1}}           % postfix -1
-\NewDocumentCommand{\totheinversetwo}{}{^{-2}}   % postfix -2
-\NewDocumentCommand{\totheinversethree}{}{^{-3}} % postfix -3
-\NewDocumentCommand{\totheinversefour}{}{^{-4}}  % postfix -4
+\NewDocumentCommand{\tothetwo}{}{^{2}}
+\NewDocumentCommand{\tothethree}{}{^{3}}
+\NewDocumentCommand{\tothefour}{}{^{4}}
+\NewDocumentCommand{\inverse}{}{^{-1}}
+\NewDocumentCommand{\totheinversetwo}{}{^{-2}}
+\NewDocumentCommand{\totheinversethree}{}{^{-3}}
+\NewDocumentCommand{\totheinversefour}{}{^{-4}}
 \NewDocumentCommand{\emptyunit}{}{\mdlgwhtsquare}
 \NewDocumentCommand{\tento}{ m }{10^{#1}}
 \NewDocumentCommand{\timestento}{ m }{\times\tento{#1}}
@@ -2274,21 +2323,21 @@ The `vdemo.py` file is not needed and can be deleted.
 %    \end{macrocode}
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} \LaTeX3 code now conforms to formatting standards}
+%   {\linktoplace{sec:mandia}{mandi} \LaTeX3 code now conforms to formatting standards}
 %    \begin{macrocode}
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_newscalarquantity:nnnn #1#2#3#4
   {
-    \cs_new:cpn {#1} ##1 {\unit{##1}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1} ##1 {\units{##1}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_new:cpn {#1value} ##1 {##1}
-    \cs_new:cpn {#1baseunits} ##1 {\unit{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1derivedunits} ##1 {\unit{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1alternateunits} ##1 {\unit{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1baseunits} ##1 {\units{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1derivedunits} ##1 {\units{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1alternateunits} ##1 {\units{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_new:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_new:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
     \cs_new:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\newscalarquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\NewScalarQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_newscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -2301,16 +2350,16 @@ The `vdemo.py` file is not needed and can be deleted.
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_renewscalarquantity:nnnn #1#2#3#4
   {
-    \cs_set:cpn {#1} ##1 {\unit{##1}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1} ##1 {\units{##1}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_set:cpn {#1value} ##1 {##1}
-    \cs_set:cpn {#1baseunits} ##1 {\unit{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1derivedunits} ##1 {\unit{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1alternateunits} ##1 {\unit{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1baseunits} ##1 {\units{##1}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1derivedunits} ##1 {\units{##1}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1alternateunits} ##1 {\units{##1}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_set:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_set:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
     \cs_set:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\renewscalarquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\RenewScalarQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_renewscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -2324,16 +2373,16 @@ The `vdemo.py` file is not needed and can be deleted.
 \cs_new:Npn \__mandi_newvectorquantity:nnnn #1#2#3#4
   {
     \__mandi_newscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
-    \cs_new:cpn {vector#1} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vector} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vector} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_new:cpn {vector#1value} ##1 {\mivector{##1}}
     \cs_new:cpn {#1vectorvalue} ##1 {\mivector{##1}}
-    \cs_new:cpn {vector#1baseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vectorbaseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_new:cpn {vector#1derivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vectorderivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_new:cpn {vector#1alternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
-    \cs_new:cpn {#1vectoralternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1baseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vectorbaseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1derivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vectorderivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_new:cpn {vector#1alternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_new:cpn {#1vectoralternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_new:cpn {vector#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_new:cpn {#1vectoronlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_new:cpn {vector#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
@@ -2341,7 +2390,7 @@ The `vdemo.py` file is not needed and can be deleted.
     \cs_new:cpn {vector#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
     \cs_new:cpn {#1vectoronlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\newvectorquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\NewVectorQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_newvectorquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -2355,16 +2404,16 @@ The `vdemo.py` file is not needed and can be deleted.
 \cs_new:Npn \__mandi_renewvectorquantity:nnnn #1#2#3#4
   {
     \__mandi_renewscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
-    \cs_set:cpn {vector#1} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vector} ##1 {\unit{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vector} ##1 {\units{\mivector{##1}}{\mandi@selectunits{#2}{#3}{#4}}}
     \cs_set:cpn {vector#1value} ##1 {\mivector{##1}}
     \cs_set:cpn {#1vectorvalue} ##1 {\mivector{##1}}
-    \cs_set:cpn {vector#1baseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vectorbaseunits} ##1 {\unit{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
-    \cs_set:cpn {vector#1derivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vectorderivedunits} ##1 {\unit{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
-    \cs_set:cpn {vector#1alternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
-    \cs_set:cpn {#1vectoralternateunits} ##1 {\unit{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1baseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vectorbaseunits} ##1 {\units{\mivector{##1}}{\mandi@selectbaseunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1derivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vectorderivedunits} ##1 {\units{\mivector{##1}}{\mandi@selectderivedunits{#2}{#3}{#4}}}
+    \cs_set:cpn {vector#1alternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
+    \cs_set:cpn {#1vectoralternateunits} ##1 {\units{\mivector{##1}}{\mandi@selectalternateunits{#2}{#3}{#4}}}
     \cs_set:cpn {vector#1onlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_set:cpn {#1vectoronlybaseunits} {\mandi@selectbaseunits{#2}{#3}{#4}}
     \cs_set:cpn {vector#1onlyderivedunits} {\mandi@selectderivedunits{#2}{#3}{#4}}
@@ -2372,7 +2421,7 @@ The `vdemo.py` file is not needed and can be deleted.
     \cs_set:cpn {vector#1onlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
     \cs_set:cpn {#1vectoronlyalternateunits} {\mandi@selectalternateunits{#2}{#3}{#4}}
   }
-\NewDocumentCommand{\renewvectorquantity}{ m m O{#2} O{#2} }
+\NewDocumentCommand{\RenewVectorQuantity}{ m m O{#2} O{#2} }
   {
     \__mandi_renewvectorquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
@@ -2385,21 +2434,21 @@ The `vdemo.py` file is not needed and can be deleted.
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_newphysicalconstant:nnnnnnn #1#2#3#4#5#6#7
   {
-    \cs_new:cpn {#1} {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
+    \cs_new:cpn {#1} {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1mathsymbol} {#2}
     \cs_new:cpn {#1approximatevalue} {#3}
     \cs_new:cpn {#1precisevalue} {#4}
     \cs_new:cpn {#1baseunits} 
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1derivedunits} 
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1alternateunits} 
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
     \cs_new:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#5}{#6}{#7}}
     \cs_new:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#5}{#6}{#7}}
     \cs_new:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#5}{#6}{#7}}
   }
-\NewDocumentCommand{\newphysicalconstant}{ m m m m m O{#5} O{#5} }
+\NewDocumentCommand{\NewPhysicalConstant}{ m m m m m O{#5} O{#5} }
   {
     \__mandi_newphysicalconstant:nnnnnnn { #1 }{ #2 }{ #3 }{ #4 }{ #5 }{ #6 }{ #7 }
   }
@@ -2412,21 +2461,21 @@ The `vdemo.py` file is not needed and can be deleted.
 \ExplSyntaxOn
 \cs_new:Npn \__mandi_renewphysicalconstant:nnnnnnn #1#2#3#4#5#6#7
   {
-    \cs_set:cpn {#1} {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
+    \cs_set:cpn {#1} {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1mathsymbol} {#2}
     \cs_set:cpn {#1approximatevalue} {#3}
     \cs_set:cpn {#1precisevalue} {#4}
     \cs_set:cpn {#1baseunits} 
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectbaseunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1derivedunits} 
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectderivedunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1alternateunits} 
-      {\unit{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
+      {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectalternateunits{#5}{#6}{#7}}}
     \cs_set:cpn {#1onlybaseunits} {\mandi@selectbaseunits{#5}{#6}{#7}}
     \cs_set:cpn {#1onlyderivedunits} {\mandi@selectderivedunits{#5}{#6}{#7}}
     \cs_set:cpn {#1onlyalternateunits} {\mandi@selectalternateunits{#5}{#6}{#7}}
   }
-\NewDocumentCommand{\renewphysicalconstant}{ m m m m m O{#5} O{#5} }
+\NewDocumentCommand{\RenewPhysicalConstant}{ m m m m m O{#5} O{#5} }
   {
     \__mandi_renewphysicalconstant:nnnnnnn { #1 }{ #2 }{ #3 }{ #4 }{ #5 }{ #6 }{ #7 }
   }
@@ -2434,331 +2483,438 @@ The `vdemo.py` file is not needed and can be deleted.
 %    \end{macrocode}
 %
 % Define every quantity we need in introductory physics, alphabetically
-% for convenience. This is really the core feature of \mandi\ that no other
+% for convenience. This is really the core feature of \mandi{} that no other
 % package offers. There are commands for quantities that have no dimensions 
 % or units, and these quantities are defined for semantic completeness.
 %
 %    \begin{macrocode}
-\newvectorquantity{acceleration}%
+\NewVectorQuantity{acceleration}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\meter\per\second\tothetwo]%
-\newscalarquantity{amount}%
+\NewScalarQuantity{amount}%
   {\mole}%
-\newvectorquantity{angularacceleration}%
+\NewVectorQuantity{angularacceleration}%
   {\radian\usk\second\totheinversetwo}%
   [\radian\per\second\tothetwo]%
   [\radian\per\second\tothetwo]%
-\newscalarquantity{angularfrequency}%
+\NewScalarQuantity{angularfrequency}%
   {\radian\usk\second\inverse}%
   [\radian\per\second]%
   [\radian\per\second]%
-%\ifmandi@rotradians
-%  \newphysicalquantity{angularimpulse}%
-%    {\meter\tothetwo\usk\kilogram\usk\second\inverse\usk\radian\inverse}%
-%    [\joule\usk\second\per\radian]%
-%    [\newton\usk\meter\usk\second\per\radian]%
-%  \newphysicalquantity{angularmomentum}%
-%    {\meter\tothetwo\usk\kilogram\usk\second\inverse\usk\radian\inverse}%
-%    [\kilogram\usk\meter\tothetwo\per(\second\usk\radian)]%
-%    [\newton\usk\meter\usk\second\per\radian]%
-%\else
-\newvectorquantity{angularimpulse}%
+%    \end{macrocode}
+%
+% Angular impulse may also be |\newton\usk\meter\usk\second| or
+% |\joule\usk\second|.
+%
+%    \begin{macrocode}
+\NewVectorQuantity{angularimpulse}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
-\newvectorquantity{angularmomentum}%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+%    \end{macrocode}
+%
+% Angular momentum may also be |\joule\usk\second| or 
+% |\newton\usk\meter\usk\second|.
+%
+%    \begin{macrocode}
+\NewVectorQuantity{angularmomentum}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \joule\usk\second
-  [\kilogram\usk\meter\tothetwo\per\second]% % also \newton\usk\meter\usk\second
-%\fi
-\newvectorquantity{angularvelocity}%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+  [\kilogram\usk\meter\tothetwo\per\second]%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewVectorQuantity{angularvelocity}%
   {\radian\usk\second\inverse}%
   [\radian\per\second]%
   [\radian\per\second]%
-\newscalarquantity{area}%
+\NewScalarQuantity{area}%
   {\meter\tothetwo}%
-\newscalarquantity{areachargedensity}%
+\NewScalarQuantity{areachargedensity}%
   {\ampere\usk\second\usk\meter\totheinversetwo}%
   [\coulomb\per\meter\tothetwo]%
   [\coulomb\per\meter\tothetwo]%
-\newscalarquantity{areamassdensity}%
+\NewScalarQuantity{areamassdensity}%
   {\kilogram\usk\meter\totheinversetwo}%
   [\kilogram\per\meter\tothetwo]%
   [\kilogram\per\meter\tothetwo]%
-\newscalarquantity{capacitance}%
+%    \end{macrocode}
+%
+% Capacitance may also be |\coulomb\tothetwo\per\newton\usk\meter| or
+% |\second\per\ohm|.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{capacitance}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\farad]%
-  [\coulomb\per\volt]% % also \coulomb\tothetwo\per\newton\usk\meter, \second\per\ohm
-\newscalarquantity{charge}%
+  [\coulomb\per\volt]%
+%    \end{macrocode}
+%
+% Charge may also be |\farad\usk\volt|.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{charge}%
   {\ampere\usk\second}%
   [\coulomb]%
-  [\coulomb]% % also \farad\usk\volt
-\newvectorquantity{cmagneticfield}%
+  [\coulomb]%
+%    \end{macrocode}
+%
+% Magnetic field times \(\symup{c}\) may also be |\volt\per\meter|.
+%
+%    \begin{macrocode}
+\NewVectorQuantity{cmagneticfield}%
   {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%  
-  [\newton\per\coulomb]% % also \volt\per\meter
   [\newton\per\coulomb]%
-\newscalarquantity{conductance}%
+  [\newton\per\coulomb]%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewScalarQuantity{conductance}%
   {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversetwo}%
   [\siemens]%
   [\ampere\per\volt]%
-\newscalarquantity{conductivity}%
+\NewScalarQuantity{conductivity}%
   {\ampere\tothetwo\usk\second\tothethree\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\siemens\per\meter]%
   [\ampere\per\volt\usk\meter]%
-\newscalarquantity{conventionalcurrent}%
+\NewScalarQuantity{conventionalcurrent}%
   {\ampere}%
   [\coulomb\per\second]%
   [\ampere]%
-\newscalarquantity{current}%
+\NewScalarQuantity{current}%
   {\ampere}%
-\newscalarquantity{currentdensity}%
+\NewScalarQuantity{currentdensity}%
   {\ampere\usk\meter\totheinversetwo}%
   [\coulomb\per\second\usk\meter\tothetwo]%
   [\ampere\per\meter\tothetwo]%
-\newscalarquantity{dielectricconstant}%
+\NewScalarQuantity{dielectricconstant}%
   {}%
-\newvectorquantity{direction}%
+\NewVectorQuantity{direction}%
   {}%
-\newvectorquantity{displacement}%
+\NewVectorQuantity{displacement}%
   {\meter}
-\newscalarquantity{duration}%
+\NewScalarQuantity{duration}%
   {\second}%
-\newvectorquantity{electricdipolemoment}%
+\NewVectorQuantity{electricdipolemoment}%
   {\ampere\usk\second\usk\meter}%
   [\coulomb\usk\meter]%
   [\coulomb\usk\meter]%
-\newvectorquantity{electricfield}%
+\NewVectorQuantity{electricfield}%
   {\kilogram\usk\meter\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\per\meter]%
   [\newton\per\coulomb]%
-\newscalarquantity{electricflux}%
+\NewScalarQuantity{electricflux}%
   {\kilogram\usk\meter\tothethree\usk\ampere\inverse\usk\second\totheinversethree}%
   [\volt\usk\meter]%
   [\newton\usk\meter\tothetwo\per\coulomb]%
-\newscalarquantity{electricpotential}%
+%    \end{macrocode}
+%
+% Electric potential, electric potential difference, and emf 
+% may also be |\joule\per\coulomb|.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{electricpotential}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
-  [\volt]% % also \joule\per\coulomb
   [\volt]%
-\newscalarquantity{electricpotentialdifference}%
+  [\volt]%
+%    \end{macrocode}
+%
+%    \begin{macrocode} 
+\NewScalarQuantity{electricpotentialdifference}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
-  [\volt]% % also \joule\per\coulomb
   [\volt]%
-\newscalarquantity{electroncurrent}%
+  [\volt]%
+\NewScalarQuantity{electroncurrent}%
   {\second\inverse}%
   [\ensuremath{\symup{e}}\per\second]%
   [\ensuremath{\symup{e}}\per\second]%
-\newscalarquantity{emf}%
+\NewScalarQuantity{emf}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversethree}%
-  [\volt]% % also \joule\per\coulomb
   [\volt]%
-\newscalarquantity{energy}%
+  [\volt]%
+%    \end{macrocode}
+%
+% Energy may also be |\newton\usk\meter|.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{energy}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
-  [\joule]% % also \newton\usk\meter
   [\joule]%
-\newscalarquantity{energyinev}%
+  [\joule]%
+%    \end{macrocode}
+%
+%    \begin{macrocode} 
+\NewScalarQuantity{energyinev}%
   {\electronvolt}%
-\newscalarquantity{energyinkev}%
+\NewScalarQuantity{energyinkev}%
   {\kiloelectronvolt}%
-\newscalarquantity{energyinmev}%
+\NewScalarQuantity{energyinmev}%
   {\megaelectronvolt}%
-\newscalarquantity{energydensity}%
+\NewScalarQuantity{energydensity}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\joule\per\meter\tothethree]%
   [\joule\per\meter\tothethree]%
-\newscalarquantity{energyflux}%
+\NewScalarQuantity{energyflux}%
   {\kilogram\usk\second\totheinversethree}%
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
-\newscalarquantity{entropy}%
+\NewScalarQuantity{entropy}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
-\newvectorquantity{force}%
+%    \end{macrocode}
+%
+% Force may also be |\kilogram\usk\meter\per\second\tothetwo|.
+%
+%    \begin{macrocode}
+\NewVectorQuantity{force}%
   {\kilogram\usk\meter\usk\second\totheinversetwo}%
   [\newton]%
-  [\newton]% % also \kilogram\usk\meter\per\second\tothetwo
-\newscalarquantity{frequency}%
+  [\newton]%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewScalarQuantity{frequency}%
   {\second\inverse}%
   [\hertz]%
   [\hertz]%
-\newvectorquantity{gravitationalfield}%
+\NewVectorQuantity{gravitationalfield}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
-\newscalarquantity{gravitationalpotential}%
+\NewScalarQuantity{gravitationalpotential}%
   {\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule\per\kilogram]%
   [\joule\per\kilogram]%
-\newscalarquantity{gravitationalpotentialdifference}%
+\NewScalarQuantity{gravitationalpotentialdifference}%
   {\meter\tothetwo\usk\second\totheinversetwo}%
   [\joule\per\kilogram]%
   [\joule\per\kilogram]%
-\newvectorquantity{impulse}%
+\NewVectorQuantity{impulse}%
   {\kilogram\usk\meter\usk\second\inverse}%
   [\newton\usk\second]%
   [\newton\usk\second]%
-\newscalarquantity{indexofrefraction}%
+\NewScalarQuantity{indexofrefraction}%
   {}%
-\newscalarquantity{inductance}%
+%    \end{macrocode}
+%
+% Inductance may also be |\square\meter\usk\kilogram\per\coulomb\tothetwo| or
+% |\Wb\per\ampere|.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{inductance}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry]%
-  [\volt\usk\second\per\ampere]% % also \square\meter\usk\kilogram\per\coulomb\tothetwo, \Wb\per\ampere
-\newscalarquantity{linearchargedensity}%
+  [\volt\usk\second\per\ampere]%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewScalarQuantity{linearchargedensity}%
   {\ampere\usk\second\usk\meter\inverse}%
   [\coulomb\per\meter]%
   [\coulomb\per\meter]%
-\newscalarquantity{linearmassdensity}%
+\NewScalarQuantity{linearmassdensity}%
   {\kilogram\usk\meter\inverse}%
   [\kilogram\per\meter]%
   [\kilogram\per\meter]%
 %    \end{macrocode}
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Added \refCom{lorentzfactor}}
+%   {\linktoplace{sec:mandia}{mandi} Added \refCom{lorentzfactor}}
 %    \begin{macrocode}
-\newscalarquantity{lorentzfactor}%
+\NewScalarQuantity{lorentzfactor}%
   {}%
-\newscalarquantity{luminousintensity}%
+\NewScalarQuantity{luminousintensity}%
   {\candela}%
-\newscalarquantity{magneticcharge}%
-  {\ampere\usk\meter}% % There is another convention. Be careful!
-\newvectorquantity{magneticdipolemoment}%
+%    \end{macrocode}
+%
+% There is another convention for magnetic charge, so be careful.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{magneticcharge}%
+  {\ampere\usk\meter}%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewVectorQuantity{magneticdipolemoment}%
   {\ampere\usk\meter\tothetwo}%
   [\ampere\usk\meter\tothetwo]%
   [\joule\per\tesla]%
-\newvectorquantity{magneticfield}%
+%    \end{macrocode}
+%
+% Magnetic field may also be |\Wb\per\meter\tothetwo|.
+%
+%    \begin{macrocode}
+\NewVectorQuantity{magneticfield}%
   {\kilogram\usk\ampere\inverse\usk\second\totheinversetwo}%
-  [\newton\per\ampere\usk\meter]% % also \Wb\per\meter\tothetwo
+  [\newton\per\ampere\usk\meter]%
   [\tesla]%
-\newscalarquantity{magneticflux}%
+%    \end{macrocode}
+%
+% Magnetic flux may also be |\Wb| or
+% |\joule\per\ampere|.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{magneticflux}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
-  [\volt\usk\second]% % also \Wb and \joule\per\ampere
-\newscalarquantity{mass}%
+  [\volt\usk\second]%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewScalarQuantity{mass}%
   {\kilogram}%
-\newscalarquantity{mobility}%
+\NewScalarQuantity{mobility}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\inverse\usk\second\totheinversefour}%
   [\meter\tothetwo\per\volt\usk\second]%
   [\coulomb\usk\meter\per\newton\usk\second]%
-\newscalarquantity{momentofinertia}%
+\NewScalarQuantity{momentofinertia}%
   {\kilogram\usk\meter\tothetwo}%
   [\joule\usk\second\tothetwo]%
   [\kilogram\usk\meter\tothetwo]%
-\newvectorquantity{momentum}%
+\NewVectorQuantity{momentum}%
   {\kilogram\usk\meter\usk\second\inverse}%
   [\kilogram\usk\meter\per\second]%
   [\kilogram\usk\meter\per\second]%
-\newvectorquantity{momentumflux}%
+\NewVectorQuantity{momentumflux}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\newton\per\meter\tothetwo]%
   [\newton\per\meter\tothetwo]%
-\newscalarquantity{numberdensity}%
+\NewScalarQuantity{numberdensity}%
   {\meter\totheinversethree}%
   [\per\meter\tothethree]%
   [\per\meter\tothethree]%
-\newscalarquantity{permeability}%
+\NewScalarQuantity{permeability}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newscalarquantity{permittivity}%
+\NewScalarQuantity{permittivity}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
   [\farad\per\meter]%
   [\coulomb\tothetwo\per\newton\usk\meter\tothetwo]%
-\newscalarquantity{planeangle}%
+\NewScalarQuantity{planeangle}%
   {\meter\usk\meter\inverse}%
   [\radian]%
   [\radian]%
-\newscalarquantity{polarizability}%
+\NewScalarQuantity{polarizability}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse}%
   [\coulomb\usk\meter\tothetwo\per\volt]%
   [\coulomb\tothetwo\usk\meter\per\newton]%
-\newscalarquantity{power}%
+\NewScalarQuantity{power}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversethree}%
   [\watt]%
   [\joule\per\second]%
-\newvectorquantity{poynting}%
+\NewVectorQuantity{poynting}%
   {\kilogram\usk\second\totheinversethree}%
   [\watt\per\meter\tothetwo]%
   [\watt\per\meter\tothetwo]%
-\newscalarquantity{pressure}%
+\NewScalarQuantity{pressure}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
-\newscalarquantity{relativepermeability}
+\NewScalarQuantity{relativepermeability}
   {}%
-\newscalarquantity{relativepermittivity}%
+\NewScalarQuantity{relativepermittivity}%
   {}%
-\newscalarquantity{resistance}%
+%    \end{macrocode}
+%
+% Resistance may also be |\volt\per\ampere|.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{resistance}%
   {\kilogram\usk\meter\tothetwo\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
-  [\ohm]% % also \volt\per\ampere
   [\ohm]%
-\newscalarquantity{resistivity}%
+  [\ohm]%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewScalarQuantity{resistivity}%
   {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversethree}%
   [\ohm\usk\meter]%
   [\volt\usk\meter\per\ampere]%
-\newscalarquantity{solidangle}%
+\NewScalarQuantity{solidangle}%
   {\meter\tothetwo\usk\meter\totheinversetwo}%
   [\steradian]%
   [\steradian]%
-\newscalarquantity{specificheatcapacity}%
+\NewScalarQuantity{specificheatcapacity}%
   {\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin\usk\kilogram]%
   [\joule\per\kelvin\usk\kilogram]
-\newscalarquantity{springstiffness}%
+\NewScalarQuantity{springstiffness}%
   {\kilogram\usk\second\totheinversetwo}%
   [\newton\per\meter]%
   [\newton\per\meter]%
-\newscalarquantity{springstretch}% % This is really just a displacement.
+%    \end{macrocode}
+%
+% Spring stretch is really just a displacement.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{springstretch}%
   {\meter}%
-\newscalarquantity{stress}%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewScalarQuantity{stress}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
-\newscalarquantity{strain}%
+\NewScalarQuantity{strain}%
   {}%
-\newscalarquantity{temperature}%
+\NewScalarQuantity{temperature}%
   {\kelvin}%
-%\ifmandi@rotradians
-%  \newphysicalquantity{torque}%
-%    {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\radian\inverse}%
-%    [\newton\usk\meter\per\radian]%
-%    [\newton\usk\meter\per\radian]%
-%\else
-\newvectorquantity{torque}%
+\NewVectorQuantity{torque}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
   [\newton\usk\meter]%
   [\newton\usk\meter]%
-%\fi
-\newvectorquantity{velocity}%
+\NewVectorQuantity{velocity}%
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]%
-\newvectorquantity{velocityc}%
+\NewVectorQuantity{velocityc}%
   {\lightspeed}%
   [\lightspeed]%
   [\lightspeed]%
-\newscalarquantity{volume}%
+\NewScalarQuantity{volume}%
   {\meter\tothethree}%
-\newscalarquantity{volumechargedensity}%
+\NewScalarQuantity{volumechargedensity}%
   {\ampere\usk\second\per\meter\totheinversethree}%
   [\coulomb\per\meter\tothethree]%
   [\coulomb\per\meter\tothethree]%
-\newscalarquantity{volumemassdensity}%
+\NewScalarQuantity{volumemassdensity}%
   {\kilogram\usk\meter\totheinversethree}%
   [\kilogram\per\meter\tothethree]%
   [\kilogram\per\meter\tothethree]%
-\newscalarquantity{wavelength}% % This is really just a displacement.
+%    \end{macrocode}
+%
+% Wavelength is really just a displacement.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{wavelength}%
   {\meter}%
-\newvectorquantity{wavenumber}%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NewVectorQuantity{wavenumber}%
   {\meter\inverse}%
   [\per\meter]%
   [\per\meter]%
-\newscalarquantity{work}%
+%    \end{macrocode}
+%
+% Work may also be |\newton\usk\meter| but this 
+% is discouraged to avoid confusion with torque.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{work}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo}%
-  [\joule]% % also \newton\usk\meter but discouraged 
   [\joule]%
-\newscalarquantity{youngsmodulus}% % This is really just a stress.
+  [\joule]%
+%    \end{macrocode}
+%
+% Young's modulus is really just a stress.
+%
+%    \begin{macrocode}
+\NewScalarQuantity{youngsmodulus}%
   {\kilogram\usk\meter\inverse\usk\second\totheinversetwo}%
   [\pascal]%
   [\newton\per\meter\tothetwo]%
@@ -2767,14 +2923,19 @@ The `vdemo.py` file is not needed and can be deleted.
 % We need a better glyph for Planck's constant over \( 2\pi \).
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Added \refCom{hbar}}
+%   {\linktoplace{sec:mandia}{mandi} Added \refCom{hbar}}
 %    \begin{macrocode}
 \AtBeginDocument{%
   \DeclareRobustCommand{\hbar}{{\mathpalette\hbar@\relax\symup{h}}}%
 }%
 \newcommand*{\hbar@}[2]{%
   \makebox[0pt][l]{\raisebox{-0.07\height}{\(\m@th#1\mkern-2mu\mathchar"AF\)}}%
-  % optional line to make the bar thicker; must use -0.11
+%    \end{macrocode}
+%
+% Optional line to make the bar thicker; must use \(-0.11\)
+% in |\raisebox|.
+%
+%    \begin{macrocode}
   \makebox[0pt][l]{\raisebox{-0.11\height}{\(\m@th#1\mkern-2mu\mathchar"AF\)}}%
 }%
 %    \end{macrocode}
@@ -2783,119 +2944,129 @@ The `vdemo.py` file is not needed and can be deleted.
 % for convenience.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Constants' values now use only \cs{times}}
+%   {\linktoplace{sec:mandia}{mandi} Constants' values now use only \cs{times}}
 %    \begin{macrocode}
-\newphysicalconstant{avogadro}%
-  {\symup{N_A}}%
-  {6\times10^{23}}{6.02214076\times10^{23}}% % exact 2019 value
+\NewPhysicalConstant{avogadro}%
+  {\symup{N_{A}}}%
+  {6\times10^{23}}{6.02214076\times10^{23}}%
   {\mole\inverse}%
   [\per\mole]%
   [\per\mole]%
-\newphysicalconstant{biotsavartconstant}% % alias for \mzofp
-  {\symup{\frac{\mu_o}{4\pi}}}%
+%    \end{macrocode}
+%
+% |\biotsavartconstant| is an alias for |\mzofp|.
+%
+%    \begin{macrocode}
+\NewPhysicalConstant{biotsavartconstant}%
+  {\symup{\frac{\mu_{o}}{4\pi}}}%
   {10^{-7}}{10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newphysicalconstant{bohrradius}%
-  {\symup{a_o}}%
+\NewPhysicalConstant{bohrradius}%
+  {\symup{a_{o}}}%
   {5.3\times10^{-11}}{5.29177210903\times10^{-11}}%
   {\meter}%
-\newphysicalconstant{boltzmann}%
-  {\symup{k_B}}%
-  {1.4\times10^{-23}}{1.380649\times10^{-23}}% % exact 2019 value
+\NewPhysicalConstant{boltzmann}%
+  {\symup{k_{B}}}%
+  {1.4\times10^{-23}}{1.380649\times10^{-23}}%
   {\kilogram\usk\meter\tothetwo\usk\second\totheinversetwo\usk\kelvin\inverse}%
   [\joule\per\kelvin]%
   [\joule\per\kelvin]%
-\newphysicalconstant{coulombconstant}% % alias for \oofpez
-  {\symup{\frac{1}{4\pi\epsilon_o}}}%
+%    \end{macrocode}
+%
+% |\coulombconstant| is an alias for |\oofpez|.
+%
+%    \begin{macrocode}
+\NewPhysicalConstant{coulombconstant}%
+  {\symup{\frac{1}{4\pi\epsilon_{o}}}}%
   {9\times10^{9}}{8.9875517923\times10^{9}}%
   {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
-\newphysicalconstant{earthmass}%
+\NewPhysicalConstant{earthmass}%
   {\symup{M_{Earth}}}%
   {6.0\times10^{24}}{5.9722\times10^{24}}%
   {\kilogram}%
-\newphysicalconstant{earthmoondistance}%
+\NewPhysicalConstant{earthmoondistance}%
   {\symup{d_{EM}}}%
   {3.8\times10^{8}}{3.81550\times10^{8}}%
   {\meter}%
-\newphysicalconstant{earthradius}%
+\NewPhysicalConstant{earthradius}%
   {\symup{R_{Earth}}}%
   {6.4\times10^{6}}{6.3781\times10^{6}}%
   {\meter}%
-\newphysicalconstant{earthsundistance}%
+\NewPhysicalConstant{earthsundistance}%
   {\symup{d_{ES}}}%
   {1.5\times10^{11}}{1.496\times10^{11}}%
   {\meter}%
-\newphysicalconstant{electroncharge}%
-  {\symup{q_e}}%
+\NewPhysicalConstant{electroncharge}%
+  {\symup{q_{e}}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{electronCharge}%
-  {\symup{Q_e}}%
+\NewPhysicalConstant{electronCharge}%
+  {\symup{Q_{e}}}%
   {-\elementarychargeapproximatevalue}{-\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{electronmass}%
-  {\symup{m_e}}%
+\NewPhysicalConstant{electronmass}%
+  {\symup{m_{e}}}%
   {9.1\times10^{-31}}{9.1093837015\times10^{-31}}%
   {\kilogram}%
-\newphysicalconstant{elementarycharge}%
+\NewPhysicalConstant{elementarycharge}%
   {\symup{e}}%
-  {1.6\times10^{-19}}{1.602176634\times10^{-19}}% % exact 2019 value
+  {1.6\times10^{-19}}{1.602176634\times10^{-19}}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{finestructure}%
+\NewPhysicalConstant{finestructure}%
   {\symup{\alpha}}%
   {\frac{1}{137}}{7.2973525693\times10^{-3}}%
   {}%
-\newphysicalconstant{hydrogenmass}%
-  {\symup{m_H}}%
+\NewPhysicalConstant{hydrogenmass}%
+  {\symup{m_{H}}}%
   {1.7\times10^{-27}}{1.6737236\times10^{-27}}%
   {\kilogram}%
-\newphysicalconstant{moonearthdistance}%
+\NewPhysicalConstant{moonearthdistance}%
   {\symup{d_{ME}}}%
   {3.8\times10^{8}}{3.81550\times10^{8}}%
   {\meter}%
-\newphysicalconstant{moonmass}%
+\NewPhysicalConstant{moonmass}%
   {\symup{M_{Moon}}}%
   {7.3\times10^{22}}{7.342\times10^{22}}%
   {\kilogram}%
-\newphysicalconstant{moonradius}%
+\NewPhysicalConstant{moonradius}%
   {\symup{R_{Moon}}}%
   {1.7\times10^{6}}{1.7371\times10^{6}}%
   {\meter}%
-\newphysicalconstant{mzofp}%
-  {\symup{\frac{\mu_o}{4\pi}}}%
+\NewPhysicalConstant{mzofp}%
+  {\symup{\frac{\mu_{o}}{4\pi}}}%
   {10^{-7}}{10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newphysicalconstant{neutronmass}%
-  {\symup{m_n}}%
+\NewPhysicalConstant{neutronmass}%
+  {\symup{m_{n}}}%
   {1.7\times10^{-27}}{1.67492749804\times10^{-27}}%
   {\kilogram}%
-\newphysicalconstant{oofpez}%
-  {\symup{\frac{1}{4\pi\epsilon_o}}}%
+\NewPhysicalConstant{oofpez}%
+  {\symup{\frac{1}{4\pi\epsilon_{o}}}}%
   {9\times10^{9}}{8.9875517923\times10^{9}}%
   {\kilogram\usk\meter\tothethree\usk\ampere\totheinversetwo\usk\second\totheinversefour}%
   [\meter\per\farad]%
   [\newton\usk\meter\tothetwo\per\coulomb\tothetwo]%
-\newphysicalconstant{oofpezcs}%
-  {\symup{\frac{1}{4\pi\epsilon_o c^2}}}%
+\NewPhysicalConstant{oofpezcs}%
+  {\symup{\frac{1}{4\pi\epsilon_{o} c^2}}}%
   {10^{-7}}{10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\tesla\usk\meter\tothetwo]%
   [\newton\usk\second\tothetwo\per\coulomb\tothetwo]%
-\newphysicalconstant{planck}%
+\NewPhysicalConstant{planck}%
   {\symup{h}}%
-  {6.6\times10^{-34}}{6.62607015\times10^{-34}}% % exact 2019 value
+  {6.6\times10^{-34}}{6.62607015\times10^{-34}}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]%
@@ -2904,81 +3075,93 @@ The `vdemo.py` file is not needed and can be deleted.
 % See \url{https://tex.stackexchange.com/a/448565/218142}.
 %
 %    \begin{macrocode}
-\newphysicalconstant{planckbar}%
+\NewPhysicalConstant{planckbar}%
   {\hbar}%
   {1.1\times10^{-34}}{1.054571817\times10^{-34}}%
   {\kilogram\usk\meter\tothetwo\usk\second\inverse}%
   [\joule\usk\second]%
   [\joule\usk\second]
-\newphysicalconstant{planckc}%
+\NewPhysicalConstant{planckc}%
   {\symup{hc}}%
   {2.0\times10^{-25}}{1.98644586\times10^{-25}}%
   {\kilogram\usk\meter\tothethree\usk\second\totheinversetwo}%
   [\joule\usk\meter]%
   [\joule\usk\meter]%
-\newphysicalconstant{protoncharge}%
+\NewPhysicalConstant{protoncharge}%
   {\symup{q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{protonCharge}%
+\NewPhysicalConstant{protonCharge}%
   {\symup{Q_p}}%
   {+\elementarychargeapproximatevalue}{+\elementarychargeprecisevalue}%
   {\ampere\usk\second}%
   [\coulomb]%
   [\coulomb]%
-\newphysicalconstant{protonmass}%
+\NewPhysicalConstant{protonmass}%
   {\symup{m_p}}%
   {1.7\times10^{-27}}{1.672621898\times10^{-27}}%
   {\kilogram}%
-\newphysicalconstant{rydberg}%
+\NewPhysicalConstant{rydberg}%
   {\symup{R_{\infty}}}%
   {1.1\times10^{7}}{1.0973731568160\times10^{7}}%
   {\meter\inverse}%
-\newphysicalconstant{speedoflight}%
+\NewPhysicalConstant{speedoflight}%
   {\symup{c}}%
-  {3\times10^{8}}{2.99792458\times10^{8}}% % exact value
+  {3\times10^{8}}{2.99792458\times10^{8}}%
   {\meter\usk\second\inverse}%
   [\meter\per\second]%
   [\meter\per\second]
-\newphysicalconstant{stefanboltzmann}%
+\NewPhysicalConstant{stefanboltzmann}%
   {\symup{\sigma}}%
   {5.7\times10^{-8}}{5.670374\times10^{-8}}%
   {\kilogram\usk\second\totheinversethree\usk\kelvin\totheinversefour}%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]%
   [\watt\per\meter\tothetwo\usk\kelvin\tothefour]
-\newphysicalconstant{sunearthdistance}%
+\NewPhysicalConstant{sunearthdistance}%
   {\symup{d_{SE}}}%
   {1.5\times10^{11}}{1.496\times10^{11}}%
   {\meter}%
-\newphysicalconstant{sunmass}%
+\NewPhysicalConstant{sunmass}%
   {\symup{M_{Sun}}}%
   {2.0\times10^{30}}{1.98855\times10^{30}}%
   {\kilogram}%
-\newphysicalconstant{sunradius}%
+\NewPhysicalConstant{sunradius}%
   {\symup{R_{Sun}}}%
   {7.0\times10^{8}}{6.957\times10^{8}}%
   {\meter}%
-\newphysicalconstant{surfacegravfield}%
+\NewPhysicalConstant{surfacegravfield}%
   {\symup{g}}%
   {9.8}{9.807}%
   {\meter\usk\second\totheinversetwo}%
   [\newton\per\kilogram]%
   [\newton\per\kilogram]%
-\newphysicalconstant{universalgrav}%
+%    \end{macrocode}
+%
+% The gravitational constant may also have units of 
+% |\joule\usk\meter\per\kilogram\tothetwo|.
+%
+%    \begin{macrocode}
+\NewPhysicalConstant{universalgrav}%
   {\symup{G}}%
   {6.7\times10^{-11}}{6.67430\times10^{-11}}%
   {\meter\tothethree\usk\kilogram\inverse\usk\second\totheinversetwo}%
-  [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]% % also \joule\usk\meter\per\kilogram\tothetwo
   [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
-\newphysicalconstant{vacuumpermeability}%
+  [\newton\usk\meter\tothetwo\per\kilogram\tothetwo]%
+%    \end{macrocode}
+%
+% As of 2018 the vacuum permeability is no longer defined as
+% \( 4\pi\times10^{-7} \).
+%
+%    \begin{macrocode}
+\NewPhysicalConstant{vacuumpermeability}%
   {\symup{\mu_o}}%
-  {4\pi\times10^{-7}}{4\pi\times10^{-7}}% % as of 2018 no longer 4\pi\times10^{-7}
+  {4\pi\times10^{-7}}{4\pi\times10^{-7}}%
   {\kilogram\usk\meter\usk\ampere\totheinversetwo\usk\second\totheinversetwo}%
   [\henry\per\meter]%
   [\tesla\usk\meter\per\ampere]%
-\newphysicalconstant{vacuumpermittivity}%
+\NewPhysicalConstant{vacuumpermittivity}%
   {\symup{\epsilon_o}}%
   {9\times10^{-12}}{8.854187817\times10^{-12}}%
   {\ampere\tothetwo\usk\second\tothefour\usk\kilogram\inverse\usk\meter\totheinversethree}%
@@ -2990,9 +3173,9 @@ The `vdemo.py` file is not needed and can be deleted.
 % represent physical quantities and constants.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Improved \refCom{checkquantity}}
+%   {\linktoplace{sec:mandia}{mandi} Improved \refCom{CheckQuantity}}
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} Improved \refCom{checkconstant}}
+%   {\linktoplace{sec:mandia}{mandi} Improved \refCom{CheckConstant}}
 %    \begin{macrocode}
 \ExplSyntaxOn
 \NewDocumentCommand{\@aux}{ m }
@@ -3005,7 +3188,7 @@ The `vdemo.py` file is not needed and can be deleted.
   }
 \ExplSyntaxOff
 \newcolumntype{M}{>{\(}p{0.25\linewidth}<{\)}}
-\NewDocumentCommand{\checkquantity}{ m }
+\NewDocumentCommand{\CheckQuantity}{ m }
   {%
     \begin{center}
       \begin{tabular}{MMM}
@@ -3015,7 +3198,7 @@ The `vdemo.py` file is not needed and can be deleted.
       \end{tabular}
     \end{center}
   }%
-\NewDocumentCommand{\checkconstant}{ m }
+\NewDocumentCommand{\CheckConstant}{ m }
   {%
     \begin{center}
       \begin{tabular}{MMM}
@@ -3033,7 +3216,7 @@ The `vdemo.py` file is not needed and can be deleted.
 % See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandipkg}{mandi} \refCom{mivector} now
+%   {\linktoplace{sec:mandia}{mandi} \refCom{mivector} now
 %     requires more than one component}
 %    \begin{macrocode}
 \ExplSyntaxOn

@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2021,2022 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3  of this  license or (at 
@@ -24,7 +24,7 @@
 % and includes the derived files  mandi.sty
 %                                 mandistudent.sty
 %                                 mandiexp.sty
-%                                 vdemo.py
+%                                 vdemo.py (not needed)
 % ---------------------------------------------------------------------------
 %
 % \fi
@@ -111,37 +111,19 @@ while t < 10:
 %</driver>
 % \fi
 %
-% \CheckSum{745}
-%
-% \CharacterTable
-%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%   Digits        \0\1\2\3\4\5\6\7\8\9
-%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%   Dollar        \$     Percent       \%     Ampersand     \&
-%   Acute accent  \'     Left paren    \(     Right paren   \)
-%   Asterisk      \*     Plus          \+     Comma         \,
-%   Minus         \-     Point         \.     Solidus       \/
-%   Colon         \:     Semicolon     \;     Less than     \<
-%   Equals        \=     Greater than  \>     Question mark \?
-%   Commercial at \@     Left bracket  \[     Backslash     \\
-%   Right bracket \]     Circumflex    \^     Underscore    \_
-%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%   Right brace   \}     Tilde         \~}
-%
 % ^^A DO NOT TRY TO COMPILE THIS DTX FILE BY ITSELF. IT WILL FAIL.
 %
-% \section{The \mandistudent\ Package}\setplace{sec:mandistudentpkg}
+% \section{The \mandistudent{} Package}\setplace{sec:mandib}
 %
-% \mandi\ comes with an accessory package \mandistudent,
-% which provides a collection of commands physics students can 
-% use for writing problem solutions. This package focuses on 
-% the most frequently needed tools. These commands should always 
-% be used in math mode. Note that \mandistudent\ requires, and 
-% loads, \mandi\ but \mandi\ doesn't require, and doesn't load, 
-% \mandistudent.
+% \mandi{} comes with an accessory package \mandistudent,
+% which extends \mandi{} with a collection of commands physics
+% students can use for writing problem solutions. This package 
+% focuses on the most frequently needed tools. These commands 
+% should always be used in math mode. \mandistudent{} requires, 
+% and loads, \mandi{} but \mandi{} doesn't require, and doesn't 
+% load, \mandistudent.
 %
-% Load \mandistudent\ as you would any package in your preamble. 
+% Load \mandistudent{} as you would any package in your preamble. 
 % There are no package options.
 %
 %\iffalse
@@ -161,7 +143,7 @@ while t < 10:
   Typesets the current version and build date.
 \end{docCommand}
 \begin{dispExample*}{sidebyside = false}
-  The version is \mandistudentversion\ and is a stable build.
+  The version is \mandistudentversion{} and is a stable build.
 \end{dispExample*}
 %\iffalse
 %</example>
@@ -470,7 +452,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docEnvironments}[%
-    doc new = 2021-02-03,%
+    doc updated = 2023-08-01,%
     doc parameter = \marg{title},%
     doclang/environment content = problem,%
   ]%
@@ -490,11 +472,14 @@ while t < 10:
   }%
   Provides an environment for stating physics problems. Each problem will 
   begin on a new page. See the examples for how to handle single and 
-  multiple part problems.
+  multiple part problems. Due to incompatibilities with \textsc{beamer}
+  and the \pkg{enumitem} package, these environments are not defined if
+  \textsc{beamer} is loaded.
 \end{docEnvironments}
-\begin{docCommand}[doc new = 2021-02-03]{problempart}{}
+\begin{docCommand}[doc updated = 2023-08-01]{problempart}{}
   Denotes a part of a problem within a \refEnv{parts}
-  environment.
+  environment. This command is not defined if \textsc{beamer} 
+  is loaded.
 \end{docCommand}
 \begin{dispExample*}{sidebyside = false}
   \begin{physicsproblem}{Problem 1}
@@ -629,12 +614,12 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc new = 2021-02-06]{hilite}{%
+\begin{docCommand}[doc updated = 2023-08-01]{hilite}{%
     \oarg{color}\marg{target}\oarg{shape}
   }%
   Hilites the desired target, which can be an entire mathematical expression 
   or a part thereof. The default color is magenta and the default shape is a
-  rectangle.
+  rectangle. This command is not defined if \textsc{beamer} is loaded.
 \end{docCommand} 
 \begin{dispListing*}{sidebyside = false,listing only}
   \begin{align*}
@@ -880,7 +865,7 @@ while t < 10:
 %\fi
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \cs{diff} renamed to 
+%   {\linktoplace{sec:mandib}{mandistudent} \cs{diff} renamed to 
 %    \refCom{df} for compatibility with the \pkg{numerica} package}
 %\iffalse
 %<*example>
@@ -905,9 +890,9 @@ while t < 10:
 %\fi
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} All instances of 
+%   {\linktoplace{sec:mandib}{mandistudent} All instances of 
 %    \texttt{GlowScript} have been changed to \texttt{Web VPython}}
-% \subsection{\WebVPython\ and \VPython\ Program Listings}
+% \subsection{\WebVPython{} and \VPython{} Program Listings}
 %
 % \href{https://\gsurl}{\WebVPython}
 % \footnote{On November 9, 2021 \texttt{GlowScript} was renamed to 
@@ -917,7 +902,7 @@ while t < 10:
 % \href{https://\vpurl}{VPython}\footnote{\href{https://\vpurl}{https://\vpurl}} 
 % are programming environments (both use \href{https://www.python.org}{Python})
 % frequently used in introductory physics to introduce students
-% for modeling physical systems. \mandi\ makes including code listings
+% for modeling physical systems. \mandi{} makes including code listings
 % very simple for students.
 %
 % \subsection{The \texttt{\small webvpythonblock} Environment}
@@ -931,29 +916,32 @@ while t < 10:
   ]%
   {%
     {%
-      doc updated = 2022-01-27,%
+      doc updated = 2023-08-01,%
       doc name = webvpythonblock,%    
       doc description = now includes a QR code,%
     },%
     {%
-      doc new = 2022-01-27,%
+      doc updated = 2023-08-01,%
       doc name = webvpythonblock*,%
       doc description = use this variant to omit QR code,%
     },%
   }%
   Code placed here is nicely formatted and optionally linked to its source on 
   \href{https://\gsurl}{\WebVPythonorg}, which must be in a public (not private)
-  folder. Clicking anywhere in the code window will open the link in the default 
-  browser. A caption is mandatory, and a label is internally generated. The 
-  listing always begins on a new page. A URL shortening utility is recommended 
-  to keep the URL from getting unruly. For convenience, |https://| is 
-  automatically prepended to the URL and can thus be omitted. The |#| character 
-  in a URL should not cause problems. The default URL is that of the \WebVPython\ 
+  folder. Clicking anywhere in the code window (between the black horizontal bars) 
+  or on the URL will open the link in the default browser. A caption is mandatory, 
+  and a label is internally generated. The listing always begins on a new page. 
+  A URL shortening utility is recommended to keep the URL from getting unruly
+  especially if it generates an overfull box error. For convenience, |https://| 
+  is automatically prepended to the URL and can be omitted. The |#| character 
+  in a URL should not cause problems. The default URL is that of the \WebVPython{} 
   home page.
 \end{docEnvironments}
 \begin{dispListing*}{sidebyside = false}
-\begin{webvpythonblock}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program With QR Code}
-GlowScript 3.0 vpython
+\begin{webvpythonblock}
+  (glowscript.org/#/user/heafnerj/folder/mandidemo/program/mandidemo)
+  {Example With QR Code}
+Web VPython 3.2
 
 scene.width = 400
 scene.height = 760
@@ -998,8 +986,10 @@ while t < 10:
     t = t + deltat
 \end{webvpythonblock}
 \end{dispListing*}
-\begin{webvpythonblock}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program With QR Code}
-GlowScript 3.0 vpython
+\begin{webvpythonblock}
+  (glowscript.org/#/user/heafnerj/folder/mandidemo/program/mandidemo)
+  {Example With QR Code}
+Web VPython 3.2
 
 scene.width = 400
 scene.height = 760
@@ -1056,7 +1046,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{dispExample*}{sidebyside = false}
-  \WebVPython\ program \ref{gs:1} is nice. 
+  \WebVPython{} program \ref{gs:1} is nice. 
   It's called \nameref{gs:1} and is on page \pageref{gs:1}.
 \end{dispExample*}
 %\iffalse
@@ -1069,8 +1059,10 @@ while t < 10:
 %<*example>
 %\fi
 \begin{dispListing*}{sidebyside = false}
-\begin{webvpythonblock*}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program Without QR Code}
-GlowScript 3.0 vpython
+\begin{webvpythonblock*}
+  (glowscript.org/#/user/heafnerj/folder/mandidemo/program/mandidemo)
+  {Example Without QR Code}
+Web VPython 3.2
 
 scene.width = 400
 scene.height = 760
@@ -1115,8 +1107,10 @@ while t < 10:
     t = t + deltat
 \end{webvpythonblock*}
 \end{dispListing*}
-\begin{webvpythonblock*}(tinyurl.com/y3lnqyn3){A \texttt{Web VPython} Program Without QR Code}
-GlowScript 3.0 vpython
+\begin{webvpythonblock*}
+  (glowscript.org/#/user/heafnerj/folder/mandidemo/program/mandidemo)
+  {Example Without QR Code}
+Web VPython 3.2
 
 scene.width = 400
 scene.height = 760
@@ -1161,7 +1155,7 @@ while t < 10:
     t = t + deltat
 \end{webvpythonblock*}
 \begin{dispExample*}{sidebyside = false}
-  \WebVPython\ program \ref{gs:2} is nice. 
+  \WebVPython{} program \ref{gs:2} is nice. 
   It's called \nameref{gs:2} and is on page \pageref{gs:2}.
 \end{dispExample*}
 %  
@@ -1174,20 +1168,21 @@ while t < 10:
 %\iffalse
 %<*example>
 %\fi
-\begin{docCommand}[doc updated = 2022-01-27]{vpythonfile}
+\begin{docCommand}[doc updated = 2023-08-01]{vpythonfile}
   {\oarg{options}(\meta{link})\marg{file}\marg{caption}}
-  Command to load and typeset a \VPython\ program, read from local file
-  \marg{file}. Clicking anywhere in the code window can optionally open 
-  a link, passed as an option, in the default browser. A caption is mandatory, 
-  and a label is internally generated. The listing always begins on a new page. 
-  A URL shortening utility is recommended to keep the URL from getting unruly. 
-  For convenience, |https://| is automatically prepended to the URL and can 
-  thus be omitted. The default URL is that of the \VPython\ home page.
+  Command to load and typeset a \VPython{} program, read from local file
+  \marg{file}. Clicking anywhere in the code window (between the black 
+  horizontal bars) or on the URL will open the link in the default browser. 
+  A caption is mandatory,  and a label is internally generated. The listing 
+  always begins on a new page. A URL shortening utility is recommended to 
+  keep the URL from getting unruly especially if it generates an overfull 
+  box error. For convenience, |https://| is automatically prepended to the 
+  URL and can be omitted. The default URL is that of the \VPython{} home page.
 \end{docCommand}
 \begin{dispListing*}{sidebyside = false}
-\vpythonfile{vdemo.py}{A \VPython\ Program}
+\vpythonfile{vdemo.py}{A \VPython{} Program}
 \end{dispListing*}
-\vpythonfile{vdemo.py}{A \VPython\ Program}
+\vpythonfile{vdemo.py}{A \VPython{} Program}
 %\iffalse
 %</example>
 %\fi
@@ -1196,7 +1191,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{dispExample*}{sidebyside = false}
-  \VPython\ program \ref{vp:1} is nice. 
+  \VPython{} program \ref{vp:1} is nice. 
   It's called \nameref{vp:1} and is on page \pageref{vp:1}.
 \end{dispExample*}
 %  
@@ -1227,17 +1222,19 @@ while t < 10:
   less than one line long.
 \end{docCommands}
 \begin{dispExample*}{sidebyside = false}
-  \WebVPython\ programs begin with \webvpythoninline{GlowScript 3.0 VPython}
-  and \VPython\ programs begin with \vpythoninline{from vpython import *}. 
+  \WebVPython{} programs begin with \webvpythoninline{Web VPython 3.2}. 
+\end{dispExample*}
+\begin{dispExample*}{sidebyside = false}
+  \VPython{} programs begin with \vpythoninline{from vpython import *}. 
 \end{dispExample*}
 %\iffalse
 %</example>
 %\fi
 %
-% \StopEventually{}
+% \MaybeStop{}
 %
 % \newgeometry{left=0.50in,right=0.50in,top=1.00in,bottom=1.00in}
-% \subsection{\mandistudent\ Source Code}
+% \subsection{\mandistudent{} Source Code}
 %
 % \iffalse
 %<*package>
@@ -1248,14 +1245,14 @@ while t < 10:
 % in the name, that are not for the user to know about.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} Version number works}
+%   {\linktoplace{sec:mandib}{mandistudent} Version number works}
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} Code formatted for better readability}
+%   {\linktoplace{sec:mandib}{mandistudent} Code formatted for better readability}
 %    \begin{macrocode}
-\def\mandistudent@version{3.1.0}
-\def\mandistudent@date{2022-01-27}
+\def\mandistudent@version{3.2.0}
+\def\mandistudent@date{2023-08-01}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.1.0}{2022-01-27}{mandistudent.sty}
+\DeclareRelease{v3.2.0}{2023-08-01}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
@@ -1269,70 +1266,157 @@ while t < 10:
 %
 % Load third party packages, documenting why each one is needed.
 %
+% AMS goodness. Don't load \pkg{amssymb} or \pkg{amsfonts}.
+%
 %    \begin{macrocode}
-\RequirePackage{amsmath}             % AMS goodness (don't load amssymb or amsfonts)
-\RequirePackage[inline]{enumitem}    % needed for physicsproblem environment
-\RequirePackage{eso-pic}             % needed for \hilite
-\RequirePackage[g]{esvect}           % needed for nice vector arrow, style g
-\RequirePackage{pgfopts}             % needed for key-value interface
-\RequirePackage{iftex}               % needed for requiring LuaLaTeX
-\RequirePackage{makebox}             % needed for consistent \dirvect; \makebox
-\RequirePackage{mandi}
-\RequirePackage{mathtools}           % needed for paired delimiters; extends amsmath
-\RequirePackage{nicematrix}          % needed for column and row vectors
-\RequirePackage{qrcode}              % needed for QR codes in webvpythonblock
-\qrset{height=1.5cm}                 % set default size of QR code
-\RequirePackage[most]{tcolorbox}     % needed for program listings
-\RequirePackage{tensor}              % needed for index notation
-\RequirePackage{tikz}                % needed for \hilite
-\usetikzlibrary{shapes,fit,tikzmark} % needed for \hilite
-\RequirePackage{unicode-math}        % needed for Unicode support
+\RequirePackage{amsmath}
 %    \end{macrocode}
 %
+% We need \pkg{enumitem} for the |physicsproblem| environment.
+%
+% \textsc{beamer} is not compatible with \pkg{enumitem} so if
+% \textsc{beamer} is loaded certain commands are not defined.
+%
+%    \begin{macrocode}
+\IfClassLoadedTF{beamer}%
+  {}%
+  {%
+    \RequirePackage[inline]{enumitem}%
+  }%
+%    \end{macrocode}
+%
+% We need \pkg{eso-pic} for |\hilite|.
+%
+%    \begin{macrocode}
+\RequirePackage{eso-pic}
+%    \end{macrocode}
+%
+% We need \pkg{esvect} for nice vector arrows, style g.
+%
+%    \begin{macrocode}
+\RequirePackage[g]{esvect}
+%    \end{macrocode}
+%
+% We need \pkg{pgfopts} for a key-value interface.
+%
+%    \begin{macrocode}
+\RequirePackage{pgfopts}
+%    \end{macrocode}
+%
+% We need \pkg{iftex} so we can require \lualatex.
+%
+%    \begin{macrocode}
+\RequirePackage{iftex}
+%    \end{macrocode}
+%
+% We need \pkg{makebox} for consistent |\dirvect| notation.
+%
+%    \begin{macrocode}
+\RequirePackage{makebox}
+%    \end{macrocode}
+%
+% We need \mandi{} to load \pkg{mathtools} and \pkg{unicode-math}.
+%
+%    \begin{macrocode}
+\IfPackageLoadedTF{mandi}%
+  {}%
+  {%
+    \RequirePackage{mandi}%
+  }%
+%    \end{macrocode}
+%
+% We need \pkg{nicematrix} for column and row vectors.
+%
+%    \begin{macrocode}
+\RequirePackage{nicematrix}
+%    \end{macrocode}
+%
+% We need \pkg{qrcode} for QR codes in |webvpythonblock|.
+%
+%    \begin{macrocode}
+\RequirePackage{qrcode}
+%    \end{macrocode}
+%
+% Set the default size for QR codes.
+%
+%    \begin{macrocode}
+\qrset{height=1.5cm}
+%    \end{macrocode}
+%
+% We need \pkg{tcolorbox} for program listings.
+%
+%    \begin{macrocode}
+\RequirePackage[most]{tcolorbox}
+%    \end{macrocode}
+%
+% We need \pkg{tensor} for index notation.
+%
+%    \begin{macrocode}
+\RequirePackage{tensor}
+%    \end{macrocode}
+%    \begin{macrocode}
+%
+% We need \pkg{tikz} for |\hilite|..
+%
+\RequirePackage{tikz}
+\usetikzlibrary{shapes,fit,tikzmark}
+%    \end{macrocode}
+%
+% Load \pkg{xparse} if necessary.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \pkg{xparse} is loaded for older formats}
+%   {\linktoplace{sec:mandib}{mandistudent} \pkg{xparse} is loaded for older formats}
 %    \begin{macrocode}
-\IfFormatAtLeastTF {2020-10-01}      % load xparse if necessary
+\IfFormatAtLeastTF{2020-10-01}
   {}%
   {\RequirePackage{xparse}}%
-\RequirePackage{hyperref}            % load last
-\RequireLuaTeX                       % require this engine
+%    \end{macrocode}
+%
+% Always load \pkg{hyperref} last if possible.
+%
+%    \begin{macrocode}
+\RequirePackage{hyperref}
+%    \end{macrocode}
+%
+% We require the \lualatex{} engine.
+%
+%    \begin{macrocode}
+\RequireLuaTeX
 %    \end{macrocode}
 %
 % Set up the fonts to be consistent with ISO 80000-2 notation.
 % The \href{https://www.ctan.org/pkg/unicode-math}{\pkg{unicode-math}} package 
 % loads the \href{https://www.ctan.org/pkg/fontspec}{\pkg{fontspec}} and 
 % \href{https://www.ctan.org/pkg/xparse}{\pkg{xparse}}
-% packages. Note that \pkg{xparse} is now part of the \LaTeXe\ kernel.
-% Because \pkg{unicode-math} is required, all documents using \mandi\ must
-% be compiled with an engine that supports Unicode. We recommend \lualatex.
+% packages. Note that \pkg{xparse} is now part of the \LaTeXe{} kernel.
+% Because \pkg{unicode-math} is required, all documents using \mandi{} must
+% be compiled with an engine that supports Unicode, and I recommend \lualatex.
 %
 %    \begin{macrocode}
 \unimathsetup{math-style=ISO}
-\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
 %    \end{macrocode}
 %
 % Use normal math letters from Latin Modern Math for familiarity with 
-% textbooks.
+% textbooks. This gives a better J.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase]
-  {Latin Modern Math}    % default math font; better J
+  {Latin Modern Math}
 %    \end{macrocode}
 %
-% Borrow from TeX Gyre DejaVu Math for vectors and tensors to get single-storey g.
+% Borrow from TeX Gyre DejaVu Math for vectors and tensors to get 
+% single-storey lowercase g.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range={sfit/{latin},bfsfit/{latin}}]
-  {TeX Gyre DejaVu Math} % single-storey lowercase g
+  {TeX Gyre DejaVu Math}
 %    \end{macrocode}
 %
-% Borrow from TeX Gyre DejaVu Math to get single-storey g.
+% Borrow from TeX Gyre DejaVu Math to get single-storey lowercase g.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range={sfup/{latin},bfsfup/{latin}}]
-  {TeX Gyre DejaVu Math} % single-storey lowercase g
+  {TeX Gyre DejaVu Math}
 %    \end{macrocode}
 %
 % Borrow |mathscr| and |mathbfscr| from XITS Math.\newline
@@ -1349,14 +1433,18 @@ while t < 10:
 \setmathfont[Scale=MatchLowercase,range={\mathcal,\mathbfcal},StylisticSet=1]{XITS Math}
 %    \end{macrocode}
 %
-% Borrow Greek sfup and sfit letters from STIX Two Math.
+% Borrow Greek |sfup| and |sfit| letters from STIX Two Math.
 % Since this isn't officially supported in \pkg{unicode-math}
 % we have to manually set this up.
 %
 %    \begin{macrocode}
 \setmathfont[Scale=MatchLowercase,range={"E17C-"E1F6}]{STIX Two Math}
 \newfontfamily{\symsfgreek}{STIX Two Math}
-% I don't understand why \text{...} is necessary.
+%    \end{macrocode}
+%
+% I don't understand why |\text{...}| is necessary.
+%
+%    \begin{macrocode}
 \newcommand{\symsfupalpha}      {\text{\symsfgreek{^^^^e196}}}
 \newcommand{\symsfupbeta}       {\text{\symsfgreek{^^^^e197}}}
 \newcommand{\symsfupgamma}      {\text{\symsfgreek{^^^^e198}}}
@@ -1465,12 +1553,17 @@ while t < 10:
 \typeout{mandistudent: This package requires LuaLaTeX.}%
 \typeout{mandistudent: This package changes the default math font(s).}%
 \typeout{mandistudent: This package redefines the \protect\vec\space command.}%
+\IfClassLoadedTF{beamer}%
+  {%
+    \typeout{mandistudent: BEAMER detected. Certain commands will not be defined.}%
+  }%
+  {}%
 \typeout{}%
 %    \end{macrocode}
 %
 % A better, intelligent coordinate-free \refCom{vec} command. Note the use of 
 % the |e{_^}| type of optional argument. This accounts for much of the 
-% flexibility and power of this command. Also note the use of the \TeX\ 
+% flexibility and power of this command. Also note the use of the \TeX{} 
 % primitives |\sb{}| and |\sp{}|. Why doesn't it work when I put spaces 
 % around |#3| or |#4|? Because outside of |\ExplSyntaxOn...\ExplSyntaxOff|, 
 % the |_| character has a different catcode and is treated as a mathematical 
@@ -1479,28 +1572,22 @@ while t < 10:
 % See also \url{https://tex.stackexchange.com/a/531037/218142}.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refCom{vec}%
+%   {\linktoplace{sec:mandib}{mandistudent} \refCom{vec}%
 %    no longer adds \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
 \RenewDocumentCommand{\vec}{ s m e{_^} }%
   {%
-    % Note the \, used to make superscript look better.
     \IfBooleanTF{#1}
       {%
-        \vv{#2}%      % * gives an arrow
-        % Use \sp{} primitive for superscript.
-        % Adjust superscript for the arrow.
+        \vv{#2}%
         \IfValueT{#4}%
           {\sp{\,#4\vphantom{\smash[t]{\big|}}}}
       }%
       {%
-        \symbfit{#2}  % no * gives us bold
-        % Use \sp{} primitive for superscript.
-        % No superscript adjustment needed.
+        \symbfit{#2}
         \IfValueT{#4}%
           {\sp{#4\vphantom{\smash[t]{\big|}}}}
       }%
-      % Use \sb{} primitive for subscript.
     \IfValueT{#3}%
       {\sb{#3\vphantom{\smash[b]{|}}}}
   }%
@@ -1513,7 +1600,7 @@ while t < 10:
 % See \url{https://tex.stackexchange.com/a/391204/218142}.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refCom{dirvec}%
+%   {\linktoplace{sec:mandib}{mandistudent} \refCom{dirvec}%
 %    no longer adds \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
 \NewDocumentCommand{\dirvec}{ s m e{_^} }%
@@ -1555,7 +1642,7 @@ while t < 10:
 % See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \LaTeX3 code now conforms to formatting standards}
+%   {\linktoplace{sec:mandib}{mandistudent} \LaTeX3 code now conforms to formatting standards}
 %    \begin{macrocode}
 \ExplSyntaxOn
 \NewDocumentCommand{\colvec}{ O{,} m }
@@ -1621,34 +1708,41 @@ while t < 10:
 %    \end{macrocode}
 %
 % An environment for problem statements. The starred variant gives 
-% in-line lists.
+% in-line lists. These are not defined if \textsc{beamer} is loaded.
 %
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{physicsproblem} and
+%   \refEnv{physicsproblem*} are not defined if \textsc{beamer} is loaded}
 %    \begin{macrocode}
-\NewDocumentEnvironment{physicsproblem}{ m }%
-  {%
-    \newpage%
-    \section*{#1}%
-    \newlist{parts}{enumerate}{2}%
-    \setlist[parts]{label=\bfseries(\alph*)}%
-  }%
+\IfClassLoadedTF{beamer}
   {}%
-\NewDocumentEnvironment{physicsproblem*}{ m }%
   {%
-    \newpage%
-    \section*{#1}%
-    \newlist{parts}{enumerate*}{2}%
-    \setlist[parts]{label=\bfseries(\alph*)}%
+    \NewDocumentEnvironment{physicsproblem}{ m }%
+      {%
+        \newpage%
+        \section*{#1}%
+        \newlist{parts}{enumerate}{2}%
+        \setlist[parts]{label=\bfseries(\alph*)}%
+      }%
+      {}%
+    \NewDocumentEnvironment{physicsproblem*}{ m }%
+      {%
+        \newpage%
+        \section*{#1}%
+        \newlist{parts}{enumerate*}{2}%
+        \setlist[parts]{label=\bfseries(\alph*)}%
+      }%
+      {}%
+    \NewDocumentCommand{\problempart}{}{\item}%
   }%
-  {}%
-\NewDocumentCommand{\problempart}{}{\item}%
 %    \end{macrocode}
 %
-% An environment for problem solutions.
+% An environment for problem solutions. Equation numbering
+% is consecutive through the document.
 %
 %    \begin{macrocode}
 \NewDocumentEnvironment{physicssolution}{ +b }%
   {%
-    % Make equation numbering consecutive through the document.
     \begin{align}
       #1
     \end{align}
@@ -1656,7 +1750,6 @@ while t < 10:
   {}%
 \NewDocumentEnvironment{physicssolution*}{ +b }%
   {%
-    % Make equation numbering consecutive through the document.
     \begin{align*}
       #1
     \end{align*}
@@ -1664,7 +1757,7 @@ while t < 10:
   {}%
 %    \end{macrocode}
 %
-% See \url{https://tex.stackexchange.com/q/570223/218142}.
+%  See \url{https://tex.stackexchange.com/q/570223/218142}.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\reason}{ O{4cm} m }%
@@ -1674,14 +1767,18 @@ while t < 10:
 %    \end{macrocode}
 %
 % Command for highlighting parts of, or entire, mathematical expressions.\newline
-%  See \url{https://texample.net/tikz/examples/beamer-arrows/}.\newline
-%  See also \url{https://tex.stackexchange.com/a/406084/218142}.\newline
-%  See also \url{https://tex.stackexchange.com/a/570858/218142}.\newline
-%  See also \url{https://tex.stackexchange.com/a/570789/218142}.\newline
-%  See also \url{https://tex.stackexchange.com/a/79659/218142}.\newline
-%  See also \url{https://tex.stackexchange.com/q/375032/218142}.\newline
-%  See also \url{https://tex.stackexchange.com/a/571744/218142}%
+% This command is not defined if \textsc{beamer} is loaded.\newline
+% See \url{https://texample.net/tikz/examples/beamer-arrows/}.\newline
+% See also \url{https://tex.stackexchange.com/a/406084/218142}.\newline
+% See also \url{https://tex.stackexchange.com/a/570858/218142}.\newline
+% See also \url{https://tex.stackexchange.com/a/570789/218142}.\newline
+% See also \url{https://tex.stackexchange.com/a/79659/218142}.\newline
+% See also \url{https://tex.stackexchange.com/q/375032/218142}.\newline
+% See also \url{https://tex.stackexchange.com/a/571744/218142}%
 %
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandib}{mandistudent} \refCom{hilite} is
+%   not defined if \textsc{beamer} is loaded}
 %    \begin{macrocode}
 \newcounter{tikzhighlightnode}
 \NewDocumentCommand{\hilite}{ O{magenta!60} m O{rectangle} }%
@@ -1705,7 +1802,7 @@ while t < 10:
 % See \url{https://tex.stackexchange.com/a/614478/218142}.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} Slightly modified \refCom{image}}
+%   {\linktoplace{sec:mandib}{mandistudent} Slightly modified \refCom{image}}
 %    \begin{macrocode}
 \NewDocumentCommand{\image}{ O{scale=1} m m m }%
   {%
@@ -1725,10 +1822,11 @@ while t < 10:
 % notations. Use starred form for index notation, unstarred form for 
 % coordinate-free.
 %
+% Consider renaming these to |\vectorsym| and |\tensorsym|.
+%
 %    \begin{macrocode}
 \NewDocumentCommand{\veccomp}{ s m }%
   {%
-    % Consider renaming this to \vectorsym.
     \IfBooleanTF{#1}
       {%
         \symnormal{#2}%
@@ -1739,7 +1837,6 @@ while t < 10:
   }%
 \NewDocumentCommand{\tencomp}{ s m }%
   {%
-    % Consider renaming this to \tensororsym.
     \IfBooleanTF{#1}%
       {%
         \symsfit{#2}%
@@ -1782,28 +1879,48 @@ while t < 10:
 %    \end{macrocode}
 %
 % Intelligent slot command for coordinate-free tensor notation.
+% |d[]| must be used because of the way consecutive optional
+% arguments are handled. See \pkg{xparse} docs for details.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\slot}{ s d[] }%
   {%
-    % d[] must be used because of the way consecutive optional
-    %  arguments are handled. See xparse docs for details.
     \IfBooleanTF{#1}
     {%
       \IfValueTF{#2}
-      {% Insert a vector, but don't show the slot.
+%    \end{macrocode}
+%
+% Insert a vector, but don't show the slot.
+%
+%    \begin{macrocode}
+      {%
         \smash{\makebox[1.5em]{\ensuremath{#2}}}
       }%
-      {% No vector, no slot.
+%    \end{macrocode}
+%
+% No vector, no slot.
+%
+%    \begin{macrocode}
+      {%
         \smash{\makebox[1.5em]{\ensuremath{}}}
       }%
     }%
     {%
       \IfValueTF{#2}
-        {% Insert a vector and show the slot.
+%    \end{macrocode}
+%
+% Insert a vector and show the slot.
+%
+%    \begin{macrocode}
+        {%
           \underline{\smash{\makebox[1.5em]{\ensuremath{#2}}}}
         }%
-        {% No vector; just show the slot.
+%    \end{macrocode}
+%
+% No vector; just show the slot.
+%
+%    \begin{macrocode}
+        {%
           \underline{\smash{\makebox[1.5em]{\ensuremath{}}}}
         }%
     }%
@@ -1843,36 +1960,39 @@ while t < 10:
 % \href{https://www.ctan.org/pkg/tcolorbox}{\pkg{tcolorbox}}.\newline
 % See \url{https://tex.stackexchange.com/a/529421/218142}.
 %
+% We set a new font for listings and some new colors (background gray, gray,
+% green, orange, peach, pearl, and plum).
+%
 %    \begin{macrocode}
-\newfontfamily{\gsfontfamily}{DejaVuSansMono}    % new font for listings
-\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90} % background gray
-\definecolor{gsgray}       {rgb}{0.30,0.30,0.30} % gray
-\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00} % green
-\definecolor{gsorange}     {rgb}{0.80,0.45,0.12} % orange
-\definecolor{gspeach}      {rgb}{1.00,0.90,0.71} % peach
-\definecolor{gspearl}      {rgb}{0.94,0.92,0.84} % pearl
-\definecolor{gsplum}       {rgb}{0.74,0.46,0.70} % plum
+\newfontfamily{\gsfontfamily}{DejaVuSansMono}
+\definecolor{gsbggray}     {rgb}{0.90,0.90,0.90}
+\definecolor{gsgray}       {rgb}{0.30,0.30,0.30}
+\definecolor{gsgreen}      {rgb}{0.00,0.60,0.00}
+\definecolor{gsorange}     {rgb}{0.80,0.45,0.12}
+\definecolor{gspeach}      {rgb}{1.00,0.90,0.71}
+\definecolor{gspearl}      {rgb}{0.94,0.92,0.84}
+\definecolor{gsplum}       {rgb}{0.74,0.46,0.70}
 \lstdefinestyle{vpython}%
-  {%                                            % style for listings
-    backgroundcolor=\color{gsbggray},%          % background color
-    basicstyle=\colordigits\footnotesize,%      % default style
-    breakatwhitespace=true%                     % break at whitespace
-    breaklines=true,%                           % break long lines
-    captionpos=b,%                              % position caption
-    classoffset=1,%                             % STILL DON'T UNDERSTAND THIS
-    commentstyle=\color{gsgray},%               % font for comments
-    deletekeywords={print},%                    % delete keywords from the given language
-    emph={self,cls,@classmethod,@property},%    % words to emphasize
-    emphstyle=\color{gsorange}\itshape,%        % font for emphasis
+  {%
+    backgroundcolor=\color{gsbggray},%           % background color
+    basicstyle=\colordigits\footnotesize,%       % default style
+    breakatwhitespace=true%                      % break at whitespace
+    breaklines=true,%                            % break long lines
+    captionpos=b,%                               % position caption
+    classoffset=1,%                              % STILL DON'T UNDERSTAND THIS
+    commentstyle=\color{gsgray},%                % font for comments
+    deletekeywords={print},%                     % delete keywords from the given language
+    emph={self,cls,@classmethod,@property},%     % words to emphasize
+    emphstyle=\color{gsorange}\itshape,%         % font for emphasis
     escapeinside={(*@}{@*)},%                    % add LaTeX within your code
-    frame=tb,%                                  % frame style
-    framerule=2.0pt,%                           % frame thickness
-    framexleftmargin=5pt,%                      % extra frame left margin
-    %identifierstyle=\sffamily,%                % style for identifiers
-    keywordstyle=\gsfontfamily\color{gsplum},%  % color for keywords
-    language=Python,%                           % select language
-    linewidth=\linewidth,%                      % width of listings
-    morekeywords={%                             % VPython/Web VPython specific keywords
+    frame=tb,%                                   % frame style
+    framerule=2.0pt,%                            % frame thickness
+    framexleftmargin=5pt,%                       % extra frame left margin
+    %identifierstyle=\sffamily,%                 % style for identifiers
+    keywordstyle=\gsfontfamily\color{gsplum},%   % color for keywords
+    language=Python,%                            % select language
+    linewidth=\linewidth,%                       % width of listings
+    morekeywords={%                              % VPython/Web VPython specific keywords
       __future__,abs,acos,align,ambient,angle,append,append_to_caption,%
       append_to_title,arange,arrow,asin,astuple,atan,atan2,attach_arrow,%
       attach_trail,autoscale,axis,background,billboard,bind,black,blue,border,%
@@ -1896,18 +2016,18 @@ while t < 10:
       texture,textures,thickness,title,trail_color,trail_object,trail_radius,%
       trail_type,triangle,trigger,True,twist,unbind,up,upper_left,upper_right,%
       userpan,userspin,userzoom,vec,vector,vertex,vertical_spacing,visible,%
-      visual,vpython,VPython,waitfor,WebVPython,white,width,world,xtitle,%
+      visual,vpython,VPython,waitfor,Web,VPython,white,width,world,xtitle,%
       yellow,yoffset,ytitle%
     },%
-    morekeywords={print,None,TypeError},%      % additional keywords
-    morestring=[b]{"""},%                      % treat triple quotes as strings
-    numbers=left,%                             % where to put line numbers
-    numbersep=10pt,%                           % how far line numbers are from code
-    numberstyle=\bfseries\tiny,%               % set to 'none' for no line numbers
-    showstringspaces=false,%                   % show spaces in strings
-    showtabs=false,%                           % show tabs within strings
-    stringstyle=\gsfontfamily\color{gsgreen},% % color for strings
-    upquote=true,%                             % how to typeset quotes
+    morekeywords={print,None,TypeError},%        % additional keywords
+    morestring=[b]{"""},%                        % treat triple quotes as strings
+    numbers=left,%                               % where to put line numbers
+    numbersep=10pt,%                             % how far line numbers are from code
+    numberstyle=\bfseries\tiny,%                 % set to 'none' for no line numbers
+    showstringspaces=false,%                     % show spaces in strings
+    showtabs=false,%                             % show tabs within strings
+    stringstyle=\gsfontfamily\color{gsgreen},%   % color for strings
+    upquote=true,%                               % how to typeset quotes
   }%
 %    \end{macrocode}
 %
@@ -1915,10 +2035,13 @@ while t < 10:
 % See \url{https://tex.stackexchange.com/a/232208/218142}.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} URLs fixed in \refEnv{webvpythonblock}}
+%   {\linktoplace{sec:mandib}{mandistudent} URLs fixed in \refEnv{webvpythonblock}}
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refEnv{webvpythonblock} now automatically
+%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock} now automatically
 %    generates QR codes for program listings}
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock} now shows
+%    URL in header}
 %    \begin{macrocode}
 \AtBeginEnvironment{webvpythonblock}{\catcode`\#=12}
 \AtEndEnvironment{webvpythonblock}{\catcode`\#=6}
@@ -1939,8 +2062,9 @@ while t < 10:
     title = \begin{minipage}{1.5cm}%
               \protect\qrcode*{https://#2}%
             \end{minipage}\hspace{5mm}%
-            \begin{minipage}{0.7\textwidth}%
-              \texttt{Web VPython} Program \thetcbcounter: #3%
+            \begin{minipage}{0.8\textwidth}%
+              \texttt{Web VPython} Program \thetcbcounter: #3\\
+              \footnotesize{\href{https://#2}{\color{white}{https://#2}}}%
             \end{minipage},%
     width = 0.9\textwidth,%
     {#1},
@@ -1950,8 +2074,11 @@ while t < 10:
 % Here is a variant that omits the QR code.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} \refEnv{webvpythonblock*} is a variant
+%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock*} is a variant
 %    of \refEnv{webvpythonblock} that omits the QR code}
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock*} now shows
+%    URL in header}
 %    \begin{macrocode}
 \AtBeginEnvironment{webvpythonblock*}{\catcode`\#=12}
 \AtEndEnvironment{webvpythonblock*}{\catcode`\#=6}
@@ -1970,13 +2097,14 @@ while t < 10:
       listing only,%
       listing style = vpython,%
       nameref = {#3},%
-      title =   \texttt{Web VPython} Program \thetcbcounter: #3,%
+      title =   \texttt{Web VPython} Program \thetcbcounter: #3\\%
+                \footnotesize{\href{https://#2}{\color{white}{https://#2}}},%
       width = 0.9\textwidth,%
       {#1},
     }%
 %    \end{macrocode}
 %
-% A new command for generating a list of \WebVPython\ programs.
+% A new command for generating a list of \WebVPython{} programs.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\listofwebvpythonprograms}{}%
@@ -1989,10 +2117,13 @@ while t < 10:
 % See \url{https://tex.stackexchange.com/q/616205/218142}.
 % 
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} URLs fixed in \refCom{vpythonfile}}
+%   {\linktoplace{sec:mandib}{mandistudent} URLs fixed in \refCom{vpythonfile}}
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandistudentpkg}{mandistudent} Default URL for \refCom{vpythonfile}
+%   {\linktoplace{sec:mandib}{mandistudent} Default URL for \refCom{vpythonfile}
 %    is now \vpurl}
+% \changes{v3.2.0}{2023-08-01}
+%   {\linktoplace{sec:mandib}{mandistudent} \refCom{vpythonfile} now shows
+%    URL in header}
 %    \begin{macrocode}
 \newcommand*{\vpythonfile}{\catcode`\#=12 \vpythonfile@auxA}
 \NewDocumentCommand{\vpythonfile@auxA}{ O{} D(){vpython.org} m m }%
@@ -2022,7 +2153,7 @@ while t < 10:
     }%
 %    \end{macrocode}
 %
-%  A new command for generating a list of \VPython\ programs.
+%  A new command for generating a list of \VPython{} programs.
 %
 %    \begin{macrocode}
 \NewDocumentCommand{\listofvpythonprograms}{}%
@@ -2054,7 +2185,7 @@ while t < 10:
   {\lstinline[style = vpython]{#1}}%
 %    \end{macrocode}
 %
-% Define \refCom{vpythoninline}, a semantic alias for \VPython\ 
+% Define \refCom{vpythoninline}, a semantic alias for \VPython{} 
 % in-line listings.
 %
 %    \begin{macrocode}
