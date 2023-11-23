@@ -1,33 +1,42 @@
 # Changelog
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), 
 and this project adheres to 
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 3.2.0 released 2023-07-23
+These changes reflect more than just those to the files uploaded to 
+[CTAN](https://www.ctan.org/pkg/mandi). The latter are also documented in `mandi.pdf`.
+
+## 3.2.1 released 2023-11-22
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
-### Fixed
+### Changed
+- Improved CTAN `README.md` (in the `.zip` file) at request of CTAN maintainer
+- Corrected errors in `CHANGELOG.md`
+- Edited documentation in `NnnnnnnnCCPxx.tex`
+- Renamed a file in `.gitignore`
+- `mandi`, `mandistudent`, `mandiexp`
+    - Source updated and bumped version for new CTAN upload
 - `mandi`
-- `mandistudent`
-- `mandiexp`
+    - Minor change to `mandi.ins` inside `mandi.dtx`
+
+## 3.2.0 released 2023-08-01
+- Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
 ### Added
-- `mandi`
+- Added new examples to `NnnnnnnnCCPxx.tex`
 - `mandistudent`
 	- Added statement about BEAMER compatibility
+	- `\hilite` is not defined if BEAMER is loaded
+	- `physicsproblem` and `physicsproblem*` are not defined if BEAMER is loaded
 	- `\vpythonfile` now shows URL in header
-	- `webvpythonblock*` now shows URL in header
-	- `webvpythonblock` now shows URL in header
+	- `webvpythonblock` and `webvpythonblock*` now show URL in header
 - `mandiexp`
 	- `mandistudent` is loaded for `\vec*`
 ### Changed
+- `mandi`, `mandistudent`, `mandiexp`
+    - Source updated
 - `mandi`
 	- Changed `\unit` to `\units`
-	- Source updated
-- `mandistudent`
-	- Source updated
-- `mandiexp`
-	- Source updated
 
 ## 3.1.0 released 2022-01-27
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
@@ -38,8 +47,8 @@ and this project adheres to
     - URLs fixed in `\vpythonfile`
     - URLs fixed in `webvpythonblock`
     - Version number works
-    - `\dirvec` no longer adds `\scriptspace` when no sub/superscript is given
-    - `\vec` no longer adds `\scriptspace` when no sub/superscript is given
+    - `\vec` and `\dirvec` no longer add `\scriptspace` when no sub/superscript 
+       is given
 - `mandiexp`
     - Version number works
 
@@ -53,47 +62,34 @@ and this project adheres to
     - Default URL for `\vpythonfile` is now [vpython.org](https://vpython.org)
     - `webvpythonblock` now automatically generates QR codes for program listings
     - `webvpythonblock*` is a variant of `\webvpythonblock` that omits the QR code
-- `mandiexp`
 		
 ### Changed
-- `mandi`
+- `mandi`, `mandistudent`, `mandiexp`
     - Code formatted for better readability
+    - `xparse` is loaded for older formats
+- `mandi`, `mandistudent`
+    - `LaTeX3` code now conforms to formatting standards
+- `mandi`
     - Constants' values now only use `\times`
     - Improved `\checkconstant`
     - Improved `\checkquantity`
     - Unknown package options handled safely
-    - `LaTeX3` code now conforms to formatting standards
-    - `xparse` is loaded for older formats
 - `mandistudent`
     - All instances of `GlowScript` have been changed to `Web VPython`
-    - Code formatted for better readability
     - Slightly modified `\image`
-    - `LaTeX3` code now conforms to formatting standards
     - `\diff` renamed to `\df` for compatibility with the `numerica` package
-    - `xparse` is loaded for older formats
-- `mandiexp`
-    - Code formatted for better readability
-    - `xparse` is loaded for older formats
 
 ## 3.0.1 released 2021-08-24
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi) but no longer shows up there for 
   some reason despite doing so initially
 ### Changed
-- `mandi` 
-    - Minor doc changes
-- `mandistudent` 
-    - Minor doc changes
-- `mandiexp` 
+- `mandi`, `mandistudent`, `mandiexp`
     - Minor doc changes
 
 ## 3.0.0 released 2021-08-22
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
 ### New
-- `mandi` 
-    - Initial release
-- `mandistudent` 
-    - Initial release
-- `mandiexp` 
+- `mandi`, `mandistudent`, `mandiexp`
     - Initial release
  
 

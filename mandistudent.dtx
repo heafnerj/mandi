@@ -4,10 +4,10 @@
 % Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
-% LaTeX Project Public  License, either  version 1.3  of this  license or (at 
+% LaTeX Project Public  License, either  version 1.3c  of this license or (at 
 % your option) any later version. The  latest  version  of this license is in
-%            http://www.latex-project.org/lppl.txt
-% and  version 1.3 or  later is  part of  all distributions of  LaTeX version 
+%            https://www.latex-project.org/lppl.txt
+% and  version 1.3c or  later is  part of  all distributions of LaTeX version 
 % 2005/12/01 or later.
 %
 % This work has the LPPL maintenance status `maintained'.
@@ -26,10 +26,6 @@
 %                                 mandiexp.sty
 %                                 vdemo.py (not needed)
 % ---------------------------------------------------------------------------
-%
-% \fi
-%
-% \iffalse
 %
 %<*internal>
 \iffalse
@@ -826,7 +822,7 @@ while t < 10:
     },%
   }%
   Typesets tensor contraction in coordinate-free notation. There
-  is no standard on this so we assert one here.
+  is no standard for this so we assert one here.
 \end{docCommands}
 \begin{dispExample}
   \( \contraction{1,2} \)  \\
@@ -1246,13 +1242,11 @@ while t < 10:
 %
 % \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandib}{mandistudent} Version number works}
-% \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandib}{mandistudent} Code formatted for better readability}
 %    \begin{macrocode}
-\def\mandistudent@version{3.2.0}
-\def\mandistudent@date{2023-08-01}
+\def\mandistudent@version{3.2.1}
+\def\mandistudent@date{2023-11-22}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.2.0}{2023-08-01}{mandistudent.sty}
+\DeclareRelease{v3.2.1}{2023-11-22}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
@@ -1364,8 +1358,6 @@ while t < 10:
 %
 % Load \pkg{xparse} if necessary.
 %
-% \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandib}{mandistudent} \pkg{xparse} is loaded for older formats}
 %    \begin{macrocode}
 \IfFormatAtLeastTF{2020-10-01}
   {}%
@@ -1572,8 +1564,8 @@ while t < 10:
 % See also \url{https://tex.stackexchange.com/a/531037/218142}.
 %
 % \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandib}{mandistudent} \refCom{vec}%
-%    no longer adds \cs{scriptspace} when no sub/superscript is given}
+%   {\linktoplace{sec:mandib}{mandistudent} \refCom{vec} and \refCom{dirvec}%
+%    no longer add \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
 \RenewDocumentCommand{\vec}{ s m e{_^} }%
   {%
@@ -1592,16 +1584,12 @@ while t < 10:
       {\sb{#3\vphantom{\smash[b]{|}}}}
   }%
 %    \end{macrocode}
-%
-% A command for the direction of a vector.
+%% A command for the direction of a vector.
 % We use a slight tweak to get uniform hats that 
 % requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} 
 % package.\newline
 % See \url{https://tex.stackexchange.com/a/391204/218142}.
 %
-% \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandib}{mandistudent} \refCom{dirvec}%
-%    no longer adds \cs{scriptspace} when no sub/superscript is given}
 %    \begin{macrocode}
 \NewDocumentCommand{\dirvec}{ s m e{_^} }%
   {%
@@ -1641,8 +1629,6 @@ while t < 10:
 % Notation for column and row vectors.\newline
 % See \url{https://tex.stackexchange.com/a/39054/218142}.
 %
-% \changes{v3.1.0}{2022-01-27}
-%   {\linktoplace{sec:mandib}{mandistudent} \LaTeX3 code now conforms to formatting standards}
 %    \begin{macrocode}
 \ExplSyntaxOn
 \NewDocumentCommand{\colvec}{ O{,} m }
@@ -2040,8 +2026,8 @@ while t < 10:
 %   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock} now automatically
 %    generates QR codes for program listings}
 % \changes{v3.2.0}{2023-08-01}
-%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock} now shows
-%    URL in header}
+%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock} and 
+%    \refEnv{webvpythonblock*} now show URL in header}
 %    \begin{macrocode}
 \AtBeginEnvironment{webvpythonblock}{\catcode`\#=12}
 \AtEndEnvironment{webvpythonblock}{\catcode`\#=6}
@@ -2076,9 +2062,6 @@ while t < 10:
 % \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock*} is a variant
 %    of \refEnv{webvpythonblock} that omits the QR code}
-% \changes{v3.2.0}{2023-08-01}
-%   {\linktoplace{sec:mandib}{mandistudent} \refEnv{webvpythonblock*} now shows
-%    URL in header}
 %    \begin{macrocode}
 \AtBeginEnvironment{webvpythonblock*}{\catcode`\#=12}
 \AtEndEnvironment{webvpythonblock*}{\catcode`\#=6}
