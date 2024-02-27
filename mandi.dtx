@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2021-2024 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3c  of this license or (at 
@@ -83,7 +83,7 @@ are certainly applicable to any introductory physics textbook.
 \usedir{tex/latex/mandi}
 \preamble
 
- Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
+ Copyright (C) 2021-2024 by Paul J. Heafner <heafnerj@gmail.com>
  ---------------------------------------------------------------------------
  This  work may be  distributed and/or modified  under the conditions of the 
  LaTeX Project Public  License, either  version 1.3c  of this license or (at 
@@ -279,7 +279,7 @@ are certainly applicable to any introductory physics textbook.
 % \title{The \href{https://ctan.org/pkg/mandi}{\mandi} Bundle}
 % \author{^^A
 %    Paul J. Heafner\thanks{^^A
-%      Email: \href{mailto:heafnerj@gmail.com?subject=[Heafner]\%20mandi}
+%      Email: \href{mailto:heafnerj@gmail.com?subject=from mandi documentation}
 %      {heafnerj@gmail.com}^^A
 %    }^^A
 % }^^A
@@ -357,6 +357,10 @@ are certainly applicable to any introductory physics textbook.
 %  {\linktoplace{sec:mandia}{mandi} \linktoplace{sec:mandib}{mandistudent}
 %   \linktoplace{sec:mandic}{mandiexp} Source updated and bumped version for new 
 %   \texttt{CTAN} upload}
+% \changes{v3.2.2}{2024-02-27}{\linktoplace{sec:mandia}{mandi} Removed unnecessary
+%   \cs{ExplSyntaxOn} and \cs{ExplSyntaxOff} pairs}
+% \changes{v3.2.2}{2024-02-27}{\linktoplace{sec:mandia}{mandi} Ensured all
+%   subscripts and superscripts are braced}
 %
 % \section{Introduction}
 % The \mandi \footnote{The bundle name can be pronounced either with two 
@@ -478,7 +482,7 @@ are certainly applicable to any introductory physics textbook.
 %<*example>
 %\fi
 \begin{dispExample*}{sidebyside = false}
-  \( \mivector{\slot,\slot,\slot} \) or \( \mivector{p_x,p_y,p_z} \) \\
+  \( \mivector{\slot,\slot,\slot} \) or \( \mivector{p_{x},p_{y},p_{z}} \) \\
   \( \direction{\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}},\frac{1}{\sqrt{3}}} \) or
 \end{dispExample*}
 %\iffalse
@@ -600,11 +604,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = momentumvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectormomentum,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
   Command for momentum and its vector variants. The default units will depend 
@@ -646,8 +650,9 @@ are certainly applicable to any introductory physics textbook.
 %
 % Commands that include the name of a physical quantity typeset units, so 
 % they shouldn't be used for algebraic or symbolic values of components.
-% For example, one shouldn't use |\vectormomentum{mv_x,mv_y,mv_z}| but
-% instead the generic |\mivector{mv_x,mv_y,mv_z}| instead.
+% Don't use 
+% |\vectormomentum{mv_{x},mv_{y},mv_{z}}| but
+% instead the generic |\mivector{mv_{x},mv_{y},mv_{z}}| instead.
 %
 % \subsubsection{Checking Physical Quantities}
 %
@@ -685,11 +690,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = accelerationvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectoracceleration,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -706,11 +711,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = angularaccelerationvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorangularacceleration,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -727,11 +732,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = angularimpulsevector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {% 
       doc name = vectorangularimpulse,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -745,11 +750,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = angularmomentumvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorangularmomentum,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -763,11 +768,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = angularvelocityvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorangularvelocity,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -796,11 +801,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = cmagneticfieldvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorcmagneticfield,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -826,11 +831,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = currentdensityvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorcurrentdensity,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -847,11 +852,11 @@ are certainly applicable to any introductory physics textbook.
     },%
     {%
       doc name = directionvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectordirection,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -865,11 +870,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = displacementvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectordisplacement,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -886,10 +891,10 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = electricdipolemomentvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     { doc name = vectorelectricdipolemoment,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -903,11 +908,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = electricfieldvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorelectricfield,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -951,11 +956,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = energyfluxvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorenergyflux,% 
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -972,11 +977,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = forcevector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorforce,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -993,11 +998,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = gravitationalfieldvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorgravitationalfield,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1017,11 +1022,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = impulsevector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorimpulse,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1056,11 +1061,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = magneticdipolemomentvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectormagneticdipolemoment,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1074,11 +1079,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = magneticfieldvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectormagneticfield,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1106,12 +1111,12 @@ are certainly applicable to any introductory physics textbook.
       doc new = 2021-02-24,%
       doc name = momentumvector,%
       doc label = momentumvectordemo,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectormomentum,%
       doc label = vectormomentumdemo,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)} },%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)} },%
   }%
 \end{docCommands}
 \CheckQuantity{momentum}
@@ -1124,11 +1129,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = momentumfluxvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {% 
       doc name = vectormomentumflux,% 
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1160,11 +1165,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = poyntingvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorpoynting,% 
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1214,11 +1219,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = torquevector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectortorque,% 
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1232,11 +1237,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = velocityvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorvelocity,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1250,11 +1255,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = velocitycvector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorvelocityc,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1280,11 +1285,11 @@ are certainly applicable to any introductory physics textbook.
     {%
       doc new = 2021-02-24,%
       doc name = wavenumbervector,%
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
     {%
       doc name = vectorwavenumber,% 
-      doc parameter = \marg{\( c_1,\dots,c_n \)},%
+      doc parameter = \marg{\( c_{1},\dots,c_{n} \)},%
     },%
   }%
 \end{docCommands}
@@ -1940,7 +1945,7 @@ are certainly applicable to any introductory physics textbook.
 \begin{dispExample}
   \( \per \)                         \\
   \( \usk \)                         \\
-  \( \units{3}{\meter\per\second} \)  \\
+  \( \units{3}{\meter\per\second} \) \\
   \( \emptyunit \)                   \\
   \( \ampere \)                      \\
   \( \atomicmassunit \)              \\
@@ -2028,7 +2033,7 @@ are certainly applicable to any introductory physics textbook.
 %<*example>
 %\fi
 \begin{docCommand}[doc updated = 2022-01-27]{mivector}{%
-    \oarg{delimiter}\marg{\( c_1,\dots,c_n \)}\oarg{units}
+    \oarg{delimiter}\marg{\( c_{1},\dots,c_{n} \)}\oarg{units}
   }%
   Typesets a vector as either numeric or symbolic components with an 
   optional unit (for numerical components only). There must be more
@@ -2038,12 +2043,12 @@ are certainly applicable to any introductory physics textbook.
   \emph{Matter \& Interactions}.
 \end{docCommand}
 \begin{dispExample*}{lefthand ratio = 0.70}
-  \( \mivector{p_0,p_1,p_2,p_3} \)                               \\
-  \( \mivector{\gamma mc,\gamma mv_x,\gamma mv_y,\gamma mv_z} \) \\
-  \( \mivector{\frac{Q_1Q_2}{x^2},0,0} \)                        \\
-  \( \mivector{-1,0,0} \)                                        \\
-  \( \mivector{-1,0,0}[\velocityonlyderivedunits] \)             \\
-  \( \mivector{-1,0,0}[\meter\per\second] \)                     \\
+  \( \mivector{p_0,p_1,p_2,p_3} \)                                     \\
+  \( \mivector{\gamma mc,\gamma mv_{x},\gamma mv_{y},\gamma mv_{z}} \) \\
+  \( \mivector{\frac{Q_1Q_2}{x^2},0,0} \)                              \\
+  \( \mivector{-1,0,0} \)                                              \\
+  \( \mivector{-1,0,0}[\velocityonlyderivedunits] \)                   \\
+  \( \mivector{-1,0,0}[\meter\per\second] \)                           \\
   \( \velocity{\mivector{-1,0,0}} \)
 \end{dispExample*}
 %\iffalse
@@ -2064,10 +2069,10 @@ are certainly applicable to any introductory physics textbook.
 % in the name) that are not for the user to know about.
 %
 %    \begin{macrocode}
-\def\mandi@version{3.2.1}
-\def\mandi@date{2023-11-22}
+\def\mandi@version{3.2.2}
+\def\mandi@date{2024-02-27}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.2.1}{2023-11-22}{mandi.sty}
+\DeclareRelease{v3.2.2}{2024-02-27}{mandi.sty}
 \DeclareCurrentRelease{v\mandi@version}{\mandi@date}
 \ProvidesPackage{mandi}
   [\mandi@date\space v\mandi@version\space Macros for physical quantities]
@@ -2366,13 +2371,11 @@ are certainly applicable to any introductory physics textbook.
   {
     \__mandi_newscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
-\ExplSyntaxOff
 %    \end{macrocode}
 %
 % Redefining an existing scalar quantity.
 %
 %    \begin{macrocode}
-\ExplSyntaxOn
 \cs_new:Npn \__mandi_renewscalarquantity:nnnn #1#2#3#4
   {
     \cs_set:cpn {#1} ##1 {\units{##1}{\mandi@selectunits{#2}{#3}{#4}}}
@@ -2388,13 +2391,11 @@ are certainly applicable to any introductory physics textbook.
   {
     \__mandi_renewscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
-\ExplSyntaxOff
 %    \end{macrocode}
 %
 % Defining a new vector quantity. Note that a corresponding scalar is also defined.
 %
 %    \begin{macrocode}
-\ExplSyntaxOn
 \cs_new:Npn \__mandi_newvectorquantity:nnnn #1#2#3#4
   {
     \__mandi_newscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
@@ -2419,13 +2420,11 @@ are certainly applicable to any introductory physics textbook.
   {
     \__mandi_newvectorquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
-\ExplSyntaxOff
 %    \end{macrocode}
 %
 % Redefining an existing vector quantity. Note that a corresponding scalar is also redefined.
 %
 %    \begin{macrocode}
-\ExplSyntaxOn
 \cs_new:Npn \__mandi_renewvectorquantity:nnnn #1#2#3#4
   {
     \__mandi_renewscalarquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
@@ -2450,13 +2449,11 @@ are certainly applicable to any introductory physics textbook.
   {
     \__mandi_renewvectorquantity:nnnn { #1 }{ #2 }{ #3 }{ #4 }
   }
-\ExplSyntaxOff
 %    \end{macrocode}
 %
 % Defining a new physical constant.
 %
 %    \begin{macrocode}
-\ExplSyntaxOn
 \cs_new:Npn \__mandi_newphysicalconstant:nnnnnnn #1#2#3#4#5#6#7
   {
     \cs_new:cpn {#1} {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}
@@ -2477,13 +2474,11 @@ are certainly applicable to any introductory physics textbook.
   {
     \__mandi_newphysicalconstant:nnnnnnn { #1 }{ #2 }{ #3 }{ #4 }{ #5 }{ #6 }{ #7 }
   }
-\ExplSyntaxOff
 %    \end{macrocode}
 %
 % Redefining an existing physical constant.
 %
 %    \begin{macrocode}
-\ExplSyntaxOn
 \cs_new:Npn \__mandi_renewphysicalconstant:nnnnnnn #1#2#3#4#5#6#7
   {
     \cs_set:cpn {#1} {\units{\mandi@selectprecision{#3}{#4}}{\mandi@selectunits{#5}{#6}{#7}}}

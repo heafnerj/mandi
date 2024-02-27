@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = lualatexmk
 %
-% Copyright (C) 2023 by Paul J. Heafner <heafnerj@gmail.com>
+% Copyright (C) 2021-2024 by Paul J. Heafner <heafnerj@gmail.com>
 % ---------------------------------------------------------------------------
 % This  work may be  distributed and/or modified  under the conditions of the 
 % LaTeX Project Public  License, either  version 1.3c  of this license or (at 
@@ -722,7 +722,7 @@ while t < 10:
 %<*example>
 %\fi
 \begin{docCommands}[%
-    doc parameter = \oarg{delimiter}\marg{\( c_1,\dots,c_n \)},%
+    doc parameter = \oarg{delimiter}\marg{\( c_{1},\dots,c_{n} \)},%
   ]%
   {%
     {%
@@ -740,8 +740,8 @@ while t < 10:
 \begin{dispExample}
   \[ \colvec{1,2,3} \]
   \[ \rowvec{1,2,3} \]
-  \[ \colvec{x^0,x^1,x^2,x^3} \]
-  \[ \rowvec{x_0,x_1,x_2,x_3} \]
+  \[ \colvec{x^{0},x^{1},x^{2},x^{3}} \]
+  \[ \rowvec{x_{0},x_{1},x_{2},x_{3}} \]
 \end{dispExample}
 %\iffalse
 %</example>
@@ -1243,10 +1243,10 @@ while t < 10:
 % \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandib}{mandistudent} Version number works}
 %    \begin{macrocode}
-\def\mandistudent@version{3.2.1}
-\def\mandistudent@date{2023-11-22}
+\def\mandistudent@version{3.2.2}
+\def\mandistudent@date{2024-02-27}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.2.1}{2023-11-22}{mandistudent.sty}
+\DeclareRelease{v3.2.2}{2024-02-27}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]

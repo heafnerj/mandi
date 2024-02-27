@@ -8,6 +8,12 @@ and this project adheres to
 These changes reflect more than just those to the files uploaded to 
 [CTAN](https://www.ctan.org/pkg/mandi). The latter are also documented in `mandi.pdf`.
 
+## 3.2.2 released 2024-02-27
+- Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
+### Changed
+- Ensured all subscripts and superscripts are braced
+- Removed unnecessary `\ExplSyntaxOn` and `\ExplSyntaxOff` pairs
+
 ## 3.2.1 released 2023-11-22
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
 ### Changed
