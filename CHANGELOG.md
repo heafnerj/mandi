@@ -8,6 +8,14 @@ and this project adheres to
 These changes reflect more than just those to the files uploaded to 
 [CTAN](https://www.ctan.org/pkg/mandi). The latter are also documented in `mandi.pdf`.
 
+## 3.2.2a released 2024-09-12
+- **Not** uploaded to [CTAN](https://www.ctan.org/pkg/mandi) because there are no
+  functional changes.
+### Changed
+- 'mandistudent'
+    - Removed a `%` to keep a line from appearing in the `.sty` file
+- Split `NnnnnnnnCCPxx.tex` into two files `NnnCCPxx-1.tex` and `NnnCCPxx-2.tex` for [Overleaf](https://www.overleaf.com/) users. Use `NnnCCPxx-1.tex` for free accounts.
+
 ## 3.2.2 released 2024-02-27
 - Uploaded to [CTAN](https://www.ctan.org/pkg/mandi)
 ### Changed

@@ -1,43 +1,56 @@
 % !TEX program = lualatexmk
 % !TEX encoding = UTF-8 Unicode
 %
-% INSTRUCTIONS FOR OVERLEAF USERS:
-%  
-% 1. Create a new, empty Overleaf project. Name it mandi321 or something
-%    similar.
-% 2. Upload the files mandi.sty, mandistudent.sty, mandiexp.sty, mandi.pdf,
-%    and NnnnnnnnCCPxx.tex to this new empty project's folder on Overleaf.
-%    Note that the PDF file won't be readable on Overleaf, so you should
-%    also keep a copy on your local device since it's the official 
-%    documentation.
-% 3. From inside the project folder, click the Menu button in the upper 
-%    left corner and set Compiler to LuaLaTeX, TeX Live Version to the 
-%    latest available, and Main document to NnnnnnnnCCPxx.tex. Other 
-%    options may be set as desired. Dismiss the configuration window by 
-%    clicking anywhere on its exterior.
-% 4. Click the NnnnnnnnCCPxx.tex file so that it is highlighted. Now click 
-%    Recompile and a newly created PDF document should appear.
-% 5. At this point you have a clean, original project to use as a template.
-% 6. Make a new copy of your newly created mandi321 (or whatever you named
-%    it) project. Name it NnnnnnnnCCPxx where Nnnnnnnn is the first eight 
-%    characters of your last name (e.g. Heafner), CC is a two digit chapter 
-%    number (e.g. 03), P stays unchanged, and xx is a two, or three, digit 
-%    problem number (e.g. 25). With modern filesystems practically any names
-%    can be accommodated.
-% 7. From inside this newly created project, rename the NnnnnnnnCCPxx.tex 
-%    file using the same convention as in the previous step.
-% 8. The file is now ready for editing and writing up a problem solution. 
-%    Your instructor will provide details.
-% 9. You can copy the new files to your projects from within your projects if
-%    you want to. Doing so may necessitate editing your existing documents.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 80 columns %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INSTRUCTIONS FOR OVERLEAF USERS:                                              
+%                                                                               
+% 1.  Create a new, empty Overleaf project. Name it "mandi template" or         
+%     something similar.                                                        
+% 2a. mandi version 3.22 is included with TeX Live 2024 and is available on     
+%     Overleaf. If you want to use this version, all you need are the files     
+%     NnnCCPxx-1.tex and NnnCCPxx-2.tex. If you have a free Overleaf account,   
+%     choose NnnCCPxx-1.tex. If you have a paid account, choose NnnCCPxx-2.tex. 
+%     The reason is that free accounts are limited to a fixed number of compiler
+%     passes per document before timing out. A free account should be all the   
+%     typical introductory physics student needs.                               
+% 2b. Overleaf only updates TeX Live once per year and mandi may have changed   
+%     to a version not included in TeX Live. In that case, you will need the    
+%     file(s) from part a) and additionally the files mandi.sty,                
+%     mandistudent.sty, and mandiexp.sty.                                       
+% 2c. The file mandi.pdf is the official bundle documentation, but Overleaf     
+%     will not let you view it so you need not upload it. Instead, open it in a 
+%     tab in your browser. Alternatively, you can view the documentation online 
+%     by going to https://texdoc.org/ and searching for mandi and opening the   
+%     resulting PDF file in your browser.                                       
+% 2d. Upload the files you need to your new empty project folder on Overleaf.   
+% 3.  From inside the project folder, click the Menu button in the upper        
+%     left corner and set Compiler to LuaLaTeX, TeX Live Version to the         
+%     latest available, and Main document to NnnCCPxx-1.tex (for free           
+%     accounts) or NnnCCPxx-2 (for paid accounts). Other options may be set     
+%     as desired. Dismiss the configuration window by clicking anywhere on its  
+%     exterior.                                                                 
+% 4.  Click the NnnCCPxx-1.tex (or NnnCCPxx-2.tex) file so that it is selected. 
+%     Now click Recompile and a newly created PDF document should appear.       
+% 5.  At this point you have a clean, original project to use as a template.    
+% 6.  Make a new copy of your newly created "mandi template" (or whatever you   
+%     named it) project. Name it NnnCCPxx by replacing Nnn with your last name  
+%     (e.g. Heafner, Rodriguez, Nguyen, Jackson, Lee, etc.), replacing CC with a
+%     two digit chapter number (e.g. 03), leaving P unchanged, and xx is a two  
+%     or three digit problem number (e.g. 25, 025, 101, etc.). With modern      
+%     filesystems practically any names can be accommodated.                    
+% 7.  From inside this newly created project, rename the NnnCCPxx-1.tex (or     
+%     NnnCCPxx-2.tex) file using the same convention as in the previous step.   
+% 8.  The file is now ready for editing and writing up a problem solution.      
+%     Your instructor will provide details.                                     
+% 9.  You can copy the new files to your projects from within your projects if  
+%     you want to. Doing so may necessitate editing your existing documents.    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 80 columns %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[10pt]{article}
 \usepackage{mandi}          % load mandi
 \usepackage{mandistudent}   % load mandistudent    
 \usepackage{mandiexp}       % load mandiexp
 \usepackage{numerica}       % for computation
-\usepackage{float}          % for floats
 \usepackage{geometry}       % for changing page layout
 \usepackage{doi}            % for DOIs in references
 \usepackage{mwe}            % for demo images
@@ -95,7 +108,7 @@ appropriate. This sample problem is about the Lorentz factor \( \gamma \).
   mathematical solution. You can include inline mathematics such as 
   \( \vec{p}=m\gamma\vec{v} \) and you can cite a reference\cite{Cha19}
   if appropriate. If you were asked to state whether the Lorentz factor \( \gamma \)
-  is a scalar or a vector, you would simply state that it is a scalar.
+  is a scalar or a vector,  you would simply state: The Lorentz factor is a scalar.
   
   \problempart
   Here is a sample mathematical solution requiring multiple steps. Let's calculate the
@@ -124,9 +137,8 @@ appropriate. This sample problem is about the Lorentz factor \( \gamma \).
   We gave some steps labels so we can refer back to them. Step \ref{step:2} should be 
   familiar to you. Step \ref{step:4} illustrates why setting \( \lightspeed = 1 \) is 
   handy. Steps \ref{step:6} and \ref{step:7} show how to get \LaTeX{} to do computation 
-  for you two different ways. Of course both give the same results. Remember that great
-  minds\cite{Cha15}\cite{Jac99} think alike. Blogs\cite{Hea19} are cool too. Other 
-  journals\cite{Cro15} can be cited.
+  for you two different ways. Remember that great minds\cite{Cha15}\cite{Jac99} 
+  think alike. Blogs\cite{Hea19} are cool too. Other journals\cite{Cro15} can be cited.
   
   \problempart
   Now, in this part, you are asked to make a plot showing \( \gamma \) as a function
@@ -134,7 +146,7 @@ appropriate. This sample problem is about the Lorentz factor \( \gamma \).
   \( \velocityc{0.866} \).
 
   Here is the requested plot. Let \LaTeX{} take care of its placement for you!
-  \begin{figure}[H]
+  \begin{figure}[ht!]
   \centering
   \begin{tikzpicture}
     \begin{axis}[%

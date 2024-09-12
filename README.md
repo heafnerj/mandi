@@ -1,4 +1,4 @@
-# mandi Version 3.2.2
+# mandi Version 3.2.2a
 
 This is the home of the [mandi](https://github.com/heafnerj/mandi) LaTeX 
 bundle for introductory physics. TeX Live includes `mandi` but not necessarily 
@@ -15,7 +15,8 @@ to a suitable location. Manual installation is basically a thing of the past.
 This repository contains the following files:
 - `.gitignore` (list of files excluded from repo)
 - `CHANGELOG.md` (changelog file)
-- `NnnnnnnnCCPxx.tex` (student template with setup instructions)
+- `NnnCCPxx-1.tex` (student template suitable for free Overleaf accounts)
+- `NnnCCPxx-2.tex` (more advanced student template)
 - `README.md` (GitHub repo description, this file)
 - `mandi.dtx` (full documented source for `mandi.sty`)
 - `mandi.ins` (installer file from `mandi.dtx` file)
@@ -37,8 +38,9 @@ This repository contains the following files:
     - `mandiexp.sty`
     - `mandistudent.sty`
     - `mandi.pdf`
-    - `NnnnnnnnCCPxx.tex`
+    - `NnnCCPxx-1.tex`
+    - `NnnCCPxx-2.tex`
 
 Students and [Overleaf](https://www.overleaf.com) users should fetch the 
-`overleaf-project.zip` file and read the `NnnnnnnnCCPxx.tex` file for setup 
-instructions.
+`overleaf-project.zip` file and read the `NnnCCPxx-1.tex` or `NnnCCPxx-2` 
+file for setup instructions.

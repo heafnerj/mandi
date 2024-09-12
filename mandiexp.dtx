@@ -27,27 +27,6 @@
 %                                 vdemo.py (not needed)
 % ---------------------------------------------------------------------------
 %
-%<*internal>
-\iffalse
-%</internal>
-%
-%<*internal>
-\fi
-\def\nameofplainTeX{plain}
-\ifx\fmtname\nameofplainTeX\else
-  \expandafter\begingroup
-\fi
-%</internal>
-%
-%<*internal>
-\usedir{tex/latex/mandi}
-\ifx\fmtname\nameofplainTeX
-  \expandafter\endbatchfile
-\else
-  \expandafter\endgroup
-\fi
-%</internal>
-%
 %<*driver>
 \ProvidesFile{mandiexp.dtx}
 \DisableCrossrefs         % index descriptions only
@@ -571,10 +550,10 @@
 % \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandic}{mandiexp} Version number works}
 %    \begin{macrocode}
-\def\mandiexp@version{3.2.2}
-\def\mandiexp@date{2024-02-27}
+\def\mandiexp@version{3.2.2a}
+\def\mandiexp@date{2024-09-12}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.2.2}{2024-02-27}{mandiexp.sty}
+\DeclareRelease{v3.2.2a}{2024-09-12}{mandiexp.sty}
 \DeclareCurrentRelease{v\mandiexp@version}{\mandiexp@date}
 \ProvidesPackage{mandiexp}
   [\mandiexp@date\space v\mandiexp@version\space Macros for Matter & Interactions]

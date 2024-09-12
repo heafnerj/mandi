@@ -27,10 +27,6 @@
 %                                 vdemo.py (not needed)
 % ---------------------------------------------------------------------------
 %
-%<*internal>
-\iffalse
-%</internal>
-%
 %<*vdemo>
 from vpython import *
 
@@ -76,23 +72,6 @@ while t < 10:
     spring.axis = ball.pos - ceiling.pos
     t = t + deltat
 %</vdemo>
-%
-%<*internal>
-\fi
-\def\nameofplainTeX{plain}
-\ifx\fmtname\nameofplainTeX\else
-  \expandafter\begingroup
-\fi
-%</internal>
-%
-%<*internal>
-\usedir{tex/latex/mandi}
-\ifx\fmtname\nameofplainTeX
-  \expandafter\endbatchfile
-\else
-  \expandafter\endgroup
-\fi
-%</internal>
 %
 %<*driver>
 \ProvidesFile{mandistudent.dtx}
@@ -1243,10 +1222,10 @@ while t < 10:
 % \changes{v3.1.0}{2022-01-27}
 %   {\linktoplace{sec:mandib}{mandistudent} Version number works}
 %    \begin{macrocode}
-\def\mandistudent@version{3.2.2}
-\def\mandistudent@date{2024-02-27}
+\def\mandistudent@version{3.2.2a}
+\def\mandistudent@date{2024-09-12}
 \NeedsTeXFormat{LaTeX2e}[2020-02-02]
-\DeclareRelease{v3.2.2}{2024-02-27}{mandistudent.sty}
+\DeclareRelease{v3.2.2a}{2024-09-12}{mandistudent.sty}
 \DeclareCurrentRelease{v\mandistudent@version}{\mandistudent@date}
 \ProvidesPackage{mandistudent}
   [\mandistudent@date\space v\mandistudent@version\space Macros for introductory physics]
@@ -1584,12 +1563,15 @@ while t < 10:
       {\sb{#3\vphantom{\smash[b]{|}}}}
   }%
 %    \end{macrocode}
-%% A command for the direction of a vector.
+% A command for the direction of a vector.
 % We use a slight tweak to get uniform hats that 
 % requires the \href{https://www.ctan.org/pkg/makebox}{\pkg{makebox}} 
 % package.\newline
 % See \url{https://tex.stackexchange.com/a/391204/218142}.
 %
+% \changes{v3.2.2a}{2024-09-12}
+%   {\linktoplace{sec:mandib}{mandistudent} Removed a \% to keep a
+%    line from appearing in the \pkg{.sty} file.}
 %    \begin{macrocode}
 \NewDocumentCommand{\dirvec}{ s m e{_^} }%
   {%
