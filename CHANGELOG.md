@@ -8,7 +8,7 @@ and this project adheres to
 These changes reflect more than just those to the files uploaded to 
 [CTAN](https://www.ctan.org/pkg/mandi). The latter are also documented in `mandi.pdf`.
 
-## 3.2.2a released 2024-09-12
+## 3.2.2a released 2024-09-13
 - **Not** uploaded to [CTAN](https://www.ctan.org/pkg/mandi) because there are no
   functional changes.
 ### Changed

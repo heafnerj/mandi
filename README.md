@@ -16,7 +16,7 @@ This repository contains the following files:
 - `.gitignore` (list of files excluded from repo)
 - `CHANGELOG.md` (changelog file)
 - `NnnCCPxx-1.tex` (student template suitable for free Overleaf accounts)
-- `NnnCCPxx-2.tex` (more advanced student template)
+- `NnnCCPxx-2.tex` (advanced student template)
 - `README.md` (GitHub repo description, this file)
 - `mandi.dtx` (full documented source for `mandi.sty`)
 - `mandi.ins` (installer file from `mandi.dtx` file)
