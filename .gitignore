@@ -1,3 +1,4 @@
+# Ignore these files.
 .DS_Store
 platexmkrc
 makectan.sh
